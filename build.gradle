@@ -1,0 +1,260 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '1.0.21'
+    id "org.jetbrains.kotlin.jvm" version ("2.0.21")
+    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    mavenLocal()
+    maven {
+        name = "Kotlin for Forge"
+        setUrl("https://thedarkcolour.github.io/KotlinForForge/")
+    }
+    maven {
+        name = "ModMaven (MI, GrandPower, Tesseract)"
+        url = "https://modmaven.dev"
+        content {
+            includeGroup "dev.technici4n"  // GrandPower
+            includeGroup "aztech" // Modern Industrialization
+            includeGroup "net.swedz" // Tesseract
+        }
+    }
+    maven {
+        name = "CurseMaven"
+        url = "https://cursemaven.com"
+        content {
+            includeGroup("curse.maven")
+        }
+    }
+    maven {
+        name = "TerraformersMC (EMI)"
+        url = "https://maven.terraformersmc.com/releases/"
+        content {
+            includeGroup "dev.emi"
+        }
+    }
+    maven {
+        name = "BlameJared (JEI)"
+        url = "https://maven.blamejared.com"
+        content {
+            includeGroup "mezz.jei"
+        }
+    }
+
+    maven {
+        name = "Latvian (KubeJS)"
+        url = "https://maven.latvian.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.latvian.apps"
+        }
+    }
+
+    maven {
+        name = "Jitpack (Rhino)"
+        url = "https://jitpack.io"
+        content {
+            includeGroup "com.github.rtyley"
+        }
+    }
+}
+
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            client()
+
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            // gameDirectory = project.file('run-data')
+
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+
+            logLevel = org.slf4j.event.Level.DEBUG
+
+            systemProperty 'guideme.hostile_neural_industrialization.guide.sources',
+                    file("src/main/resources/assets/hostile_neural_industrialization/hni_guidebook/").absolutePath
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    implementation "thedarkcolour:kotlinforforge-neoforge:$kff_version"
+
+    implementation "dev.technici4n:GrandPower:${grandpower_version}"
+    implementation "aztech:Modern-Industrialization:${modern_industrialization_version}"
+    implementation "net.swedz:tesseract-api-neoforge:${tesseract_version}"
+
+    implementation "curse.maven:placebo-283644:${placebo_version}"
+    implementation "curse.maven:hostile-neural-networks-552574:${hnn_version}"
+
+    implementation "dev.emi:emi-neoforge:${emi_version}"
+    implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    implementation "org.appliedenergistics:guideme:${project.guideme_version}"
+}
+
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            kff_version            : kff_version,
+            kff_version_range      : kff_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description,
+            modern_industrialization_version_range : modern_industrialization_version_range,
+            tesseract_version_range : tesseract_version_range,
+            hnn_version_range : hnn_version_range
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(KotlinJvmCompile).configureEach {
+    compilerOptions {
+        freeCompilerArgs.add("-Xjvm-default=all")
+    }
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+ext.getChangeLog = { ->
+    return ""
+}
+
+publishMods {
+    file = jar.archiveFile
+    version = "${project.mod_version}"
+    displayName = "${project.mod_version}"
+    modLoaders.add("neoforge")
+    type = STABLE
+    changelog = project.getChangeLog()
+
+    curseforge {
+        accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+        projectId = "1312953"
+        projectSlug = "hostile-neural-industrialization"
+        minecraftVersions.add("${project.minecraft_version}")
+
+        requires("modern-industrialization")
+        requires("hostile-neural-networks")
+        requires("tesseract-api-neoforge")
+        requires("kotlin-for-forge")
+        optional("emi")
+        optional("jei")
+
+        announcementTitle = "Download from CurseForge"
+    }
+
+    modrinth {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = "syei9a1e"
+        minecraftVersions.add("${project.minecraft_version}")
+
+        requires("modern-industrialization")
+        requires("tesseract-api")
+        requires("kotlin-for-forge")
+        optional("emi")
+        optional("jei")
+
+        announcementTitle = "Download from Modrinth"
+    }
+
+    discord {
+        webhookUrl = providers.environmentVariable("CAFETERIA_MOD_RELEASE_WEBHOOK")
+        username = "${rootProject.mod_name}"
+        avatarUrl = "https://cdn.modrinth.com/data/syei9a1e/09d0c4c2edd5532bbc95a2aff5140dca969ce08e.gif"
+
+        content = changelog.map { "# " + (rootProject.mod_name as String) + " " + (project.mod_version as String) + " has been released \n" + it}
+    }
+}
