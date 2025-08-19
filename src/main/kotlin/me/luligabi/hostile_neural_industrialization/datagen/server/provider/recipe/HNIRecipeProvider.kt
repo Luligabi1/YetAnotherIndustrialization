@@ -2,6 +2,7 @@ package me.luligabi.hostile_neural_industrialization.datagen.server.provider.rec
 
 import aztech.modern_industrialization.MIBlock
 import aztech.modern_industrialization.MIItem
+import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType
 import aztech.modern_industrialization.materials.MIMaterials
 import aztech.modern_industrialization.materials.part.MIParts
@@ -14,12 +15,13 @@ import me.luligabi.hostile_neural_industrialization.common.block.machine.loot_fa
 import me.luligabi.hostile_neural_industrialization.common.block.machine.sim_chamber.electric.ElectricSimChamberBlockEntity
 import me.luligabi.hostile_neural_industrialization.common.block.machine.sim_chamber.large.LargeSimChamberBlockEntity
 import me.luligabi.hostile_neural_industrialization.common.item.HNIItems
+import me.luligabi.hostile_neural_industrialization.common.misc.HNIFluids
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.ItemLike
-import net.neoforged.neoforge.common.Tags
+import net.minecraft.world.level.material.Fluids
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapedRecipeBuilder
@@ -116,89 +118,102 @@ class HNIRecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.
             output
         )
 
-        buildCompatRecipes(output, lookup)
 
+
+
+
+
+//        addMachineRecipe(
+//            "mixer/nutrient_rich_water",
+//            MIMachineRecipeTypes.MIXER,
+//            10, 10,
+//            {
+//                it.addItemInput(HNIFluids., 1, 1f)
+//                it.addFluidOutput(HNIFluids.DRAGONS_BREATH.asFluid(), 250, 1f)
+//            },
+//            output
+//        )
+
+        /** PARTS */
+        addMachineRecipe(
+            "assembler/dragon_egg_siphon_catalyst/dragon_breath",
+            MIMachineRecipeTypes.ASSEMBLER,
+            8, 10*20,
+            {
+                it.addItemInput(MIMaterials.TITANIUM.getPart(MIParts.PLATE), 1, 1f)
+                it.addFluidInput(HNIFluids.DRAGONS_BREATH.asFluid(), 5, 1f)
+
+                it.addItemOutput(HNIItems.DRAGON_EGG_SIPHON_CATALYST.get(), 1, 1f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "assembler/dragon_egg_siphon_catalyst/nutrient_rich_dragon_breath",
+            MIMachineRecipeTypes.ASSEMBLER,
+            8, 10*20,
+            {
+                it.addItemInput(MIMaterials.TITANIUM.getPart(MIParts.PLATE), 1, 1f)
+                it.addFluidInput(HNIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 5, 1f)
+
+                it.addItemOutput(HNIItems.DRAGON_EGG_SIPHON_CATALYST.get(), 4, 1f)
+            },
+            output
+        )
+
+
+        /** FLUIDS */
+        addMachineRecipe(
+            "centrifuge/nutrient_rich_water",
+            MIMachineRecipeTypes.CENTRIFUGE,
+            8, 10*20,
+            {
+                it.addFluidInput(Fluids.WATER, 1_000, 1f)
+                it.addItemInput(Items.BONE_MEAL, 1, 1f)
+                it.addFluidOutput(HNIFluids.NUTRIENT_RICH_WATER.asFluid(), 1_000, 1f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "centrifuge/nutrient_rich_lava",
+            MIMachineRecipeTypes.CENTRIFUGE,
+            8, 10*20,
+            {
+                it.addFluidInput(Fluids.LAVA, 1_000, 1f)
+                it.addItemInput(Items.NETHER_WART, 1, 1f)
+                it.addFluidOutput(HNIFluids.NUTRIENT_RICH_LAVA.asFluid(), 1_000, 1f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "centrifuge/dragon_breath",
+            MIMachineRecipeTypes.CENTRIFUGE,
+            8, 10*20,
+            {
+                it.addItemInput(Items.DRAGON_BREATH, 1, 1f)
+                it.addFluidOutput(HNIFluids.DRAGONS_BREATH.asFluid(), 350, 1f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "centrifuge/nutrient_rich_dragon_breath",
+            MIMachineRecipeTypes.CENTRIFUGE,
+            8, 10*20,
+            {
+                it.addFluidInput(HNIFluids.DRAGONS_BREATH.asFluid(), 1_000, 1f)
+                it.addItemInput(Items.POPPED_CHORUS_FRUIT, 1, 1f)
+                it.addFluidOutput(HNIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 1_000, 1f)
+            },
+            output
+        )
+
+        buildCompatRecipes(output, lookup)
     }
 
     private fun buildCompatRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
-
-        assembler(
-            "hostilenetworks/simulation_chamber",
-            Hostile.Blocks.SIM_CHAMBER.value(), 1,
-            { builder -> builder
-                .define('G', Tags.Items.GLASS_PANES)
-                .define('E', Tags.Items.ENDER_PEARLS)
-                .define('O', Tags.Items.OBSIDIANS)
-                .define('L', Tags.Items.GEMS_LAPIS)
-                .define('C', Items.COMPARATOR)
-                .pattern(" G ")
-                .pattern("EOE")
-                .pattern("LCL")
-            },
-            output
-        )
-
-        assembler(
-            "hostilenetworks/loot_fabricator",
-            Hostile.Blocks.LOOT_FABRICATOR.value(), 1,
-            { builder -> builder
-                .define('N', Tags.Items.INGOTS_NETHERITE)
-                .define('D', Tags.Items.GEMS_DIAMOND)
-                .define('O', Tags.Items.OBSIDIANS)
-                .define('G', Tags.Items.INGOTS_GOLD)
-                .define('C', Items.COMPARATOR)
-                .pattern(" N ")
-                .pattern("DOD")
-                .pattern("GCG")
-            },
-            output
-        )
-
-        assembler(
-            "hostilenetworks/deep_learner",
-            Hostile.Items.DEEP_LEARNER.value(), 1,
-            { builder -> builder
-                .define('O', Tags.Items.OBSIDIANS)
-                .define('C', Items.COMPARATOR)
-                .define('G', Tags.Items.GLASS_PANES)
-                .define('R', Tags.Items.DUSTS_REDSTONE)
-                .pattern("OCO")
-                .pattern("CGC")
-                .pattern("ORO")
-            },
-            output
-        )
-
-        assembler(
-            "hostilenetworks/blank_data_model",
-            Hostile.Items.BLANK_DATA_MODEL.value(), 1,
-            { builder -> builder
-                .define('O', Items.CLAY_BALL)
-                .define('C', Items.COMPARATOR)
-                .define('R', Tags.Items.DUSTS_REDSTONE)
-                .define('S', Items.SMOOTH_STONE)
-                .define('G', Tags.Items.INGOTS_GOLD)
-                .pattern("OCO")
-                .pattern("RSR")
-                .pattern("OGO")
-            },
-            output
-        )
-
-        assembler(
-            "hostilenetworks/prediction_matrix",
-            Hostile.Items.PREDICTION_MATRIX.value(), 16,
-            { builder -> builder
-                .define('I', Tags.Items.INGOTS_IRON)
-                .define('P', Tags.Items.GLASS_PANES)
-                .define('O', Items.CLAY_BALL)
-                .define('G', Tags.Items.INGOTS_GOLD)
-                .pattern("IP ")
-                .pattern("POP")
-                .pattern(" PG")
-            },
-            output
-        )
 
     }
 
@@ -250,20 +265,22 @@ class HNIRecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.
             output(result, resultCount)
         }
 
-        MIMachineRecipeBuilder.fromShapedToAssembler(builder).offerTo(output, HNI.id("${path}_assembler"))
+        MIMachineRecipeBuilder.fromShapedToAssembler(builder).offerTo(output, HNI.id("assembler/${path}"))
     }
 
-    private fun addMachineRecipe(
-        path: String,
-        recipeType: MachineRecipeType,
-        eu: Int, duration: Int,
-        crafting: (MIMachineRecipeBuilder) -> Unit,
-        output: RecipeOutput
-    ) {
+    companion object {
 
-        MIMachineRecipeBuilder(recipeType, eu, duration).apply {
-            crafting.invoke(this)
-            offerTo(output, HNI.id(path))
+        fun addMachineRecipe(
+            path: String,
+            recipeType: MachineRecipeType,
+            eu: Int, duration: Int,
+            crafting: (MIMachineRecipeBuilder) -> Unit,
+            output: RecipeOutput
+        ) {
+            MIMachineRecipeBuilder(recipeType, eu, duration).apply {
+                crafting.invoke(this)
+                offerTo(output, HNI.id(path))
+            }
         }
 
     }

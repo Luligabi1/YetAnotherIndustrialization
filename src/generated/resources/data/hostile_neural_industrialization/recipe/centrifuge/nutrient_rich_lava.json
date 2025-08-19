@@ -1,0 +1,23 @@
+{
+  "type": "modern_industrialization:centrifuge",
+  "duration": 200,
+  "eu": 8,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:lava"
+    }
+  ],
+  "fluid_outputs": [
+    {
+      "amount": 1000,
+      "fluid": "hostile_neural_industrialization:nutrient_rich_lava"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "minecraft:nether_wart"
+    }
+  ]
+}

@@ -13,6 +13,8 @@ object HNIPackets {
         create("select_loot", SelectLootPacket::class.java, SelectLootPacket.STREAM_CODEC)
         create("refresh_loot_list", RefreshLootListPacket::class.java, RefreshLootListPacket.STREAM_CODEC)
 
+        create("soil_select", SoilSelectPacket::class.java, SoilSelectPacket.STREAM_CODEC)
+
         REGISTRY.registerAll(event)
     }
 

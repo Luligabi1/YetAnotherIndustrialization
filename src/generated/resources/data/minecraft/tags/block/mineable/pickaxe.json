@@ -1,5 +1,10 @@
 {
   "values": [
+    "hostile_neural_industrialization:arboreous_greenhouse",
+    "hostile_neural_industrialization:chunky_tank",
+    "hostile_neural_industrialization:chunky_tank_hatch",
+    "hostile_neural_industrialization:crafter",
+    "hostile_neural_industrialization:dragon_egg_energy_siphon",
     "hostile_neural_industrialization:electric_simulation_chamber",
     "hostile_neural_industrialization:large_loot_fabricator",
     "hostile_neural_industrialization:large_simulation_chamber",

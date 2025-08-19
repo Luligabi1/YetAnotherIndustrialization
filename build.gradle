@@ -44,13 +44,6 @@ repositories {
             includeGroup "dev.emi"
         }
     }
-    maven {
-        name = "BlameJared (JEI)"
-        url = "https://maven.blamejared.com"
-        content {
-            includeGroup "mezz.jei"
-        }
-    }
 
     maven {
         name = "Latvian (KubeJS)"
@@ -84,7 +77,9 @@ neoForge {
         minecraftVersion = project.parchment_minecraft_version
     }
 
-    // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+    setAccessTransformers {
+        file("src/main/resources/${project.mod_id}-accesstransformer.cfg")
+    }
 
     runs {
         client {
@@ -145,7 +140,6 @@ dependencies {
     implementation "curse.maven:hostile-neural-networks-552574:${hnn_version}"
 
     implementation "dev.emi:emi-neoforge:${emi_version}"
-    implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     implementation "org.appliedenergistics:guideme:${project.guideme_version}"
 }

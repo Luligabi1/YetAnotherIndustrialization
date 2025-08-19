@@ -1,0 +1,23 @@
+{
+  "type": "modern_industrialization:assembler",
+  "duration": 200,
+  "eu": 8,
+  "fluid_inputs": [
+    {
+      "amount": 5,
+      "fluid": "hostile_neural_industrialization:dragon_breath"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "modern_industrialization:titanium_plate"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "hostile_neural_industrialization:dragon_egg_siphon_catalyst"
+    }
+  ]
+}

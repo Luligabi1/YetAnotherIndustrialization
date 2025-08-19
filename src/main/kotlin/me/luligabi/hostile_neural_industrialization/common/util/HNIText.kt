@@ -50,6 +50,12 @@ enum class HNIText(private val text: String): MICompatibleTranslatableTextEnum {
     DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION("Large Tanks require Large Tank Hatches"),
 
 
+    ARBOREOUS_GREENHOUSE_TIER_TOOLTIP("Requires %s soil"),
+
+    ENERGY_GENERATION_TOOLTIP_1("Generates %s"),
+    ENERGY_GENERATION_TOOLTIP_2("Ignore what EMI/JEI is telling you, this doesn't use energy."),
+
+
     GUIDEBOOK_TOOLTIP("The neural network must grow."),
     LOOT_SELECTOR_TITLE("Select Loot Output"),
     LOOT_SELECTOR_DESCRIPTION("Click to open loot selection panel."),

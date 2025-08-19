@@ -14,9 +14,8 @@ description='''${mod_description}'''
 [[mixins]]
 config="${mod_id}.mixins.json"
 
-# The [[accessTransformers]] block allows you to declare where your AT file is.
-#[[accessTransformers]]
-#file="META-INF/accesstransformer.cfg"
+[[accessTransformers]]
+file="${mod_id}-accesstransformer.cfg"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"

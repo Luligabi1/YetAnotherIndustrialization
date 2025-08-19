@@ -8,10 +8,19 @@ import aztech.modern_industrialization.machines.guicomponents.ProgressBar
 import aztech.modern_industrialization.machines.init.MultiblockMachines.Rei
 import aztech.modern_industrialization.machines.init.SingleBlockCraftingMachines
 import aztech.modern_industrialization.machines.models.MachineCasing
+import aztech.modern_industrialization.machines.models.MachineCasings
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType
 import com.google.common.collect.Maps
 import me.luligabi.hostile_neural_industrialization.common.HNI
 import me.luligabi.hostile_neural_industrialization.common.block.HNIBlocks
+import me.luligabi.hostile_neural_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
+import me.luligabi.hostile_neural_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseRecipeType
+import me.luligabi.hostile_neural_industrialization.common.block.machine.chunky_tank.ChunkyTankHatch
+import me.luligabi.hostile_neural_industrialization.common.block.machine.chunky_tank.ChunkyTankMultiblockBlockEntity
+import me.luligabi.hostile_neural_industrialization.common.block.machine.crafter.CrafterBlockEntity
+import me.luligabi.hostile_neural_industrialization.common.block.machine.crafter.CrafterRecipeType
+import me.luligabi.hostile_neural_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
+import me.luligabi.hostile_neural_industrialization.common.block.machine.dragon_siphon.DragonSiphonRecipeType
 import me.luligabi.hostile_neural_industrialization.common.block.machine.loot_fabricator.large.LargeLootFabricatorBlockEntity
 import me.luligabi.hostile_neural_industrialization.common.block.machine.loot_fabricator.large.LargeLootFabricatorRecipeType
 import me.luligabi.hostile_neural_industrialization.common.block.machine.loot_fabricator.mono.MonoLootFabricatorBlockEntity
@@ -31,14 +40,47 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookTracker
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MachineCasingsMIHookContext
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MachineRecipeTypesMIHookContext
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MultiblockMachinesMIHookContext
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.SingleBlockSpecialMachinesMIHookContext
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.*
 
 object HNIMachines {
 
+    fun singleBlockCrafting(hook: SingleBlockCraftingMachinesMIHookContext) {
+//        hook.register(
+//            "Crafter", "crafter",
+//            RecipeTypes.CRAFTER,
+//            9, 1, 1, 0,
+//            { it.backgroundHeight(186) },
+//            ProgressBar.Parameters(105, 42, "arrow"),
+//            RecipeEfficiencyBar.Parameters(42, 86),
+//            EnergyBar.Parameters(14, 44),
+//            { it.addSlots(51, 27, 3, 3).addSlot(131, 45)},
+//            { it.addSlot(33, 27)},
+//            true, true, false,
+//            SingleBlockCraftingMachines.TIER_STEEL or SingleBlockCraftingMachines.TIER_ELECTRIC,
+//            16
+//        )
+    }
+
     fun singleBlockSpecial(hook: SingleBlockSpecialMachinesMIHookContext) {
+        hook.register(
+            CrafterBlockEntity.NAME, CrafterBlockEntity.ID, CrafterBlockEntity.ID,
+            CableTier.LV.casing, true, false, false, true,
+            ::CrafterBlockEntity,
+            CrafterBlockEntity::registerEnergyApi
+        )
+
+        hook.register(
+            ChunkyTankHatch.NAME, ChunkyTankHatch.ID, ChunkyTankHatch.ID,
+            CableTier.LV.casing, true, false, false, true,
+            ::ChunkyTankHatch,
+            ChunkyTankHatch::registerFluidApi
+        )
+
+
+
+
+
+
 
         hook.register(
             ElectricSimChamberBlockEntity.NAME, ElectricSimChamberBlockEntity.ID, ElectricSimChamberBlockEntity.ID,
@@ -93,6 +135,61 @@ object HNIMachines {
     }
 
     fun multiblockMachines(hook: MultiblockMachinesMIHookContext) {
+        hook.register(
+            ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID, ArboreousGreenhouseBlockEntity.ID,
+            MachineCasings.HEATPROOF, true, false, false, true,
+            ::ArboreousGreenhouseBlockEntity
+        )
+        Rei(ArboreousGreenhouseBlockEntity.NAME, HNI.id(ArboreousGreenhouseBlockEntity.ID), RecipeTypes.ARBOREOUS_GREENHOUSE, ProgressBar.Parameters(77, 34, "extract"))
+            .items(
+                { it.addSlot(56, 26) },
+                { it.addSlots(102, 26, 2, 2) }
+            )
+            .fluids(
+                { it.addSlot(56, 44) },
+                {}
+            )
+            .workstations(HNI.id(ArboreousGreenhouseBlockEntity.ID))
+            .register()
+        MIHookTracker.addReiCategoryName(HNI.id(ArboreousGreenhouseBlockEntity.ID), ArboreousGreenhouseBlockEntity.NAME)
+
+
+        hook.register(
+            DragonSiphonBlockEntity.NAME, DragonSiphonBlockEntity.ID, DragonSiphonBlockEntity.ID,
+            MachineCasings.SOLID_TITANIUM, true, false, false, true,
+            ::DragonSiphonBlockEntity,
+            { DragonSiphonBlockEntity.registerReiShapes() }
+        )
+        Rei(DragonSiphonBlockEntity.NAME, HNI.id(DragonSiphonBlockEntity.ID), RecipeTypes.DRAGON_SIPHON, ProgressBar.Parameters(88, 31, "arrow"))
+            .items(
+                { it.addSlot(40, 35) },
+                {}
+            )
+            .fluids(
+                { it.addSlot(60, 35) },
+                { it.addSlot(120, 35) }
+            )
+            .workstations(HNI.id(DragonSiphonBlockEntity.ID))
+            .register()
+        MIHookTracker.addReiCategoryName(HNI.id(DragonSiphonBlockEntity.ID), DragonSiphonBlockEntity.NAME)
+
+        hook.register(
+            ChunkyTankMultiblockBlockEntity.NAME, ChunkyTankMultiblockBlockEntity.ID, ChunkyTankMultiblockBlockEntity.ID,
+            MachineCasings.CLEAN_STAINLESS_STEEL, true, false, true,
+            ::ChunkyTankMultiblockBlockEntity,
+            { ChunkyTankMultiblockBlockEntity.registerReiShapes() }
+        )
+
+
+
+
+
+
+
+
+
+
+
 
         hook.register(
             LargeSimChamberBlockEntity.NAME, LargeSimChamberBlockEntity.ID, LargeSimChamberBlockEntity.ID,
@@ -136,6 +233,12 @@ object HNIMachines {
 
     object RecipeTypes {
 
+        lateinit var ARBOREOUS_GREENHOUSE: MachineRecipeType
+        lateinit var CRAFTER: MachineRecipeType
+
+        lateinit var DRAGON_SIPHON: MachineRecipeType
+
+
         lateinit var ELECTRIC_SIM_CHAMBER: MachineRecipeType
         lateinit var LARGE_SIM_CHAMBER: MachineRecipeType
 
@@ -166,6 +269,22 @@ object HNIMachines {
     }
 
     fun recipeTypes(hook: MachineRecipeTypesMIHookContext) {
+        RecipeTypes.ARBOREOUS_GREENHOUSE = RecipeTypes.create(hook,
+            ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID,
+            ::ArboreousGreenhouseRecipeType
+        ).withItemInputs().withItemOutputs().withFluidInputs()
+
+        RecipeTypes.CRAFTER = RecipeTypes.create(hook,
+            CrafterBlockEntity.NAME, CrafterBlockEntity.ID,
+            ::CrafterRecipeType
+        ).withItemInputs().withItemOutputs().withFluidInputs()
+
+        RecipeTypes.DRAGON_SIPHON = RecipeTypes.create(hook,
+            DragonSiphonBlockEntity.NAME, DragonSiphonBlockEntity.ID,
+            ::DragonSiphonRecipeType
+        ).withItemInputs().withFluidInputs().withFluidOutputs()
+
+
 
         RecipeTypes.ELECTRIC_SIM_CHAMBER = RecipeTypes.create(hook,
             ElectricSimChamberBlockEntity.NAME, ElectricSimChamberBlockEntity.ID,

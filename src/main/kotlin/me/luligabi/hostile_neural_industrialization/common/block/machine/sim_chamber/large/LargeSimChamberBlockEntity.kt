@@ -15,9 +15,9 @@ import aztech.modern_industrialization.machines.multiblocks.SimpleMember
 import dev.shadowsoffire.hostilenetworks.Hostile
 import me.luligabi.hostile_neural_industrialization.common.HNI
 import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMachines
-import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockShape
-import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockShape.Companion.CLEAN_STEEL_CASING
-import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockShape.Companion.PREDICTION_CASING
+import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockHelper
+import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockHelper.Companion.CLEAN_STEEL_CASING
+import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockHelper.Companion.PREDICTION_CASING
 import me.luligabi.hostile_neural_industrialization.common.block.machine.sim_chamber.HNISimChamber
 import me.luligabi.hostile_neural_industrialization.mixin.MultiblockInventoryComponentAccessor
 import me.luligabi.hostile_neural_industrialization.mixin.MultiblockMachineBlockEntityAccessor
@@ -29,7 +29,7 @@ class LargeSimChamberBlockEntity(bep: BEP): AbstractElectricCraftingMultiblockBl
     arrayOf(SHAPE)
 ), HNISimChamber {
 
-    companion object : HNIMultiblockShape {
+    companion object : HNIMultiblockHelper {
 
         const val ID = "large_simulation_chamber"
         const val NAME = "Large Simulation Chamber"
@@ -38,13 +38,13 @@ class LargeSimChamberBlockEntity(bep: BEP): AbstractElectricCraftingMultiblockBl
             ReiMachineRecipes.registerMultiblockShape(HNI.id(ID), SHAPE)
         }
 
-        override val pattern = listOf(
+        override val pattern = listOf(listOf(
             "_###_",
             "#####",
             "#####",
             "#####",
             "_###_"
-        )
+        ))
 
         override val materialRules: Map<(Char, Int) -> Boolean, SimpleMember>
             get() = mapOf(
@@ -55,10 +55,10 @@ class LargeSimChamberBlockEntity(bep: BEP): AbstractElectricCraftingMultiblockBl
         override val controllerXOffset = -2
 
         private val SHAPE = ShapeTemplate.Builder(HNIMachines.Casings.PREDICTION_MACHINE_CASING)
-            .addLayer(0)
-            .addLayer(1)
-            .addLayer(2)
-            .addLayer(3)
+            .addLayer(0, 0)
+            .addLayer(1, 0)
+            .addLayer(2, 0)
+            .addLayer(3, 0)
             .build()
 
     }

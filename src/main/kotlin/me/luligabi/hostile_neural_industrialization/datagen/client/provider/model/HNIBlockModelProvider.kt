@@ -9,12 +9,10 @@ import net.neoforged.neoforge.data.event.GatherDataEvent
 class HNIBlockModelProvider(event: GatherDataEvent): BlockStateProvider(event.generator.packOutput, HNI.ID, event.existingFileHelper) {
 
     override fun registerStatesAndModels() {
-
         for (block in HNIBlocks.values()) {
             if (!block.hasModelProvider()) continue
             block.modelProvider().accept(this)
         }
-
     }
 
 }

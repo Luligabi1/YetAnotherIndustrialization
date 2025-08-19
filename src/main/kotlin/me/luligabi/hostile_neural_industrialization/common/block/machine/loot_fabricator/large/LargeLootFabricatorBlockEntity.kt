@@ -12,9 +12,9 @@ import aztech.modern_industrialization.machines.multiblocks.ShapeTemplate
 import aztech.modern_industrialization.machines.multiblocks.SimpleMember
 import me.luligabi.hostile_neural_industrialization.common.HNI
 import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMachines
-import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockShape
-import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockShape.Companion.CLEAN_STEEL_CASING
-import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockShape.Companion.PREDICTION_CASING
+import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockHelper
+import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockHelper.Companion.CLEAN_STEEL_CASING
+import me.luligabi.hostile_neural_industrialization.common.block.machine.HNIMultiblockHelper.Companion.PREDICTION_CASING
 
 class LargeLootFabricatorBlockEntity(bep: BEP): AbstractElectricCraftingMultiblockBlockEntity(
     bep,
@@ -23,7 +23,7 @@ class LargeLootFabricatorBlockEntity(bep: BEP): AbstractElectricCraftingMultiblo
     arrayOf(SHAPE)
 ) {
 
-    companion object : HNIMultiblockShape {
+    companion object : HNIMultiblockHelper {
 
         const val ID = "large_loot_fabricator"
         const val NAME = "Large Loot Fabricator"
@@ -32,7 +32,7 @@ class LargeLootFabricatorBlockEntity(bep: BEP): AbstractElectricCraftingMultiblo
             ReiMachineRecipes.registerMultiblockShape(HNI.id(ID), SHAPE)
         }
 
-        override val pattern = listOf(
+        override val pattern = listOf(listOf(
             "___#@#___",
             "_#######_",
             "_#######_",
@@ -42,7 +42,7 @@ class LargeLootFabricatorBlockEntity(bep: BEP): AbstractElectricCraftingMultiblo
             "_#######_",
             "_#######_",
             "___#@#___"
-        )
+        ))
 
         override val materialRules: Map<(Char, Int) -> Boolean, SimpleMember>
             get() = mapOf(
@@ -54,10 +54,10 @@ class LargeLootFabricatorBlockEntity(bep: BEP): AbstractElectricCraftingMultiblo
         override val controllerXOffset = -4
 
         private val SHAPE = ShapeTemplate.Builder(HNIMachines.Casings.PREDICTION_MACHINE_CASING)
-            .addLayer(-1)
-            .addLayer(0)
-            .addLayer(1)
-            .addLayer(2)
+            .addLayer(-1, 0)
+            .addLayer(0, 0)
+            .addLayer(1, 0)
+            .addLayer(2, 0)
             .build()
 
     }

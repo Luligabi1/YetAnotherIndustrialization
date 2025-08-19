@@ -36,12 +36,25 @@ object HNIItems {
     fun values(): Set<ItemHolder<*>> = java.util.Set.copyOf(Registry.HOLDERS)
 
 
-    val GUIDEBOOK = create("guidebook", "HNI Guidebook", ::HNIGuidebookItem, HNICreativeTab.Order.GUIDEBOOK)
+    val GUIDEBOOK = create("guidebook", "HNI Guidebook", ::HNIGuidebookItem, HNICreativeTab.Order.MAJOR_ITEMS)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
-    val MACHINE_DIAGNOSER = create("machine_diagnoser", "Machine Diagnoser", ::MachineDiagnoserItem, HNICreativeTab.Order.GUIDEBOOK)
+    val MACHINE_DIAGNOSER = create("machine_diagnoser", "Machine Diagnoser", ::MachineDiagnoserItem, HNICreativeTab.Order.MAJOR_ITEMS)
         .withModelBuilder(CommonModelBuilders::generated)
+        .register()
+
+    val MACHINE_REMOVER = create("machine_remover", "Machine Remover", ::MachineRemoverItem, HNICreativeTab.Order.MAJOR_ITEMS)
+        .withoutModel()
+        .register()
+
+    val DRAGON_EGG_SIPHON_CATALYST = create("dragon_egg_siphon_catalyst", "Dragon Egg Siphon Catalyst", ::Item, HNICreativeTab.Order.MINOR_ITEMS)
+        .withModelBuilder(CommonModelBuilders::generated)
+        .register()
+
+    val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth", ::ChaChaRealSmoothItem, HNICreativeTab.Order.MAJOR_ITEMS)
+        .sorted(SortOrder.UNSORTED)
+        .withoutModel()
         .register()
 
 
