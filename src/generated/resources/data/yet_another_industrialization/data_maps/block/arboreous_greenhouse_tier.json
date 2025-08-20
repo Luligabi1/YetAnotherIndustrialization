@@ -1,0 +1,147 @@
+{
+  "values": {
+    "#c:end_stones": {
+      "fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:dragon_breath"
+      },
+      "icon": "minecraft:end_stone",
+      "id": "yet_another_industrialization:end_stone",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_dragon_breath"
+      },
+      "sort_order": 40,
+      "translation_key": "block.minecraft.end_stone"
+    },
+    "#c:myceliums": {
+      "fluid": {
+        "amount": 1000,
+        "fluid": "minecraft:water"
+      },
+      "icon": "minecraft:mycelium",
+      "id": "yet_another_industrialization:mycelium",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_water"
+      },
+      "sort_order": 15,
+      "translation_key": "block.minecraft.mycelium"
+    },
+    "#c:sands": {
+      "fluid": {
+        "amount": 1000,
+        "fluid": "minecraft:water"
+      },
+      "icon": "minecraft:sand",
+      "id": "yet_another_industrialization:sand",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_water"
+      },
+      "sort_order": 5,
+      "translation_key": "block.minecraft.sand"
+    },
+    "#c:stones": {
+      "fluid": {
+        "amount": 1000,
+        "fluid": "minecraft:water"
+      },
+      "icon": "minecraft:stone",
+      "id": "yet_another_industrialization:stone",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_water"
+      },
+      "sort_order": 10,
+      "translation_key": "block.minecraft.stone"
+    },
+    "#minecraft:dirt": {
+      "fluid": {
+        "amount": 1000,
+        "fluid": "minecraft:water"
+      },
+      "icon": "minecraft:grass_block",
+      "id": "yet_another_industrialization:grass_block",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_water"
+      },
+      "sort_order": 0,
+      "translation_key": "block.minecraft.grass_block"
+    },
+    "#yet_another_industrialization:netherrack_soils": {
+      "fluid": {
+        "amount": 1000,
+        "fluid": "minecraft:lava"
+      },
+      "icon": "minecraft:netherrack",
+      "id": "yet_another_industrialization:netherrack",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_lava"
+      },
+      "sort_order": 30,
+      "translation_key": "block.minecraft.netherrack"
+    },
+    "deeperdarker:echo_soil": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "deeperdarker"
+        }
+      ],
+      "fluid": {
+        "amount": 1000,
+        "fluid": "minecraft:water"
+      },
+      "icon": "deeperdarker:echo_soil",
+      "id": "yet_another_industrialization:echo_soil",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_water"
+      },
+      "translation_key": "block.deeperdarker.echo_soil"
+    },
+    "minecraft:lava": {
+      "icon": "minecraft:lava_bucket",
+      "id": "yet_another_industrialization:lava",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_lava"
+      },
+      "sort_order": 35,
+      "translation_key": "block.minecraft.lava"
+    },
+    "minecraft:water": {
+      "icon": "minecraft:water_bucket",
+      "id": "yet_another_industrialization:water",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_water"
+      },
+      "sort_order": 20,
+      "translation_key": "block.minecraft.water"
+    },
+    "undergarden:deepsoil": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "undergarden"
+        }
+      ],
+      "fluid": {
+        "amount": 1000,
+        "fluid": "minecraft:water"
+      },
+      "icon": "undergarden:deepsoil",
+      "id": "yet_another_industrialization:deepsoil",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_water"
+      },
+      "sort_order": 101,
+      "translation_key": "block.undergarden.deepsoil"
+    }
+  }
+}

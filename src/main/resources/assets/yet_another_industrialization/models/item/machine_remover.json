@@ -1,0 +1,6 @@
+{
+  "parent": "modern_industrialization:item/wrench",
+  "textures": {
+    "layer0": "yet_another_industrialization:item/machine_remover"
+  }
+}

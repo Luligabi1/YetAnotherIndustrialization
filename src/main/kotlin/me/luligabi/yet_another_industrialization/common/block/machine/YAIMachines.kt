@@ -1,0 +1,166 @@
+package me.luligabi.yet_another_industrialization.common.block.machine
+
+import aztech.modern_industrialization.api.energy.CableTier
+import aztech.modern_industrialization.machines.guicomponents.ProgressBar
+import aztech.modern_industrialization.machines.init.MultiblockMachines.Rei
+import aztech.modern_industrialization.machines.models.MachineCasings
+import aztech.modern_industrialization.machines.recipe.MachineRecipeType
+import com.google.common.collect.Maps
+import me.luligabi.yet_another_industrialization.common.YAI
+import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseRecipeType
+import me.luligabi.yet_another_industrialization.common.block.machine.chunky_tank.ChunkyTankHatch
+import me.luligabi.yet_another_industrialization.common.block.machine.chunky_tank.ChunkyTankMultiblockBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.crafter.CrafterBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.crafter.CrafterRecipeType
+import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonRecipeType
+import me.luligabi.yet_another_industrialization.common.item.YAIItems
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.crafting.RecipeSerializer
+import net.minecraft.world.item.crafting.RecipeType
+import net.neoforged.bus.api.IEventBus
+import net.neoforged.neoforge.registries.DeferredRegister
+import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookTracker
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MachineRecipeTypesMIHookContext
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MultiblockMachinesMIHookContext
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.SingleBlockCraftingMachinesMIHookContext
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.SingleBlockSpecialMachinesMIHookContext
+
+object YAIMachines {
+
+    fun singleBlockCrafting(hook: SingleBlockCraftingMachinesMIHookContext) {
+//        hook.register(
+//            "Crafter", "crafter",
+//            RecipeTypes.CRAFTER,
+//            9, 1, 1, 0,
+//            { it.backgroundHeight(186) },
+//            ProgressBar.Parameters(105, 42, "arrow"),
+//            RecipeEfficiencyBar.Parameters(42, 86),
+//            EnergyBar.Parameters(14, 44),
+//            { it.addSlots(51, 27, 3, 3).addSlot(131, 45)},
+//            { it.addSlot(33, 27)},
+//            true, true, false,
+//            SingleBlockCraftingMachines.TIER_STEEL or SingleBlockCraftingMachines.TIER_ELECTRIC,
+//            16
+//        )
+    }
+
+    fun singleBlockSpecial(hook: SingleBlockSpecialMachinesMIHookContext) {
+        hook.register(
+            CrafterBlockEntity.NAME, CrafterBlockEntity.ID, CrafterBlockEntity.ID,
+            CableTier.LV.casing, true, false, false, true,
+            ::CrafterBlockEntity,
+            CrafterBlockEntity::registerEnergyApi
+        )
+
+        hook.register(
+            ChunkyTankHatch.NAME, ChunkyTankHatch.ID, ChunkyTankHatch.ID,
+            CableTier.LV.casing, true, false, false, true,
+            ::ChunkyTankHatch,
+            ChunkyTankHatch::registerFluidApi
+        )
+
+    }
+
+    fun multiblockMachines(hook: MultiblockMachinesMIHookContext) {
+        hook.register(
+            ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID, ArboreousGreenhouseBlockEntity.ID,
+            MachineCasings.HEATPROOF, true, false, false, true,
+            ::ArboreousGreenhouseBlockEntity
+        )
+        Rei(ArboreousGreenhouseBlockEntity.NAME, YAI.id(ArboreousGreenhouseBlockEntity.ID), RecipeTypes.ARBOREOUS_GREENHOUSE, ProgressBar.Parameters(77, 34, "extract"))
+            .items(
+                { it.addSlot(56, 26) },
+                { it.addSlots(102, 26, 2, 2) }
+            )
+            .fluids(
+                { it.addSlot(56, 44) },
+                {}
+            )
+            .workstations(YAI.id(ArboreousGreenhouseBlockEntity.ID))
+            .register()
+        MIHookTracker.addReiCategoryName(YAI.id(ArboreousGreenhouseBlockEntity.ID), ArboreousGreenhouseBlockEntity.NAME)
+
+
+        hook.register(
+            DragonSiphonBlockEntity.NAME, DragonSiphonBlockEntity.ID, DragonSiphonBlockEntity.ID,
+            MachineCasings.SOLID_TITANIUM, true, false, false, true,
+            ::DragonSiphonBlockEntity,
+            { DragonSiphonBlockEntity.registerReiShapes() }
+        )
+        Rei(DragonSiphonBlockEntity.NAME, YAI.id(DragonSiphonBlockEntity.ID), RecipeTypes.DRAGON_SIPHON, ProgressBar.Parameters(88, 31, "arrow"))
+            .items(
+                { it.addSlot(40, 35) },
+                {}
+            )
+            .fluids(
+                { it.addSlot(60, 35) },
+                { it.addSlot(120, 35) }
+            )
+            .workstations(YAI.id(DragonSiphonBlockEntity.ID))
+            .register()
+        MIHookTracker.addReiCategoryName(YAI.id(DragonSiphonBlockEntity.ID), DragonSiphonBlockEntity.NAME)
+
+        hook.register(
+            ChunkyTankMultiblockBlockEntity.NAME, ChunkyTankMultiblockBlockEntity.ID, ChunkyTankMultiblockBlockEntity.ID,
+            MachineCasings.CLEAN_STAINLESS_STEEL, true, false, true,
+            ::ChunkyTankMultiblockBlockEntity,
+            { ChunkyTankMultiblockBlockEntity.registerReiShapes() }
+        )
+    }
+
+    object RecipeTypes {
+
+        lateinit var ARBOREOUS_GREENHOUSE: MachineRecipeType
+        lateinit var CRAFTER: MachineRecipeType
+
+        lateinit var DRAGON_SIPHON: MachineRecipeType
+
+        val RECIPE_TYPES: DeferredRegister<RecipeType<*>> = DeferredRegister.create(Registries.RECIPE_TYPE, YAI.ID)
+        val RECIPE_SERIALIZERS: DeferredRegister<RecipeSerializer<*>> = DeferredRegister.create(Registries.RECIPE_SERIALIZER, YAI.ID)
+
+        private val RECIPE_TYPE_NAMES = Maps.newHashMap<MachineRecipeType, String>()
+
+        fun init(modBus: IEventBus) {
+            RECIPE_TYPES.register(modBus)
+            RECIPE_SERIALIZERS.register(modBus)
+        }
+
+        internal fun create(
+            hook: MachineRecipeTypesMIHookContext,
+            englishName: String,
+            id: String,
+            creator: (ResourceLocation) -> MachineRecipeType = ::MachineRecipeType
+        ): MachineRecipeType {
+            val recipeType = hook.create(id, creator)
+            RECIPE_TYPE_NAMES[recipeType] = englishName
+            return recipeType
+        }
+    }
+
+    fun recipeTypes(hook: MachineRecipeTypesMIHookContext) {
+        RecipeTypes.ARBOREOUS_GREENHOUSE = RecipeTypes.create(hook,
+            ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID,
+            ::ArboreousGreenhouseRecipeType
+        ).withItemInputs().withItemOutputs().withFluidInputs()
+
+        RecipeTypes.CRAFTER = RecipeTypes.create(hook,
+            CrafterBlockEntity.NAME, CrafterBlockEntity.ID,
+            ::CrafterRecipeType
+        ).withItemInputs().withItemOutputs().withFluidInputs()
+
+        RecipeTypes.DRAGON_SIPHON = RecipeTypes.create(hook,
+            DragonSiphonBlockEntity.NAME, DragonSiphonBlockEntity.ID,
+            ::DragonSiphonRecipeType
+        ).withItemInputs().withFluidInputs().withFluidOutputs()
+    }
+
+    fun getMachineFromId(id: String): Item {
+        return YAIItems.Registry.ITEMS.registry.get()
+            .get(YAI.id(id)) ?: throw IllegalStateException("Failed to get YAI! machine with ID $id")
+    }
+
+}

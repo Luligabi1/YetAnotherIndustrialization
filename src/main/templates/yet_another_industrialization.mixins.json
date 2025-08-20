@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.luligabi.yet_another_industrialization.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractConfigurableStackAccessor",
+    "CrafterComponentAccessor",
+    "DataModelRegistryAccessor",
+    "HackedMachineRegistrationHelperAccessor",
+    "MIHookContextAccessor",
+    "MIRecipeJsonAccessor",
+    "ModelTierRegistryAccessor",
+    "MultiblockInventoryComponentAccessor",
+    "MultiblockMachineBlockEntityAccessor",
+    "UseOnContextAccessor"
+  ],
+  "server": [],
+  "client": [
+    "MachineScreenAccessor",
+    "ScreenAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
