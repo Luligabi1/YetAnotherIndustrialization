@@ -21,6 +21,10 @@ class LanguageProvider(event: GatherDataEvent): LanguageProvider(event.generator
             add(fluid.block().get(), fluid.identifier().englishName())
         }
 
+        for (sound in SoundProvider.TRANSLATIONS) {
+            add(sound.key, sound.value)
+        }
+
         for (text in YAIText.entries) {
             add(text.translationKey, text.englishText())
         }

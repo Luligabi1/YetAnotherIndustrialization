@@ -1,0 +1,8 @@
+{
+  "machine_remover_remove": {
+    "sounds": [
+      "yet_another_industrialization:machine_remover_remove"
+    ],
+    "subtitle": "yet_another_industrialization.subtitle.machine_remover_remove"
+  }
+}

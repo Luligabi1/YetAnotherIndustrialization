@@ -4,6 +4,7 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.datagen.DatagenEntrypoint
 import me.luligabi.yet_another_industrialization.datagen.client.provider.LanguageProvider
+import me.luligabi.yet_another_industrialization.datagen.client.provider.SoundProvider
 import me.luligabi.yet_another_industrialization.datagen.client.provider.model.BlockModelProvider
 import me.luligabi.yet_another_industrialization.datagen.client.provider.model.ItemModelProvider
 import net.neoforged.neoforge.data.event.GatherDataEvent
@@ -18,6 +19,7 @@ object ClientDatagen: DatagenEntrypoint {
 
         event.add(::BlockModelProvider)
         event.add(::ItemModelProvider)
+        event.add(::SoundProvider)
 
         event.add(::LanguageProvider)
     }
