@@ -1,0 +1,21 @@
+{
+  "type": "yet_another_industrialization:cryogenic_precipitator",
+  "duration": 30,
+  "eu": 8,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    },
+    {
+      "amount": 1,
+      "fluid": "modern_industrialization:cryofluid"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "minecraft:ice"
+    }
+  ]
+}

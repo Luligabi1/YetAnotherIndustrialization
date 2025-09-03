@@ -31,21 +31,28 @@ import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.SingleBlockS
 
 object YAIMachines {
 
+    // yes, i know.
+    const val CP_ID = "cryogenic_precipitator"
+    const val CP_NAME = "Cryogenic Precipitator"
+
     fun singleBlockCrafting(hook: SingleBlockCraftingMachinesMIHookContext) {
-//        hook.register(
-//            "Crafter", "crafter",
-//            RecipeTypes.CRAFTER,
-//            9, 1, 1, 0,
-//            { it.backgroundHeight(186) },
-//            ProgressBar.Parameters(105, 42, "arrow"),
-//            RecipeEfficiencyBar.Parameters(42, 86),
-//            EnergyBar.Parameters(14, 44),
-//            { it.addSlots(51, 27, 3, 3).addSlot(131, 45)},
-//            { it.addSlot(33, 27)},
-//            true, true, false,
-//            SingleBlockCraftingMachines.TIER_STEEL or SingleBlockCraftingMachines.TIER_ELECTRIC,
-//            16
-//        )
+        hook.builder(CP_ID, CP_NAME, RecipeTypes.CRYOGENIC_PRECIPITATOR)
+            .electric()
+            .builtinModel(CableTier.LV.casing, CP_ID)
+            .gui(SteamMode.BOTH, {
+                it.slots { slots ->
+                    slots.itemInput(39, 27)
+                    slots.fluidInput(57, 27)
+                    slots.fluidInput(57, 45, { MIFluids.CRYOFLUID.asFluid() })
+                    slots.itemOutputs(103, 27, 2, 1)
+                    slots.fluidOutput(103, 45, { MIFluids.ARGON.asFluid() })
+                    slots.fluidOutput(121, 45, { MIFluids.HELIUM.asFluid() })
+                }
+                it.progressBar(79, 34, "extract")
+                it.efficiencyBar(38, 66)
+                it.energyBar(14, 35)
+            })
+            .registerMachine()
     }
 
     fun singleBlockSpecial(hook: SingleBlockSpecialMachinesMIHookContext) {
@@ -114,6 +121,8 @@ object YAIMachines {
 
     object RecipeTypes {
 
+        lateinit var CRYOGENIC_PRECIPITATOR: MachineRecipeType
+
         lateinit var ARBOREOUS_GREENHOUSE: MachineRecipeType
         lateinit var CRAFTER: MachineRecipeType
 
@@ -142,6 +151,10 @@ object YAIMachines {
     }
 
     fun recipeTypes(hook: MachineRecipeTypesMIHookContext) {
+        RecipeTypes.CRYOGENIC_PRECIPITATOR = RecipeTypes.create(hook,
+            CP_NAME, CP_ID
+        ).withItemInputs().withFluidInputs().withItemOutputs().withFluidOutputs()
+
         RecipeTypes.ARBOREOUS_GREENHOUSE = RecipeTypes.create(hook,
             ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID,
             ::ArboreousGreenhouseRecipeType

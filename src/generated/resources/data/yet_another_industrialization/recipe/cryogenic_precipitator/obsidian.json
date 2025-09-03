@@ -1,0 +1,27 @@
+{
+  "type": "yet_another_industrialization:cryogenic_precipitator",
+  "duration": 30,
+  "eu": 8,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:lava"
+    },
+    {
+      "amount": 2,
+      "fluid": "modern_industrialization:cryofluid"
+    }
+  ],
+  "fluid_outputs": [
+    {
+      "amount": 1,
+      "fluid": "modern_industrialization:argon"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 4,
+      "item": "minecraft:obsidian"
+    }
+  ]
+}

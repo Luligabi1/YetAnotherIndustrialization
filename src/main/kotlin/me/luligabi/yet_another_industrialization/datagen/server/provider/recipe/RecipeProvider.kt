@@ -70,6 +70,159 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         )
 
         /** PARTS */
+    private fun buildMachineRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        // TODO cryogenic precipitator
+        buildCryogenicPrecipitatorRecipes(output, lookup)
+    }
+    private fun buildCryogenicPrecipitatorRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addCryogenicPrecipitatorRecipe(
+            "snowball",
+            Fluids.WATER, 400,
+            2,
+            Items.SNOWBALL, 4,
+            output
+        )
+
+        addCryogenicPrecipitatorRecipe(
+            "snow_block",
+            Fluids.WATER, 1_000,
+            8,
+            Blocks.SNOW_BLOCK, 4,
+            output
+        )
+
+        addCryogenicPrecipitatorRecipe(
+            "snow",
+            Fluids.WATER, 1_000,
+            2,
+            Blocks.SNOW, 6,
+            output
+        )
+
+        addMachineRecipe(
+            "${YAIMachines.CP_ID}/powder_snow_bucket",
+            YAIMachines.RecipeTypes.CRYOGENIC_PRECIPITATOR,
+            8, 30,
+            {
+                it.addItemInput(Items.BUCKET, 1, 1f)
+                it.addFluidInput(Fluids.WATER, 1_000, 1f)
+                it.addFluidInput(MIFluids.CRYOFLUID, 4, 1f)
+
+                it.addItemOutput(Items.POWDER_SNOW_BUCKET, 1, 1f)
+                it.addFluidOutput(MIFluids.ARGON.asFluid(), 2, 1f)
+            },
+            output
+        )
+
+        addCryogenicPrecipitatorRecipe(
+            "ice",
+            Fluids.WATER, 1_000,
+            1,
+            Blocks.ICE, 1,
+            output
+        )
+
+        addCryogenicPrecipitatorRecipe(
+            "packed_ice",
+            Fluids.WATER, 4_000,
+            8,
+            Blocks.PACKED_ICE, 1,
+            output
+        )
+
+        addCryogenicPrecipitatorRecipe(
+            "blue_ice",
+            Fluids.WATER, 4_000,
+            64,
+            Blocks.BLUE_ICE, 1,
+            output
+        )
+
+        addCryogenicPrecipitatorRecipe(
+            "obsidian",
+            Fluids.LAVA, 1_000,
+            2,
+            Blocks.OBSIDIAN, 4,
+            output
+        )
+
+        addCryogenicPrecipitatorRecipe(
+            "crying_obsidian",
+            Fluids.LAVA, 1_000,
+            2,
+            Blocks.CRYING_OBSIDIAN, 4,
+            output
+        )
+
+        addCryogenicPrecipitatorRecipe(
+            "basalt",
+            Fluids.LAVA, 500,
+            4,
+            Blocks.BASALT, 8,
+            output
+        )
+    }
+
+    private fun addCryogenicPrecipitatorRecipe(
+        id: String,
+        fluid: Fluid, fluidAmount: Int,
+        cryofluidAmount: Int,
+        output: ItemLike, outputAmount: Int,
+        recipeOutput: RecipeOutput
+    ) {
+
+        val argonAmount = (cryofluidAmount * 0.65).toInt()
+        val heliumAmount = (cryofluidAmount * 0.25).toInt()
+
+        addMachineRecipe(
+            "${YAIMachines.CP_ID}/$id",
+            YAIMachines.RecipeTypes.CRYOGENIC_PRECIPITATOR,
+            8, 30,
+            {
+                it.addFluidInput(fluid, fluidAmount, 1f)
+                it.addFluidInput(MIFluids.CRYOFLUID, cryofluidAmount, 1f)
+
+                it.addItemOutput(output, outputAmount, 1f)
+
+                if (argonAmount > 0) {
+                    it.addFluidOutput(MIFluids.ARGON.asFluid(), argonAmount, 1f)
+
+                    if (heliumAmount > 0) {
+                        it.addFluidOutput(MIFluids.HELIUM.asFluid(), heliumAmount, 1f)
+                    }
+                }
+
+            },
+            recipeOutput
+        )
+
+        val nutrientFluid = when (fluid) {
+            Fluids.WATER -> YAIFluids.NUTRIENT_RICH_WATER.asFluid()
+            Fluids.LAVA -> YAIFluids.NUTRIENT_RICH_LAVA.asFluid()
+            else -> return
+        }
+
+        addMachineRecipe(
+            "${YAIMachines.CP_ID}/${id}_nutrient",
+            YAIMachines.RecipeTypes.CRYOGENIC_PRECIPITATOR,
+            8, 30,
+            {
+                it.addFluidInput(nutrientFluid, fluidAmount, 1f)
+                it.addFluidInput(MIFluids.CRYOFLUID, cryofluidAmount, 1f)
+
+                it.addItemOutput(output, outputAmount * 2, 1f)
+
+                if (argonAmount > 0) {
+                    it.addFluidOutput(MIFluids.ARGON.asFluid(), argonAmount, 1f)
+
+                    if (heliumAmount > 0) {
+                        it.addFluidOutput(MIFluids.HELIUM.asFluid(), argonAmount, 1f)
+                    }
+                }
+            },
+            recipeOutput
+        )
+    }
         addMachineRecipe(
             "assembler/dragon_egg_siphon_catalyst/dragon_breath",
             MIMachineRecipeTypes.ASSEMBLER,

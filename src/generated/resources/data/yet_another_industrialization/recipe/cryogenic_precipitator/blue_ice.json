@@ -1,0 +1,31 @@
+{
+  "type": "yet_another_industrialization:cryogenic_precipitator",
+  "duration": 30,
+  "eu": 8,
+  "fluid_inputs": [
+    {
+      "amount": 4000,
+      "fluid": "minecraft:water"
+    },
+    {
+      "amount": 64,
+      "fluid": "modern_industrialization:cryofluid"
+    }
+  ],
+  "fluid_outputs": [
+    {
+      "amount": 41,
+      "fluid": "modern_industrialization:argon"
+    },
+    {
+      "amount": 41,
+      "fluid": "modern_industrialization:helium"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "minecraft:blue_ice"
+    }
+  ]
+}
