@@ -1,8 +1,9 @@
 package me.luligabi.yet_another_industrialization.common.block.machine
 
 import aztech.modern_industrialization.api.energy.CableTier
-import aztech.modern_industrialization.machines.guicomponents.ProgressBar
-import aztech.modern_industrialization.machines.init.MultiblockMachines.Rei
+import aztech.modern_industrialization.compat.rei.machines.SteamMode
+import aztech.modern_industrialization.machines.MachineBlockEntity
+import aztech.modern_industrialization.machines.models.MachineCasing
 import aztech.modern_industrialization.machines.models.MachineCasings
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType
 import com.google.common.collect.Maps
@@ -15,6 +16,7 @@ import me.luligabi.yet_another_industrialization.common.block.machine.crafter.Cr
 import me.luligabi.yet_another_industrialization.common.block.machine.crafter.CrafterRecipeType
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonRecipeType
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
@@ -23,11 +25,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
-import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookTracker
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MachineRecipeTypesMIHookContext
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MultiblockMachinesMIHookContext
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.SingleBlockCraftingMachinesMIHookContext
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.SingleBlockSpecialMachinesMIHookContext
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.*
 
 object YAIMachines {
 
@@ -63,13 +61,13 @@ object YAIMachines {
             CrafterBlockEntity::registerEnergyApi
         )
 
-        hook.register(
-            ChunkyTankHatch.NAME, ChunkyTankHatch.ID, ChunkyTankHatch.ID,
-            CableTier.LV.casing, true, false, false, true,
-            ::ChunkyTankHatch,
-            ChunkyTankHatch::registerFluidApi
-        )
-
+        hook.builder(ConfigurableMixedStorageMachineBlockEntity.ID, ConfigurableMixedStorageMachineBlockEntity.NAME, ::ConfigurableMixedStorageMachineBlockEntity)
+            .builtinModel(Casings.CONFIGURABLE_MIXED_STORAGE, ConfigurableMixedStorageMachineBlockEntity.ID, { it.front(false).active(false) })
+            .registrator({
+                MachineBlockEntity.registerItemApi(it)
+                MachineBlockEntity.registerFluidApi(it)
+            })
+            .registerMachine()
     }
 
     fun multiblockMachines(hook: MultiblockMachinesMIHookContext) {
@@ -171,6 +169,16 @@ object YAIMachines {
         ).withItemInputs().withFluidInputs().withFluidOutputs()
     }
 
+    object Casings {
+
+        lateinit var CONFIGURABLE_MIXED_STORAGE: MachineCasing
+    }
+    fun machineCasings(hook: MachineCasingsMIHookContext) {
+        Casings.CONFIGURABLE_MIXED_STORAGE = hook.registerCubeAll(
+            ConfigurableMixedStorageMachineBlockEntity.ID, ConfigurableMixedStorageMachineBlockEntity.NAME,
+            MI.id("block/stainless_steel_barrel_top")
+        )
+    }
     fun getMachineFromId(id: String): Item {
         return YAIItems.Registry.ITEMS.registry.get()
             .get(YAI.id(id)) ?: throw IllegalStateException("Failed to get YAI! machine with ID $id")

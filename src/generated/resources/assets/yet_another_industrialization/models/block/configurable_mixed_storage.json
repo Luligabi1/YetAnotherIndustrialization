@@ -1,0 +1,11 @@
+{
+  "casing": "yet_another_industrialization:configurable_mixed_storage",
+  "default_overlays": {
+    "fluid_auto": "modern_industrialization:block/overlays/fluid_auto",
+    "front": "yet_another_industrialization:block/machines/configurable_mixed_storage/overlay_front",
+    "front_active": "yet_another_industrialization:block/machines/configurable_mixed_storage/overlay_front_active",
+    "item_auto": "modern_industrialization:block/overlays/item_auto",
+    "output": "modern_industrialization:block/overlays/output"
+  },
+  "loader": "modern_industrialization:machine"
+}
