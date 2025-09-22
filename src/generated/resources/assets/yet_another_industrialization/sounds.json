@@ -4,5 +4,26 @@
       "yet_another_industrialization:machine_remover_remove"
     ],
     "subtitle": "yet_another_industrialization.subtitle.machine_remover_remove"
+  },
+  "storage_slot_locker_lock": {
+    "sounds": [
+      {
+        "name": "block/iron_trapdoor/close1",
+        "volume": 0.9
+      },
+      {
+        "name": "block/iron_trapdoor/close2",
+        "volume": 0.9
+      },
+      {
+        "name": "block/iron_trapdoor/close3",
+        "volume": 0.9
+      },
+      {
+        "name": "block/iron_trapdoor/close4",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "yet_another_industrialization.subtitle.storage_slot_locker_lock"
   }
 }

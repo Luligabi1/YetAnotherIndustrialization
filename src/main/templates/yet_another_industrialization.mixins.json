@@ -5,12 +5,15 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractConfigurableStackAccessor",
+    "AbstractContainerScreenAccessor",
+    "AbstractCraftingMultiblockBlockEntityAccessor",
+    "CableTierAccessor",
     "CrafterComponentAccessor",
-    "DataModelRegistryAccessor",
+    "EnergyComponentAccessor",
     "HackedMachineRegistrationHelperAccessor",
     "MIHookContextAccessor",
     "MIRecipeJsonAccessor",
-    "ModelTierRegistryAccessor",
+    "MIStorageAccessor",
     "MultiblockInventoryComponentAccessor",
     "MultiblockMachineBlockEntityAccessor",
     "UseOnContextAccessor"

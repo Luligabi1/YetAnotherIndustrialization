@@ -2,9 +2,11 @@ package me.luligabi.yet_another_industrialization.common.misc
 
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
+import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.CreativeModeTab
+import net.minecraft.world.item.component.CustomData
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
 import net.swedz.tesseract.neoforge.registry.SortOrder
@@ -19,14 +21,18 @@ object YAICreativeTab {
 
         CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.${YAI.Companion.ID}.${YAI.Companion.ID}"))
-            .icon { YAIItems.MACHINE_DIAGNOSER.get().defaultInstance }
+            .icon {
+                val iconStack = YAIItems.MACHINE_REMOVER.get().defaultInstance
+                iconStack.set(DataComponents.CUSTOM_DATA, CustomData.EMPTY) // hide energy bar
+                iconStack
+            }
             .displayItems { _, output ->
 
                 val compareBySortOrder = Comparator.comparing { obj: ItemHolder<*> -> obj.sortOrder() }
                 val compareByName: Comparator<ItemHolder<*>> = Comparator.comparing { it.identifier().id() }
 
                 YAIItems.values().stream()
-                    .filter { it != YAIItems.CHA_CHA_REAL_SMOOTH }
+                    .filter { it.sortOrder() != Order.HIDDEN }
                     .sorted(compareBySortOrder.thenComparing(compareByName))
                     .forEach(output::accept)
             }
@@ -38,13 +44,16 @@ object YAICreativeTab {
     }
 
     object Order {
+        val GUIDEBOOK = SortOrder(-1)
+        val MACHINE_DIAGNOSER = SortOrder(0)
+        val STORAGE_SLOT_LOCKER = SortOrder(1)
+        val MACHINE_REMOVER = SortOrder(2)
+        val MACHINES = SortOrder(5)
+        val MINOR_ITEMS = SortOrder(10)
+        val BUCKETS = SortOrder(11)
+        val MEME = SortOrder(69)
 
-        val MAJOR_ITEMS = SortOrder(0)
-        val MACHINES = SortOrder(1)
-        val MINOR_ITEMS = SortOrder(2)
-        val PARTS = SortOrder(3)
-        val BUCKETS = SortOrder(4)
-
+        val HIDDEN = SortOrder(1000)
     }
 
 }

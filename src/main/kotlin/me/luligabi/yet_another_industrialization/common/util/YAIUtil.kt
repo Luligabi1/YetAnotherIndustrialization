@@ -31,3 +31,6 @@ fun File.get(path: String): File? {
 }
 
 val MACHINE_REMOVER_STYLE = Style.EMPTY.withColor(TextColor.fromRgb(0xD84D2C))
+
+val ITEM_STYLE = Style.EMPTY.withColor(TextColor.fromRgb(0xFF8040))
+val FLUID_STYLE = Style.EMPTY.withColor(TextColor.fromRgb(0x3946DB))

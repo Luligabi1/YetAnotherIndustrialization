@@ -10,7 +10,9 @@ import net.swedz.tesseract.neoforge.packet.PacketRegistry
 object YAIPackets {
 
     fun init(event: RegisterPayloadHandlersEvent) {
-        create("soil_select", SoilSelectPacket::class.java, SoilSelectPacket.STREAM_CODEC)
+        create("supplied_shape_select", SuppliedShapeSelect::class.java, SuppliedShapeSelect.STREAM_CODEC)
+        create("slot_locker_change_mode", SlotLockerChangeModePacket::class.java, SlotLockerChangeModePacket.STREAM_CODEC)
+        create("slot_locker_drag_packet", SlotLockerDragPacket::class.java, SlotLockerDragPacket.STREAM_CODEC)
 
         REGISTRY.registerAll(event)
     }

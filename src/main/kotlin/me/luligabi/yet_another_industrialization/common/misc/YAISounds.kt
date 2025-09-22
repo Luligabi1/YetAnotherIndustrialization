@@ -16,8 +16,9 @@ object YAISounds {
         SOUNDS.register(bus)
     }
 
-
     val MACHINE_REMOVER_REMOVE = createVariableRangeEvent("machine_remover_remove")
+
+    val STORAGE_SLOT_LOCKER_LOCK = createVariableRangeEvent("storage_slot_locker_lock")
 
     private fun createVariableRangeEvent(id: String): Supplier<SoundEvent> {
         return SOUNDS.register(id, Supplier { SoundEvent.createVariableRangeEvent(YAI.id(id)) })

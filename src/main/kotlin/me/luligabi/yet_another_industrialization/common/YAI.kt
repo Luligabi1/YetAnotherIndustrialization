@@ -7,9 +7,9 @@ import me.luligabi.yet_another_industrialization.common.block.machine.large_stor
 import me.luligabi.yet_another_industrialization.common.compat.guideme.YAIGuide
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAICreativeTab
+import me.luligabi.yet_another_industrialization.common.misc.YAIDataComponents
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
-import me.luligabi.yet_another_industrialization.common.misc.YAITooltips
 import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
 import me.luligabi.yet_another_industrialization.common.misc.network.YAIPackets
@@ -53,10 +53,10 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
         YAIFluids.init(modEventBus)
         YAIMaterials
         YAIMachines.RecipeTypes.init(modEventBus)
+        YAIDataComponents.init(modEventBus)
         modEventBus.addListener(RegisterPayloadHandlersEvent::class.java, YAIPackets::init)
         YAISounds.init(modEventBus)
         YAICreativeTab.init(modEventBus)
-        YAITooltips
         YAIGuide
 
         modEventBus.addListener(FMLCommonSetupEvent::class.java, {

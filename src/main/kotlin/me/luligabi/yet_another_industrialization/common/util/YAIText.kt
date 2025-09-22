@@ -5,6 +5,7 @@ import net.swedz.tesseract.neoforge.compat.mi.tooltip.MICompatibleTranslatableTe
 
 enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
 
+    /** Machine Diagnoser */
     DIAGNOSER_TITLE("%s's Diagnosis (hover for details):\n"),
     DIAGNOSER_TITLE_NONE("No issues found with %s"),
 
@@ -48,16 +49,51 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     DIAGNOSER_NO_LARGE_TANK_HATCH("Missing Large Tank Hatches"),
     DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION("Large Tanks require Large Tank Hatches"),
 
+    DIAGNOSER_TOOLTIP_1("Diagnoses common issues with machines"),
+
+    /** Machine Remover */
     MACHINE_REMOVER_INSUFFICIENT_ENERGY("Insufficient energy"),
     MACHINE_REMOVER_TOO_LARGE("Too large to remove!"),
+    MACHINE_REMOVER_BANNED("Sorry, can't remove this type of machine :("),
 
+    MACHINE_REMOVER_TOOLTIP_1("Removes machines in a single click"),
+    MACHINE_REMOVER_TOOLTIP_2("Single Block Remove Cost: %s"),
+    MACHINE_REMOVER_TOOLTIP_3("Multiblock Remove Cost: %s"),
+
+
+    /** Slot Locker */
+    SLOT_LOCKER_MODE_CHANGE("Set Mode to %s"),
+    SLOT_LOCKER_MODE_PREFIX("Mode: %s"),
+    SLOT_LOCKER_MODE_LOCK_ITEM("Lock Item Slots"),
+    SLOT_LOCKER_MODE_LOCK_FLUID("Lock Fluid Slots"),
+    SLOT_LOCKER_MODE_LOCK_BOTH("Lock Both"),
+    SLOT_LOCKER_MODE_UNLOCK_ITEM("Unlock Item Slots"),
+    SLOT_LOCKER_MODE_UNLOCK_FLUID("Unlock Fluid Slots"),
+    SLOT_LOCKER_MODE_UNLOCK_BOTH("Unlock Both"),
+    SLOT_LOCKER_TOOLTIP_1("%s | %s"),
+    SLOT_LOCKER_TOOLTIP_2("Drag an item and a fluid from your recipe viewer to select them as the desired lock"),
+    SLOT_LOCKER_TOOLTIP_3_INSTRUCTION("Sneak + Scroll"),
+    SLOT_LOCKER_TOOLTIP_3_SUFFIX("%s to change mode"),
+
+
+    /** Arboreous Greenhouse */
     ARBOREOUS_GREENHOUSE_TIER_TOOLTIP("Requires %s soil"),
 
+    /** Dragon Egg Siphon */
     ENERGY_GENERATION_TOOLTIP_1("Generates %s"),
-    ENERGY_GENERATION_TOOLTIP_2("Ignore what EMI/JEI is telling you, this doesn't use energy."),
 
+    /** Large Storage Unit */
+    NO_LARGE_STORAGE_UNIT("Not linked to a Large Storage Unit"),
+    CHARGING_SLOT_TOOLTIP("Place an item to charge here!"),
+    LARGE_STORAGE_UNIT_TIERS("Large Storage Unit Tiers"),
+    LARGE_STORAGE_UNIT_TIER_CAPACITY("Capacity: %s%s EU"),
 
-    GUIDEBOOK_TOOLTIP("Same pronunciation as \"YAY\"!");
+    /** Misc. Item tooltips */
+    GUIDEBOOK_TOOLTIP("Pronounced as \"YAY\"!"),
+    CACHACA_TOOLTIP("The Brazilian Spirit"),
+    SNEAK_RC_ACTIVATE_1("Sneak + Right-click"),
+    SNEAK_RC_ACTIVATE_2("%s to activate"),
+    NONE("None");
 
 
     override fun englishText() = text

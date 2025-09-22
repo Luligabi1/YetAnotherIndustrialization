@@ -37,15 +37,19 @@ object YAIItems {
     fun values(): Set<ItemHolder<*>> = java.util.Set.copyOf(Registry.HOLDERS)
 
 
-    val GUIDEBOOK = create("guidebook", "HNI Guidebook", ::YAIGuidebookItem, YAICreativeTab.Order.MAJOR_ITEMS)
+    val GUIDEBOOK = create("guidebook", "YAI! Guidebook", ::YAIGuidebookItem, YAICreativeTab.Order.GUIDEBOOK)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
-    val MACHINE_DIAGNOSER = create("machine_diagnoser", "Machine Diagnoser", ::MachineDiagnoserItem, YAICreativeTab.Order.MAJOR_ITEMS)
+    val MACHINE_DIAGNOSER = create("machine_diagnoser", "Machine Diagnoser", ::MachineDiagnoserItem, YAICreativeTab.Order.MACHINE_DIAGNOSER)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
-    val MACHINE_REMOVER = create("machine_remover", "Machine Remover", ::MachineRemoverItem, YAICreativeTab.Order.MAJOR_ITEMS)
+    val STORAGE_SLOT_LOCKER = create("storage_slot_locker", "Storage Slot Locker", ::StorageSlotLockerItem, YAICreativeTab.Order.STORAGE_SLOT_LOCKER)
+        .withModelBuilder(CommonModelBuilders::generated)
+        .register()
+
+    val MACHINE_REMOVER = create("machine_remover", "Machine Remover", ::MachineRemoverItem, YAICreativeTab.Order.MACHINE_REMOVER)
         .withCapabilities(MICommonCapabitilies::simpleEnergyItem)
         .withoutModel()
         .register()
