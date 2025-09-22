@@ -58,9 +58,16 @@ object YAIItems {
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
-    val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth", ::ChaChaRealSmoothItem, YAICreativeTab.Order.MAJOR_ITEMS)
-        .sorted(SortOrder.UNSORTED)
+    val CACHACA = create("cachaca", "Cachaça", ::CachacaItem, YAICreativeTab.Order.MEME)
+        .withModelBuilder(CommonModelBuilders::generated)
+        .register()
+
+    val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth", ::ChaChaRealSmoothItem, YAICreativeTab.Order.HIDDEN)
         .withoutModel()
+        .register()
+
+    val ENERGY_ZAP = create("energy_zap", "Energy Zap", ::CachacaItem, YAICreativeTab.Order.HIDDEN)
+        .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
 

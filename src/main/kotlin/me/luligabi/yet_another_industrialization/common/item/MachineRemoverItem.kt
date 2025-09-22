@@ -4,6 +4,7 @@ import aztech.modern_industrialization.MIComponents
 import aztech.modern_industrialization.machines.MachineBlockEntity
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import dev.technici4n.grandpower.api.ISimpleEnergyItem
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
 import me.luligabi.yet_another_industrialization.common.util.MACHINE_REMOVER_STYLE
@@ -30,11 +31,17 @@ class MachineRemoverItem(properties: Properties) : Item(
 ), ISimpleEnergyItem {
 
     companion object {
-        const val ENERGY_CAPACITY = (1 shl 16).toLong()
+        val ENERGY_CAPACITY
+            get() = YAI.CONFIG.machineRemover().capacity()
 
-        const val REMOVE_COST = 5L
-        const val MULTIBLOCK_REMOVE_BASE_COST = 100L
-        const val MULTIBLOCK_REMOVE_BONUS_COST = 4L
+        val SINGLE_BLOCK_REMOVE_COST
+            get() = YAI.CONFIG.machineRemover().singleBlockRemoveCost()
+
+        val MULTIBLOCK_REMOVE_BASE_COST
+            get() = YAI.CONFIG.machineRemover().multiblockBaseRemoveCost()
+
+        val MULTIBLOCK_REMOVE_BLOCK_COST
+            get() = YAI.CONFIG.machineRemover().multiblockBlockRemoveCost()
     }
 
     override fun useOn(ctx: UseOnContext): InteractionResult {
@@ -59,16 +66,18 @@ class MachineRemoverItem(properties: Properties) : Item(
             ctx.level.playSound(
                 null, ctx.clickedPos,
                 YAISounds.MACHINE_REMOVER_REMOVE.get(),
-                SoundSource.BLOCKS, 1f, 1f
+                SoundSource.PLAYERS, 1f, 1f
             )
+            YAI.CONFIG.machineRemover().cooldownTicks().let {
+                if (it > 0) ctx.player!!.cooldowns.addCooldown(this, it)
+            }
         }
         return if (success) InteractionResult.sidedSuccess(ctx.level.isClientSide) else InteractionResult.FAIL
     }
 
     private fun removeMultiblock(stack: ItemStack, player: Player, level: Level, pos: BlockPos, controller: MultiblockMachineBlockEntity): Boolean {
         if (!controller.isShapeValid) {
-            removeSingleMachine(stack, player, level, pos, controller)
-            return true
+            return removeSingleMachine(stack, player, level, pos, controller)
         }
 
         val members = (controller as MultiblockMachineBlockEntityAccessor).shapeMatcher.positions
@@ -88,7 +97,7 @@ class MachineRemoverItem(properties: Properties) : Item(
     }
 
     private fun removeSingleMachine(stack: ItemStack, player: Player, level: Level, pos: BlockPos, machine: MachineBlockEntity): Boolean {
-        if (!tryUseEnergy(stack, REMOVE_COST)) {
+        if (!tryUseEnergy(stack, SINGLE_BLOCK_REMOVE_COST)) {
             player.sendError(YAIText.MACHINE_REMOVER_INSUFFICIENT_ENERGY)
             return false
         }
@@ -117,7 +126,7 @@ class MachineRemoverItem(properties: Properties) : Item(
     }
 
     private fun getMultiblockCost(blockCount: Int): Long {
-        return MULTIBLOCK_REMOVE_BASE_COST + (blockCount * MULTIBLOCK_REMOVE_BONUS_COST)
+        return MULTIBLOCK_REMOVE_BASE_COST + (blockCount * MULTIBLOCK_REMOVE_BLOCK_COST)
     }
 
     override fun isBarVisible(stack: ItemStack) = !stack.has(DataComponents.CUSTOM_DATA)

@@ -14,10 +14,11 @@ import aztech.modern_industrialization.machines.components.CrafterComponent
 import aztech.modern_industrialization.machines.components.EnergyComponent
 import aztech.modern_industrialization.machines.components.MultiblockInventoryComponent
 import aztech.modern_industrialization.machines.multiblocks.HatchFlags
-import aztech.modern_industrialization.machines.multiblocks.HatchType
+import aztech.modern_industrialization.machines.multiblocks.HatchTypes
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import aztech.modern_industrialization.machines.recipe.MachineRecipe
 import aztech.modern_industrialization.util.TextHelper
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.MachineDiagnoserItem.DiagnosisType.Companion.sendDiagnosis
 import me.luligabi.yet_another_industrialization.common.util.YAIText
 import me.luligabi.yet_another_industrialization.common.util.applyColor
@@ -39,13 +40,16 @@ import net.swedz.tesseract.neoforge.compat.mi.machine.blockentity.multiblock.mul
 
 class MachineDiagnoserItem(properties: Properties) : Item(properties) {
 
-    override fun useOn(context: UseOnContext): InteractionResult {
-        if (context.level.isClientSide) return InteractionResult.FAIL
-        if ((context as UseOnContextAccessor).hitResult.type != HitResult.Type.BLOCK) return InteractionResult.PASS
+    override fun useOn(ctx: UseOnContext): InteractionResult {
+        if (ctx.level.isClientSide) return InteractionResult.FAIL
+        if ((ctx as UseOnContextAccessor).hitResult.type != HitResult.Type.BLOCK) return InteractionResult.PASS
 
-        val machine = context.level.getBlockEntity(context.clickedPos) as? MachineBlockEntity ?: return InteractionResult.PASS
+        val machine = ctx.level.getBlockEntity(ctx.clickedPos) as? MachineBlockEntity ?: return InteractionResult.PASS
 
-        context.player?.sendDiagnosis(diagnose(machine), machine)
+        ctx.player!!.sendDiagnosis(diagnose(machine), machine)
+        YAI.CONFIG.machineDiagnoser().cooldownTicks().let {
+            if (it > 0) ctx.player!!.cooldowns.addCooldown(this, it)
+        }
         return InteractionResult.SUCCESS
     }
 
@@ -69,7 +73,9 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
                         return diagnosis
                     }
                 }
+
             }
+
         }
 
         val crafter = machine.components.get(CrafterComponent::class.java) ?: return diagnosis
@@ -88,7 +94,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
 
         when (machine) {
             is LargeTankMultiblockBlockEntity -> {
-                if (allowedHatches.any { it.allows(HatchType.LARGE_TANK) } && !matchedHatches.allows(HatchType.LARGE_TANK)) {
+                if (allowedHatches.any { it.allows(HatchTypes.LARGE_TANK) } && !matchedHatches.allows(HatchTypes.LARGE_TANK)) {
                     diagnosis.add(DiagnosisType.NO_LARGE_TANK_HATCH)
                     return diagnosis
                 }
@@ -107,12 +113,12 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
 
             var warning = true // no energy output might just be a generator that hasn't run yet
 
-            if (allowedHatches.any { it.allows(HatchType.ENERGY_INPUT) } && !matchedHatches.allows(HatchType.ENERGY_INPUT)) {
+            if (allowedHatches.any { it.allows(HatchTypes.ENERGY_INPUT) } && !matchedHatches.allows(HatchTypes.ENERGY_INPUT)) {
                 diagnosis.add(DiagnosisType.NO_ENERGY_INPUT)
                 warning = false
             }
 
-            if (allowedHatches.any { it.allows(HatchType.ENERGY_OUTPUT) } && !matchedHatches.allows(HatchType.ENERGY_OUTPUT)) {
+            if (allowedHatches.any { it.allows(HatchTypes.ENERGY_OUTPUT) } && !matchedHatches.allows(HatchTypes.ENERGY_OUTPUT)) {
                 diagnosis.add(DiagnosisType.NO_ENERGY_OUTPUT)
                 warning = true
             }
@@ -129,19 +135,19 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
     }
 
     private fun diagnoseMultiblockInventory(access: InventoryAccess, allowedHatches: Set<HatchFlags>, diagnosis: MutableSet<DiagnosisType>) {
-        if (access.itemInputs.isEmpty() && allowedHatches.any { it.allows(HatchType.ITEM_INPUT) }) {
+        if (access.itemInputs.isEmpty() && allowedHatches.any { it.allows(HatchTypes.ITEM_INPUT) }) {
             diagnosis.add(DiagnosisType.CANT_TAKE_ITEM_INPUT)
         }
 
-        if (access.itemOutputs.isEmpty() && allowedHatches.any { it.allows(HatchType.ITEM_OUTPUT) }) {
+        if (access.itemOutputs.isEmpty() && allowedHatches.any { it.allows(HatchTypes.ITEM_OUTPUT) }) {
             diagnosis.add(DiagnosisType.CANT_PUT_ITEM_OUTPUT_WARNING)
         }
 
-        if (access.fluidInputs.isEmpty() && allowedHatches.any { it.allows(HatchType.FLUID_INPUT) }) {
+        if (access.fluidInputs.isEmpty() && allowedHatches.any { it.allows(HatchTypes.FLUID_INPUT) }) {
             diagnosis.add(DiagnosisType.CANT_TAKE_FLUID_INPUT)
         }
 
-        if (access.fluidOutputs.isEmpty() && allowedHatches.any { it.allows(HatchType.FLUID_OUTPUT) }) {
+        if (access.fluidOutputs.isEmpty() && allowedHatches.any { it.allows(HatchTypes.FLUID_OUTPUT) }) {
             diagnosis.add(DiagnosisType.CANT_PUT_FLUID_OUTPUT_WARNING)
         }
     }

@@ -1,15 +1,15 @@
 ---
 navigation:
-  title: "Hostile Neural Industrialization"
-  icon: "hostile_neural_industrialization:guidebook"
+  title: "Yet Another Industrialization"
+  icon: "yet_another_industrialization:machine_remover"
 ---
 
-# Hostile Neural Industrialization
+# Yet Another Industrialization
 
-Welcome to **Hostile Neural Industrialization**!
+Welcome to **Yet Another Industrialization**!
 
 ![Predictions, predictions and more predictions](assets/predictions_predictions_predictions.png)
 
 ## Introduction
 
-HNI closes off one of Modern Industrialization's blind spots: mob farming. By harnessing Hostile Neural Networks's mechanics, you'll be able to fully automate mob loot with ease.
+Lorem ipsum sit amet dolor blah blah

@@ -4,7 +4,7 @@
   "eu": 8,
   "fluid_inputs": [
     {
-      "amount": 500,
+      "amount": 1980,
       "fluid": "modern_industrialization:molten_redstone"
     }
   ],
@@ -14,8 +14,12 @@
       "item": "modern_industrialization:wrench"
     },
     {
-      "amount": 2,
+      "amount": 4,
       "item": "modern_industrialization:piston"
+    },
+    {
+      "amount": 2,
+      "item": "modern_industrialization:electronic_circuit"
     }
   ],
   "item_outputs": [

@@ -1,11 +1,15 @@
 package me.luligabi.yet_another_industrialization.datagen.server.provider
 
+import aztech.modern_industrialization.api.energy.CableTier
+import aztech.modern_industrialization.materials.MIMaterials
+import aztech.modern_industrialization.materials.part.MIParts
 import com.google.gson.JsonParser
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseSapling
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
+import me.luligabi.yet_another_industrialization.common.misc.datamap.LargeStorageUnitTier
 import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import me.luligabi.yet_another_industrialization.common.util.get
 import net.minecraft.core.HolderLookup
@@ -22,19 +26,59 @@ import java.io.File
 
 class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.packOutput, event.lookupProvider) {
 
-    private companion object {
+    companion object {
 
-        val BANNED_TIERS = setOf("bucket")
+        val BANNED_TREES = setOf("coral")
+        private val BANNED_TIERS = setOf("bucket")
 
-        val CONVERTABLE_TIERS = mapOf(
+        private val CONVERTABLE_TIERS = mapOf(
             "dirt" to "grass_block",
             "nether_stone" to "netherrack",
             "nylium" to "netherrack"
         )
 
+        private val DEFAULT_LARGE_STORAGE_UNIT_TIERS = hashMapOf(
+            ResourceLocation.withDefaultNamespace("redstone_block") to LargeStorageUnitTier(
+                25_600_000L,
+                CableTier.LV, CableTier.LV.shortEnglishKey(),
+                10
+            ),
+            ResourceLocation.parse(MIMaterials.SILICON.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
+                102_400_000L,
+                CableTier.MV, CableTier.MV.shortEnglishKey(),
+                20
+            ),
+            ResourceLocation.parse(MIMaterials.SODIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
+                921_600_000L,
+                CableTier.HV, CableTier.HV.shortEnglishKey(),
+                30
+            ),
+            YAI.id("cadmium_block") to LargeStorageUnitTier(
+                6_553_600_000L,
+                CableTier.EV, CableTier.EV.shortEnglishKey(),
+                40
+            ),
+            ResourceLocation.parse(MIMaterials.PLUTONIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
+                102_400_000_000_000L,
+                CableTier.SUPERCONDUCTOR, CableTier.SUPERCONDUCTOR.shortEnglishKey(),
+                50
+            )
+        )
+
     }
 
     override fun gather(provider: HolderLookup.Provider) {
+        largeStorageUnit(provider)
+        arboreousGreenhouse(provider)
+    }
+
+    fun largeStorageUnit(provider: HolderLookup.Provider) {
+        DEFAULT_LARGE_STORAGE_UNIT_TIERS.forEach { (id, tier) ->
+            builder(YAIDataMaps.LARGE_STORAGE_UNIT_TIER).add(id, tier, false)
+        }
+    }
+
+    fun arboreousGreenhouse(provider: HolderLookup.Provider) {
         val baseDir = File("../src/main/resources/bonsaigen-src/datapacks").canonicalFile
 
         val mods = baseDir.listFiles { it.isDirectory } ?: return
@@ -45,6 +89,7 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
                 val values = jsonElement.asJsonObject.getAsJsonObject("values")
 
                 for ((key, value) in values.entrySet()) {
+                    if (BANNED_TREES.any(key::contains)) continue
                     val obj = value.asJsonObject
                     val model = obj.get("model")?.asString ?: continue
                     val tier = run {
@@ -61,7 +106,7 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
                     val lootData = mutableListOf<ArboreousGreenhouseSapling.LootData>()
                     mod.get("data/bonsaitrees4/loot_table/bonsai/${mod.name}/${ResourceLocation.parse(model).path}.json")?.let { lootTable ->
                         adaptLootTables(lootTable.readText()).forEach { (name, value) ->
-                            println("$name: $value")
+                            //println("$name: $value")
                             lootData.add(ArboreousGreenhouseSapling.LootData(
                                 ResourceLocation.parse(value),
                                 ArboreousGreenhouseSapling.LootData.getAmount(name),
@@ -228,7 +273,7 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
 
             val id = values.get("defaultItem")?.asJsonObject?.get("id")?.asString ?: continue
             if (id.startsWith("minecraft")) continue
-            if (BANNED_TIERS.any { id.endsWith(it) }) continue
+            if (BANNED_TIERS.any(id::endsWith)) continue
 
             val block = ResourceLocation.tryParse(id) ?: continue
             val translationKey = values.get("translationKey")?.asString ?: continue
