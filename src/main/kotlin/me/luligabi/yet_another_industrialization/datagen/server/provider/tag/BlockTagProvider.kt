@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.datagen.server.provider
+package me.luligabi.yet_another_industrialization.datagen.server.provider.tag
 
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks

@@ -15,6 +15,8 @@ object YAIDataMaps {
     val ARBOREOUS_GREENHOUSE_SAPLING = create("arboreous_greenhouse_sapling", Registries.ITEM, ArboreousGreenhouseSapling.CODEC, true)
     val ARBOREOUS_GREENHOUSE_TIER = create("arboreous_greenhouse_tier", Registries.BLOCK, ArboreousGreenhouseTier.CODEC, true)
 
+    val LARGE_STORAGE_UNIT_TIER = create("large_storage_unit_tier", Registries.BLOCK, LargeStorageUnitTier.CODEC, true)
+
     private fun <R, T> create(
         name: String,
         registry: ResourceKey<Registry<R>>,

@@ -173,12 +173,27 @@ object YAIMachines {
 
         lateinit var CONFIGURABLE_MIXED_STORAGE: MachineCasing
     }
+
     fun machineCasings(hook: MachineCasingsMIHookContext) {
-        Casings.CONFIGURABLE_MIXED_STORAGE = hook.registerCubeAll(
+        Casings.BATTERY_ALLOY_MACHINE_CASING = hook.registerCubeAll(
+            "battery_alloy_machine_casing", "Battery Alloy Machine Casing",
+            YAI.id("block/battery_alloy_machine_casing")
+        )
+
+        Casings.CONFIGURABLE_MIXED_STORAGE = hook.registerCubeBottomTop(
             ConfigurableMixedStorageMachineBlockEntity.ID, ConfigurableMixedStorageMachineBlockEntity.NAME,
             MI.id("block/stainless_steel_barrel_top")
         )
     }
+
+    fun hatches(hook: HatchMIHookContext) {
+        hook.builder(LargeStorageUnitBlockEntity.ID, LargeStorageUnitBlockEntity.NAME)
+            .special(::LargeStorageUnitHatch, true)
+            .builtinModel(Casings.BATTERY_ALLOY_MACHINE_CASING, "large_storage_unit_hatch")
+            .registrator(LargeStorageUnitHatch::registerEnergyApi)
+            .registerMachine()
+    }
+
     fun getMachineFromId(id: String): Item {
         return YAIItems.Registry.ITEMS.registry.get()
             .get(YAI.id(id)) ?: throw IllegalStateException("Failed to get YAI! machine with ID $id")
