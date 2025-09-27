@@ -6,9 +6,12 @@ import aztech.modern_industrialization.api.machine.holder.EnergyListComponentHol
 import aztech.modern_industrialization.api.machine.holder.MultiblockInventoryComponentHolder
 import aztech.modern_industrialization.inventory.ConfigurableFluidStack
 import aztech.modern_industrialization.machines.MachineBlockEntity
+import aztech.modern_industrialization.machines.blockentities.GeneratorMachineBlockEntity
 import aztech.modern_industrialization.machines.blockentities.SteamCraftingMachineBlockEntity
 import aztech.modern_industrialization.machines.blockentities.SteamWaterPumpBlockEntity
+import aztech.modern_industrialization.machines.blockentities.multiblocks.GeneratorMultiblockBlockEntity
 import aztech.modern_industrialization.machines.blockentities.multiblocks.LargeTankMultiblockBlockEntity
+import aztech.modern_industrialization.machines.blockentities.multiblocks.NuclearReactorMultiblockBlockEntity
 import aztech.modern_industrialization.machines.blockentities.multiblocks.SteamCraftingMultiblockBlockEntity
 import aztech.modern_industrialization.machines.components.CrafterComponent
 import aztech.modern_industrialization.machines.components.EnergyComponent
@@ -19,6 +22,7 @@ import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlo
 import aztech.modern_industrialization.machines.recipe.MachineRecipe
 import aztech.modern_industrialization.util.TextHelper
 import me.luligabi.yet_another_industrialization.common.YAI
+import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.MachineDiagnoserItem.DiagnosisType.Companion.sendDiagnosis
 import me.luligabi.yet_another_industrialization.common.util.YAIText
 import me.luligabi.yet_another_industrialization.common.util.applyColor
@@ -66,7 +70,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
 
             if (machine is SteamCraftingMachineBlockEntity || machine is SteamWaterPumpBlockEntity) {
                 if (machine.inventory.fluidStacks.diagnoseSteam(diagnosis)) return diagnosis
-            } else {
+            } else if (machine !is GeneratorMachineBlockEntity) {
                 machine.components.get(EnergyComponent::class.java)?.let {
                     if (it.eu == 0L) {
                         diagnosis.add(DiagnosisType.NO_ENERGY)
@@ -87,7 +91,6 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
         return diagnosis
     }
 
-    // TODO Nuclear Reactor support
     private fun diagnoseHatches(machine: MultiblockMachineBlockEntity, diagnosis: MutableSet<DiagnosisType>): MutableSet<DiagnosisType> {
         val allowedHatches = machine.activeShape.hatchFlags.values.toSet()
         val matchedHatches = machine.matchedHatches
@@ -110,8 +113,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
         }
 
         if (machine is EnergyListComponentHolder) {
-
-            var warning = true // no energy output might just be a generator that hasn't run yet
+            var warning = true
 
             if (allowedHatches.any { it.allows(HatchTypes.ENERGY_INPUT) } && !matchedHatches.allows(HatchTypes.ENERGY_INPUT)) {
                 diagnosis.add(DiagnosisType.NO_ENERGY_INPUT)
@@ -123,12 +125,18 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
                 warning = true
             }
 
-            if (machine.energyComponents.all { it.eu == 0L }) {
-                diagnosis.add(if (warning) DiagnosisType.NO_ENERGY_WARNING else DiagnosisType.NO_ENERGY)
+            if (machine !is GeneratorMultiblockBlockEntity && machine !is DragonSiphonBlockEntity) {
+                if (machine.energyComponents.all { it.eu == 0L }) {
+                    diagnosis.add(if (warning) DiagnosisType.NO_ENERGY_WARNING else DiagnosisType.NO_ENERGY)
+                }
             }
 
         } else if (machine is SteamCraftingMultiblockBlockEntity || machine is AbstractSteamMultipliedCraftingMultiblockBlockEntity) {
             (machine.multiblockInventoryComponent as? MultiblockInventoryComponent)?.fluidInputs?.diagnoseSteam(diagnosis)
+        }
+
+        if (machine is NuclearReactorMultiblockBlockEntity) { // TODO Nuclear Reactor support
+            diagnosis.add(DiagnosisType.UNSUPPORTED)
         }
 
         return diagnosis
@@ -229,7 +237,8 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
         CANT_PUT_FLUID_OUTPUT_WARNING(YAIText.DIAGNOSER_CANT_PUT_FLUID_OUTPUT, YAIText.DIAGNOSER_CANT_PUT_FLUID_OUTPUT_DESCRIPTION, Severity.WARNING),
         UNMET_CONDITION(YAIText.DIAGNOSER_UNMET_CONDITION, YAIText.DIAGNOSER_UNMET_CONDITION_DESCRIPTION, Severity.ERROR),
         INVALID_MULTIBLOCK_SHAPE(YAIText.DIAGNOSER_INVALID_MULTIBLOCK_SHAPE, YAIText.DIAGNOSER_INVALID_MULTIBLOCK_SHAPE_DESCRIPTION, Severity.ERROR),
-        NO_LARGE_TANK_HATCH(YAIText.DIAGNOSER_NO_LARGE_TANK_HATCH, YAIText.DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION, Severity.ERROR);
+        NO_LARGE_TANK_HATCH(YAIText.DIAGNOSER_NO_LARGE_TANK_HATCH, YAIText.DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION, Severity.ERROR),
+        UNSUPPORTED(YAIText.DIAGNOSER_UNSUPPORTED, YAIText.DIAGNOSER_UNSUPPORTED_DESCRIPTION, Severity.INFO);
 
         companion object {
 
@@ -247,7 +256,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
 
                 val sortedList = diagnosis.sortedBy { it.severity.ordinal }
                 for ((i, type) in sortedList.withIndex()) {
-                    val diagnosis = Component.literal("⚠ ").applyColor(type.severity.darkColor)
+                    val diagnosis = Component.literal("${type.severity.icon} ").applyColor(type.severity.darkColor)
 
                     val message = type.title.text()
                         .applyColor(type.severity.lightColor)
@@ -267,10 +276,15 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
 
         }
 
-        enum class Severity(val lightColor: ChatFormatting, val darkColor: ChatFormatting) {
+        enum class Severity(
+            val lightColor: ChatFormatting,
+            val darkColor: ChatFormatting,
+            val icon: String = "⚠"
+        ) {
 
             ERROR(ChatFormatting.RED, ChatFormatting.DARK_RED),
-            WARNING(ChatFormatting.YELLOW, ChatFormatting.GOLD)
+            WARNING(ChatFormatting.YELLOW, ChatFormatting.GOLD),
+            INFO(ChatFormatting.BLUE, ChatFormatting.DARK_BLUE, "ⓘ");
         }
     }
 }

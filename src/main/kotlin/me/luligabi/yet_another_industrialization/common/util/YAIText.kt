@@ -10,7 +10,7 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     DIAGNOSER_TITLE_NONE("No issues found with %s"),
 
     DIAGNOSER_NO_STEAM("Missing Steam"),
-    DIAGNOSER_NO_STEAM_DESCRIPTION("Machine has insufficient Steam to proceed"),
+    DIAGNOSER_NO_STEAM_DESCRIPTION("This machine requires steam to function"),
 
     DIAGNOSER_NO_ENERGY("Missing Energy"),
     DIAGNOSER_NO_ENERGY_DESCRIPTION("This machine requires energy to function"),
@@ -48,6 +48,9 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
 
     DIAGNOSER_NO_LARGE_TANK_HATCH("Missing Large Tank Hatches"),
     DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION("Large Tanks require Large Tank Hatches"),
+
+    DIAGNOSER_UNSUPPORTED("Unsupported machine"),
+    DIAGNOSER_UNSUPPORTED_DESCRIPTION("Sorry, I can't diagnose any of this machine's specific behaviors :(\n\nI really need to beat Statech Industry..."),
 
     DIAGNOSER_TOOLTIP_1("Diagnoses common issues with machines"),
 
@@ -87,6 +90,9 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     CHARGING_SLOT_TOOLTIP("Place an item to charge here!"),
     LARGE_STORAGE_UNIT_TIERS("Large Storage Unit Tiers"),
     LARGE_STORAGE_UNIT_TIER_CAPACITY("Capacity: %s%s EU"),
+    LARGE_STORAGE_UNIT_TOOLTIP_1("I/O energy through its special hatches. Autoconverts to any voltage!"),
+    LARGE_STORAGE_UNIT_TOOLTIP_2(""),
+    LARGE_STORAGE_UNIT_TOOLTIP_3(""),
 
     /** Misc. Item tooltips */
     GUIDEBOOK_TOOLTIP("Pronounced as \"YAY\"!"),
