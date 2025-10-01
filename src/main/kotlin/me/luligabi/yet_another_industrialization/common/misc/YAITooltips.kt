@@ -65,19 +65,25 @@ object YAITooltips {
         )
     )
 
-//    val MACHINE_REMOVER = TooltipAttachment.multilines(
-//        MachineRemoverItem::class.java,
-//        { _, _, _, _ ->
-//            val lines = mutableListOf<MICompatibleTextLine>()
-//            lines.add(line(YAIText.MACHINE_REMOVER_TOOLTIP_1)
-//                .arg(MachineRemoverItem.SINGLE_BLOCK_REMOVE_COST, MITooltips.EU_PARSER))
-//            lines.add(line(YAIText.MACHINE_REMOVER_TOOLTIP_2_PREFIX.arg(
-//                YAIText.MACHINE_REMOVER_TOOLTIP_2_PREFIX.arg("")
-//            )))
-//            lines.add(line(YAIText.SNEAK_RC_ACTIVATE))
-//            lines
-//        }
+
+//    val LARGE_STORAGE_UNIT = TooltipAttachment.multilines(
+//        listOf(YAI.id(LargeStorageUnitBlockEntity.ID)),
+//        listOf(
+//            line(YAIText.MACHINE_REMOVER_TOOLTIP_1),
+//            line(YAIText.MACHINE_REMOVER_TOOLTIP_2).arg(
+//                MachineRemoverItem.SINGLE_BLOCK_REMOVE_COST,
+//                MITooltips.EU_PARSER
+//            ),
+//            line(YAIText.MACHINE_REMOVER_TOOLTIP_3)
+//                .arg(
+//                    "${MachineRemoverItem.MULTIBLOCK_REMOVE_BASE_COST} + ${MachineRemoverItem.MULTIBLOCK_REMOVE_BLOCK_COST} * n EU",
+//                    HIGHLIGHTED_STRING
+//                ),
+//            SNEAK_RIGHT_CLICK
+//        )
 //    )
+
+
 
 
 }

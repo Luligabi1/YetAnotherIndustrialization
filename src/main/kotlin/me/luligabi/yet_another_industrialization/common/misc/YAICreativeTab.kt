@@ -50,7 +50,8 @@ object YAICreativeTab {
         val MACHINE_REMOVER = SortOrder(2)
         val MACHINES = SortOrder(5)
         val MINOR_ITEMS = SortOrder(10)
-        val BUCKETS = SortOrder(11)
+        val PARTS = SortOrder(11)
+        val BUCKETS = SortOrder(12)
         val MEME = SortOrder(69)
 
         val HIDDEN = SortOrder(1000)

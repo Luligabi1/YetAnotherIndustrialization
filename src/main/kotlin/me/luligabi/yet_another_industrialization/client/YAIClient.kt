@@ -5,6 +5,10 @@ import aztech.modern_industrialization.machines.MachineBlock
 import aztech.modern_industrialization.machines.MachineBlockEntityRenderer
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBER
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
+import me.luligabi.yet_another_industrialization.client.component.ChargingSlotClient
+import me.luligabi.yet_another_industrialization.client.component.LargeStorageUnitGuiClient
+import me.luligabi.yet_another_industrialization.client.component.SuppliedShapeSelectionClient
+import me.luligabi.yet_another_industrialization.client.model.YAIModelLoaders
 import me.luligabi.yet_another_industrialization.client.renderer.ArboreousGreenhouseBER
 import me.luligabi.yet_another_industrialization.client.renderer.item.StorageSlotLockerComponent
 import me.luligabi.yet_another_industrialization.common.YAI
@@ -36,9 +40,15 @@ import net.neoforged.neoforge.common.NeoForge
 class YAIClient(modEventBus: IEventBus, container: ModContainer) {
 
     init {
-        GuiComponentsClient.register(DummyShapeSelection.ID, ::DummyShapeSelectionClient)
-        GuiComponentsClient.register(ArboreousGreenhouseBlockEntity.SoilSelection.ID, ::SoilSelectionClient)
+        GuiComponentsClient.register(LargeStorageUnitGui.ID, ::LargeStorageUnitGuiClient)
+        GuiComponentsClient.register(ChargingSlot.ID, ::ChargingSlotClient)
+        GuiComponentsClient.register(SuppliedShapeSelection.ID, ::SuppliedShapeSelectionClient)
+
+        modEventBus.register(this)
+        modEventBus.register(YAIModelLoaders)
+
         NeoForge.EVENT_BUS.addListener(::onMouseScrollEvent)
+
     }
 
     @Suppress("UNCHECKED_CAST")

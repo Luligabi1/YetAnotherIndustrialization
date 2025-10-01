@@ -1,9 +1,13 @@
 {
   "values": [
     "yet_another_industrialization:arboreous_greenhouse",
-    "yet_another_industrialization:chunky_tank",
-    "yet_another_industrialization:chunky_tank_hatch",
-    "yet_another_industrialization:crafter",
-    "yet_another_industrialization:dragon_egg_energy_siphon"
+    "yet_another_industrialization:battery_alloy_machine_casing",
+    "yet_another_industrialization:cadmium_block",
+    "yet_another_industrialization:configurable_mixed_storage",
+    "yet_another_industrialization:cryogenic_precipitator",
+    "yet_another_industrialization:dragon_egg_energy_siphon",
+    "yet_another_industrialization:large_storage_unit",
+    "yet_another_industrialization:large_storage_unit_input_hatch",
+    "yet_another_industrialization:large_storage_unit_output_hatch"
   ]
 }

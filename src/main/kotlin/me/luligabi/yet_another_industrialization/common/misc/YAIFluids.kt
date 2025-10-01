@@ -65,6 +65,11 @@ object YAIFluids {
         MIFluidProperties(0xAC2C7B, FluidDefinition.NEAR_OPACITY, FluidTexture.PLASMA_LIKE, true)
     ).register()
 
+    val IMPURE_DRAGONS_BREATH = create(
+        "impure_dragon_breath", "Impure Dragon's Breath",
+        MIFluidProperties(0xC47E80, FluidDefinition.NEAR_OPACITY, FluidTexture.PLASMA_LIKE, true)
+    ).register()
+
 
     private fun create(id: String, englishName: String, properties: MIFluidProperties): MIFluidHolder {
         val holder = MIFluidHolder(

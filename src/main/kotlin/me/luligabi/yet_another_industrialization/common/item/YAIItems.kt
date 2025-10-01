@@ -62,6 +62,10 @@ object YAIItems {
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
+    val AI_SLOP = create("ai_slop", "AI Slop", ::AISlopItem, YAICreativeTab.Order.MEME)
+        .withModelBuilder(CommonModelBuilders::generated)
+        .register()
+
     val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth", ::ChaChaRealSmoothItem, YAICreativeTab.Order.HIDDEN)
         .withoutModel()
         .register()

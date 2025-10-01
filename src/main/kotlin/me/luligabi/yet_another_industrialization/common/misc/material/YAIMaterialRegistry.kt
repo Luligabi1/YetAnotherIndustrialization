@@ -3,6 +3,7 @@ package me.luligabi.yet_another_industrialization.common.misc.material
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
+import me.luligabi.yet_another_industrialization.common.misc.YAICreativeTab
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.swedz.tesseract.neoforge.material.MaterialRegistry
 import net.swedz.tesseract.neoforge.registry.holder.BlockHolder
@@ -30,6 +31,7 @@ object YAIMaterialRegistry: MaterialRegistry() {
     }
 
     override fun onItemRegister(holder: ItemHolder<*>) {
+        holder.sorted(YAICreativeTab.Order.PARTS)
         YAIItems.Registry.include(holder)
     }
 

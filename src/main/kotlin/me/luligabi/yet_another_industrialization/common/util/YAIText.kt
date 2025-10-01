@@ -41,10 +41,10 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     DIAGNOSER_CANT_PUT_FLUID_OUTPUT_DESCRIPTION("The machine has nowhere to put fluids outputs in. This might mean that: \n\n- There's no available slot\n- The slot's capacity isn't enough to store the output"),
 
     DIAGNOSER_UNMET_CONDITION("Unmet recipe conditions"),
-    DIAGNOSER_UNMET_CONDITION_DESCRIPTION("Machine does not meet one or more of the recipe's conditions"),
+    DIAGNOSER_UNMET_CONDITION_DESCRIPTION("The current recipe has condition(s) that are no longer being met."),
 
     DIAGNOSER_INVALID_MULTIBLOCK_SHAPE("Invalid Multiblock Shape"),
-    DIAGNOSER_INVALID_MULTIBLOCK_SHAPE_DESCRIPTION("The multiblock is misbuilt. Hold a Wrench to preview the correct shape. If the multiblock has tiers, check if you've selected the right one."),
+    DIAGNOSER_INVALID_MULTIBLOCK_SHAPE_DESCRIPTION("The multiblock is misbuilt. Hold a Wrench to preview the correct shape. Also check:\n\n- If the multiblock has tiers, select the right one on the GUI;\n- Some multiblocks, like the Pressurizer, are picky about where each hatch type is placed."),
 
     DIAGNOSER_NO_LARGE_TANK_HATCH("Missing Large Tank Hatches"),
     DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION("Large Tanks require Large Tank Hatches"),
@@ -97,10 +97,10 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     /** Misc. Item tooltips */
     GUIDEBOOK_TOOLTIP("Pronounced as \"YAY\"!"),
     CACHACA_TOOLTIP("The Brazilian Spirit"),
+    AI_SLOP_TOOLTIP("Vibe cooking is my passion"),
     SNEAK_RC_ACTIVATE_1("Sneak + Right-click"),
     SNEAK_RC_ACTIVATE_2("%s to activate"),
     NONE("None");
-
 
     override fun englishText() = text
 

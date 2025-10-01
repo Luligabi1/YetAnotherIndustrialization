@@ -5,29 +5,29 @@ import aztech.modern_industrialization.MIBlock
 import aztech.modern_industrialization.api.machine.holder.EnergyListComponentHolder
 import aztech.modern_industrialization.compat.rei.machines.ReiMachineRecipes
 import aztech.modern_industrialization.machines.BEP
-import aztech.modern_industrialization.machines.IComponent
 import aztech.modern_industrialization.machines.blockentities.multiblocks.AbstractElectricCraftingMultiblockBlockEntity
 import aztech.modern_industrialization.machines.components.OrientationComponent
 import aztech.modern_industrialization.machines.components.OverdriveComponent
 import aztech.modern_industrialization.machines.components.UpgradeComponent
-import aztech.modern_industrialization.machines.gui.GuiComponent
 import aztech.modern_industrialization.machines.guicomponents.ShapeSelection
 import aztech.modern_industrialization.machines.guicomponents.SlotPanel
 import aztech.modern_industrialization.machines.init.MachineTier
 import aztech.modern_industrialization.machines.models.MachineCasings
-import aztech.modern_industrialization.machines.multiblocks.*
+import aztech.modern_industrialization.machines.multiblocks.HatchFlags
+import aztech.modern_industrialization.machines.multiblocks.HatchTypes
+import aztech.modern_industrialization.machines.multiblocks.ShapeTemplate
+import aztech.modern_industrialization.machines.multiblocks.SimpleMember
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMultiblockHelper.Companion.GLASS_MEMBER
+import me.luligabi.yet_another_industrialization.common.block.machine.util.components.SuppliedActiveShapeComponent
+import me.luligabi.yet_another_industrialization.common.block.machine.util.components.SuppliedShapeSelection
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier.FluidByIdInput
-import net.minecraft.core.HolderLookup
+import me.luligabi.yet_another_industrialization.mixin.AbstractCraftingMultiblockBlockEntityAccessor
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentSerialization
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.Block
@@ -35,7 +35,6 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LanternBlock
 import net.minecraft.world.level.block.state.BlockState
 import java.util.*
-import java.util.stream.IntStream
 
 class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultiblockBlockEntity(
     bep,
@@ -44,13 +43,14 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
     SHAPE_TEMPLATES
 ), EnergyListComponentHolder {
 
-    val activeSoil = ActiveSoilComponent { SHAPE_TEMPLATES }
+    val activeSoil = SuppliedActiveShapeComponent({ SHAPE_TEMPLATES })
+    val sapling = SaplingComponent()
     private val upgrades = UpgradeComponent()
     private val overdrive = OverdriveComponent()
 
     init {
         components.unregister(activeShape)
-        registerComponents(activeSoil, upgrades, overdrive)
+        registerComponents(activeSoil, sapling, upgrades, overdrive)
 
         registerGuiComponent(
             SlotPanel.Server(this)
@@ -60,7 +60,7 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
         )
 
         registerGuiComponent(
-            SoilSelection(
+            SuppliedShapeSelection(
                 object : ShapeSelection.Behavior {
 
                     override fun handleClick(clickedLine: Int, delta: Int) {
@@ -188,9 +188,9 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
         }
 
         private val HATCHES = HatchFlags.Builder().with(
-            HatchType.ITEM_INPUT, HatchType.ITEM_OUTPUT,
-            HatchType.FLUID_INPUT,
-            HatchType.ENERGY_INPUT
+            HatchTypes.ITEM_INPUT, HatchTypes.ITEM_OUTPUT,
+            HatchTypes.FLUID_INPUT,
+            HatchTypes.ENERGY_INPUT
         ).build()
 
 
@@ -263,6 +263,26 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
 
     }
 
+    private var oldActive = false
+    override fun tickExtra() {
+        if (level?.isClientSide == true) return
+        if (level!!.gameTime % 20L != 0L) return
+
+        val newActive = (this as AbstractCraftingMultiblockBlockEntityAccessor).isActive.isActive
+        if (oldActive != newActive) {
+            if (newActive) {
+                sapling.update(crafter, this)
+            } else {
+                sapling.reset(this)
+            }
+        }
+        oldActive = newActive
+    }
+
+    override fun onCraft() {
+        sapling.update(crafter, this)
+    }
+
     override fun recipeType() = YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE
 
     override fun getBaseRecipeEu() = MachineTier.MULTIBLOCK.baseEu.toLong()
@@ -283,89 +303,11 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
         )
     }
 
-
     private class TierSimpleMember(private val tier: Tier) : SimpleMember {
 
         override fun matchesState(state: BlockState) = state.block in tier.validSoils
 
         override fun getPreviewState() = tier.blockState ?: tier.validSoils.firstOrNull()?.defaultBlockState()
-    }
-    
-    class SoilSelection(
-        val behavior: ShapeSelection.Behavior,
-        private vararg val lines: () -> ShapeSelection.LineInfo
-    ): GuiComponent.Server<IntArray> {
-
-        override fun copyData(): IntArray {
-            return IntStream.range(0, lines.size)
-                .map { line: Int -> behavior.getCurrentIndex(line) }.toArray()
-        }
-
-        override fun needsSync(cachedData: IntArray): Boolean {
-            for (i in lines.indices) {
-                if (cachedData[i] != behavior.getCurrentIndex(i)) {
-                    return true
-                }
-            }
-            return false
-        }
-
-        override fun writeInitialData(buf: RegistryFriendlyByteBuf) {
-            buf.writeVarInt(lines.size)
-            for (line in lines) {
-                val currentLine = line()
-                buf.writeVarInt(currentLine.numValues)
-                for (component in currentLine.translations) {
-                    ComponentSerialization.STREAM_CODEC.encode(buf, component)
-                }
-                buf.writeBoolean(currentLine.useArrows)
-            }
-            writeCurrentData(buf)
-        }
-
-        override fun writeCurrentData(buf: RegistryFriendlyByteBuf) {
-            for (i in lines.indices) {
-                buf.writeVarInt(behavior.getCurrentIndex(i))
-            }
-        }
-
-        override fun getId() = ID
-
-        companion object {
-            val ID = YAI.id("soil_selection")
-        }
-        
-    }
-
-    // ActiveShapeComponent but using a Supplier - if the available shapes change, the regular component could cause AIOOB Exceptions
-    class ActiveSoilComponent(private val shapeTemplates: () -> Array<ShapeTemplate>): IComponent {
-
-        var activeShape = 0
-            private set
-
-        fun incrementShape(machine: MultiblockMachineBlockEntity, delta: Int) {
-            val newShape = activeShape + delta
-            val capped = newShape.coerceIn(0, shapeTemplates().size - 1)
-            setShape(machine, capped)
-        }
-
-        fun setShape(machine: MultiblockMachineBlockEntity, newShape: Int) {
-            if (newShape != activeShape) {
-                activeShape = newShape
-                machine.setChanged()
-                machine.unlink()
-                machine.sync(false)
-            }
-        }
-
-        override fun writeNbt(tag: CompoundTag, registries: HolderLookup.Provider?) {
-            tag.putInt("activeShape", activeShape)
-        }
-
-        override fun readNbt(tag: CompoundTag, registries: HolderLookup.Provider?, isUpgradingMachine: Boolean) {
-            activeShape = tag.getInt("activeShape").coerceAtMost(shapeTemplates().size - 1)
-        }
-
     }
 
 }

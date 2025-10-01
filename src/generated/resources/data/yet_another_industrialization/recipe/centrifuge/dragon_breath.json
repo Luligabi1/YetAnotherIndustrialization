@@ -13,5 +13,11 @@
       "amount": 1,
       "item": "minecraft:dragon_breath"
     }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "minecraft:glass_bottle"
+    }
   ]
 }

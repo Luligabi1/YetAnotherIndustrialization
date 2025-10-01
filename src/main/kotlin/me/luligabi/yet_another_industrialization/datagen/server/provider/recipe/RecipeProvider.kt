@@ -1,79 +1,283 @@
 package me.luligabi.yet_another_industrialization.datagen.server.provider.recipe
 
+import aztech.modern_industrialization.MI
+import aztech.modern_industrialization.MIBlock
 import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.MIItem
 import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType
-import aztech.modern_industrialization.materials.MIMaterials
-import aztech.modern_industrialization.materials.part.MIParts
-import dev.shadowsoffire.hostilenetworks.Hostile
 import me.luligabi.yet_another_industrialization.common.YAI
+import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
+import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
+import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.EnergyGenerationCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
+import me.luligabi.yet_another_industrialization.common.misc.YAITags
+import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterialRegistry
+import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.ItemLike
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.material.Fluids
+import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.data.event.GatherDataEvent
+import net.swedz.tesseract.neoforge.compat.mi.material.MIMaterials
+import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
 import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapedRecipeBuilder
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapelessRecipeBuilder
 
-
 class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.packOutput, event.lookupProvider) {
 
     override fun buildRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        buildItemRecipes(output, lookup)
+        buildMachineRecipes(output, lookup)
+        buildPartRecipes(output, lookup)
+        buildFluidRecipes(output, lookup)
 
+        for (material in YAIMaterials.values()) {
+            YAIMaterialRegistry.createRecipesFor(material, output)
+        }
+    }
+
+    private fun buildItemRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         shapeless(
             "guidebook",
             YAIItems.GUIDEBOOK.get(), 1,
-            { builder -> builder
+            { it
                 .with(MIItem.GUIDE_BOOK.asItem())
-                .with(Hostile.Items.BLANK_DATA_MODEL.value())
+                .with(Tags.Items.DYES_MAGENTA)
             },
             output
         )
 
+        shaped(
+            "machine_diagnoser",
+            YAIItems.MACHINE_DIAGNOSER, 1,
+            { it
+                .define('B', YAITags.MI_GUIDE_BOOKS)
+                .define('G', MIMaterials.BRONZE.get(MIMaterialParts.GEAR).asItem())
+                .define('P', MIMaterials.IRON.get(MIMaterialParts.PLATE).asItem())
+                .pattern("PPP")
+                .pattern("GBG")
+                .pattern("PPP")
+            },
+            output
+        )
 
+        addMachineRecipe(
+            "assembler/storage_slot_locker",
+            MIMachineRecipeTypes.ASSEMBLER,
+            8, 10*20,
+            {
+                it.addItemInput(MIItem.CONFIG_CARD, 1, 1f)
+                it.addItemInput(Tags.Items.CHESTS, 1, 1f)
+                it.addItemInput(Tags.Items.BUCKETS_EMPTY, 1, 1f)
+                it.addFluidInput(MIFluids.MOLTEN_REDSTONE, 990, 1f)
 
+                it.addItemOutput(YAIItems.STORAGE_SLOT_LOCKER.get(), 1, 1f)
+            },
+            output
+        )
 
-
-
-
-
-//        addMachineRecipe(
-//            "mixer/nutrient_rich_water",
-//            MIMachineRecipeTypes.MIXER,
-//            10, 10,
-//            {
-//                it.addItemInput(HNIFluids., 1, 1f)
-//                it.addFluidOutput(HNIFluids.DRAGONS_BREATH.asFluid(), 250, 1f)
-//            },
-//            output
-//        )
-
-        /** ITEMS */
         addMachineRecipe(
             "assembler/machine_remover",
             MIMachineRecipeTypes.ASSEMBLER,
             8, 10*20,
             {
                 it.addItemInput(MIItem.WRENCH, 1, 1f)
-                it.addItemInput(MIItem.PISTON, 2, 1f)
-                it.addFluidInput(MIFluids.MOLTEN_REDSTONE, 500, 1f)
+                it.addItemInput(MIItem.PISTON, 4, 1f)
+                it.addItemInput(MIItem.ELECTRONIC_CIRCUIT, 2, 1f)
+                it.addFluidInput(MIFluids.MOLTEN_REDSTONE, 1980, 1f)
 
                 it.addItemOutput(YAIItems.MACHINE_REMOVER.get(), 1, 1f)
             },
             output
         )
 
-        /** PARTS */
-    private fun buildMachineRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
-        // TODO cryogenic precipitator
-        buildCryogenicPrecipitatorRecipes(output, lookup)
+        addMachineRecipe(
+            "chemical_reactor/cachaca",
+            MIMachineRecipeTypes.CHEMICAL_REACTOR,
+            6, 7*20,
+            {
+                it.addItemInput(Items.GLASS_BOTTLE, 3, 1f)
+                it.addFluidInput(MIFluids.SUGAR_SOLUTION, 1_000, 1f)
+                it.addFluidInput(MIFluids.ETHANOL, 51, 1f)
+
+                it.addItemOutput(YAIItems.CACHACA.get(), 3, 1f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "chemical_reactor/ai_slop",
+            MIMachineRecipeTypes.CHEMICAL_REACTOR,
+            256, 7*20,
+            {
+                it.addItemInput(MIItem.QUANTUM_CIRCUIT, 1, 0.02f)
+                it.addFluidInput(Fluids.WATER, 16_000, 1f)
+
+                it.addItemOutput(YAIItems.AI_SLOP.get(), 1, 1f)
+            },
+            output
+        )
     }
+
+    private fun buildMachineRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        // TODO arboreous greenhouse
+
+        shaped(
+            YAIMachines.CP_ID,
+            YAIMachines.getMachineFromId(YAIMachines.CP_ID), 1,
+            { it
+                .define('P', MIMaterials.ALUMINUM.get(MIMaterialParts.LARGE_PLATE).asItem())
+                .define('C', MIItem.ELECTRONIC_CIRCUIT)
+                .define('T', MIMaterials.TIN.get(MIMaterialParts.CABLE).asItem())
+                .define('H', MIBlock.ADVANCED_MACHINE_HULL)
+                .pattern("PCP")
+                .pattern("THT")
+                .pattern("PCP")
+            },
+            output
+        )
+        buildCryogenicPrecipitatorRecipes(output, lookup)
+
+        shaped(
+            DragonSiphonBlockEntity.ID,
+            YAIMachines.getMachineFromId(DragonSiphonBlockEntity.ID), 1,
+            { it
+                .define('P', MIItem.LARGE_PUMP)
+                .define('D', Items.DRAGON_BREATH)
+                .define('G', MIMaterials.STEEL.get(MIMaterialParts.GEAR).asItem())
+                .define('H', MIBlock.ADVANCED_MACHINE_HULL)
+                .pattern("PDP")
+                .pattern("GHG")
+                .pattern("PDP")
+            },
+            output
+        )
+        buildDragonSiphonRecipes(output, lookup)
+
+        /** Large Storage Unit */
+        shaped(
+            LargeStorageUnitBlockEntity.ID,
+            YAIMachines.getMachineFromId(LargeStorageUnitBlockEntity.ID), 1,
+            { it
+                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('C', MIItem.ELECTRONIC_CIRCUIT)
+                .define('B', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
+                .define('P', MIItem.PORTABLE_STORAGE_UNIT)
+                .pattern("PCP")
+                .pattern("BMB")
+                .pattern("PBP")
+            },
+            output
+        )
+        shaped(
+            LargeStorageUnitHatch.ID_INPUT,
+            YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_INPUT), 1,
+            { it
+                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('R', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
+                .pattern("R")
+                .pattern("M")
+            },
+            output
+        )
+        shaped(
+            LargeStorageUnitHatch.ID_OUTPUT,
+            YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_OUTPUT), 1,
+            { it
+                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('R', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
+                .pattern("M")
+                .pattern("R")
+            },
+            output
+        )
+        shapeless(
+            "${LargeStorageUnitHatch.ID_INPUT}_convert",
+            YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_INPUT), 1,
+            { it.with(YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_OUTPUT)) },
+            output
+        )
+        shapeless(
+            "${LargeStorageUnitHatch.ID_OUTPUT}_convert",
+            YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_OUTPUT), 1,
+            { it.with(YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_INPUT)) },
+            output
+        )
+        /***/
+
+        /** Configurable Mixed Storage */
+        shaped(
+            ConfigurableMixedStorageMachineBlockEntity.ID,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            { it
+                .define('C', MIItem.ELECTRONIC_CIRCUIT)
+                .define('H', Items.HOPPER)
+                .define('T', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.TANK).asBlock())
+                .define('S', MIMaterials.STEEL.get(MIMaterialParts.MACHINE_CASING).asBlock())
+
+                .pattern("CTC")
+                .pattern("HSH")
+                .pattern("CTC")
+            },
+            output
+        )
+
+        shaped(
+            "${ConfigurableMixedStorageMachineBlockEntity.ID}_alt",
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            { it
+                .define('C', MIItem.ELECTRONIC_CIRCUIT)
+                .define('H', Items.HOPPER)
+                .define('T', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.TANK).asBlock())
+                .define('S', MIMaterials.STEEL.get(MIMaterialParts.MACHINE_CASING).asBlock())
+
+                .pattern("CHC")
+                .pattern("TST")
+                .pattern("CHC")
+            },
+            output,
+            false
+        )
+
+        shapeless(
+            "${ConfigurableMixedStorageMachineBlockEntity.ID}_upgrade",
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            { it
+                .with(MI.id("configurable_chest"))
+                .with(MI.id("configurable_tank"))
+                .with(MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.CLEAN_MACHINE_CASING).asBlock())
+                .with(MIItem.ELECTRONIC_CIRCUIT)
+            },
+            output
+        )
+
+        assembler(
+            "${ConfigurableMixedStorageMachineBlockEntity.ID}_upgrade",
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            { it
+                .define('S', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.CLEAN_MACHINE_CASING).asBlock())
+                .define('E', MIItem.ELECTRONIC_CIRCUIT)
+                .define('C', MI.id("configurable_chest"))
+                .define('T', MI.id("configurable_tank"))
+                .pattern("SEC")
+                .pattern("T")
+            },
+            output
+        )
+    }
+
     private fun buildCryogenicPrecipitatorRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addCryogenicPrecipitatorRecipe(
             "snowball",
@@ -108,6 +312,22 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
                 it.addFluidInput(Fluids.WATER, 1_000, 1f)
                 it.addFluidInput(MIFluids.CRYOFLUID, 4, 1f)
 
+                it.addItemOutput(Items.POWDER_SNOW_BUCKET, 1, 1f)
+                it.addFluidOutput(MIFluids.ARGON.asFluid(), 2, 1f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "${YAIMachines.CP_ID}/powder_snow_bucket_nutrient",
+            YAIMachines.RecipeTypes.CRYOGENIC_PRECIPITATOR,
+            8, 30,
+            {
+                it.addItemInput(Items.BUCKET, 2, 1f)
+                it.addFluidInput(YAIFluids.NUTRIENT_RICH_WATER, 1_000, 1f)
+                it.addFluidInput(MIFluids.CRYOFLUID, 4, 1f)
+
+                it.addItemOutput(Items.POWDER_SNOW_BUCKET, 1, 1f)
                 it.addItemOutput(Items.POWDER_SNOW_BUCKET, 1, 1f)
                 it.addFluidOutput(MIFluids.ARGON.asFluid(), 2, 1f)
             },
@@ -223,13 +443,48 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             recipeOutput
         )
     }
+
+    private fun buildDragonSiphonRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addMachineRecipe(
+            "${DragonSiphonBlockEntity.ID}/dragon_breath",
+            YAIMachines.RecipeTypes.DRAGON_SIPHON,
+            1, 8*20,
+            {
+                it.addItemInput(YAIItems.DRAGON_EGG_SIPHON_CATALYST.get(), 1, 1f)
+
+                it.addFluidInput(YAIFluids.DRAGONS_BREATH.asFluid(), 1_000, 1f)
+                it.addFluidOutput(YAIFluids.IMPURE_DRAGONS_BREATH.asFluid(), 1_250, 1f)
+
+                it.addCondition(EnergyGenerationCondition(10_000))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "${DragonSiphonBlockEntity.ID}/nutrient_dragon_breath",
+            YAIMachines.RecipeTypes.DRAGON_SIPHON,
+            1, 20*20,
+            {
+                it.addItemInput(YAIItems.DRAGON_EGG_SIPHON_CATALYST.get(), 1, 1f)
+
+                it.addFluidInput(YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 1_000, 1f)
+                it.addFluidOutput(YAIFluids.IMPURE_DRAGONS_BREATH.asFluid(), 2_500, 1f)
+
+                it.addCondition(EnergyGenerationCondition(45_000))
+            },
+            output
+        )
+    }
+
+    private fun buildPartRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addMachineRecipe(
             "assembler/dragon_egg_siphon_catalyst/dragon_breath",
             MIMachineRecipeTypes.ASSEMBLER,
             8, 10*20,
             {
-                it.addItemInput(MIMaterials.TITANIUM.getPart(MIParts.PLATE), 1, 1f)
-                it.addFluidInput(YAIFluids.DRAGONS_BREATH.asFluid(), 5, 1f)
+                it.addItemInput(MIMaterials.STEEL.get(MIMaterialParts.PLATE), 8, 1f)
+                it.addItemInput(MIMaterials.QUARTZ.get(MIMaterialParts.TINY_DUST), 1, 1f)
+                it.addFluidInput(YAIFluids.DRAGONS_BREATH.asFluid(), 50, 1f)
 
                 it.addItemOutput(YAIItems.DRAGON_EGG_SIPHON_CATALYST.get(), 1, 1f)
             },
@@ -241,23 +496,37 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             MIMachineRecipeTypes.ASSEMBLER,
             8, 10*20,
             {
-                it.addItemInput(MIMaterials.TITANIUM.getPart(MIParts.PLATE), 1, 1f)
-                it.addFluidInput(YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 5, 1f)
+                it.addItemInput(MIMaterials.STEEL.get(MIMaterialParts.PLATE), 8, 1f)
+                it.addItemInput(MIMaterials.QUARTZ.get(MIMaterialParts.TINY_DUST), 1, 1f)
+                it.addFluidInput(YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 50, 1f)
 
                 it.addItemOutput(YAIItems.DRAGON_EGG_SIPHON_CATALYST.get(), 4, 1f)
             },
             output
         )
 
+        shaped(
+            YAIBlocks.SPESB_ID,
+            YAIBlocks.STEEL_PLATED_END_STONE_BRICKS.get(), 1,
+            { it
+                .define('P', MIMaterials.STEEL.get(MIMaterialParts.PLATE).asItem())
+                .define('B', Blocks.END_STONE_BRICKS)
+                .pattern("PPP")
+                .pattern("PBP")
+                .pattern("PPP")
+            },
+            output
+        )
+    }
 
-        /** FLUIDS */
+    private fun buildFluidRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addMachineRecipe(
             "centrifuge/nutrient_rich_water",
             MIMachineRecipeTypes.CENTRIFUGE,
             8, 10*20,
             {
                 it.addFluidInput(Fluids.WATER, 1_000, 1f)
-                it.addItemInput(Items.BONE_MEAL, 1, 1f)
+                it.addItemInput(Items.BONE_MEAL, 6, 1f)
                 it.addFluidOutput(YAIFluids.NUTRIENT_RICH_WATER.asFluid(), 1_000, 1f)
             },
             output
@@ -269,7 +538,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             8, 10*20,
             {
                 it.addFluidInput(Fluids.LAVA, 1_000, 1f)
-                it.addItemInput(Items.NETHER_WART, 1, 1f)
+                it.addItemInput(Items.NETHER_WART, 6, 1f)
                 it.addFluidOutput(YAIFluids.NUTRIENT_RICH_LAVA.asFluid(), 1_000, 1f)
             },
             output
@@ -281,6 +550,8 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             8, 10*20,
             {
                 it.addItemInput(Items.DRAGON_BREATH, 1, 1f)
+
+                it.addItemOutput(Items.GLASS_BOTTLE, 1, 1f)
                 it.addFluidOutput(YAIFluids.DRAGONS_BREATH.asFluid(), 350, 1f)
             },
             output
@@ -292,22 +563,54 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             8, 10*20,
             {
                 it.addFluidInput(YAIFluids.DRAGONS_BREATH.asFluid(), 1_000, 1f)
-                it.addItemInput(Items.POPPED_CHORUS_FRUIT, 1, 1f)
+                it.addItemInput(Items.POPPED_CHORUS_FRUIT, 6, 1f)
                 it.addFluidOutput(YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 1_000, 1f)
             },
             output
         )
 
-        buildCompatRecipes(output, lookup)
-    }
+        addMachineRecipe(
+            "centrifuge/nutrient_rich_dragon_breath_dragon_egg",
+            MIMachineRecipeTypes.CENTRIFUGE,
+            64, 120*20,
+            {
+                it.addItemInput(Blocks.DRAGON_EGG, 1, 1f)
+                it.addFluidOutput(YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 16_000, 1f)
+            },
+            output
+        )
 
-    private fun buildCompatRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addMachineRecipe(
+            "centrifuge/impure_dragon_breath_purify",
+            MIMachineRecipeTypes.CENTRIFUGE,
+            8, 7*20,
+            {
+                it.addFluidInput(YAIFluids.IMPURE_DRAGONS_BREATH.asFluid(), 250, 1f)
 
+                it.addFluidOutput(YAIFluids.DRAGONS_BREATH.asFluid(), 250, 1f)
+                it.addItemOutput(MIMaterials.QUARTZ.get(MIMaterialParts.TINY_DUST), 1, 0.15f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "centrifuge/impure_dragon_breath_purify_nutrient",
+            MIMachineRecipeTypes.CENTRIFUGE,
+            8, 12*20,
+            {
+                it.addFluidInput(YAIFluids.IMPURE_DRAGONS_BREATH.asFluid(), 500, 1f)
+                it.addItemInput(Items.POPPED_CHORUS_FRUIT, 2, 1f)
+
+                it.addFluidOutput(YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 500, 1f)
+                it.addItemOutput(MIMaterials.QUARTZ.get(MIMaterialParts.TINY_DUST), 1, 0.4f)
+            },
+            output
+        )
     }
 
 
     private fun shapeless(
-        path: String,
+        name: String,
         result: ItemLike, resultCount: Int,
         crafting: (ShapelessRecipeBuilder) -> Unit,
         output: RecipeOutput
@@ -316,7 +619,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         ShapelessRecipeBuilder().apply {
             crafting.invoke(this)
             output(result, resultCount)
-            offerTo(output, YAI.id(path))
+            offerTo(output, YAI.id("craft/$name"))
         }
 
     }
@@ -332,11 +635,11 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         val builder = ShapedRecipeBuilder().apply {
             crafting.invoke(this)
             output(result, resultCount)
-            offerTo(output, YAI.id(path))
+            offerTo(output, YAI.id("craft/$path"))
         }
 
         if(registerForAssembler) {
-            MIMachineRecipeBuilder.fromShapedToAssembler(builder).offerTo(output, YAI.id("${path}_assembler"))
+            MIMachineRecipeBuilder.fromShapedToAssembler(builder).offerTo(output, YAI.id("assembler/$path"))
         }
 
     }
@@ -372,5 +675,6 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         }
 
     }
+
 
 }

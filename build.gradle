@@ -22,12 +22,13 @@ repositories {
         setUrl("https://thedarkcolour.github.io/KotlinForForge/")
     }
     maven {
-        name = "ModMaven (MI, GrandPower, Tesseract)"
+        name = "ModMaven (MI, GrandPower, Tesseract, JEI)"
         url = "https://modmaven.dev"
         content {
+            includeGroup "aztech" // MI
             includeGroup "dev.technici4n"  // GrandPower
-            includeGroup "aztech" // Modern Industrialization
             includeGroup "net.swedz" // Tesseract
+            includeGroup "mezz.jei" // JEI
         }
     }
     maven {
@@ -43,6 +44,11 @@ repositories {
         content {
             includeGroup "dev.emi"
         }
+    }
+
+    maven {
+        name = "Shedaniel (REI)"
+        url = "https://maven.shedaniel.me"
     }
 
     maven {
@@ -111,8 +117,8 @@ neoForge {
 
             logLevel = org.slf4j.event.Level.DEBUG
 
-            systemProperty 'guideme.hostile_neural_industrialization.guide.sources',
-                    file("src/main/resources/assets/hostile_neural_industrialization/hni_guidebook/").absolutePath
+            systemProperty 'guideme.yet_another_industrialization.guide.sources',
+                    file("src/main/resources/assets/yet_another_industrialization/yai_guidebook/").absolutePath
         }
     }
 
@@ -130,16 +136,28 @@ configurations {
 }
 
 dependencies {
-    implementation "thedarkcolour:kotlinforforge-neoforge:$kff_version"
+    implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
 
     implementation "dev.technici4n:GrandPower:${grandpower_version}"
     implementation "aztech:Modern-Industrialization:${modern_industrialization_version}"
     implementation "net.swedz:tesseract-api-neoforge:${tesseract_version}"
 
-    implementation "curse.maven:placebo-283644:${placebo_version}"
-    implementation "curse.maven:hostile-neural-networks-552574:${hnn_version}"
-
-    implementation "dev.emi:emi-neoforge:${emi_version}"
+    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"
+    switch("${active_item_viewer}") {
+        case "emi":
+            runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+            break
+        case "jei":
+            runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+            break
+        case "rei":
+            runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+            break
+        default:
+            break
+    }
 
     implementation "org.appliedenergistics:guideme:${project.guideme_version}"
 }
@@ -160,8 +178,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_authors            : mod_authors,
             mod_description        : mod_description,
             modern_industrialization_version_range : modern_industrialization_version_range,
-            tesseract_version_range : tesseract_version_range,
-            hnn_version_range : hnn_version_range
+            tesseract_version_range : tesseract_version_range
     ]
     inputs.properties replaceProperties
     expand replaceProperties
@@ -221,7 +238,6 @@ publishMods {
         minecraftVersions.add("${project.minecraft_version}")
 
         requires("modern-industrialization")
-        requires("hostile-neural-networks")
         requires("tesseract-api-neoforge")
         requires("kotlin-for-forge")
         optional("emi")

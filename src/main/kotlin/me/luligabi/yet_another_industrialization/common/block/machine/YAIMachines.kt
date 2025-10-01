@@ -1,21 +1,22 @@
 package me.luligabi.yet_another_industrialization.common.block.machine
 
+import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.api.energy.CableTier
 import aztech.modern_industrialization.compat.rei.machines.SteamMode
 import aztech.modern_industrialization.machines.MachineBlockEntity
 import aztech.modern_industrialization.machines.models.MachineCasing
 import aztech.modern_industrialization.machines.models.MachineCasings
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType
+import aztech.modern_industrialization.machines.recipe.condition.MachineProcessConditions
 import com.google.common.collect.Maps
 import me.luligabi.yet_another_industrialization.common.YAI
+import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseRecipeType
-import me.luligabi.yet_another_industrialization.common.block.machine.chunky_tank.ChunkyTankHatch
-import me.luligabi.yet_another_industrialization.common.block.machine.chunky_tank.ChunkyTankMultiblockBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.crafter.CrafterBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.crafter.CrafterRecipeType
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonRecipeType
+import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.EnergyGenerationCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import net.minecraft.core.registries.Registries
@@ -37,7 +38,7 @@ object YAIMachines {
         hook.builder(CP_ID, CP_NAME, RecipeTypes.CRYOGENIC_PRECIPITATOR)
             .electric()
             .builtinModel(CableTier.LV.casing, CP_ID)
-            .gui(SteamMode.BOTH, {
+            .gui(SteamMode.ELECTRIC_ONLY, {
                 it.slots { slots ->
                     slots.itemInput(39, 27)
                     slots.fluidInput(57, 27)
@@ -54,13 +55,6 @@ object YAIMachines {
     }
 
     fun singleBlockSpecial(hook: SingleBlockSpecialMachinesMIHookContext) {
-        hook.register(
-            CrafterBlockEntity.NAME, CrafterBlockEntity.ID, CrafterBlockEntity.ID,
-            CableTier.LV.casing, true, false, false, true,
-            ::CrafterBlockEntity,
-            CrafterBlockEntity::registerEnergyApi
-        )
-
         hook.builder(ConfigurableMixedStorageMachineBlockEntity.ID, ConfigurableMixedStorageMachineBlockEntity.NAME, ::ConfigurableMixedStorageMachineBlockEntity)
             .builtinModel(Casings.CONFIGURABLE_MIXED_STORAGE, ConfigurableMixedStorageMachineBlockEntity.ID, { it.front(false).active(false) })
             .registrator({
@@ -71,50 +65,51 @@ object YAIMachines {
     }
 
     fun multiblockMachines(hook: MultiblockMachinesMIHookContext) {
-        hook.register(
-            ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID, ArboreousGreenhouseBlockEntity.ID,
-            MachineCasings.HEATPROOF, true, false, false, true,
-            ::ArboreousGreenhouseBlockEntity
-        )
-        Rei(ArboreousGreenhouseBlockEntity.NAME, YAI.id(ArboreousGreenhouseBlockEntity.ID), RecipeTypes.ARBOREOUS_GREENHOUSE, ProgressBar.Parameters(77, 34, "extract"))
-            .items(
-                { it.addSlot(56, 26) },
-                { it.addSlots(102, 26, 2, 2) }
-            )
-            .fluids(
-                { it.addSlot(56, 44) },
-                {}
-            )
-            .workstations(YAI.id(ArboreousGreenhouseBlockEntity.ID))
-            .register()
-        MIHookTracker.addReiCategoryName(YAI.id(ArboreousGreenhouseBlockEntity.ID), ArboreousGreenhouseBlockEntity.NAME)
+        hook.builder(ArboreousGreenhouseBlockEntity.ID, ArboreousGreenhouseBlockEntity.NAME, ::ArboreousGreenhouseBlockEntity)
+            .builtinModel(MachineCasings.HEATPROOF, ArboreousGreenhouseBlockEntity.ID)
+            .gui(SteamMode.ELECTRIC_ONLY, RecipeTypes.ARBOREOUS_GREENHOUSE, {
+                it.slots { slots ->
+                    slots.itemInput(56, 26)
+                    slots.fluidInput(56, 44)
 
+                    slots.itemOutputs(102, 26, 2, 2)
+                }
+                it.progressBar(80, 33, "extract")
+            }).registerRecipeCategory()
+            .registerMachine()
+//        hook.register(
+//            ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID, ArboreousGreenhouseBlockEntity.ID,
+//            MachineCasings.HEATPROOF, true, false, false, true,
+//            ::ArboreousGreenhouseBlockEntity
+//        )
+//        Rei(ArboreousGreenhouseBlockEntity.NAME, YAI.id(ArboreousGreenhouseBlockEntity.ID), RecipeTypes.ARBOREOUS_GREENHOUSE, ProgressBar.Parameters(77, 34, "extract"))
+//            .items(
+//                { it.addSlot(56, 26) },
+//                { it.addSlots(102, 26, 2, 2) }
+//            )
+//            .fluids(
+//                { it.addSlot(56, 44) },
+//                {}
+//            )
+//            .workstations(YAI.id(ArboreousGreenhouseBlockEntity.ID))
+//            .register()
+//        MIHookTracker.addReiCategoryName(YAI.id(ArboreousGreenhouseBlockEntity.ID), ArboreousGreenhouseBlockEntity.NAME)
+        hook.builder(DragonSiphonBlockEntity.ID, DragonSiphonBlockEntity.NAME, ::DragonSiphonBlockEntity)
+            .builtinModel(MachineCasings.STEEL, DragonSiphonBlockEntity.ID)
+            .registerMultiblockShape(DragonSiphonBlockEntity.SHAPE)
+            .gui(SteamMode.NEITHER, RecipeTypes.DRAGON_SIPHON, {
+                it.slots { slots ->
+                    slots.itemInput(40, 35)
+                    slots.fluidInput(58, 35)
+                    slots.fluidOutput(104, 35)
+                }
+                it.progressBar(80, 33, "extract")
+            }).registerRecipeCategory()
+            .registerMachine()
 
-        hook.register(
-            DragonSiphonBlockEntity.NAME, DragonSiphonBlockEntity.ID, DragonSiphonBlockEntity.ID,
-            MachineCasings.SOLID_TITANIUM, true, false, false, true,
-            ::DragonSiphonBlockEntity,
-            { DragonSiphonBlockEntity.registerReiShapes() }
-        )
-        Rei(DragonSiphonBlockEntity.NAME, YAI.id(DragonSiphonBlockEntity.ID), RecipeTypes.DRAGON_SIPHON, ProgressBar.Parameters(88, 31, "arrow"))
-            .items(
-                { it.addSlot(40, 35) },
-                {}
-            )
-            .fluids(
-                { it.addSlot(60, 35) },
-                { it.addSlot(120, 35) }
-            )
-            .workstations(YAI.id(DragonSiphonBlockEntity.ID))
-            .register()
-        MIHookTracker.addReiCategoryName(YAI.id(DragonSiphonBlockEntity.ID), DragonSiphonBlockEntity.NAME)
-
-        hook.register(
-            ChunkyTankMultiblockBlockEntity.NAME, ChunkyTankMultiblockBlockEntity.ID, ChunkyTankMultiblockBlockEntity.ID,
-            MachineCasings.CLEAN_STAINLESS_STEEL, true, false, true,
-            ::ChunkyTankMultiblockBlockEntity,
-            { ChunkyTankMultiblockBlockEntity.registerReiShapes() }
-        )
+        hook.builder(LargeStorageUnitBlockEntity.ID, LargeStorageUnitBlockEntity.NAME, ::LargeStorageUnitBlockEntity)
+            .builtinModel(Casings.BATTERY_ALLOY_MACHINE_CASING, LargeStorageUnitBlockEntity.ID)
+            .registerMachine()
     }
 
     object RecipeTypes {
@@ -122,7 +117,6 @@ object YAIMachines {
         lateinit var CRYOGENIC_PRECIPITATOR: MachineRecipeType
 
         lateinit var ARBOREOUS_GREENHOUSE: MachineRecipeType
-        lateinit var CRAFTER: MachineRecipeType
 
         lateinit var DRAGON_SIPHON: MachineRecipeType
 
@@ -134,6 +128,8 @@ object YAIMachines {
         fun init(modBus: IEventBus) {
             RECIPE_TYPES.register(modBus)
             RECIPE_SERIALIZERS.register(modBus)
+
+            MachineProcessConditions.register(YAI.id("energy_generation"), EnergyGenerationCondition.CODEC, EnergyGenerationCondition.STREAM_CODEC)
         }
 
         internal fun create(
@@ -158,23 +154,23 @@ object YAIMachines {
             ::ArboreousGreenhouseRecipeType
         ).withItemInputs().withItemOutputs().withFluidInputs()
 
-        RecipeTypes.CRAFTER = RecipeTypes.create(hook,
-            CrafterBlockEntity.NAME, CrafterBlockEntity.ID,
-            ::CrafterRecipeType
-        ).withItemInputs().withItemOutputs().withFluidInputs()
-
         RecipeTypes.DRAGON_SIPHON = RecipeTypes.create(hook,
-            DragonSiphonBlockEntity.NAME, DragonSiphonBlockEntity.ID,
-            ::DragonSiphonRecipeType
+            DragonSiphonBlockEntity.NAME, DragonSiphonBlockEntity.ID
         ).withItemInputs().withFluidInputs().withFluidOutputs()
     }
 
     object Casings {
 
+        lateinit var STEEL_PLATED_END_STONE_BRICKS: MachineCasing
+        lateinit var BATTERY_ALLOY_MACHINE_CASING: MachineCasing
         lateinit var CONFIGURABLE_MIXED_STORAGE: MachineCasing
     }
 
     fun machineCasings(hook: MachineCasingsMIHookContext) {
+        Casings.STEEL_PLATED_END_STONE_BRICKS = hook.registerImitateBlock(
+            YAIBlocks.SPESB_ID, YAIBlocks.STEEL_PLATED_END_STONE_BRICKS
+        )
+
         Casings.BATTERY_ALLOY_MACHINE_CASING = hook.registerCubeAll(
             "battery_alloy_machine_casing", "Battery Alloy Machine Casing",
             YAI.id("block/battery_alloy_machine_casing")
@@ -182,8 +178,11 @@ object YAIMachines {
 
         Casings.CONFIGURABLE_MIXED_STORAGE = hook.registerCubeBottomTop(
             ConfigurableMixedStorageMachineBlockEntity.ID, ConfigurableMixedStorageMachineBlockEntity.NAME,
-            MI.id("block/stainless_steel_barrel_top")
+            YAI.id("block/casing/${ConfigurableMixedStorageMachineBlockEntity.ID}/side"),
+            YAI.id("block/casing/${ConfigurableMixedStorageMachineBlockEntity.ID}/side"),
+            YAI.id("block/casing/${ConfigurableMixedStorageMachineBlockEntity.ID}/top")
         )
+
     }
 
     fun hatches(hook: HatchMIHookContext) {

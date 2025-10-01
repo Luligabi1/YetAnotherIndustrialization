@@ -11,13 +11,19 @@ item_ids:
 ---
 
 # Large Storage Unit
-###### *It also features a charging slot I guess...*
+###### *This is the kind of greed they talk about in the Bible, y' know?*
 
-Stores energy... I mean, what else did you expect?
+<GameScene zoom="3" interactive={true} fullWidth={true}>
+    <MultiblockShape controller="yet_another_industrialization:large_storage_unit" />
+</GameScene>
 
-The one "big" advantage is that you can input/output to any voltage without any transformers. Tiers are only used to upgrade the max capacity.
+Large Storage Units are capable of storing eight times more than their voltage's storage unit. That's a lot!
+
+Unlike other electric machines, LSUs can I/O to its voltage and lower ones. i.e. At HV it's capable of performing I/O to other machines at its voltage, MV and LV. No transformers required.
 
 <Recipe id="yet_another_industrialization:craft/large_storage_unit" />
+
+<Recipe id="yet_another_industrialization:materials/battery_alloy/craft/machine_casing" />
 
 Energy I/O is done through special hatches:
 

@@ -1,9 +1,6 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit
 
-import aztech.modern_industrialization.MICapabilities
 import aztech.modern_industrialization.api.energy.CableTier
-import aztech.modern_industrialization.api.energy.EnergyApi
-import aztech.modern_industrialization.api.energy.MIEnergyStorage
 import aztech.modern_industrialization.compat.rei.machines.ReiMachineRecipes
 import aztech.modern_industrialization.inventory.MIInventory
 import aztech.modern_industrialization.machines.BEP
@@ -22,11 +19,9 @@ import me.luligabi.yet_another_industrialization.common.block.machine.util.compo
 import me.luligabi.yet_another_industrialization.common.misc.YAIHatchTypes
 import me.luligabi.yet_another_industrialization.common.misc.datamap.LargeStorageUnitTier
 import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
-import me.luligabi.yet_another_industrialization.common.util.EnergyComponentStorage
 import me.luligabi.yet_another_industrialization.mixin.EnergyComponentAccessor
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.level.block.entity.BlockEntityType
 import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
 import java.util.*
 
@@ -40,10 +35,8 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
     private val chargingSlot = ChargingSlotComponent()
 
     val energy = EnergyComponent(this, { getTier().capacity })
-    val insertable = energy.buildInsertable({ true })
-    val extractable = energy.buildExtractable({ true })
-
-    private val energyStorage = EnergyComponentStorage({ energy })
+    val insertable = energy.buildInsertable({ it.canTransferEu() })
+    val extractable = energy.buildExtractable({ it.canTransferEu() })
 
     private var oldEu = 0L
 
@@ -93,15 +86,6 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
 
         const val ID = "large_storage_unit"
         const val NAME = "Large Storage Unit"
-
-        fun registerEnergyApi(bet: BlockEntityType<*>) {
-            MICapabilities.onEvent {
-                it.registerBlockEntity(
-                    MIEnergyStorage.BLOCK, bet,
-                    { be, _ -> (be as LargeStorageUnitBlockEntity).getExposedEnergyAccess() }
-                )
-            }
-        }
 
         var TIERS = mutableListOf<Tier>()
             private set
@@ -204,7 +188,7 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
             sync(false)
         }
 
-        chargingSlot.chargeItem(energyStorage)
+        chargingSlot.chargeItem(extractable)
     }
 
     override fun onRematch(shapeMatcher: ShapeMatcher) {
@@ -226,10 +210,6 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
         return MachineModelClientData(null, orientation.facingDirection).active(shapeValid.shapeValid)
     }
 
-    fun getExposedEnergyAccess(): MIEnergyStorage {
-        return if (isShapeValid) energyStorage else EnergyApi.EMPTY
-    }
-
     private fun getTier() = TIERS[activeTier.activeShape]
 
     private fun getTierInfo(): ShapeSelection.LineInfo {
@@ -238,6 +218,10 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
             TIERS.map { it.getDisplayName() }.toList(),
             true
         )
+    }
+
+    private fun CableTier.canTransferEu(): Boolean {
+        return eu <= getTier().cableTier.eu
     }
 
 }

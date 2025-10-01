@@ -1,6 +1,7 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit
 
 import aztech.modern_industrialization.MICapabilities
+import aztech.modern_industrialization.api.energy.EnergyApi
 import aztech.modern_industrialization.api.energy.MIEnergyStorage
 import aztech.modern_industrialization.inventory.MIInventory
 import aztech.modern_industrialization.machines.BEP
@@ -30,7 +31,7 @@ class LargeStorageUnitHatch(bep: BEP, private val input: Boolean, blockId: Resou
         fun registerEnergyApi(bet: BlockEntityType<*>) {
             MICapabilities.onEvent {
                 it.registerBlockEntity(
-                    MIEnergyStorage.BLOCK, bet,
+                    EnergyApi.SIDED, bet,
                     { be, _ -> (be as LargeStorageUnitHatch).getStorage() }
                 )
             }

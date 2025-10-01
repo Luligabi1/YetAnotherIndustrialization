@@ -2098,15 +2098,6 @@
       ],
       "model": "minecraft:birch"
     },
-    "minecraft:brain_coral": {
-      "loot_data": [
-        {
-          "loot_table": "minecraft:blocks/brain_coral_block"
-        }
-      ],
-      "model": "minecraft:coral_claw",
-      "tier": "yet_another_industrialization:water"
-    },
     "minecraft:brown_mushroom": {
       "loot_data": [
         {
@@ -2115,15 +2106,6 @@
       ],
       "model": "minecraft:huge_brown_mushroom",
       "tier": "yet_another_industrialization:mycelium"
-    },
-    "minecraft:bubble_coral": {
-      "loot_data": [
-        {
-          "loot_table": "minecraft:blocks/horn_coral_fan"
-        }
-      ],
-      "model": "minecraft:coral_mushroom",
-      "tier": "yet_another_industrialization:water"
     },
     "minecraft:cherry_sapling": {
       "loot_data": [
@@ -2185,15 +2167,6 @@
         }
       ],
       "model": "minecraft:azalea_tree"
-    },
-    "minecraft:horn_coral": {
-      "loot_data": [
-        {
-          "loot_table": "minecraft:blocks/brain_coral_fan"
-        }
-      ],
-      "model": "minecraft:coral_tree",
-      "tier": "yet_another_industrialization:water"
     },
     "minecraft:jungle_sapling": {
       "loot_data": [
