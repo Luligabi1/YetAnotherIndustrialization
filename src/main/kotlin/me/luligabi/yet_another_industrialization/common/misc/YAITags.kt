@@ -14,10 +14,6 @@ object YAITags {
     val NETHERRACK_SOILS = TagKey.create(Registries.BLOCK, YAI.id("netherrack_soils"))
     val MYCELLIUMS = commonBlockTag("myceliums")
 
-    val PLATES_BATTERY_ALLOY = commonItemTag("plates/battery_alloy")
-    val GEARS_BATTERY_ALLOY = commonItemTag("gears/battery_alloy")
-    val RODS_BATTERY_ALLOY = commonItemTag("rods/battery_alloy")
-
     val MACHINE_REMOVER_BANNED = TagKey.create(Registries.BLOCK_ENTITY_TYPE, YAI.id("machine_remover_banned"))
 
     private fun commonBlockTag(id: String) = commonTag(Registries.BLOCK, id)
