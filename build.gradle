@@ -220,7 +220,7 @@ idea {
 }
 
 ext.getChangeLog = { ->
-    return "Initial release"
+    return "- Updated to Tesseract API 1.9.0"
 }
 
 publishMods {

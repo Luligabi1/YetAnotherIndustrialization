@@ -28,6 +28,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.registries.datamaps.DataMapsUpdatedEvent
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent
 import net.swedz.tesseract.neoforge.capabilities.CapabilitiesListeners
+import net.swedz.tesseract.neoforge.compat.mi.TesseractMI
 import net.swedz.tesseract.neoforge.config.ConfigManager
 import net.swedz.tesseract.neoforge.registry.holder.ItemHolder
 
@@ -48,6 +49,7 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
     init {
         setupConfig(modEventBus, container)
 
+        TesseractMI.init(ID)
         YAIItems.init(modEventBus)
         YAIBlocks.init(modEventBus)
         YAIFluids.init(modEventBus)
