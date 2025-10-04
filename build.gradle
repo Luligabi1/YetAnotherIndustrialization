@@ -220,7 +220,7 @@ idea {
 }
 
 ext.getChangeLog = { ->
-    return ""
+    return "Initial release"
 }
 
 publishMods {
@@ -233,8 +233,8 @@ publishMods {
 
     curseforge {
         accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
-        projectId = "1312953"
-        projectSlug = "hostile-neural-industrialization"
+        projectId = "1358516"
+        projectSlug = "yet-another-industrialization"
         minecraftVersions.add("${project.minecraft_version}")
 
         requires("modern-industrialization")
@@ -248,7 +248,7 @@ publishMods {
 
     modrinth {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-        projectId = "syei9a1e"
+        projectId = "jXqDKaST"
         minecraftVersions.add("${project.minecraft_version}")
 
         requires("modern-industrialization")
@@ -263,7 +263,7 @@ publishMods {
     discord {
         webhookUrl = providers.environmentVariable("CAFETERIA_MOD_RELEASE_WEBHOOK")
         username = "${rootProject.mod_name}"
-        avatarUrl = "https://cdn.modrinth.com/data/syei9a1e/09d0c4c2edd5532bbc95a2aff5140dca969ce08e.gif"
+        avatarUrl = "https://cdn.modrinth.com/data/jXqDKaST/c0bd6980760c14410cc9a517ec5176d230f817d1_96.webp"
 
         content = changelog.map { "# " + (rootProject.mod_name as String) + " " + (project.mod_version as String) + " has been released \n" + it}
     }

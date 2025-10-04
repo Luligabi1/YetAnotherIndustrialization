@@ -26,15 +26,15 @@ class ArboreousGreenhouseBER(ctx: BlockEntityRendererProvider.Context) : Multibl
     override fun render(be: MultiblockMachineBlockEntity, tickDelta: Float, poseStack: PoseStack, vcp: MultiBufferSource, light: Int, overlay: Int) {
         super.render(be, tickDelta, poseStack, vcp, light, overlay)
 
-        val saplingData = (be as ArboreousGreenhouseBlockEntity).sapling.item?.builtInRegistryHolder()?.getData(YAIDataMaps.ARBOREOUS_GREENHOUSE_SAPLING) ?: return
-        val saplingId = saplingData.model
+        val component = (be as ArboreousGreenhouseBlockEntity).sapling
+        val dataMapData = component.item?.builtInRegistryHolder()?.getData(YAIDataMaps.ARBOREOUS_GREENHOUSE_SAPLING)
+        val modelId = dataMapData?.model ?: component.fallbackModel
+        if (modelId == null) return
 
-        if (YAIModelLoaders.MODEL_MAP.containsKey(saplingId)) {
-            val model = YAIModelLoaders.MODEL_MAP[saplingId]!!
-
-            (Minecraft.getInstance().modelManager.getModel(model) as? MultiBlockModel)?.let {
-                val level = MultiBlockFakeLevel(it, be.level!!, be.blockPos)
-                val vertexBuffer = YAIModelLoaders.getVbo(saplingId, it, level, be.blockPos)
+        YAIModelLoaders.MODEL_MAP[modelId]?.let {
+            (Minecraft.getInstance().modelManager.getModel(it) as? MultiBlockModel)?.let { model ->
+                val level = MultiBlockFakeLevel(model, be.level!!, be.blockPos)
+                val vertexBuffer = YAIModelLoaders.getVbo(modelId, model, level, be.blockPos)
                 if (vertexBuffer != null && !vertexBuffer.isInvalid) {
                     vertexBuffer.bind()
                     poseStack.pushPose()
@@ -88,7 +88,6 @@ class ArboreousGreenhouseBER(ctx: BlockEntityRendererProvider.Context) : Multibl
                 }
             }
         }
-
     }
 
     override fun shouldRenderOffScreen(pBlockEntity: MultiblockMachineBlockEntity) = true

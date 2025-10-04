@@ -8,6 +8,8 @@ import net.minecraft.world.item.ShearsItem
 import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.common.ItemAbilities
+import net.neoforged.neoforge.common.ItemAbility
 
 // used to grant correct items on AG recipes generated from loot tables
 class ChaChaRealSmoothItem(properties: Properties): Item(properties
@@ -15,6 +17,10 @@ class ChaChaRealSmoothItem(properties: Properties): Item(properties
 )) {
 
     override fun isCorrectToolForDrops(stack: ItemStack, state: BlockState) = true
+
+    override fun canPerformAction(stack: ItemStack, itemAbility: ItemAbility): Boolean {
+        return itemAbility in ABILITIES
+    }
 
     companion object {
 
@@ -29,6 +35,15 @@ class ChaChaRealSmoothItem(properties: Properties): Item(properties
 
             return itemStack
         }
+
+        private val ABILITIES = setOf(
+            ItemAbilities.SHEARS_DIG,
+            ItemAbilities.AXE_DIG,
+            ItemAbilities.PICKAXE_DIG,
+            ItemAbilities.HOE_DIG,
+            ItemAbilities.SHOVEL_DIG,
+            ItemAbilities.SWORD_DIG
+        )
 
     }
 

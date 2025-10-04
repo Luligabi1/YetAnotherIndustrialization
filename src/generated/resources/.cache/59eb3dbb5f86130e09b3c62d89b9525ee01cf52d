@@ -1,6 +1,6 @@
-// 1.21.1	2025-09-27T05:04:14.4314124	Loot Tables
+// 1.21.1	2025-10-03T18:08:45.3985387	Loot Tables
 2c4ccf6fa22fad19ba222e950e9e9c9031669533 data/yet_another_industrialization/loot_table/blocks/arboreous_greenhouse.json
-ae148be12ae8c20c77bc0499bfb47127dd1b8b2f data/yet_another_industrialization/loot_table/blocks/battery_alloy_machine_casing.json
+db5826bc2edd86a5b097a92664a7aeb28a7d6822 data/yet_another_industrialization/loot_table/blocks/battery_casing.json
 94144ae0cceba69b145e49eef6a74714964a7c94 data/yet_another_industrialization/loot_table/blocks/cadmium_block.json
 fa6e60e3ac5ebccea60672dec8248ef803793b85 data/yet_another_industrialization/loot_table/blocks/configurable_mixed_storage.json
 1629b1aa1b1304cb3ee59ed4f231128adf5ca8e6 data/yet_another_industrialization/loot_table/blocks/cryogenic_precipitator.json

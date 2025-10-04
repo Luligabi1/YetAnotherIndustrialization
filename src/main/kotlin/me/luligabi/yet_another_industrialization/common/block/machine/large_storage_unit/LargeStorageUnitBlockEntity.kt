@@ -71,15 +71,13 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
         val blockId: ResourceLocation,
         val capacity: Long,
         val cableTier: CableTier,
-        val translationKey: String,
-        val sortOrder: Int
+        val translationKey: String
     ) {
 
         val blockMember = SimpleMember.forBlockId(blockId)
         val hullMember = SimpleMember.forBlockId(LargeStorageUnitTier.getHull(blockId, cableTier))
 
         fun getDisplayName() = Component.translatable(translationKey)
-
     }
 
     companion object {
@@ -127,7 +125,7 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
             YAIHatchTypes.LARGE_STORAGE_UNIT_OUTPUT
         ).build()
 
-        private val CASING_MEMBER = SimpleMember.forBlock { YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING).asBlock() }
+        private val CASING_MEMBER = SimpleMember.forBlock { YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock() }
 
         fun ShapeTemplate.Builder.addLayer(y: Int, pattern: List<String>, tier: Tier): ShapeTemplate.Builder {
             for (z in pattern.indices) {
@@ -155,7 +153,7 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
                 registrationTiers.add(tier.toRegisteredTier(block))
             }
 
-            registrationTiers.sortBy { it.sortOrder }
+            registrationTiers.sortBy { it.capacity }
             TIERS = Collections.unmodifiableList(registrationTiers)
 
             SHAPE_TEMPLATES = Array(TIERS.size) { i ->
@@ -169,10 +167,10 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
                     .addLayer(3, BOTTOM_TOP_PATTERN, tier)
                     .build()
             }
+
+
+            ReiMachineRecipes.multiblockShapes.removeIf { it.machine() == YAI.id(ID) }
             SHAPE_TEMPLATES.forEachIndexed { i, shapeTemplate ->
-                ReiMachineRecipes.multiblockShapes.removeIf {
-                    it.machine() == YAI.id(ID)
-                }
                 ReiMachineRecipes.registerMultiblockShape(YAI.id(ID), shapeTemplate, "$i")
             }
         }

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "p": {
+      "tag": "c:plates/battery_alloy"
+    }
+  },
+  "pattern": [
+    "ppp",
+    "p p",
+    "ppp"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:battery_casing"
+  }
+}

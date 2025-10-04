@@ -1,0 +1,29 @@
+{
+  "type": "modern_industrialization:assembler",
+  "duration": 200,
+  "eu": 8,
+  "item_inputs": [
+    {
+      "amount": 4,
+      "item": "modern_industrialization:portable_storage_unit"
+    },
+    {
+      "amount": 3,
+      "item": "modern_industrialization:redstone_battery"
+    },
+    {
+      "amount": 1,
+      "item": "modern_industrialization:electronic_circuit"
+    },
+    {
+      "amount": 1,
+      "item": "yet_another_industrialization:battery_casing"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "yet_another_industrialization:large_storage_unit"
+    }
+  ]
+}

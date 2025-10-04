@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "modern_industrialization:redstone_battery"
+    },
+    "C": {
+      "item": "modern_industrialization:electronic_circuit"
+    },
+    "M": {
+      "item": "yet_another_industrialization:battery_casing"
+    },
+    "P": {
+      "item": "modern_industrialization:portable_storage_unit"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "BMB",
+    "PBP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:large_storage_unit"
+  }
+}

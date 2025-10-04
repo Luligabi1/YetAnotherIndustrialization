@@ -9,6 +9,8 @@ import aztech.modern_industrialization.machines.recipe.MachineRecipeType
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
+import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseTierCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.EnergyGenerationCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
@@ -22,6 +24,8 @@ import me.luligabi.yet_another_industrialization.common.misc.material.YAIMateria
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.RecipeProvider
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.tags.ItemTags
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Blocks
@@ -94,9 +98,10 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             8, 10*20,
             {
                 it.addItemInput(MIItem.WRENCH, 1, 1f)
-                it.addItemInput(MIItem.PISTON, 4, 1f)
+                it.addItemInput(MIItem.ROBOT_ARM, 4, 1f)
                 it.addItemInput(MIItem.ELECTRONIC_CIRCUIT, 2, 1f)
                 it.addFluidInput(MIFluids.MOLTEN_REDSTONE, 1980, 1f)
+                it.addFluidInput(MIFluids.POLYETHYLENE, 500, 1f)
 
                 it.addItemOutput(YAIItems.MACHINE_REMOVER.get(), 1, 1f)
             },
@@ -132,7 +137,22 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
     }
 
     private fun buildMachineRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
-        // TODO arboreous greenhouse
+        shaped(
+            ArboreousGreenhouseBlockEntity.ID,
+            YAIMachines.getMachineFromId(ArboreousGreenhouseBlockEntity.ID), 1,
+            { it
+                .define('H', MIBlock.BASIC_MACHINE_HULL)
+                .define('C', MIItem.ANALOG_CIRCUIT)
+                .define('P', MIItem.PUMP)
+                .define('D', ItemTags.DIRT)
+                .define('I', MIMaterials.INVAR.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock())
+                .pattern("CIC")
+                .pattern("PHP")
+                .pattern("CDC")
+            },
+            output
+        )
+        buildManualArboreousGreenhouseRecipes(output, lookup)
 
         shaped(
             YAIMachines.CP_ID,
@@ -141,7 +161,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
                 .define('P', MIMaterials.ALUMINUM.get(MIMaterialParts.LARGE_PLATE).asItem())
                 .define('C', MIItem.ELECTRONIC_CIRCUIT)
                 .define('T', MIMaterials.TIN.get(MIMaterialParts.CABLE).asItem())
-                .define('H', MIBlock.ADVANCED_MACHINE_HULL)
+                .define('H', MIBlock.BASIC_MACHINE_HULL)
                 .pattern("PCP")
                 .pattern("THT")
                 .pattern("PCP")
@@ -171,7 +191,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             LargeStorageUnitBlockEntity.ID,
             YAIMachines.getMachineFromId(LargeStorageUnitBlockEntity.ID), 1,
             { it
-                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock())
                 .define('C', MIItem.ELECTRONIC_CIRCUIT)
                 .define('B', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
                 .define('P', MIItem.PORTABLE_STORAGE_UNIT)
@@ -185,7 +205,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             LargeStorageUnitHatch.ID_INPUT,
             YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_INPUT), 1,
             { it
-                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock())
                 .define('R', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
                 .pattern("R")
                 .pattern("M")
@@ -196,7 +216,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             LargeStorageUnitHatch.ID_OUTPUT,
             YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_OUTPUT), 1,
             { it
-                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock())
                 .define('R', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
                 .pattern("M")
                 .pattern("R")
@@ -275,6 +295,70 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
                 .pattern("T")
             },
             output
+        )
+    }
+
+    private fun buildManualArboreousGreenhouseRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addArboreousGreenhouseRecipe(
+            "chorus_fruit",
+            Items.CHORUS_FRUIT,
+            YAIFluids.DRAGONS_BREATH.asFluid(), YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(),
+            listOf(
+                Triple(Items.CHORUS_FRUIT, 8, 1f)
+            ),
+            YAI.id("end_stone"),
+            YAI.id("chorus_flower"),
+            output
+        )
+    }
+
+    private fun addArboreousGreenhouseRecipe(
+        id: String,
+        input: ItemLike,
+        fluid: Fluid?, nutrientFluid: Fluid?,
+        output: List<Triple<ItemLike, Int, Float>>,
+        tier: ResourceLocation,
+        model: ResourceLocation,
+        recipeOutput: RecipeOutput
+    ) {
+        if (fluid != null) {
+            addMachineRecipe(
+                "${ArboreousGreenhouseBlockEntity.ID}/$id",
+                YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE,
+                15, 60*20,
+                {
+                    it.addItemInput(input, 1, 0f)
+                    it.addFluidInput(fluid, 1_000, 1f)
+
+                    output.forEach { (item, amount, chance) ->
+                        it.addItemOutput(item, amount, chance)
+                    }
+                    it.addItemOutput(input, 1, 0.5f)
+
+                    it.addCondition(ArboreousGreenhouseTierCondition(tier, model))
+                },
+                recipeOutput
+            )
+        }
+
+        if (nutrientFluid == null) return
+
+        addMachineRecipe(
+            "${ArboreousGreenhouseBlockEntity.ID}/${id}_nutrient",
+            YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE,
+            15, 60*20,
+            {
+                it.addItemInput(input, 1, 0f)
+                it.addFluidInput(nutrientFluid, 1_000, 1f)
+
+                output.forEach { (item, amount, _) ->
+                    it.addItemOutput(item, amount * 2, 1f)
+                }
+                it.addItemOutput(input, 1, 1f)
+
+                it.addCondition(ArboreousGreenhouseTierCondition(tier, model))
+            },
+            recipeOutput
         )
     }
 

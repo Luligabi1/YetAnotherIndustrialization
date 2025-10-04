@@ -2120,15 +2120,6 @@
       ],
       "model": "minecraft:cherry"
     },
-    "minecraft:chorus_fruit": {
-      "loot_data": [
-        {
-          "loot_table": "minecraft:blocks/chorus_plant"
-        }
-      ],
-      "model": "minecraft:chorus_flower",
-      "tier": "yet_another_industrialization:end_stone"
-    },
     "minecraft:crimson_fungus": {
       "loot_data": [
         {

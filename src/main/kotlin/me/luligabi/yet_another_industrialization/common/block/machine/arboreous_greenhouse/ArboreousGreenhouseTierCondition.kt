@@ -2,10 +2,8 @@ package me.luligabi.yet_another_industrialization.common.block.machine.arboreous
 
 import aztech.modern_industrialization.machines.recipe.MachineRecipe
 import aztech.modern_industrialization.machines.recipe.condition.MachineProcessCondition
-import aztech.modern_industrialization.machines.recipe.condition.MachineProcessConditions
 import aztech.modern_industrialization.util.TextHelper
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
 import me.luligabi.yet_another_industrialization.common.util.YAIText
 import me.luligabi.yet_another_industrialization.common.util.applyStyle
@@ -22,7 +20,7 @@ class ArboreousGreenhouseTierCondition(
     val model: ResourceLocation
 ): MachineProcessCondition {
 
-    private companion object {
+    companion object {
 
         val CODEC = RecordCodecBuilder.mapCodec {
             it.group(
@@ -36,11 +34,6 @@ class ArboreousGreenhouseTierCondition(
             ResourceLocation.STREAM_CODEC, ArboreousGreenhouseTierCondition::model,
             ::ArboreousGreenhouseTierCondition
         )
-
-        init {
-            MachineProcessConditions.register(YAI.id("arboreous_greenhouse_tier"), CODEC, STREAM_CODEC)
-        }
-
     }
 
     override fun canProcessRecipe(context: MachineProcessCondition.Context, recipe: MachineRecipe): Boolean {

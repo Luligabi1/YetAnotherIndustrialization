@@ -99,8 +99,8 @@ class DragonSiphonBlockEntity(bep: BEP): AbstractCraftingMultiblockBlockEntity(
     }
 
     override fun onCraft() {
-        val condition = (crafter as CrafterComponentAccessor).activeRecipe.value().conditions
-            .filterIsInstance<EnergyGenerationCondition>().firstOrNull() ?: return
+        val condition = (crafter as CrafterComponentAccessor).activeRecipe?.value()?.conditions
+            ?.filterIsInstance<EnergyGenerationCondition>()?.firstOrNull() ?: return
         val amount = condition.amount
 
         if (insertEnergy(amount, true) > 0) {

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "modern_industrialization:electronic_circuit"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "S": {
+      "item": "modern_industrialization:steel_machine_casing"
+    },
+    "T": {
+      "item": "modern_industrialization:stainless_steel_tank"
+    }
+  },
+  "pattern": [
+    "CHC",
+    "TST",
+    "CHC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:configurable_mixed_storage"
+  }
+}

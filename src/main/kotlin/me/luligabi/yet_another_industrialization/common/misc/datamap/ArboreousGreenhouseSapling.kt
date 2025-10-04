@@ -27,8 +27,6 @@ data class ArboreousGreenhouseSapling(
 
     data class LootData(val lootTable: ResourceLocation, val amount: Int, val probability: Float) {
 
-        fun nutrient() = this.copy(amount = amount * 2, probability = (probability * 2).coerceAtMost(1f))
-
         companion object {
 
             val CODEC = RecordCodecBuilder.create { i ->
@@ -42,15 +40,14 @@ data class ArboreousGreenhouseSapling(
             fun getAmount(category: String) = when (category) {
                 "log" -> logAmount()
                 "leaves" -> leavesAmount()
-                else -> specialAmount()
+                "other" -> specialAmount()
+                else -> saplingAmount()
             }
 
-            // TODO get from config
             fun logAmount() = 16
             fun leavesAmount() = 32
             fun saplingAmount() = 1
             fun specialAmount() = 1
-
         }
 
     }

@@ -251,14 +251,12 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
                     .addLayer(7, DOME_5_PATTERN, soilBlocks)
                     .build()
             }
-            for (i in SHAPE_TEMPLATES.indices) {
-                val alternativeId = "${TIERS[i].id.namespace}/${TIERS[i].id.path}"
-                if (ReiMachineRecipes.multiblockShapes.any { it.alternative == alternativeId }) continue
-
-                ReiMachineRecipes.registerMultiblockShape(YAI.id(ID), SHAPE_TEMPLATES[i], alternativeId)
+            ReiMachineRecipes.multiblockShapes.removeIf { it.machine() == YAI.id(ID) }
+            SHAPE_TEMPLATES.forEachIndexed { i, shapeTemplate ->
+                ReiMachineRecipes.registerMultiblockShape(YAI.id(ID), shapeTemplate, "$i")
             }
 
-            (YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE as ArboreousGreenhouseRecipeType).clearCache()
+            ArboreousGreenhouseRecipeType.clearCache()
         }
 
     }

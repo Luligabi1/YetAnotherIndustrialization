@@ -1,0 +1,31 @@
+{
+  "type": "modern_industrialization:assembler",
+  "duration": 200,
+  "eu": 8,
+  "fluid_inputs": [
+    {
+      "amount": 990,
+      "fluid": "modern_industrialization:molten_redstone"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "modern_industrialization:config_card"
+    },
+    {
+      "amount": 1,
+      "tag": "c:chests"
+    },
+    {
+      "amount": 1,
+      "tag": "c:buckets/empty"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "yet_another_industrialization:storage_slot_locker"
+    }
+  ]
+}

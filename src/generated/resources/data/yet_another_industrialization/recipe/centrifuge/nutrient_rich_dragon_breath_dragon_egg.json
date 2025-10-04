@@ -1,0 +1,17 @@
+{
+  "type": "modern_industrialization:centrifuge",
+  "duration": 2400,
+  "eu": 64,
+  "fluid_outputs": [
+    {
+      "amount": 16000,
+      "fluid": "yet_another_industrialization:nutrient_rich_dragon_breath"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "minecraft:dragon_egg"
+    }
+  ]
+}

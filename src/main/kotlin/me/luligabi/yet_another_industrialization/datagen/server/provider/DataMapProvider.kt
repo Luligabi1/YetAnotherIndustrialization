@@ -16,7 +16,6 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.BlockTags
-import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition
@@ -28,7 +27,7 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
 
     companion object {
 
-        val BANNED_TREES = setOf("coral")
+        val BANNED_TREES = setOf("coral", "chorus_fruit")
         private val BANNED_TIERS = setOf("bucket")
 
         private val CONVERTABLE_TIERS = mapOf(
@@ -41,27 +40,22 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
             ResourceLocation.withDefaultNamespace("redstone_block") to LargeStorageUnitTier(
                 25_600_000L,
                 CableTier.LV, CableTier.LV.shortEnglishKey(),
-                10
             ),
             ResourceLocation.parse(MIMaterials.SILICON.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
                 102_400_000L,
                 CableTier.MV, CableTier.MV.shortEnglishKey(),
-                20
             ),
             ResourceLocation.parse(MIMaterials.SODIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
                 921_600_000L,
                 CableTier.HV, CableTier.HV.shortEnglishKey(),
-                30
             ),
             YAI.id("cadmium_block") to LargeStorageUnitTier(
                 6_553_600_000L,
                 CableTier.EV, CableTier.EV.shortEnglishKey(),
-                40
             ),
             ResourceLocation.parse(MIMaterials.PLUTONIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
                 102_400_000_000_000L,
                 CableTier.SUPERCONDUCTOR, CableTier.SUPERCONDUCTOR.shortEnglishKey(),
-                50
             )
         )
 
@@ -106,7 +100,6 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
                     val lootData = mutableListOf<ArboreousGreenhouseSapling.LootData>()
                     mod.get("data/bonsaitrees4/loot_table/bonsai/${mod.name}/${ResourceLocation.parse(model).path}.json")?.let { lootTable ->
                         adaptLootTables(lootTable.readText()).forEach { (name, value) ->
-                            //println("$name: $value")
                             lootData.add(ArboreousGreenhouseSapling.LootData(
                                 ResourceLocation.parse(value),
                                 ArboreousGreenhouseSapling.LootData.getAmount(name),
@@ -144,27 +137,27 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
                 BuiltInRegistries.BLOCK.getKey(Blocks.SAND),
                 Blocks.SAND.descriptionId, sortOrder = 5
             ), false)
-        builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
-            .add(Tags.Blocks.STONES, ArboreousGreenhouseTier(
-                YAI.id("stone"),
-                BuiltInRegistries.BLOCK.getKey(Blocks.STONE),
-                Blocks.STONE.descriptionId, sortOrder = 10
-            ), false)
+//        builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
+//            .add(Tags.Blocks.STONES, ArboreousGreenhouseTier(
+//                YAI.id("stone"),
+//                BuiltInRegistries.BLOCK.getKey(Blocks.STONE),
+//                Blocks.STONE.descriptionId, sortOrder = 10
+//            ), false)
         builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
             .add(YAITags.MYCELLIUMS, ArboreousGreenhouseTier(
                 YAI.id("mycelium"),
                 BuiltInRegistries.BLOCK.getKey(Blocks.MYCELIUM),
                 Blocks.MYCELIUM.descriptionId, sortOrder = 15
             ), false)
-        builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
-            .add(ResourceLocation.withDefaultNamespace("water"), ArboreousGreenhouseTier(
-                YAI.id("water"),
-                BuiltInRegistries.ITEM.getKey(Items.WATER_BUCKET),
-                Blocks.WATER.descriptionId,
-                null,
-                YAIFluids.NUTRIENT_RICH_WATER.identifier().location,
-                20
-            ), false)
+//        builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
+//            .add(ResourceLocation.withDefaultNamespace("water"), ArboreousGreenhouseTier(
+//                YAI.id("water"),
+//                BuiltInRegistries.ITEM.getKey(Items.WATER_BUCKET),
+//                Blocks.WATER.descriptionId,
+//                null,
+//                YAIFluids.NUTRIENT_RICH_WATER.identifier().location,
+//                20
+//            ), false)
         builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
             .add(YAITags.NETHERRACK_SOILS, ArboreousGreenhouseTier(
                 YAI.id("netherrack"),
@@ -174,15 +167,15 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
                 YAIFluids.NUTRIENT_RICH_LAVA.identifier().location,
                 30
             ), false)
-        builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
-            .add(ResourceLocation.withDefaultNamespace("lava"), ArboreousGreenhouseTier(
-                YAI.id("lava"),
-                BuiltInRegistries.ITEM.getKey(Items.LAVA_BUCKET),
-                Blocks.LAVA.descriptionId,
-                null,
-                YAIFluids.NUTRIENT_RICH_LAVA.identifier().location,
-                35
-            ), false)
+//        builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
+//            .add(ResourceLocation.withDefaultNamespace("lava"), ArboreousGreenhouseTier(
+//                YAI.id("lava"),
+//                BuiltInRegistries.ITEM.getKey(Items.LAVA_BUCKET),
+//                Blocks.LAVA.descriptionId,
+//                null,
+//                YAIFluids.NUTRIENT_RICH_LAVA.identifier().location,
+//                35
+//            ), false)
         builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
             .add(Tags.Blocks.END_STONES, ArboreousGreenhouseTier(
                 YAI.id("end_stone"),

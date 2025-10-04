@@ -6,6 +6,10 @@
     {
       "amount": 1980,
       "fluid": "modern_industrialization:molten_redstone"
+    },
+    {
+      "amount": 500,
+      "fluid": "modern_industrialization:polyethylene"
     }
   ],
   "item_inputs": [
@@ -15,7 +19,7 @@
     },
     {
       "amount": 4,
-      "item": "modern_industrialization:piston"
+      "item": "modern_industrialization:robot_arm"
     },
     {
       "amount": 2,

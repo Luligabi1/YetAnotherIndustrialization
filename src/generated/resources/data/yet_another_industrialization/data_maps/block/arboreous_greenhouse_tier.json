@@ -42,20 +42,6 @@
       "sort_order": 5,
       "translation_key": "block.minecraft.sand"
     },
-    "#c:stones": {
-      "fluid": {
-        "amount": 1000,
-        "fluid": "minecraft:water"
-      },
-      "icon": "minecraft:stone",
-      "id": "yet_another_industrialization:stone",
-      "nutrient_fluid": {
-        "amount": 1000,
-        "fluid": "yet_another_industrialization:nutrient_rich_water"
-      },
-      "sort_order": 10,
-      "translation_key": "block.minecraft.stone"
-    },
     "#minecraft:dirt": {
       "fluid": {
         "amount": 1000,
@@ -102,26 +88,6 @@
         "fluid": "yet_another_industrialization:nutrient_rich_water"
       },
       "translation_key": "block.deeperdarker.echo_soil"
-    },
-    "minecraft:lava": {
-      "icon": "minecraft:lava_bucket",
-      "id": "yet_another_industrialization:lava",
-      "nutrient_fluid": {
-        "amount": 1000,
-        "fluid": "yet_another_industrialization:nutrient_rich_lava"
-      },
-      "sort_order": 35,
-      "translation_key": "block.minecraft.lava"
-    },
-    "minecraft:water": {
-      "icon": "minecraft:water_bucket",
-      "id": "yet_another_industrialization:water",
-      "nutrient_fluid": {
-        "amount": 1000,
-        "fluid": "yet_another_industrialization:nutrient_rich_water"
-      },
-      "sort_order": 20,
-      "translation_key": "block.minecraft.water"
     },
     "undergarden:deepsoil": {
       "neoforge:conditions": [

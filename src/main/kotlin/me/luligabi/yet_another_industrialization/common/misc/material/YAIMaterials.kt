@@ -11,20 +11,20 @@ import net.swedz.tesseract.neoforge.material.recipe.MaterialRecipeGroup
 object YAIMaterials {
 
     private val GEARLESS_MACHINE_CASING = MaterialRecipeGroup.create(::MIMachineMaterialRecipeContext)
-        .add("machine_casing") {
+        .add("machine_casing_special") {
             it.machine(
                 "machine_casing",
                 MIMachineRecipeTypes.ASSEMBLER,
                 8, 10*20,
-                MIMaterialParts.MACHINE_CASING,
+                MIMaterialParts.MACHINE_CASING_SPECIAL,
                 1,
                 { b -> b.addPartInput(MIMaterialParts.PLATE, 8) }
             )
         }
         .then(::VanillaMaterialRecipeContext)
-        .add("machine_casing") {
+        .add("machine_casing_special") {
             it.shaped(
-                MIMaterialParts.MACHINE_CASING,
+                MIMaterialParts.MACHINE_CASING_SPECIAL,
                 1,
                 { r -> r.add('p', MIMaterialParts.PLATE) },
                 "ppp",
@@ -35,7 +35,7 @@ object YAIMaterials {
 
 
     val BATTERY_ALLOY = MIMaterials.BATTERY_ALLOY.`as`(YAIMaterialRegistry)
-        .add(MIMaterialParts.MACHINE_CASING)
+        .add(MIMaterialParts.MACHINE_CASING_SPECIAL.formattingRaw("battery_casing", "Battery Casing"))
         .recipes(GEARLESS_MACHINE_CASING)
 
     val CADMIUM = MIMaterials.CADMIUM.`as`(YAIMaterialRegistry)

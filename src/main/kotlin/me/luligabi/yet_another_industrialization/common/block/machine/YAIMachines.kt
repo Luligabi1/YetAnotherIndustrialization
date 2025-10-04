@@ -13,6 +13,7 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseRecipeType
+import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseTierCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.EnergyGenerationCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
@@ -74,26 +75,10 @@ object YAIMachines {
 
                     slots.itemOutputs(102, 26, 2, 2)
                 }
-                it.progressBar(80, 33, "extract")
+                it.progressBar(76, 33, "extract")
             }).registerRecipeCategory()
             .registerMachine()
-//        hook.register(
-//            ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID, ArboreousGreenhouseBlockEntity.ID,
-//            MachineCasings.HEATPROOF, true, false, false, true,
-//            ::ArboreousGreenhouseBlockEntity
-//        )
-//        Rei(ArboreousGreenhouseBlockEntity.NAME, YAI.id(ArboreousGreenhouseBlockEntity.ID), RecipeTypes.ARBOREOUS_GREENHOUSE, ProgressBar.Parameters(77, 34, "extract"))
-//            .items(
-//                { it.addSlot(56, 26) },
-//                { it.addSlots(102, 26, 2, 2) }
-//            )
-//            .fluids(
-//                { it.addSlot(56, 44) },
-//                {}
-//            )
-//            .workstations(YAI.id(ArboreousGreenhouseBlockEntity.ID))
-//            .register()
-//        MIHookTracker.addReiCategoryName(YAI.id(ArboreousGreenhouseBlockEntity.ID), ArboreousGreenhouseBlockEntity.NAME)
+
         hook.builder(DragonSiphonBlockEntity.ID, DragonSiphonBlockEntity.NAME, ::DragonSiphonBlockEntity)
             .builtinModel(MachineCasings.STEEL, DragonSiphonBlockEntity.ID)
             .registerMultiblockShape(DragonSiphonBlockEntity.SHAPE)
@@ -129,6 +114,7 @@ object YAIMachines {
             RECIPE_TYPES.register(modBus)
             RECIPE_SERIALIZERS.register(modBus)
 
+            MachineProcessConditions.register(YAI.id("arboreous_greenhouse_tier"), ArboreousGreenhouseTierCondition.CODEC, ArboreousGreenhouseTierCondition.STREAM_CODEC)
             MachineProcessConditions.register(YAI.id("energy_generation"), EnergyGenerationCondition.CODEC, EnergyGenerationCondition.STREAM_CODEC)
         }
 
@@ -172,8 +158,8 @@ object YAIMachines {
         )
 
         Casings.BATTERY_ALLOY_MACHINE_CASING = hook.registerCubeAll(
-            "battery_alloy_machine_casing", "Battery Alloy Machine Casing",
-            YAI.id("block/battery_alloy_machine_casing")
+            "battery_casing", "Battery Casing",
+            YAI.id("block/battery_casing")
         )
 
         Casings.CONFIGURABLE_MIXED_STORAGE = hook.registerCubeBottomTop(

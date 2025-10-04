@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:modern_industrialization/guide_books"
+    },
+    "G": {
+      "item": "modern_industrialization:bronze_gear"
+    },
+    "P": {
+      "item": "modern_industrialization:iron_plate"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "GBG",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:machine_diagnoser"
+  }
+}

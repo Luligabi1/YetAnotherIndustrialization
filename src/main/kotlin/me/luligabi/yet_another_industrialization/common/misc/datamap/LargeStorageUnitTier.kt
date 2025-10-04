@@ -17,8 +17,7 @@ import net.swedz.tesseract.neoforge.helper.RegistryHelper
 data class LargeStorageUnitTier(
     val capacity: Long,
     val cableTier: CableTier,
-    val translationKey: String,
-    val sortOrder: Int
+    val translationKey: String
 ) {
 
     companion object {
@@ -36,8 +35,7 @@ data class LargeStorageUnitTier(
             it.group(
                 MIExtraCodecs.POSITIVE_LONG.fieldOf("capacity").forGetter(LargeStorageUnitTier::capacity),
                 CABLE_TIER_CODEC.fieldOf("cable_tier").forGetter(LargeStorageUnitTier::cableTier),
-                Codec.STRING.fieldOf("translation_key").forGetter(LargeStorageUnitTier::translationKey),
-                Codec.INT.fieldOf("sort_order").forGetter(LargeStorageUnitTier::sortOrder),
+                Codec.STRING.fieldOf("translation_key").forGetter(LargeStorageUnitTier::translationKey)
             ).apply(it, ::LargeStorageUnitTier)
         }
 
@@ -58,10 +56,7 @@ data class LargeStorageUnitTier(
         key.location(),
         capacity,
         cableTier,
-        translationKey,
-        sortOrder
+        translationKey
     )
-
-
 
 }

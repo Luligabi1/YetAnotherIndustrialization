@@ -90,9 +90,8 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     CHARGING_SLOT_TOOLTIP("Place an item to charge here!"),
     LARGE_STORAGE_UNIT_TIERS("Large Storage Unit Tiers"),
     LARGE_STORAGE_UNIT_TIER_CAPACITY("Capacity: %s%s EU"),
-    LARGE_STORAGE_UNIT_TOOLTIP_1("I/O energy through its special hatches. Autoconverts to any voltage!"),
-    LARGE_STORAGE_UNIT_TOOLTIP_2(""),
-    LARGE_STORAGE_UNIT_TOOLTIP_3(""),
+    LARGE_STORAGE_UNIT_TOOLTIP_1("Can I/O to its voltage and lower"),
+    LARGE_STORAGE_UNIT_TOOLTIP_2("i.e. At HV, it's capable of interacting with HV, MV and LV!"),
 
     /** Misc. Item tooltips */
     GUIDEBOOK_TOOLTIP("Pronounced as \"YAY\"!"),

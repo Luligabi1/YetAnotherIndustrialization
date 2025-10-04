@@ -6,6 +6,9 @@ navigation:
   parent: yet_another_industrialization:generators.md
 item_ids:
   - yet_another_industrialization:dragon_egg_energy_siphon
+  - yet_another_industrialization:dragon_egg_siphon_catalyst
+  - yet_another_industrialization:steel_plated_end_stone_bricks
+  - yet_another_industrialization:impure_dragon_breath_bucket
 ---
 
 # Dragon Egg Energy Siphon

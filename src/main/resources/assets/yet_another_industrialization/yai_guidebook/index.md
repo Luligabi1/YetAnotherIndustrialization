@@ -8,8 +8,4 @@ navigation:
 
 Welcome to **Yet Another Industrialization**!
 
-![Predictions, predictions and more predictions](assets/predictions_predictions_predictions.png)
-
-## Introduction
-
-Lorem ipsum sit amet dolor blah blah
+![YAI!'s core features](assets/features.png)

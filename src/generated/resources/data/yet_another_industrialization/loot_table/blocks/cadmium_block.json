@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "yet_another_industrialization:cadmium_block"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "yet_another_industrialization:blocks/cadmium_block"
+}

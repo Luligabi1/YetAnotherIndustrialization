@@ -1,0 +1,36 @@
+{
+  "type": "yet_another_industrialization:arboreous_greenhouse",
+  "duration": 1200,
+  "eu": 15,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "yet_another_industrialization:dragon_breath"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "minecraft:chorus_fruit",
+      "probability": 0.0
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 8,
+      "item": "minecraft:chorus_fruit"
+    },
+    {
+      "amount": 1,
+      "item": "minecraft:chorus_fruit",
+      "probability": 0.5
+    }
+  ],
+  "process_conditions": [
+    {
+      "type": "yet_another_industrialization:arboreous_greenhouse_tier",
+      "model": "minecraft:chorus_flower",
+      "tier_id": "yet_another_industrialization:end_stone"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "yet_another_industrialization:battery_casing"
+    },
+    "R": {
+      "item": "modern_industrialization:redstone_battery"
+    }
+  },
+  "pattern": [
+    "M",
+    "R"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:large_storage_unit_output_hatch"
+  }
+}

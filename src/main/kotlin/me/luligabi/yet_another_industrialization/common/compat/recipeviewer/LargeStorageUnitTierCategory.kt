@@ -35,7 +35,7 @@ class LargeStorageUnitTierCategory : ViewerCategory<LargeStorageUnitTierCategory
     }
 
     override fun buildRecipes(recipeManager: RecipeManager, registryAccess: RegistryAccess, consumer: Consumer<Data>) {
-        LargeStorageUnitTier.all().toList().sortedBy { it.second.sortOrder }.forEach {
+        LargeStorageUnitTier.all().toList().sortedBy { it.second.capacity }.forEach {
             consumer.accept(Data(it.first, it.second))
         }
     }

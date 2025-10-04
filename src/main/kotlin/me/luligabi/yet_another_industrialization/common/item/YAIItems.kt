@@ -70,7 +70,7 @@ object YAIItems {
         .withoutModel()
         .register()
 
-    val ENERGY_ZAP = create("energy_zap", "Energy Zap", ::CachacaItem, YAICreativeTab.Order.HIDDEN)
+    val ENERGY_ZAP = create("energy_zap", "Energy Zap", ::Item, YAICreativeTab.Order.HIDDEN)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 

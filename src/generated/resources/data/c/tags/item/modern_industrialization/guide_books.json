@@ -1,0 +1,10 @@
+{
+  "values": [
+    "modern_industrialization:guidebook",
+    "yet_another_industrialization:guidebook",
+    {
+      "id": "hostile_neural_industrialization:guidebook",
+      "required": false
+    }
+  ]
+}

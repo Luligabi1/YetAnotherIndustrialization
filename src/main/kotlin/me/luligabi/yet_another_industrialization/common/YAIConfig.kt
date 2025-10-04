@@ -16,7 +16,7 @@ interface YAIConfig {
         @ConfigKey("cooldown_ticks")
         @ConfigComment("Ticks of cooldown after using a Machine Diagnoser. Default: 0 (disabled)")
         @Range.Integer(min = 0, max = Integer.MAX_VALUE)
-        fun cooldownTicks() = 60
+        fun cooldownTicks() = 0
 
     }
 
@@ -29,7 +29,7 @@ interface YAIConfig {
         @ConfigKey("cooldown_ticks")
         @ConfigComment("Ticks of cooldown after using a Machine Remover. Default: 0 (disabled)")
         @Range.Integer(min = 0, max = Integer.MAX_VALUE)
-        fun cooldownTicks() = 60
+        fun cooldownTicks() = 0
 
         @ConfigKey("capacity")
         @ConfigComment("Total capacity for Machine Removers. Default: 65536")
@@ -46,7 +46,7 @@ interface YAIConfig {
             """
             Base Energy consumed when removing a Multiblock Machine.
             Total consumption is determined by this + (multiblock_block_remove_cost * block count)
-            Default: 500
+            Default: 100
             """
         )
         @Range.Long(min = 1, max = Long.MAX_VALUE)

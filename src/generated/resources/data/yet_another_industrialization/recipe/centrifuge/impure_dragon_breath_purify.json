@@ -1,0 +1,24 @@
+{
+  "type": "modern_industrialization:centrifuge",
+  "duration": 140,
+  "eu": 8,
+  "fluid_inputs": [
+    {
+      "amount": 250,
+      "fluid": "yet_another_industrialization:impure_dragon_breath"
+    }
+  ],
+  "fluid_outputs": [
+    {
+      "amount": 250,
+      "fluid": "yet_another_industrialization:dragon_breath"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "modern_industrialization:quartz_tiny_dust",
+      "probability": 0.15
+    }
+  ]
+}

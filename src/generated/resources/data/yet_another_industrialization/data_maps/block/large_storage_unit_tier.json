@@ -1,0 +1,29 @@
+{
+  "values": {
+    "minecraft:redstone_block": {
+      "cable_tier": "lv",
+      "capacity": 25600000,
+      "translation_key": "cable_tier_short.modern_industrialization.lv"
+    },
+    "modern_industrialization:plutonium_block": {
+      "cable_tier": "superconductor",
+      "capacity": 102400000000000,
+      "translation_key": "cable_tier_short.modern_industrialization.superconductor"
+    },
+    "modern_industrialization:silicon_block": {
+      "cable_tier": "mv",
+      "capacity": 102400000,
+      "translation_key": "cable_tier_short.modern_industrialization.mv"
+    },
+    "modern_industrialization:sodium_block": {
+      "cable_tier": "hv",
+      "capacity": 921600000,
+      "translation_key": "cable_tier_short.modern_industrialization.hv"
+    },
+    "yet_another_industrialization:cadmium_block": {
+      "cable_tier": "ev",
+      "capacity": 6553600000,
+      "translation_key": "cable_tier_short.modern_industrialization.ev"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:dragon_breath"
+    },
+    "G": {
+      "item": "modern_industrialization:steel_gear"
+    },
+    "H": {
+      "item": "modern_industrialization:advanced_machine_hull"
+    },
+    "P": {
+      "item": "modern_industrialization:large_pump"
+    }
+  },
+  "pattern": [
+    "PDP",
+    "GHG",
+    "PDP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:dragon_egg_energy_siphon"
+  }
+}
