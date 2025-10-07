@@ -240,12 +240,12 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         /** Configurable Mixed Storage */
         shaped(
             ConfigurableMixedStorageMachineBlockEntity.ID,
-            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 4,
             { it
                 .define('C', MIItem.ELECTRONIC_CIRCUIT)
                 .define('H', Items.HOPPER)
                 .define('T', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.TANK).asBlock())
-                .define('S', MIMaterials.STEEL.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('S', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.CLEAN_MACHINE_CASING).asBlock())
 
                 .pattern("CTC")
                 .pattern("HSH")
@@ -256,12 +256,12 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
 
         shaped(
             "${ConfigurableMixedStorageMachineBlockEntity.ID}_alt",
-            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 4,
             { it
                 .define('C', MIItem.ELECTRONIC_CIRCUIT)
                 .define('H', Items.HOPPER)
                 .define('T', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.TANK).asBlock())
-                .define('S', MIMaterials.STEEL.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('S', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.CLEAN_MACHINE_CASING).asBlock())
 
                 .pattern("CHC")
                 .pattern("TST")
@@ -273,7 +273,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
 
         shapeless(
             "${ConfigurableMixedStorageMachineBlockEntity.ID}_upgrade",
-            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 2,
             { it
                 .with(MI.id("configurable_chest"))
                 .with(MI.id("configurable_tank"))
@@ -285,7 +285,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
 
         assembler(
             "${ConfigurableMixedStorageMachineBlockEntity.ID}_upgrade",
-            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 2,
             { it
                 .define('S', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.CLEAN_MACHINE_CASING).asBlock())
                 .define('E', MIItem.ELECTRONIC_CIRCUIT)
