@@ -160,6 +160,7 @@ dependencies {
     }
 
     implementation "org.appliedenergistics:guideme:${project.guideme_version}"
+    runtimeOnly compileOnly("curse.maven:jade-324717:${project.jade_version}")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

@@ -3,6 +3,7 @@ package me.luligabi.yet_another_industrialization.common.block.machine.large_sto
 import aztech.modern_industrialization.MICapabilities
 import aztech.modern_industrialization.api.energy.EnergyApi
 import aztech.modern_industrialization.api.energy.MIEnergyStorage
+import aztech.modern_industrialization.api.machine.holder.EnergyListComponentHolder
 import aztech.modern_industrialization.inventory.MIInventory
 import aztech.modern_industrialization.machines.BEP
 import aztech.modern_industrialization.machines.components.OrientationComponent
@@ -21,7 +22,7 @@ class LargeStorageUnitHatch(bep: BEP, private val input: Boolean, blockId: Resou
     bep,
     MachineGuiParameters.Builder(blockId, false).build(),
     OrientationComponent.Params(false, false, false)
-) {
+), EnergyListComponentHolder {
 
     companion object {
 
@@ -41,6 +42,10 @@ class LargeStorageUnitHatch(bep: BEP, private val input: Boolean, blockId: Resou
     private var controller: LargeStorageUnitBlockEntity? = null
 
     override fun getInventory() = MIInventory.EMPTY
+
+    override fun getEnergyComponents() = controller?.energy?.let {
+        listOf(it)
+    } ?: emptyList()
 
     override fun openMenu(player: ServerPlayer) {
         if (controller != null) {
