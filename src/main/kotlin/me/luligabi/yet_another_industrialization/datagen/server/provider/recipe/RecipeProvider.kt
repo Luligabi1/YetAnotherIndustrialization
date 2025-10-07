@@ -304,10 +304,11 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             Items.CHORUS_FRUIT,
             YAIFluids.DRAGONS_BREATH.asFluid(), YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(),
             listOf(
-                Triple(Items.CHORUS_FRUIT, 8, 1f)
+                Triple(Items.CHORUS_FRUIT, 8, 1f),
+                Triple(Items.CHORUS_FLOWER, 1, 1f)
             ),
             YAI.id("end_stone"),
-            YAI.id("chorus_flower"),
+            ResourceLocation.withDefaultNamespace("chorus_flower"),
             output
         )
     }
@@ -351,8 +352,8 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
                 it.addItemInput(input, 1, 0f)
                 it.addFluidInput(nutrientFluid, 1_000, 1f)
 
-                output.forEach { (item, amount, _) ->
-                    it.addItemOutput(item, amount * 2, 1f)
+                output.forEach { (item, amount, chance) ->
+                    it.addItemOutput(item, amount * 2, (chance * 2).coerceAtMost(1f))
                 }
                 it.addItemOutput(input, 1, 1f)
 
