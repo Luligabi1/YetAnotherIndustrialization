@@ -8,6 +8,7 @@ item_ids:
   - yet_another_industrialization:large_storage_unit
   - yet_another_industrialization:large_storage_unit_input_hatch
   - yet_another_industrialization:large_storage_unit_output_hatch
+  - yet_another_industrialization:battery_casing
 ---
 
 # Large Storage Unit
@@ -23,7 +24,7 @@ Unlike other electric machines, LSUs can I/O to its voltage and lower ones. i.e.
 
 <Recipe id="yet_another_industrialization:craft/large_storage_unit" />
 
-<Recipe id="yet_another_industrialization:materials/battery_alloy/craft/machine_casing" />
+<Recipe id="yet_another_industrialization:materials/battery_alloy/craft/machine_casing_special" />
 
 Energy I/O is done through special hatches:
 
