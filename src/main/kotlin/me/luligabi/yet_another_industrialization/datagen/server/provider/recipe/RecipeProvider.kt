@@ -134,6 +134,20 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             },
             output
         )
+
+        addMachineRecipe(
+            "packer/ultradense_metal_ball_burger",
+            MIMachineRecipeTypes.PACKER,
+            2, 5*20,
+            {
+                it.addItemInput(Items.BREAD, 1, 1f)
+                it.addItemInput(MIItem.ULTRADENSE_METAL_BALL, 1, 1f)
+                it.addItemInput(Items.BREAD, 1, 1f)
+
+                it.addItemOutput(YAIItems.ULTRADENSE_METAL_BALL_BURGER.get(), 1, 1f)
+            },
+            output
+        )
     }
 
     private fun buildMachineRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {

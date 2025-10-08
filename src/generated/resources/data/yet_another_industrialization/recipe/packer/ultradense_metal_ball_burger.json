@@ -1,0 +1,25 @@
+{
+  "type": "modern_industrialization:packer",
+  "duration": 100,
+  "eu": 2,
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "minecraft:bread"
+    },
+    {
+      "amount": 1,
+      "item": "modern_industrialization:ultradense_metal_ball"
+    },
+    {
+      "amount": 1,
+      "item": "minecraft:bread"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "yet_another_industrialization:ultradense_metal_ball_burger"
+    }
+  ]
+}

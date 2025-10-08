@@ -66,6 +66,11 @@ object YAIItems {
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
+
+    val ULTRADENSE_METAL_BALL_BURGER = create("ultradense_metal_ball_burger", "Ultradense Metal Ball Burger", ::UltradenseMetalBallBurgerItem, YAICreativeTab.Order.MEME)
+        .withModelBuilder(CommonModelBuilders::generated)
+        .register()
+
     val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth", ::ChaChaRealSmoothItem, YAICreativeTab.Order.HIDDEN)
         .withoutModel()
         .register()

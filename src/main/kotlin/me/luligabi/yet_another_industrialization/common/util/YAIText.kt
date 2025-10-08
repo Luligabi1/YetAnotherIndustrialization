@@ -97,6 +97,7 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     GUIDEBOOK_TOOLTIP("Pronounced as \"YAY\"!"),
     CACHACA_TOOLTIP("The Brazilian Spirit"),
     AI_SLOP_TOOLTIP("Vibe cooking is my passion"),
+    ULTRADENSE_METAL_BALL_BURGER_TOOLTIP("The buns are barely capable of holding it all together"),
     SNEAK_RC_ACTIVATE_1("Sneak + Right-click"),
     SNEAK_RC_ACTIVATE_2("%s to activate"),
     NONE("None");

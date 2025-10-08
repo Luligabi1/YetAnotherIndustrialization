@@ -28,6 +28,7 @@
   "item.yet_another_industrialization.nutrient_rich_lava_bucket": "Nutrient Rich Lava Bucket",
   "item.yet_another_industrialization.nutrient_rich_water_bucket": "Nutrient Rich Water Bucket",
   "item.yet_another_industrialization.storage_slot_locker": "Storage Slot Locker",
+  "item.yet_another_industrialization.ultradense_metal_ball_burger": "Ultradense Metal Ball Burger",
   "itemGroup.yet_another_industrialization.yet_another_industrialization": "Yet Another Industrialization!",
   "rei_categories.yet_another_industrialization.arboreous_greenhouse": "Arboreous Greenhouse",
   "rei_categories.yet_another_industrialization.cryogenic_precipitator": "Cryogenic Precipitator",
@@ -96,6 +97,7 @@
   "text.yet_another_industrialization.slot_locker_tooltip_3_suffix": "%s to change mode",
   "text.yet_another_industrialization.sneak_rc_activate_1": "Sneak + Right-click",
   "text.yet_another_industrialization.sneak_rc_activate_2": "%s to activate",
+  "text.yet_another_industrialization.ultradense_metal_ball_burger_tooltip": "The buns are barely capable of holding it all together",
   "yet_another_industrialization.subtitle.machine_remover_remove": "Machine Remover activates",
   "yet_another_industrialization.subtitle.storage_slot_locker_lock": "Storage Slot Locker activates"
 }
