@@ -134,6 +134,20 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             },
             output
         )
+
+        addMachineRecipe(
+            "packer/ultradense_metal_ball_burger",
+            MIMachineRecipeTypes.PACKER,
+            2, 5*20,
+            {
+                it.addItemInput(Items.BREAD, 1, 1f)
+                it.addItemInput(MIItem.ULTRADENSE_METAL_BALL, 1, 1f)
+                it.addItemInput(Items.BREAD, 1, 1f)
+
+                it.addItemOutput(YAIItems.ULTRADENSE_METAL_BALL_BURGER.get(), 1, 1f)
+            },
+            output
+        )
     }
 
     private fun buildMachineRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
@@ -240,12 +254,12 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         /** Configurable Mixed Storage */
         shaped(
             ConfigurableMixedStorageMachineBlockEntity.ID,
-            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 4,
             { it
                 .define('C', MIItem.ELECTRONIC_CIRCUIT)
                 .define('H', Items.HOPPER)
                 .define('T', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.TANK).asBlock())
-                .define('S', MIMaterials.STEEL.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('S', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.CLEAN_MACHINE_CASING).asBlock())
 
                 .pattern("CTC")
                 .pattern("HSH")
@@ -256,12 +270,12 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
 
         shaped(
             "${ConfigurableMixedStorageMachineBlockEntity.ID}_alt",
-            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 4,
             { it
                 .define('C', MIItem.ELECTRONIC_CIRCUIT)
                 .define('H', Items.HOPPER)
                 .define('T', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.TANK).asBlock())
-                .define('S', MIMaterials.STEEL.get(MIMaterialParts.MACHINE_CASING).asBlock())
+                .define('S', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.CLEAN_MACHINE_CASING).asBlock())
 
                 .pattern("CHC")
                 .pattern("TST")
@@ -273,7 +287,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
 
         shapeless(
             "${ConfigurableMixedStorageMachineBlockEntity.ID}_upgrade",
-            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 2,
             { it
                 .with(MI.id("configurable_chest"))
                 .with(MI.id("configurable_tank"))
@@ -285,7 +299,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
 
         assembler(
             "${ConfigurableMixedStorageMachineBlockEntity.ID}_upgrade",
-            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 1,
+            YAIMachines.getMachineFromId(ConfigurableMixedStorageMachineBlockEntity.ID), 2,
             { it
                 .define('S', MIMaterials.STAINLESS_STEEL.get(MIMaterialParts.CLEAN_MACHINE_CASING).asBlock())
                 .define('E', MIItem.ELECTRONIC_CIRCUIT)
@@ -304,10 +318,11 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             Items.CHORUS_FRUIT,
             YAIFluids.DRAGONS_BREATH.asFluid(), YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(),
             listOf(
-                Triple(Items.CHORUS_FRUIT, 8, 1f)
+                Triple(Items.CHORUS_FRUIT, 8, 1f),
+                Triple(Items.CHORUS_FLOWER, 1, 1f)
             ),
             YAI.id("end_stone"),
-            YAI.id("chorus_flower"),
+            ResourceLocation.withDefaultNamespace("chorus_flower"),
             output
         )
     }
@@ -351,8 +366,8 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
                 it.addItemInput(input, 1, 0f)
                 it.addFluidInput(nutrientFluid, 1_000, 1f)
 
-                output.forEach { (item, amount, _) ->
-                    it.addItemOutput(item, amount * 2, 1f)
+                output.forEach { (item, amount, chance) ->
+                    it.addItemOutput(item, amount * 2, (chance * 2).coerceAtMost(1f))
                 }
                 it.addItemOutput(input, 1, 1f)
 

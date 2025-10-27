@@ -1,6 +1,7 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit
 
 import aztech.modern_industrialization.api.energy.CableTier
+import aztech.modern_industrialization.api.machine.holder.EnergyListComponentHolder
 import aztech.modern_industrialization.compat.rei.machines.ReiMachineRecipes
 import aztech.modern_industrialization.inventory.MIInventory
 import aztech.modern_industrialization.machines.BEP
@@ -29,7 +30,7 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
     bep,
     MachineGuiParameters.Builder(YAI.id(ID), false).backgroundHeight(156).build(),
     OrientationComponent.Params(false, false, false)
-), Tickable {
+), Tickable, EnergyListComponentHolder {
 
     private val activeTier = SuppliedActiveShapeComponent({ SHAPE_TEMPLATES })
     private val chargingSlot = ChargingSlotComponent()
@@ -203,6 +204,8 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
     override fun getBigShape() = SHAPE_TEMPLATES[0]
 
     override fun getInventory() = MIInventory.EMPTY
+
+    override fun getEnergyComponents() = if (shapeValid.shapeValid) listOf(energy) else emptyList()
 
     override fun getMachineModelData(): MachineModelClientData {
         return MachineModelClientData(null, orientation.facingDirection).active(shapeValid.shapeValid)

@@ -9,7 +9,7 @@
       "item": "minecraft:hopper"
     },
     "S": {
-      "item": "modern_industrialization:steel_machine_casing"
+      "item": "modern_industrialization:clean_stainless_steel_machine_casing"
     },
     "T": {
       "item": "modern_industrialization:stainless_steel_tank"
@@ -21,7 +21,7 @@
     "CTC"
   ],
   "result": {
-    "count": 1,
+    "count": 4,
     "id": "yet_another_industrialization:configurable_mixed_storage"
   }
 }

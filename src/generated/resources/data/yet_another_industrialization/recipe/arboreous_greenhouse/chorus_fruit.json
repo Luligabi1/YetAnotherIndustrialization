@@ -22,6 +22,10 @@
     },
     {
       "amount": 1,
+      "item": "minecraft:chorus_flower"
+    },
+    {
+      "amount": 1,
       "item": "minecraft:chorus_fruit",
       "probability": 0.5
     }
