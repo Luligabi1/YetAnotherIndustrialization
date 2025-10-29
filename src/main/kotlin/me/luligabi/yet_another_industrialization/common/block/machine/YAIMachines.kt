@@ -19,6 +19,8 @@ import me.luligabi.yet_another_industrialization.common.block.machine.dragon_sip
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.FluidTrashCanHatch
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.ItemTrashCanHatch
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
@@ -176,6 +178,18 @@ object YAIMachines {
             .special(::LargeStorageUnitHatch, true)
             .builtinModel(Casings.BATTERY_ALLOY_MACHINE_CASING, "large_storage_unit_hatch")
             .registrator(LargeStorageUnitHatch::registerEnergyApi)
+            .registerMachine()
+
+        hook.builder(ItemTrashCanHatch.ID, ItemTrashCanHatch.NAME)
+            .special(::ItemTrashCanHatch)
+            .builtinModel(MachineCasings.STEEL, ItemTrashCanHatch.ID)
+            .registrator(MachineBlockEntity::registerItemApi)
+            .registerMachine()
+
+        hook.builder(FluidTrashCanHatch.ID, FluidTrashCanHatch.NAME)
+            .special(::FluidTrashCanHatch)
+            .builtinModel(MachineCasings.STEEL, FluidTrashCanHatch.ID)
+            .registrator(MachineBlockEntity::registerFluidApi)
             .registerMachine()
     }
 
