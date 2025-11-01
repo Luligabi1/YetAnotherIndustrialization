@@ -4,6 +4,7 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseTierCondition
+import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
 import me.luligabi.yet_another_industrialization.datagen.server.provider.ArboreousGreenhouseSaplingExtractor
 import me.luligabi.yet_another_industrialization.datagen.server.provider.DataMapProvider
@@ -27,7 +28,9 @@ import net.minecraft.server.packs.repository.PackSource
 import net.minecraft.server.packs.repository.ServerPacksSource
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Rotation
+import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.storage.LevelResource
 import net.minecraft.world.level.storage.LevelStorageSource
 import net.minecraft.world.level.storage.loot.LootTable
@@ -41,9 +44,9 @@ import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder
 import java.nio.file.Paths
 import kotlin.jvm.optionals.getOrNull
 
-object ArboreousGreenhouseRecipeProvider {
+object ArboreousGreenhouseRecipeProvider : YAIRecipeProvider {
 
-    fun buildRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+    override fun buildRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         val server = startFakeServer()
 
         for ((id, data) in ArboreousGreenhouseSaplingExtractor.SAPLING_DATA) {
@@ -55,8 +58,9 @@ object ArboreousGreenhouseRecipeProvider {
                 output
             )
         }
-
         server.stopServer()
+
+        buildManualArboreousGreenhouseRecipes(output, lookup)
     }
 
     private fun generateSaplingRecipes(
@@ -186,6 +190,71 @@ object ArboreousGreenhouseRecipeProvider {
         server.initServer()
 
         return server
+    }
+
+    private fun buildManualArboreousGreenhouseRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addArboreousGreenhouseRecipe(
+            "minecraft/chorus_fruit",
+            Items.CHORUS_FRUIT,
+            YAIFluids.DRAGONS_BREATH.asFluid(), YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(),
+            listOf(
+                Triple(Items.CHORUS_FRUIT, 8, 1f),
+                Triple(Items.CHORUS_FLOWER, 1, 1f)
+            ),
+            YAI.id("end_stone"),
+            ResourceLocation.withDefaultNamespace("chorus_flower"),
+            output
+        )
+    }
+
+    private fun addArboreousGreenhouseRecipe(
+        id: String,
+        input: ItemLike,
+        fluid: Fluid?, nutrientFluid: Fluid?,
+        output: List<Triple<ItemLike, Int, Float>>,
+        tier: ResourceLocation,
+        model: ResourceLocation,
+        recipeOutput: RecipeOutput
+    ) {
+        if (fluid != null) {
+            addMachineRecipe(
+                "${ArboreousGreenhouseBlockEntity.ID}/$id/regular",
+                YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE,
+                15, 60*20,
+                {
+                    it.addItemInput(input, 1, 0f)
+                    it.addFluidInput(fluid, 1_000, 1f)
+
+                    output.forEach { (item, amount, chance) ->
+                        it.addItemOutput(item, amount, chance)
+                    }
+                    it.addItemOutput(input, 1, 0.5f)
+
+                    it.addCondition(ArboreousGreenhouseTierCondition(tier, model))
+                },
+                recipeOutput
+            )
+        }
+
+        if (nutrientFluid == null) return
+
+        addMachineRecipe(
+            "${ArboreousGreenhouseBlockEntity.ID}/${id}/nutrient",
+            YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE,
+            15, 60*20,
+            {
+                it.addItemInput(input, 1, 0f)
+                it.addFluidInput(nutrientFluid, 1_000, 1f)
+
+                output.forEach { (item, amount, chance) ->
+                    it.addItemOutput(item, amount * 2, (chance * 2).coerceAtMost(1f))
+                }
+                it.addItemOutput(input, 1, 1f)
+
+                it.addCondition(ArboreousGreenhouseTierCondition(tier, model))
+            },
+            recipeOutput
+        )
     }
 
 }

@@ -1,0 +1,58 @@
+package me.luligabi.yet_another_industrialization.datagen.server.provider.recipe
+
+import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
+import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
+import me.luligabi.yet_another_industrialization.common.item.YAIItems
+import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
+import net.minecraft.core.HolderLookup
+import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.world.level.block.Blocks
+import net.swedz.tesseract.neoforge.compat.mi.material.MIMaterials
+import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
+
+object PartRecipeProvider : YAIRecipeProvider {
+
+    override fun buildRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addMachineRecipe(
+            "assembler/dragon_egg_siphon_catalyst/dragon_breath",
+            MIMachineRecipeTypes.ASSEMBLER,
+            8, 10*20,
+            {
+                it.addItemInput(MIMaterials.STEEL.get(MIMaterialParts.PLATE), 8, 1f)
+                it.addItemInput(MIMaterials.QUARTZ.get(MIMaterialParts.TINY_DUST), 1, 1f)
+                it.addFluidInput(YAIFluids.DRAGONS_BREATH.asFluid(), 50, 1f)
+
+                it.addItemOutput(YAIItems.DRAGON_EGG_SIPHON_CATALYST.get(), 1, 1f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "assembler/dragon_egg_siphon_catalyst/nutrient_rich_dragon_breath",
+            MIMachineRecipeTypes.ASSEMBLER,
+            8, 10*20,
+            {
+                it.addItemInput(MIMaterials.STEEL.get(MIMaterialParts.PLATE), 8, 1f)
+                it.addItemInput(MIMaterials.QUARTZ.get(MIMaterialParts.TINY_DUST), 1, 1f)
+                it.addFluidInput(YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 50, 1f)
+
+                it.addItemOutput(YAIItems.DRAGON_EGG_SIPHON_CATALYST.get(), 4, 1f)
+            },
+            output
+        )
+
+        shaped(
+            YAIBlocks.SPESB_ID,
+            YAIBlocks.STEEL_PLATED_END_STONE_BRICKS.get(), 1,
+            { it
+                .define('P', MIMaterials.STEEL.get(MIMaterialParts.PLATE).asItem())
+                .define('B', Blocks.END_STONE_BRICKS)
+                .pattern("PPP")
+                .pattern("PBP")
+                .pattern("PPP")
+            },
+            output
+        )
+    }
+
+}

@@ -69,7 +69,6 @@ class ArboreousGreenhouseSaplingExtractor(private val event: GatherDataEvent): D
                         lootData,
                         tier,
                         ResourceLocation.parse(model),
-                        if (mod.name != "minecraft") mod.name else null
                     )
                 }
 
@@ -151,14 +150,10 @@ class ArboreousGreenhouseSaplingExtractor(private val event: GatherDataEvent): D
         item: ResourceLocation,
         lootData: List<ArboreousGreenhouseSapling.LootData>,
         tier: ResourceLocation = ArboreousGreenhouseTier.DEFAULT_TIER,
-        model: ResourceLocation,
-        mod: String? = null
+        model: ResourceLocation
     ) {
-        // FIXME mod field
         SAPLING_DATA[item] = ArboreousGreenhouseSapling(lootData, tier, model)
     }
-
-
 
     override fun getName() = "Arboreous Greenhouse Sapling Extractor"
 
