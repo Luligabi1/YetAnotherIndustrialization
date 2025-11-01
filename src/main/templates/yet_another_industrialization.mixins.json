@@ -11,6 +11,7 @@
     "CrafterComponentAccessor",
     "EnergyComponentAccessor",
     "HackedMachineRegistrationHelperAccessor",
+    "LootItemAccessor",
     "MachineBlockEntityMixin",
     "MIHookContextAccessor",
     "MIRecipeJsonAccessor",

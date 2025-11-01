@@ -13,12 +13,10 @@ class YAILootTableProvider(registries: HolderLookup.Provider): BlockLootSubProvi
         .toList()
 
     override fun generate() {
-
         for (block in YAIBlocks.values()) {
             if (!block.hasLootTable()) continue
             add(block.get(), block.buildLootTable(this))
         }
-
     }
 
 }

@@ -1,0 +1,46 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "biomesoplenty"
+    }
+  ],
+  "type": "yet_another_industrialization:arboreous_greenhouse",
+  "duration": 1200,
+  "eu": 15,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "biomesoplenty:mahogany_sapling",
+      "probability": 0.0
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 16,
+      "item": "biomesoplenty:mahogany_log"
+    },
+    {
+      "amount": 32,
+      "item": "biomesoplenty:mahogany_leaves"
+    },
+    {
+      "amount": 1,
+      "item": "biomesoplenty:mahogany_sapling",
+      "probability": 0.5
+    }
+  ],
+  "process_conditions": [
+    {
+      "type": "yet_another_industrialization:arboreous_greenhouse_tier",
+      "model": "biomesoplenty:mahogany_tree",
+      "tier_id": "yet_another_industrialization:grass_block"
+    }
+  ]
+}

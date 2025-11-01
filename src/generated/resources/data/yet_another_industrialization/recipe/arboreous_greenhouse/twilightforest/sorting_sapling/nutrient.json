@@ -1,0 +1,49 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "type": "yet_another_industrialization:arboreous_greenhouse",
+  "duration": 1200,
+  "eu": 15,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "yet_another_industrialization:nutrient_rich_water"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "twilightforest:sorting_sapling",
+      "probability": 0.0
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 32,
+      "item": "twilightforest:sorting_log"
+    },
+    {
+      "amount": 64,
+      "item": "twilightforest:sorting_leaves"
+    },
+    {
+      "amount": 2,
+      "item": "twilightforest:sorting_log"
+    },
+    {
+      "amount": 1,
+      "item": "twilightforest:sorting_sapling"
+    }
+  ],
+  "process_conditions": [
+    {
+      "type": "yet_another_industrialization:arboreous_greenhouse_tier",
+      "model": "twilightforest:tree/sorting_tree",
+      "tier_id": "yet_another_industrialization:grass_block"
+    }
+  ]
+}

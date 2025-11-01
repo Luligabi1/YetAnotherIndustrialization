@@ -1,6 +1,7 @@
 package me.luligabi.yet_another_industrialization.datagen.server
 
 import me.luligabi.yet_another_industrialization.datagen.DatagenEntrypoint
+import me.luligabi.yet_another_industrialization.datagen.server.provider.ArboreousGreenhouseSaplingExtractor
 import me.luligabi.yet_another_industrialization.datagen.server.provider.DataMapProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.YAILootTableProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.recipe.RecipeProvider
@@ -16,10 +17,12 @@ import net.neoforged.neoforge.data.event.GatherDataEvent
 object ServerDatagen: DatagenEntrypoint {
 
     fun onGatherData(event: GatherDataEvent) {
+        event.add(::DataMapProvider)
+        event.add(::ArboreousGreenhouseSaplingExtractor)
+
         event.add(::RecipeProvider)
         event.add(::BlockTagProvider)
         event.add(::ItemTagProvider)
-        event.add(::DataMapProvider)
         event.addLootTable(::YAILootTableProvider)
     }
 

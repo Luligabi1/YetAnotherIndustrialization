@@ -39,11 +39,12 @@ import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapedRecipeBuilder
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapelessRecipeBuilder
 
-class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.packOutput, event.lookupProvider) {
+class RecipeProvider(private val event: GatherDataEvent): RecipeProvider(event.generator.packOutput, event.lookupProvider) {
 
     override fun buildRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         buildItemRecipes(output, lookup)
         buildMachineRecipes(output, lookup)
+        ArboreousGreenhouseRecipeProvider.buildRecipes(output, lookup)
         buildPartRecipes(output, lookup)
         buildFluidRecipes(output, lookup)
 
@@ -310,11 +311,48 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
             },
             output
         )
+        /***/
+
+        /** Trash Can Hatches */
+//        shapeless(
+//            ItemTrashCanHatch.ID,
+//            YAIMachines.getMachineFromId(ItemTrashCanHatch.ID), 1,
+//            { it
+//                //.define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock())
+////                .define('R', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
+////                .pattern("R")
+////                .pattern("M")
+//            },
+//            output
+//        )
+//        shaped(
+//            FluidTrashCanHatch.ID,
+//            YAIMachines.getMachineFromId(FluidTrashCanHatch.ID), 1,
+//            { it
+//                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock())
+//                .define('R', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
+//                .pattern("M")
+//                .pattern("R")
+//            },
+//            output
+//        )
+//        shapeless(
+//            "${LargeStorageUnitHatch.ID_INPUT}_convert",
+//            YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_INPUT), 1,
+//            { it.with(YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_OUTPUT)) },
+//            output
+//        )
+//        shapeless(
+//            "${LargeStorageUnitHatch.ID_OUTPUT}_convert",
+//            YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_OUTPUT), 1,
+//            { it.with(YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_INPUT)) },
+//            output
+//        )
     }
 
     private fun buildManualArboreousGreenhouseRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addArboreousGreenhouseRecipe(
-            "chorus_fruit",
+            "minecraft/chorus_fruit",
             Items.CHORUS_FRUIT,
             YAIFluids.DRAGONS_BREATH.asFluid(), YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(),
             listOf(
@@ -338,7 +376,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
     ) {
         if (fluid != null) {
             addMachineRecipe(
-                "${ArboreousGreenhouseBlockEntity.ID}/$id",
+                "${ArboreousGreenhouseBlockEntity.ID}/$id/regular",
                 YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE,
                 15, 60*20,
                 {
@@ -359,7 +397,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         if (nutrientFluid == null) return
 
         addMachineRecipe(
-            "${ArboreousGreenhouseBlockEntity.ID}/${id}_nutrient",
+            "${ArboreousGreenhouseBlockEntity.ID}/${id}/nutrient",
             YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE,
             15, 60*20,
             {
@@ -774,6 +812,5 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         }
 
     }
-
 
 }
