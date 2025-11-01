@@ -13,7 +13,7 @@ item_ids:
 ---
 
 # Arboreous Greenhouse
-###### *Crane's law attacks once again*
+###### *letitgrowleitgrow*
 
 <GameScene zoom="2" interactive={true} fullWidth={true}>
     <MultiblockShape controller="yet_another_industrialization:arboreous_greenhouse" />
@@ -21,7 +21,7 @@ item_ids:
 
 Arboreous Greenhouses are capable of growing trees or otherwise large plants.
 
-AAAAAAAAAAAAA RECIPE
+<Recipe id="yet_another_industrialization:craft/arboreous_greenhouse" />
 
 ## Getting started
 
@@ -29,7 +29,7 @@ All recipes require a single sapling (or equivalent), a fluid and the appropriat
 
 Which ones? Well, different plants naturally have different needs. Some might need Water and Sand while others require Lava and Netherrack. Always check your recipe viewer for accurate info!
 
-Trees will always yield their Leaves and Logs and sometimes their fruit/equivalent drop.
+Trees will always yield their Logs, Leaves and their own saplings. Some trees might have additional drops like fruits, roots, etc.
 
 ## Better yields
 

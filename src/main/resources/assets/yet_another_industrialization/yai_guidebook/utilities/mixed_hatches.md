@@ -31,6 +31,8 @@ item_ids:
 
 Combined hatches that I/O both items and fluids in the same block! They have exactly the same storage as their standalone counterparts, so there's no disadvantage in using them over regular hatches.
 
-AAAAAAA RECIPE
+<Recipe id="yet_another_industrialization:craft/bronze_mixed_input_hatch" />
 
-**TIP:** Use in conjunction with machines that auto-eject both items and fluids to fully bypass transfer rates in a really compact fashion!
+<Recipe id="yet_another_industrialization:craft/turbo_mixed_output_hatch" />
+
+**TIP:** Use in conjunction with a [Configurable Mixed Storage](configurable_mixed_storage.md) with auto-eject toggled on to fully bypass transfer rates in a really compact fashion!
