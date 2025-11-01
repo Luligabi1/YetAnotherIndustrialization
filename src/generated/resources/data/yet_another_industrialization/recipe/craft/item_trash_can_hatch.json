@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "modern_industrialization:steel_item_output_hatch"
+    },
+    {
+      "item": "modern_industrialization:trash_can"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:item_trash_can_hatch"
+  }
+}

@@ -4,6 +4,7 @@ import aztech.modern_industrialization.MI
 import aztech.modern_industrialization.MIBlock
 import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.MIItem
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
@@ -11,11 +12,16 @@ import me.luligabi.yet_another_industrialization.common.block.machine.dragon_sip
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.FluidTrashCanHatch
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.ItemTrashCanHatch
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.ItemLike
@@ -24,6 +30,8 @@ import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.material.Fluids
 import net.swedz.tesseract.neoforge.compat.mi.material.MIMaterials
 import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
+import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder
+import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapelessRecipeBuilder
 
 object MachineRecipeProvider : YAIRecipeProvider {
 
@@ -188,41 +196,8 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
         /***/
 
-        /** Trash Can Hatches */
-//        shapeless(
-//            ItemTrashCanHatch.ID,
-//            YAIMachines.getMachineFromId(ItemTrashCanHatch.ID), 1,
-//            { it
-//                //.define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock())
-////                .define('R', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
-////                .pattern("R")
-////                .pattern("M")
-//            },
-//            output
-//        )
-//        shaped(
-//            FluidTrashCanHatch.ID,
-//            YAIMachines.getMachineFromId(FluidTrashCanHatch.ID), 1,
-//            { it
-//                .define('M', YAIMaterials.BATTERY_ALLOY.get(MIMaterialParts.MACHINE_CASING_SPECIAL).asBlock())
-//                .define('R', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
-//                .pattern("M")
-//                .pattern("R")
-//            },
-//            output
-//        )
-//        shapeless(
-//            "${LargeStorageUnitHatch.ID_INPUT}_convert",
-//            YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_INPUT), 1,
-//            { it.with(YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_OUTPUT)) },
-//            output
-//        )
-//        shapeless(
-//            "${LargeStorageUnitHatch.ID_OUTPUT}_convert",
-//            YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_OUTPUT), 1,
-//            { it.with(YAIMachines.getMachineFromId(LargeStorageUnitHatch.ID_INPUT)) },
-//            output
-//        )
+        /** Hatches */
+        buildHatchRecipes(output, lookup)
     }
 
     private fun buildCryogenicPrecipitatorRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
@@ -422,5 +397,67 @@ object MachineRecipeProvider : YAIRecipeProvider {
             output
         )
     }
+
+    private fun buildHatchRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addMixedHatchRecipes("bronze", output, lookup)
+        addMixedHatchRecipes("steel", output, lookup)
+        addMixedHatchRecipes("advanced", output, lookup)
+        addMixedHatchRecipes("turbo", output, lookup)
+        addMixedHatchRecipes("highly_advanced", output, lookup)
+
+        addTrashcanHatchRecipes(output, lookup)
+    }
+
+    private fun addMixedHatchRecipes(
+        tier: String,
+        output: RecipeOutput, lookup: HolderLookup.Provider
+    ) {
+        fun offerRecipes(itemHatch: ResourceLocation, fluidHatch: ResourceLocation, result: String) {
+            val shapeless = ShapelessRecipeBuilder().apply {
+                with(lookup.lookup(Registries.ITEM).get()
+                    .get(ResourceKey.create(Registries.ITEM, itemHatch)).get().value())
+                with(lookup.lookup(Registries.ITEM).get()
+                    .get(ResourceKey.create(Registries.ITEM, fluidHatch)).get().value())
+                output(lookup.lookup(Registries.ITEM).get()
+                    .get(ResourceKey.create(Registries.ITEM, YAI.id(result))).get().value(), 1)
+            }
+            shapeless.offerTo(output, YAI.id("craft/$result"))
+            MIMachineRecipeBuilder.fromShapelessToPacker(shapeless).offerTo(output, YAI.id("packer/$result"))
+            MIMachineRecipeBuilder.fromShapelessToUnpackerAndFlip(shapeless).offerTo(output, YAI.id("unpacker/$result"))
+        }
+
+        val itemInHatch = ResourceLocation.parse("${MI.ID}:${tier}_item_input_hatch")
+        val fluidInHatch = ResourceLocation.parse("${MI.ID}:${tier}_fluid_input_hatch")
+        val itemOutHatch = ResourceLocation.parse("${MI.ID}:${tier}_item_output_hatch")
+        val fluidOutHatch = ResourceLocation.parse("${MI.ID}:${tier}_fluid_output_hatch")
+
+        val mixedInHatch = "${tier}_mixed_input_hatch"
+        val mixedOutHatch = "${tier}_mixed_output_hatch"
+
+        offerRecipes(itemInHatch, fluidInHatch, mixedInHatch)
+        offerRecipes(itemOutHatch, fluidOutHatch, mixedOutHatch)
+    }
+
+    private fun addTrashcanHatchRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        fun offerRecipes(hatch: ResourceLocation, result: String) {
+            val shapeless = ShapelessRecipeBuilder().apply {
+                with(lookup.lookup(Registries.ITEM).get()
+                    .get(ResourceKey.create(Registries.ITEM, hatch)).get().value())
+                with(MIBlock.TRASH_CAN)
+                output(lookup.lookup(Registries.ITEM).get()
+                    .get(ResourceKey.create(Registries.ITEM, YAI.id(result))).get().value(), 1)
+            }
+            shapeless.offerTo(output, YAI.id("craft/$result"))
+            MIMachineRecipeBuilder.fromShapelessToPacker(shapeless).offerTo(output, YAI.id("packer/$result"))
+            MIMachineRecipeBuilder.fromShapelessToUnpackerAndFlip(shapeless).offerTo(output, YAI.id("unpacker/$result"))
+        }
+
+        val itemOutHatch = ResourceLocation.parse("${MI.ID}:steel_item_output_hatch")
+        val fluidOutHatch = ResourceLocation.parse("${MI.ID}:steel_fluid_output_hatch")
+
+        offerRecipes(itemOutHatch, ItemTrashCanHatch.ID)
+        offerRecipes(fluidOutHatch, FluidTrashCanHatch.ID)
+    }
+
 
 }
