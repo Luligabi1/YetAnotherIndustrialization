@@ -46,6 +46,9 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     DIAGNOSER_INVALID_MULTIBLOCK_SHAPE("Invalid Multiblock Shape"),
     DIAGNOSER_INVALID_MULTIBLOCK_SHAPE_DESCRIPTION("The multiblock is misbuilt. Hold a Wrench to preview the correct shape. Also check:\n\n- If the multiblock has tiers, select the right one on the GUI;\n- Some multiblocks, like the Pressurizer, are picky about where each hatch type is placed."),
 
+    DIAGNOSER_REDSTONE_BLOCKED("Redstone Blocked"),
+    DIAGNOSER_REDSTONE_BLOCKED_DESCRIPTION("The machine's Redstone Control Module requires the opposite signal to allow operation.\nInvert the signal or remove the module to proceed."),
+
     DIAGNOSER_NO_LARGE_TANK_HATCH("Missing Large Tank Hatches"),
     DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION("Large Tanks require Large Tank Hatches"),
 
@@ -92,6 +95,10 @@ enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
     LARGE_STORAGE_UNIT_TIER_CAPACITY("Capacity: %s%s EU"),
     LARGE_STORAGE_UNIT_TOOLTIP_1("Can I/O to its voltage and lower"),
     LARGE_STORAGE_UNIT_TOOLTIP_2("i.e. At HV, it's capable of interacting with HV, MV and LV!"),
+
+    /** Hatch Names */
+    MIXED_INPUT_HATCH("Mixed Input Hatch"),
+    MIXED_OUTPUT_HATCH("Mixed Output Hatch"),
 
     /** Misc. Item tooltips */
     GUIDEBOOK_TOOLTIP("Pronounced as \"YAY\"!"),

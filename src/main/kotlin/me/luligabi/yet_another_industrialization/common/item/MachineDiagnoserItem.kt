@@ -16,6 +16,7 @@ import aztech.modern_industrialization.machines.blockentities.multiblocks.SteamC
 import aztech.modern_industrialization.machines.components.CrafterComponent
 import aztech.modern_industrialization.machines.components.EnergyComponent
 import aztech.modern_industrialization.machines.components.MultiblockInventoryComponent
+import aztech.modern_industrialization.machines.components.RedstoneControlComponent
 import aztech.modern_industrialization.machines.multiblocks.HatchFlags
 import aztech.modern_industrialization.machines.multiblocks.HatchTypes
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
@@ -59,6 +60,13 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
 
     private fun diagnose(machine: MachineBlockEntity): MutableSet<DiagnosisType> {
         val diagnosis = mutableSetOf<DiagnosisType>()
+
+        machine.components.get(RedstoneControlComponent::class.java)?.let {
+            if (!it.doAllowNormalOperation(machine)) {
+                diagnosis.add(DiagnosisType.REDSTONE_BLOCKED)
+                return diagnosis
+            }
+        }
 
         if (machine is MultiblockMachineBlockEntity) {
             if (!machine.isShapeValid) {
@@ -237,6 +245,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
         CANT_PUT_FLUID_OUTPUT_WARNING(YAIText.DIAGNOSER_CANT_PUT_FLUID_OUTPUT, YAIText.DIAGNOSER_CANT_PUT_FLUID_OUTPUT_DESCRIPTION, Severity.WARNING),
         UNMET_CONDITION(YAIText.DIAGNOSER_UNMET_CONDITION, YAIText.DIAGNOSER_UNMET_CONDITION_DESCRIPTION, Severity.ERROR),
         INVALID_MULTIBLOCK_SHAPE(YAIText.DIAGNOSER_INVALID_MULTIBLOCK_SHAPE, YAIText.DIAGNOSER_INVALID_MULTIBLOCK_SHAPE_DESCRIPTION, Severity.ERROR),
+        REDSTONE_BLOCKED(YAIText.DIAGNOSER_REDSTONE_BLOCKED, YAIText.DIAGNOSER_REDSTONE_BLOCKED_DESCRIPTION, Severity.ERROR),
         NO_LARGE_TANK_HATCH(YAIText.DIAGNOSER_NO_LARGE_TANK_HATCH, YAIText.DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION, Severity.ERROR),
         UNSUPPORTED(YAIText.DIAGNOSER_UNSUPPORTED, YAIText.DIAGNOSER_UNSUPPORTED_DESCRIPTION, Severity.INFO);
 
