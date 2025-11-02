@@ -1,0 +1,45 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "productivetrees"
+    }
+  ],
+  "type": "yet_another_industrialization:arboreous_greenhouse",
+  "duration": 1200,
+  "eu": 15,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "yet_another_industrialization:nutrient_rich_water"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "productivetrees:holly_sapling",
+      "probability": 0.0
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 32,
+      "item": "productivetrees:holly_log"
+    },
+    {
+      "amount": 64,
+      "item": "productivetrees:holly_leaves"
+    },
+    {
+      "amount": 1,
+      "item": "productivetrees:holly_sapling"
+    }
+  ],
+  "process_conditions": [
+    {
+      "type": "yet_another_industrialization:arboreous_greenhouse_tier",
+      "model": "productivetrees:holly",
+      "tier_id": "yet_another_industrialization:grass_block"
+    }
+  ]
+}

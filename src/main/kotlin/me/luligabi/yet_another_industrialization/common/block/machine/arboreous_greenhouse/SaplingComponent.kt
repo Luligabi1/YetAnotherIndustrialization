@@ -2,7 +2,6 @@ package me.luligabi.yet_another_industrialization.common.block.machine.arboreous
 
 import aztech.modern_industrialization.machines.IComponent
 import aztech.modern_industrialization.machines.components.CrafterComponent
-import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import me.luligabi.yet_another_industrialization.mixin.CrafterComponentAccessor
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
@@ -15,12 +14,9 @@ import net.minecraft.world.item.Items
 
 class SaplingComponent: IComponent.ClientOnly {
 
-    var item: Item? = null
-    /**
-     * Used when [item] is not in [YAIDataMaps.ARBOREOUS_GREENHOUSE_SAPLING]
-     * i.e. when a recipe is not generated, but added manually
-     */
-    var fallbackModel: ResourceLocation? = null
+    var model: ResourceLocation? = null
+    private var item: Item? = null
+
 
     fun update(crafter: CrafterComponent, be: ArboreousGreenhouseBlockEntity) {
         val recipe = (crafter as CrafterComponentAccessor).activeRecipe?.value
@@ -31,8 +27,8 @@ class SaplingComponent: IComponent.ClientOnly {
                 item = null
                 changed = true
             }
-            if (fallbackModel != null) {
-                fallbackModel = null
+            if (model != null) {
+                model = null
                 changed = true
             }
 
@@ -44,7 +40,7 @@ class SaplingComponent: IComponent.ClientOnly {
         val newItem = recipe.itemInputs[0].inputItems[0]
         if (item != newItem) { // new recipe
             item = newItem
-            fallbackModel = recipe.conditions
+            model = recipe.conditions
                 ?.filterIsInstance<ArboreousGreenhouseTierCondition>()
                 ?.firstOrNull()?.model
             be.sync(false)
@@ -53,7 +49,7 @@ class SaplingComponent: IComponent.ClientOnly {
 
     fun reset(be: ArboreousGreenhouseBlockEntity) {
         item = null
-        fallbackModel = null
+        model = null
         be.sync(false)
     }
 
@@ -61,8 +57,8 @@ class SaplingComponent: IComponent.ClientOnly {
         if (item != null && item != Items.AIR) {
             tag.putString(ITEM_KEY, BuiltInRegistries.ITEM.getKey(item!!).toString())
         }
-        if (fallbackModel != null) {
-            tag.putString(RECIPE_KEY, fallbackModel.toString())
+        if (model != null) {
+            tag.putString(RECIPE_KEY, model.toString())
         }
     }
 
@@ -76,7 +72,7 @@ class SaplingComponent: IComponent.ClientOnly {
         }
 
         ResourceLocation.tryParse(tag.getString(RECIPE_KEY))?.let {
-            fallbackModel = it
+            model = it
         }
     }
 

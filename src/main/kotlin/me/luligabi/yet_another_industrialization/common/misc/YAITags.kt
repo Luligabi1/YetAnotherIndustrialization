@@ -11,6 +11,7 @@ object YAITags {
 
     val MI_GUIDE_BOOKS = commonItemTag("modern_industrialization/guide_books")
 
+    val NON_MYCELIUM_DIRT = commonBlockTag("dirts/non_mycelium")
     val NETHERRACK_SOILS = TagKey.create(Registries.BLOCK, YAI.id("netherrack_soils"))
     val MYCELLIUMS = commonBlockTag("myceliums")
 

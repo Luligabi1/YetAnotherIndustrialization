@@ -3,6 +3,10 @@ package me.luligabi.yet_another_industrialization.common.block.machine
 import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.api.energy.CableTier
 import aztech.modern_industrialization.compat.rei.machines.SteamMode
+import aztech.modern_industrialization.inventory.ConfigurableFluidStack
+import aztech.modern_industrialization.inventory.ConfigurableItemStack
+import aztech.modern_industrialization.inventory.MIInventory
+import aztech.modern_industrialization.inventory.SlotPositions
 import aztech.modern_industrialization.machines.MachineBlockEntity
 import aztech.modern_industrialization.machines.models.MachineCasing
 import aztech.modern_industrialization.machines.models.MachineCasings
@@ -12,13 +16,15 @@ import com.google.common.collect.Maps
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseRecipeType
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseTierCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.EnergyGenerationCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.MixedHatch
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.FluidTrashCanHatch
+import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.ItemTrashCanHatch
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
@@ -63,6 +69,88 @@ object YAIMachines {
                 MachineBlockEntity.registerFluidApi(it)
             })
             .registerMachine()
+
+        registerMixedHatch(
+            hook,
+            "Bronze", "bronze",
+            MachineCasings.BRONZE,
+            1, 4_000L,
+            SlotPositions.Builder().addSlot(62, 40).build(),
+            SlotPositions.Builder().addSlot(98, 40).build()
+        )
+        registerMixedHatch(
+            hook,
+            "Steel", "steel",
+            MachineCasings.STEEL,
+            2, 16_000L,
+            SlotPositions.Builder().addSlots(62, 30, 1, 2).build(),
+            SlotPositions.Builder().addSlot(98, 39).build()
+        )
+        registerMixedHatch(
+            hook,
+            "Advanced", "advanced",
+            CableTier.MV.casing,
+            4, 64_000L,
+            SlotPositions.Builder().addSlots(53, 30, 2, 2).build(),
+            SlotPositions.Builder().addSlot(107, 39).build()
+        )
+        registerMixedHatch(
+            hook,
+            "Turbo", "turbo",
+            CableTier.HV.casing,
+            9, 256_000L,
+            SlotPositions.Builder().addSlots(44, 21, 3, 3).build(),
+            SlotPositions.Builder().addSlot(116, 39).build(),
+            176
+        )
+        registerMixedHatch(
+            hook,
+            "Highly Advanced", "highly_advanced",
+            CableTier.EV.casing,
+            15, 1024_000L,
+            SlotPositions.Builder().addSlots(26, 28, 5, 3).build(),
+            SlotPositions.Builder().addSlot(134, 46).build(),
+            176
+        )
+    }
+
+    private fun registerMixedHatch(
+        hook: SingleBlockSpecialMachinesMIHookContext,
+        englishPrefix: String, prefix: String,
+        casing: MachineCasing,
+        itemSlotAmount: Int,
+        fluidSlotCapacity: Long,
+        itemPositions: SlotPositions,
+        fluidPositions: SlotPositions,
+        backgroundHeight: Int = 166
+    ) {
+        for (iter in 0..1) {
+            val input = iter == 0
+            val machine = prefix + "_mixed_" + (if (input) "input" else "output") + "_hatch"
+            val englishName = englishPrefix + " Mixed" + (if (input) " Input" else " Output") + " Hatch"
+
+            hook.builder(machine, englishName, { bep ->
+                val itemSlots = List(itemSlotAmount) { if (input) ConfigurableItemStack.standardInputSlot() else ConfigurableItemStack.standardOutputSlot() }
+                val fluidSlots = listOf(if (input) ConfigurableFluidStack.standardInputSlot(fluidSlotCapacity) else ConfigurableFluidStack.standardOutputSlot(fluidSlotCapacity))
+
+                MixedHatch(
+                    bep,
+                    machine,
+                    input,
+                    prefix != "bronze",
+                    MIInventory(itemSlots, fluidSlots, itemPositions, fluidPositions),
+                    backgroundHeight
+                )
+            })
+                .builtinModel(casing, "mixed_hatch", {
+                    it.front().side().top(false).active(false)
+                })
+                .registrator({
+                    MachineBlockEntity.registerItemApi(it)
+                    MachineBlockEntity.registerFluidApi(it)
+                })
+                .registerMachine()
+        }
     }
 
     fun multiblockMachines(hook: MultiblockMachinesMIHookContext) {
@@ -137,7 +225,6 @@ object YAIMachines {
 
         RecipeTypes.ARBOREOUS_GREENHOUSE = RecipeTypes.create(hook,
             ArboreousGreenhouseBlockEntity.NAME, ArboreousGreenhouseBlockEntity.ID,
-            ::ArboreousGreenhouseRecipeType
         ).withItemInputs().withItemOutputs().withFluidInputs()
 
         RecipeTypes.DRAGON_SIPHON = RecipeTypes.create(hook,
@@ -176,6 +263,18 @@ object YAIMachines {
             .special(::LargeStorageUnitHatch, true)
             .builtinModel(Casings.BATTERY_ALLOY_MACHINE_CASING, "large_storage_unit_hatch")
             .registrator(LargeStorageUnitHatch::registerEnergyApi)
+            .registerMachine()
+
+        hook.builder(ItemTrashCanHatch.ID, ItemTrashCanHatch.NAME)
+            .special(::ItemTrashCanHatch)
+            .builtinModel(MachineCasings.STEEL, ItemTrashCanHatch.ID)
+            .registrator(MachineBlockEntity::registerItemApi)
+            .registerMachine()
+
+        hook.builder(FluidTrashCanHatch.ID, FluidTrashCanHatch.NAME)
+            .special(::FluidTrashCanHatch)
+            .builtinModel(MachineCasings.STEEL, FluidTrashCanHatch.ID)
+            .registrator(MachineBlockEntity::registerFluidApi)
             .registerMachine()
     }
 

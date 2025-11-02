@@ -1,5 +1,19 @@
 {
   "values": {
+    "#c:dirts/non_mycelium": {
+      "fluid": {
+        "amount": 1000,
+        "fluid": "minecraft:water"
+      },
+      "icon": "minecraft:grass_block",
+      "id": "yet_another_industrialization:grass_block",
+      "nutrient_fluid": {
+        "amount": 1000,
+        "fluid": "yet_another_industrialization:nutrient_rich_water"
+      },
+      "sort_order": 0,
+      "translation_key": "block.minecraft.grass_block"
+    },
     "#c:end_stones": {
       "fluid": {
         "amount": 1000,
@@ -30,31 +44,17 @@
     },
     "#c:sands": {
       "fluid": {
-        "amount": 1000,
+        "amount": 500,
         "fluid": "minecraft:water"
       },
       "icon": "minecraft:sand",
       "id": "yet_another_industrialization:sand",
       "nutrient_fluid": {
-        "amount": 1000,
+        "amount": 500,
         "fluid": "yet_another_industrialization:nutrient_rich_water"
       },
       "sort_order": 5,
       "translation_key": "block.minecraft.sand"
-    },
-    "#minecraft:dirt": {
-      "fluid": {
-        "amount": 1000,
-        "fluid": "minecraft:water"
-      },
-      "icon": "minecraft:grass_block",
-      "id": "yet_another_industrialization:grass_block",
-      "nutrient_fluid": {
-        "amount": 1000,
-        "fluid": "yet_another_industrialization:nutrient_rich_water"
-      },
-      "sort_order": 0,
-      "translation_key": "block.minecraft.grass_block"
     },
     "#yet_another_industrialization:netherrack_soils": {
       "fluid": {

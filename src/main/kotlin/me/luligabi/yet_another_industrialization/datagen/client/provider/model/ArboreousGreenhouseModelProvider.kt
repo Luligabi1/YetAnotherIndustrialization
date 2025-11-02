@@ -3,7 +3,7 @@ package me.luligabi.yet_another_industrialization.datagen.client.provider.model
 import com.google.gson.JsonParser
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
-import me.luligabi.yet_another_industrialization.datagen.server.provider.DataMapProvider
+import me.luligabi.yet_another_industrialization.datagen.server.provider.ArboreousGreenhouseSaplingExtractor
 import net.minecraft.data.CachedOutput
 import net.minecraft.data.DataProvider
 import net.minecraft.data.PackOutput
@@ -27,7 +27,7 @@ class ArboreousGreenhouseModelProvider(private val event: GatherDataEvent): Data
 
             Files.walk(root.toPath()).use { paths ->
                 paths.filter { Files.isRegularFile(it) && it.toString().endsWith(".json") }.forEach { source ->
-                    if (DataMapProvider.BANNED_TREES.any(source.toString()::contains)) return@forEach
+                    if (ArboreousGreenhouseSaplingExtractor.BANNED_TREES.any(source.toString()::contains)) return@forEach
 
                     val relative = root.toPath().relativize(source)
 

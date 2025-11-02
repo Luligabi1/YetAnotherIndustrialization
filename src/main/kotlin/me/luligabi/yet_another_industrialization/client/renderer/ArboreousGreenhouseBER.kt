@@ -11,7 +11,6 @@ import me.luligabi.yet_another_industrialization.client.model.YAIModelLoaders
 import me.luligabi.yet_another_industrialization.client.model.multiblock.MultiBlockFakeLevel
 import me.luligabi.yet_another_industrialization.client.model.multiblock.MultiBlockModel
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
-import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.renderer.MultiBufferSource
@@ -26,9 +25,7 @@ class ArboreousGreenhouseBER(ctx: BlockEntityRendererProvider.Context) : Multibl
     override fun render(be: MultiblockMachineBlockEntity, tickDelta: Float, poseStack: PoseStack, vcp: MultiBufferSource, light: Int, overlay: Int) {
         super.render(be, tickDelta, poseStack, vcp, light, overlay)
 
-        val component = (be as ArboreousGreenhouseBlockEntity).sapling
-        val dataMapData = component.item?.builtInRegistryHolder()?.getData(YAIDataMaps.ARBOREOUS_GREENHOUSE_SAPLING)
-        val modelId = dataMapData?.model ?: component.fallbackModel
+        val modelId = (be as ArboreousGreenhouseBlockEntity).sapling.model
         if (modelId == null) return
 
         YAIModelLoaders.MODEL_MAP[modelId]?.let {

@@ -255,8 +255,6 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
             SHAPE_TEMPLATES.forEachIndexed { i, shapeTemplate ->
                 ReiMachineRecipes.registerMultiblockShape(YAI.id(ID), shapeTemplate, "$i")
             }
-
-            ArboreousGreenhouseRecipeType.clearCache()
         }
 
     }
