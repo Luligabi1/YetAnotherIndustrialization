@@ -1,5 +1,5 @@
 # Yet Another Industrialziation! <img src="src/main/resources/assets/yet_another_industrialization/logo.png" align="right" width="160"/>
-*Hostile Neural Networks meets Modern Industrialization... the neural network must grow.*
+*Miscellaneous features for Modern Industrialization that make you go "YAI!"*
 
 ###### Requires [Modern Industrialization](https://www.curseforge.com/minecraft/mc-mods/modern-industrialization/), [Tesseract API](https://legacy.curseforge.com/minecraft/mc-mods/tesseract-api-neoforge) and [Kotlin for Forge](https://www.curseforge.com/minecraft/mc-mods/kotlin-for-forge)
 
@@ -8,7 +8,7 @@
 
 [Modrinth page](https://modrinth.com/mod/yet-another-industrialization)
 
-[Modpack Creator Documentation](https://github.com/Luligabi1/YetAnotherIndustrialization/wiki#for-modpack-creators)
+[Modpack Creator Documentation](https://github.com/Luligabi1/YetAnotherIndustrialization/tree/HEAD/docs/)
 
 ### Special Thanks
 
