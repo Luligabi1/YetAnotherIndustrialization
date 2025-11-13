@@ -1,10 +1,8 @@
 package me.luligabi.yet_another_industrialization.common.misc.network
 
-import aztech.modern_industrialization.util.TextHelper
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIDataComponents
-import me.luligabi.yet_another_industrialization.common.util.YAIText
-import me.luligabi.yet_another_industrialization.common.util.applyStyle
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.swedz.tesseract.neoforge.packet.CustomPacket
@@ -36,9 +34,7 @@ class SlotLockerChangeModePacket(
             it.set(YAIDataComponents.SLOT_LOCKER_DATA, newData)
 
             ctx.player.displayClientMessage(
-                YAIText.SLOT_LOCKER_MODE_CHANGE.text(
-                    mode.text.text().applyStyle(TextHelper.NUMBER_TEXT)
-                ).applyStyle(TextHelper.GRAY_TEXT),
+                YAI.TEXT.slotLockerModeChange(mode.text()),
                 true
             )
         }

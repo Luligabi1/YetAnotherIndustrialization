@@ -10,10 +10,9 @@ import aztech.modern_industrialization.machines.components.OrientationComponent
 import aztech.modern_industrialization.machines.gui.MachineGuiParameters
 import aztech.modern_industrialization.machines.multiblocks.HatchBlockEntity
 import aztech.modern_industrialization.machines.multiblocks.HatchType
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.YAIHatchTypes
 import me.luligabi.yet_another_industrialization.common.util.EmptyEnergyAccess
-import me.luligabi.yet_another_industrialization.common.util.YAIText
-import net.minecraft.ChatFormatting
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -51,7 +50,7 @@ class LargeStorageUnitHatch(bep: BEP, private val input: Boolean, blockId: Resou
         if (controller != null) {
             controller!!.openMenu(player)
         } else {
-            player.displayClientMessage(YAIText.NO_LARGE_STORAGE_UNIT.text().withStyle(ChatFormatting.RED), true)
+            player.displayClientMessage(YAI.TEXT.noLargeStorageUnit(), true)
         }
     }
 

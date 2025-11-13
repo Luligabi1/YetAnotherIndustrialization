@@ -9,7 +9,6 @@ import aztech.modern_industrialization.machines.gui.MachineScreen
 import aztech.modern_industrialization.util.Rectangle
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.ChargingSlot
-import me.luligabi.yet_another_industrialization.common.util.YAIText
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -34,7 +33,7 @@ class ChargingSlotClient(buf: RegistryFriendlyByteBuf): GuiComponentClient {
 
             override fun getBackgroundAtlasLocation() = YAI.id("textures/gui/container/slot_atlas.png")
 
-            override val tooltip = YAI.LANG.chargingSlotTooltip()
+            override val tooltip = YAI.TEXT.chargingSlotTooltip()
         }
 
         menu.addSlotToMenu(ClientSlot(), SlotGroup.CONFIGURABLE_STACKS)

@@ -7,9 +7,6 @@ import dev.technici4n.grandpower.api.ISimpleEnergyItem
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
-import me.luligabi.yet_another_industrialization.common.util.MACHINE_REMOVER_STYLE
-import me.luligabi.yet_another_industrialization.common.util.YAIText
-import me.luligabi.yet_another_industrialization.common.util.applyStyle
 import me.luligabi.yet_another_industrialization.mixin.MultiblockMachineBlockEntityAccessor
 import me.luligabi.yet_another_industrialization.mixin.UseOnContextAccessor
 import net.minecraft.core.BlockPos
@@ -50,7 +47,7 @@ class MachineRemoverItem(properties: Properties) : Item(
 
         val machine = ctx.level.getBlockEntity(ctx.clickedPos) as? MachineBlockEntity ?: return InteractionResult.PASS
         if (machine.type.builtInRegistryHolder()!!.`is`(YAITags.MACHINE_REMOVER_BANNED)) {
-            ctx.player!!.sendError(YAIText.MACHINE_REMOVER_BANNED)
+            ctx.player!!.displayClientMessage(YAI.TEXT.machineRemoverBanned(), true)
             return InteractionResult.sidedSuccess(ctx.level.isClientSide)
         }
 
@@ -82,7 +79,7 @@ class MachineRemoverItem(properties: Properties) : Item(
 
         val members = (controller as MultiblockMachineBlockEntityAccessor).shapeMatcher.positions
         if (members.size > 128) {
-            player.sendError(YAIText.MACHINE_REMOVER_TOO_LARGE)
+            player.displayClientMessage(YAI.TEXT.machineRemoverTooLarge(), true)
             return false
         }
 
@@ -91,14 +88,14 @@ class MachineRemoverItem(properties: Properties) : Item(
             removeBlock(level, player, pos, pos, controller)
             return true
         } else {
-            player.sendError(YAIText.MACHINE_REMOVER_INSUFFICIENT_ENERGY)
+            player.displayClientMessage(YAI.TEXT.machineRemoverInsufficientEnergy(), true)
             return false
         }
     }
 
     private fun removeSingleMachine(stack: ItemStack, player: Player, level: Level, pos: BlockPos, machine: MachineBlockEntity): Boolean {
         if (!tryUseEnergy(stack, SINGLE_BLOCK_REMOVE_COST)) {
-            player.sendError(YAIText.MACHINE_REMOVER_INSUFFICIENT_ENERGY)
+            player.displayClientMessage(YAI.TEXT.machineRemoverInsufficientEnergy(), true)
             return false
         }
 
@@ -142,10 +139,5 @@ class MachineRemoverItem(properties: Properties) : Item(
     override fun getEnergyMaxInput(stack: ItemStack) = ENERGY_CAPACITY
 
     override fun getEnergyMaxOutput(stack: ItemStack) = 0L
-
-
-    private fun Player.sendError(message: YAIText) {
-        displayClientMessage(message.text().applyStyle(MACHINE_REMOVER_STYLE), true)
-    }
 
 }

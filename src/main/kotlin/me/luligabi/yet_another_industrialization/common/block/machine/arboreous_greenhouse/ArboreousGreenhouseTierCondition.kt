@@ -2,11 +2,9 @@ package me.luligabi.yet_another_industrialization.common.block.machine.arboreous
 
 import aztech.modern_industrialization.machines.recipe.MachineRecipe
 import aztech.modern_industrialization.machines.recipe.condition.MachineProcessCondition
-import aztech.modern_industrialization.util.TextHelper
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
-import me.luligabi.yet_another_industrialization.common.util.YAIText
-import me.luligabi.yet_another_industrialization.common.util.applyStyle
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
@@ -62,9 +60,7 @@ class ArboreousGreenhouseTierCondition(
         val tierName = ArboreousGreenhouseTier.get(tierId)?.translationKey ?: return
 
         list.add(
-            YAIText.ARBOREOUS_GREENHOUSE_TIER_TOOLTIP.text(
-                Component.translatable(tierName).applyStyle(TextHelper.NUMBER_TEXT)
-            ).applyStyle(TextHelper.GRAY_TEXT)
+            YAI.TEXT.arboreousGreenhouseTierTooltip(Component.translatable(tierName))
         )
     }
 

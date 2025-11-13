@@ -7,7 +7,6 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.misc.datamap.LargeStorageUnitTier
-import me.luligabi.yet_another_industrialization.common.util.YAIText
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
@@ -21,7 +20,7 @@ import java.util.function.Consumer
 class LargeStorageUnitTierCategory : ViewerCategory<LargeStorageUnitTierCategory.Data>(
     Data::class.java,
     YAI.id(ID),
-    YAIText.LARGE_STORAGE_UNIT_TIERS.text(),
+    YAI.TEXT.largeStorageUnitTiers(),
     ItemStack(YAIMachines.getMachineFromId(LargeStorageUnitBlockEntity.ID)),
     150, 42
 ) {
@@ -50,7 +49,7 @@ class LargeStorageUnitTierCategory : ViewerCategory<LargeStorageUnitTierCategory
 
         val amount = TextHelper.getAmount(data.capacity)
         widgets.secondaryText(
-            YAIText.LARGE_STORAGE_UNIT_TIER_CAPACITY.text(amount.digit, amount.unit),
+            YAI.TEXT.largeStorageUnitTierCapacity(amount.digit, amount.unit),
             47f, 14f
         )
     }

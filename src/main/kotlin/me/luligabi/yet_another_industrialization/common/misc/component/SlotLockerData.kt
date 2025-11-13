@@ -3,7 +3,8 @@ package me.luligabi.yet_another_industrialization.common.misc.component
 import aztech.modern_industrialization.thirdparty.fabrictransfer.api.fluid.FluidVariant
 import aztech.modern_industrialization.thirdparty.fabrictransfer.api.item.ItemVariant
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import me.luligabi.yet_another_industrialization.common.util.YAIText
+import me.luligabi.yet_another_industrialization.common.YAI
+import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.util.StringRepresentable
 
@@ -19,15 +20,15 @@ data class SlotLockerData(
         val id: String,
         val lockItem: Boolean?, // null -> ignore
         val lockFluid: Boolean?,
-        val text: YAIText
+        val text: () -> MutableComponent
     ): StringRepresentable {
 
-        LOCK_ITEM("lock_item", true, null, YAIText.SLOT_LOCKER_MODE_LOCK_ITEM),
-        LOCK_FLUID("lock_fluid", null, true, YAIText.SLOT_LOCKER_MODE_LOCK_FLUID),
-        LOCK_BOTH("lock_both", true, true, YAIText.SLOT_LOCKER_MODE_LOCK_BOTH),
-        UNLOCK_ITEM("unlock_item", false, null, YAIText.SLOT_LOCKER_MODE_UNLOCK_ITEM),
-        UNLOCK_FLUID("unlock_fluid", null, false, YAIText.SLOT_LOCKER_MODE_UNLOCK_FLUID),
-        UNLOCK_BOTH("unlock_both", false, false, YAIText.SLOT_LOCKER_MODE_UNLOCK_BOTH);
+        LOCK_ITEM("lock_item", true, null, { YAI.TEXT.slotLockerModeLockItem() }),
+        LOCK_FLUID("lock_fluid", null, true, { YAI.TEXT.slotLockerModeLockFluid() }),
+        LOCK_BOTH("lock_both", true, true, { YAI.TEXT.slotLockerModeLockBoth() }),
+        UNLOCK_ITEM("unlock_item", false, null, { YAI.TEXT.slotLockerModeUnlockItem() }),
+        UNLOCK_FLUID("unlock_fluid", null, false, { YAI.TEXT.slotLockerModeUnlockFluid() }),
+        UNLOCK_BOTH("unlock_both", false, false, { YAI.TEXT.slotLockerModeUnlockBoth() });
 
         override fun getSerializedName() = id
 

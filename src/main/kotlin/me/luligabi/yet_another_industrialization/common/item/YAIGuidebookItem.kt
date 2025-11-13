@@ -1,9 +1,8 @@
 package me.luligabi.yet_another_industrialization.common.item
 
-import aztech.modern_industrialization.util.TextHelper
 import guideme.GuidesCommon
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.compat.guideme.YAIGuide
-import me.luligabi.yet_another_industrialization.common.util.YAIText
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
@@ -24,7 +23,7 @@ class YAIGuidebookItem(properties: Properties) : Item(properties) {
     }
 
     override fun appendHoverText(stack: ItemStack, context: TooltipContext, tooltip: MutableList<Component>, flag: TooltipFlag) {
-        tooltip.add(YAIText.GUIDEBOOK_TOOLTIP.text().setStyle(TextHelper.GRAY_TEXT))
+        tooltip.add(YAI.TEXT.guidebookTooltip())
     }
 
 }

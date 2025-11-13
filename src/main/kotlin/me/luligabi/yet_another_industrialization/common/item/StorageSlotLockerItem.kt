@@ -8,11 +8,14 @@ import aztech.modern_industrialization.machines.MachineBlockEntity
 import aztech.modern_industrialization.thirdparty.fabrictransfer.api.fluid.FluidVariant
 import aztech.modern_industrialization.thirdparty.fabrictransfer.api.item.ItemVariant
 import aztech.modern_industrialization.util.Simulation
-import aztech.modern_industrialization.util.TextHelper
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.YAIDataComponents
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
 import me.luligabi.yet_another_industrialization.common.misc.component.SlotLockerData
-import me.luligabi.yet_another_industrialization.common.util.*
+import me.luligabi.yet_another_industrialization.common.util.FLUID_STYLE
+import me.luligabi.yet_another_industrialization.common.util.ITEM_STYLE
+import me.luligabi.yet_another_industrialization.common.util.YAIDraggable
+import me.luligabi.yet_another_industrialization.common.util.applyStyle
 import me.luligabi.yet_another_industrialization.mixin.MIStorageAccessor
 import me.luligabi.yet_another_industrialization.mixin.UseOnContextAccessor
 import net.minecraft.client.gui.screens.Screen
@@ -150,30 +153,27 @@ class StorageSlotLockerItem(properties: Properties) : Item(
         stack.get(YAIDataComponents.SLOT_LOCKER_DATA)?.let {
             if (Screen.hasShiftDown()) {
                 tooltipComponents.add(
-                    YAIText.SLOT_LOCKER_TOOLTIP_1
-                        .arg(itemTooltipComponent(it))
-                        .arg(fluidTooltipComponent(it))
+                    YAI.TEXT.slotLockerTooltip1(
+                        itemTooltipComponent(it),
+                        fluidTooltipComponent(it)
+                    )
                 )
             }
 
-            tooltipComponents.add(
-                YAIText.SLOT_LOCKER_MODE_PREFIX.text(
-                    it.mode.text.text().applyStyle(TextHelper.NUMBER_TEXT)
-                ).applyStyle(TextHelper.GRAY_TEXT)
-            )
+            tooltipComponents.add(YAI.TEXT.slotLockerModePrefix(it.mode.text()))
         }
     }
 
     private fun itemTooltipComponent(data: SlotLockerData): Component {
         val variant = data.itemVariant
-        if (variant.isBlank) return YAIText.NONE.text().applyStyle(TextHelper.GRAY_TEXT)
+        if (variant.isBlank) return YAI.TEXT.none()
 
         return variant.item.getName(variant.toStack()).copy().applyStyle(ITEM_STYLE)
     }
 
     private fun fluidTooltipComponent(data: SlotLockerData): Component {
         val variant = data.fluidVariant
-        if (variant.isBlank) return YAIText.NONE.text().applyStyle(TextHelper.GRAY_TEXT)
+        if (variant.isBlank) return YAI.TEXT.none()
 
         return variant.toStack(1).hoverName.copy().applyStyle(FLUID_STYLE)
     }

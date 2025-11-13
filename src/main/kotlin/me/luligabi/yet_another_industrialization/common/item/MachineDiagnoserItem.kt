@@ -25,7 +25,6 @@ import aztech.modern_industrialization.util.TextHelper
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.MachineDiagnoserItem.DiagnosisType.Companion.sendDiagnosis
-import me.luligabi.yet_another_industrialization.common.util.YAIText
 import me.luligabi.yet_another_industrialization.common.util.applyColor
 import me.luligabi.yet_another_industrialization.common.util.applyStyle
 import me.luligabi.yet_another_industrialization.common.util.matchedHatches
@@ -34,6 +33,7 @@ import me.luligabi.yet_another_industrialization.mixin.UseOnContextAccessor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
+import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.chat.Style
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
@@ -228,52 +228,127 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
         return false
     }
 
-    enum class DiagnosisType(val title: YAIText, val description: YAIText, val severity: Severity) {
+    enum class DiagnosisType(
+        val title: () -> MutableComponent,
+        val description: () -> MutableComponent,
+        val severity: Severity
+    ) {
 
-        NO_STEAM(YAIText.DIAGNOSER_NO_STEAM, YAIText.DIAGNOSER_NO_STEAM_DESCRIPTION, Severity.ERROR),
-        NO_ENERGY(YAIText.DIAGNOSER_NO_ENERGY, YAIText.DIAGNOSER_NO_ENERGY_DESCRIPTION, Severity.ERROR),
-        NO_ENERGY_WARNING(YAIText.DIAGNOSER_NO_ENERGY, YAIText.DIAGNOSER_NO_ENERGY_WARNING_DESCRIPTION, Severity.WARNING),
-        NO_ENERGY_INPUT(YAIText.DIAGNOSER_NO_ENERGY_INPUT, YAIText.DIAGNOSER_NO_ENERGY_INPUT_DESCRIPTION, Severity.ERROR),
-        NO_ENERGY_OUTPUT(YAIText.DIAGNOSER_NO_ENERGY_OUTPUT, YAIText.DIAGNOSER_NO_ENERGY_OUTPUT_DESCRIPTION, Severity.ERROR),
-        NO_RECIPE(YAIText.DIAGNOSER_NO_RECIPE, YAIText.DIAGNOSER_NO_RECIPE_DESCRIPTION, Severity.ERROR),
-        BANNED_RECIPE(YAIText.DIAGNOSER_BANNED_RECIPE, YAIText.DIAGNOSER_BANNED_RECIPE_DESCRIPTION, Severity.ERROR),
-        CANT_TAKE_ITEM_INPUT(YAIText.DIAGNOSER_CANT_TAKE_ITEM_INPUT, YAIText.DIAGNOSER_CANT_TAKE_ITEM_INPUT_DESCRIPTION, Severity.WARNING),
-        CANT_TAKE_FLUID_INPUT(YAIText.DIAGNOSER_CANT_TAKE_FLUID_INPUT, YAIText.DIAGNOSER_CANT_TAKE_FLUID_INPUT_DESCRIPTION, Severity.WARNING),
-        CANT_PUT_ITEM_OUTPUT(YAIText.DIAGNOSER_CANT_PUT_ITEM_OUTPUT, YAIText.DIAGNOSER_CANT_PUT_ITEM_OUTPUT_DESCRIPTION, Severity.ERROR),
-        CANT_PUT_FLUID_OUTPUT(YAIText.DIAGNOSER_CANT_PUT_FLUID_OUTPUT, YAIText.DIAGNOSER_CANT_PUT_FLUID_OUTPUT_DESCRIPTION, Severity.ERROR),
-        CANT_PUT_ITEM_OUTPUT_WARNING(YAIText.DIAGNOSER_CANT_PUT_ITEM_OUTPUT, YAIText.DIAGNOSER_CANT_PUT_ITEM_OUTPUT_DESCRIPTION, Severity.WARNING),
-        CANT_PUT_FLUID_OUTPUT_WARNING(YAIText.DIAGNOSER_CANT_PUT_FLUID_OUTPUT, YAIText.DIAGNOSER_CANT_PUT_FLUID_OUTPUT_DESCRIPTION, Severity.WARNING),
-        UNMET_CONDITION(YAIText.DIAGNOSER_UNMET_CONDITION, YAIText.DIAGNOSER_UNMET_CONDITION_DESCRIPTION, Severity.ERROR),
-        INVALID_MULTIBLOCK_SHAPE(YAIText.DIAGNOSER_INVALID_MULTIBLOCK_SHAPE, YAIText.DIAGNOSER_INVALID_MULTIBLOCK_SHAPE_DESCRIPTION, Severity.ERROR),
-        REDSTONE_BLOCKED(YAIText.DIAGNOSER_REDSTONE_BLOCKED, YAIText.DIAGNOSER_REDSTONE_BLOCKED_DESCRIPTION, Severity.ERROR),
-        NO_LARGE_TANK_HATCH(YAIText.DIAGNOSER_NO_LARGE_TANK_HATCH, YAIText.DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION, Severity.ERROR),
-        UNSUPPORTED(YAIText.DIAGNOSER_UNSUPPORTED, YAIText.DIAGNOSER_UNSUPPORTED_DESCRIPTION, Severity.INFO);
+        NO_STEAM(
+            { YAI.TEXT.diagnoserNoSteam() },
+            { YAI.TEXT.diagnoserNoSteamDescription() },
+            Severity.ERROR
+        ),
+        NO_ENERGY(
+            { YAI.TEXT.diagnoserNoEnergy() },
+            { YAI.TEXT.diagnoserNoEnergyDescription() },
+            Severity.ERROR
+        ),
+        NO_ENERGY_WARNING(
+            { YAI.TEXT.diagnoserNoEnergy() },
+            { YAI.TEXT.diagnoserNoEnergyWarningDescription() },
+            Severity.WARNING
+        ),
+        NO_ENERGY_INPUT(
+            { YAI.TEXT.diagnoserNoEnergyInput() },
+            { YAI.TEXT.diagnoserNoEnergyInputDescription() },
+            Severity.ERROR
+        ),
+        NO_ENERGY_OUTPUT(
+            { YAI.TEXT.diagnoserNoEnergyOutput() },
+            { YAI.TEXT.diagnoserNoEnergyOutputDescription() },
+            Severity.ERROR
+        ),
+        NO_RECIPE(
+            { YAI.TEXT.diagnoserNoRecipe() },
+            { YAI.TEXT.diagnoserNoRecipeDescription() },
+            Severity.ERROR
+        ),
+        BANNED_RECIPE(
+            { YAI.TEXT.diagnoserBannedRecipe() },
+            { YAI.TEXT.diagnoserBannedRecipeDescription() },
+            Severity.ERROR
+        ),
+        CANT_TAKE_ITEM_INPUT(
+            { YAI.TEXT.diagnoserCantTakeItemInput() },
+            { YAI.TEXT.diagnoserCantTakeItemInputDescription() },
+            Severity.WARNING
+        ),
+        CANT_TAKE_FLUID_INPUT(
+            { YAI.TEXT.diagnoserCantTakeFluidInput() },
+            { YAI.TEXT.diagnoserCantTakeFluidInputDescription() },
+            Severity.WARNING
+        ),
+        CANT_PUT_ITEM_OUTPUT(
+            { YAI.TEXT.diagnoserCantPutItemOutput() },
+            { YAI.TEXT.diagnoserCantPutItemOutputDescription() },
+            Severity.ERROR
+        ),
+        CANT_PUT_FLUID_OUTPUT(
+            { YAI.TEXT.diagnoserCantPutFluidOutput() },
+            { YAI.TEXT.diagnoserCantPutFluidOutputDescription() },
+            Severity.ERROR
+        ),
+        CANT_PUT_ITEM_OUTPUT_WARNING(
+            { YAI.TEXT.diagnoserCantPutItemOutput() },
+            { YAI.TEXT.diagnoserCantPutItemOutputDescription() },
+            Severity.WARNING
+        ),
+        CANT_PUT_FLUID_OUTPUT_WARNING(
+            { YAI.TEXT.diagnoserCantPutFluidOutput() },
+            { YAI.TEXT.diagnoserCantPutFluidOutputDescription() },
+            Severity.WARNING
+        ),
+        UNMET_CONDITION(
+            { YAI.TEXT.diagnoserUnmetCondition() },
+            { YAI.TEXT.diagnoserUnmetConditionDescription() },
+            Severity.ERROR
+        ),
+        INVALID_MULTIBLOCK_SHAPE(
+            { YAI.TEXT.diagnoserInvalidMultiblockShape() },
+            { YAI.TEXT.diagnoserInvalidMultiblockShapeDescription() },
+            Severity.ERROR
+        ),
+        REDSTONE_BLOCKED(
+            { YAI.TEXT.diagnoserRedstoneBlocked() },
+            { YAI.TEXT.diagnoserRedstoneBlockedDescription() },
+            Severity.ERROR
+        ),
+        NO_LARGE_TANK_HATCH(
+            { YAI.TEXT.diagnoserNoLargeTankHatch() },
+            { YAI.TEXT.diagnoserNoLargeTankHatchDescription() },
+            Severity.ERROR
+        ),
+        UNSUPPORTED(
+            { YAI.TEXT.diagnoserUnsupported() },
+            { YAI.TEXT.diagnoserUnsupportedDescription() },
+            Severity.INFO
+        );
 
         companion object {
 
             fun Player.sendDiagnosis(diagnosis: MutableSet<DiagnosisType>, machine: MachineBlockEntity) {
-                val machineName = machine.blockState.block.name.applyStyle(TextHelper.NUMBER_TEXT)
+                val machineName = machine.blockState.block.name
 
                 if (diagnosis.isEmpty()) {
                     sendSystemMessage(
-                        YAIText.DIAGNOSER_TITLE_NONE.text(machineName).applyStyle(TextHelper.NEUTRONS)
+                        YAI.TEXT.diagnoserTitleNone(machineName)
                     )
                     return
                 }
 
-                val title = YAIText.DIAGNOSER_TITLE.text(machineName).applyStyle(TextHelper.GRAY_TEXT)
+                val title = YAI.TEXT.diagnoserTitle(machineName)
 
                 val sortedList = diagnosis.sortedBy { it.severity.ordinal }
                 for ((i, type) in sortedList.withIndex()) {
                     val diagnosis = Component.literal("${type.severity.icon} ").applyColor(type.severity.darkColor)
 
-                    val message = type.title.text()
-                        .applyColor(type.severity.lightColor)
+                    val message = type.title().applyColor(type.severity.lightColor)
                     diagnosis
                         .append(message)
                         .withStyle(Style.EMPTY.withHoverEvent(HoverEvent(
                             HoverEvent.Action.SHOW_TEXT,
-                            type.description.text().applyStyle(TextHelper.GRAY_TEXT)
+                            type.description().applyStyle(TextHelper.GRAY_TEXT)
                         )))
 
                     if (i != sortedList.lastIndex) diagnosis.append("\n")

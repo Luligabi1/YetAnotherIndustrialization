@@ -8,9 +8,8 @@ import aztech.modern_industrialization.machines.recipe.condition.MachineProcessC
 import aztech.modern_industrialization.util.TextHelper
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
-import me.luligabi.yet_another_industrialization.common.util.YAIText
-import me.luligabi.yet_another_industrialization.common.util.applyStyle
 import me.luligabi.yet_another_industrialization.common.util.matchedHatches
 import net.minecraft.network.chat.Component
 import net.minecraft.network.codec.ByteBufCodecs
@@ -46,9 +45,7 @@ class EnergyGenerationCondition(val amount: Long): MachineProcessCondition {
     override fun appendDescription(list: MutableList<Component>) {
         val amount = TextHelper.getAmount(amount)
         list.add(
-            YAIText.ENERGY_GENERATION_TOOLTIP_1.text(
-                MIText.Eu.text(amount.digit, amount.unit).applyStyle(TextHelper.NUMBER_TEXT)
-            )
+            YAI.TEXT.energyGenerationTooltip(MIText.Eu.text(amount.digit, amount.unit))
         )
     }
 
