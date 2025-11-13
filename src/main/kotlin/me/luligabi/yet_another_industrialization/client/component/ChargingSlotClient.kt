@@ -18,7 +18,6 @@ import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
-import net.swedz.tesseract.neoforge.compat.mi.tooltip.MICompatibleTextLine
 
 class ChargingSlotClient(buf: RegistryFriendlyByteBuf): GuiComponentClient {
 
@@ -35,7 +34,7 @@ class ChargingSlotClient(buf: RegistryFriendlyByteBuf): GuiComponentClient {
 
             override fun getBackgroundAtlasLocation() = YAI.id("textures/gui/container/slot_atlas.png")
 
-            override val tooltip = MICompatibleTextLine.line(YAIText.CHARGING_SLOT_TOOLTIP)
+            override val tooltip = YAI.LANG.chargingSlotTooltip()
         }
 
         menu.addSlotToMenu(ClientSlot(), SlotGroup.CONFIGURABLE_STACKS)

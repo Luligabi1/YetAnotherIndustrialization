@@ -1,116 +1,185 @@
 package me.luligabi.yet_another_industrialization.common.util
 
 import me.luligabi.yet_another_industrialization.common.YAI
-import net.swedz.tesseract.neoforge.compat.mi.tooltip.MICompatibleTranslatableTextEnum
+import net.minecraft.network.chat.MutableComponent
+import net.swedz.tesseract.neoforge.lang.annotation.LangKey;
+import net.swedz.tesseract.neoforge.lang.annotation.WithStyle
 
-enum class YAIText(private val text: String): MICompatibleTranslatableTextEnum {
+interface YAIText {
 
     /** Machine Diagnoser */
-    DIAGNOSER_TITLE("%s's Diagnosis (hover for details):\n"),
-    DIAGNOSER_TITLE_NONE("No issues found with %s"),
+    @LangKey("{}'s Diagnosis (hover for details):\n")
+    fun diagnoserTitle(machine: String): MutableComponent
+    @LangKey("No issues found with {}")
+    fun diagnoserTitleNone(machine: String): MutableComponent
 
-    DIAGNOSER_NO_STEAM("Missing Steam"),
-    DIAGNOSER_NO_STEAM_DESCRIPTION("This machine requires steam to function"),
+    @LangKey("Missing Steam")
+    fun diagnoserNoSteam(): MutableComponent
+    @LangKey("This machine requires steam to function")
+    fun diagnoserNoSteamDescription(): MutableComponent
 
-    DIAGNOSER_NO_ENERGY("Missing Energy"),
-    DIAGNOSER_NO_ENERGY_DESCRIPTION("This machine requires energy to function"),
-    DIAGNOSER_NO_ENERGY_WARNING_DESCRIPTION("This machine might require energy to function"),
+    @LangKey("Missing Energy")
+    fun diagnoserNoEnergy(): MutableComponent
+    @LangKey("This machine requires energy to function")
+    fun diagnoserNoEnergyDescription(): MutableComponent
+    @LangKey("This machine might require energy to function")
+    fun diagnoserNoEnergyWarningDescription(): MutableComponent
 
-    DIAGNOSER_NO_ENERGY_INPUT("Missing Energy Input"),
-    DIAGNOSER_NO_ENERGY_INPUT_DESCRIPTION("This machine should have a energy input hatch."),
+    @LangKey("Missing Energy Input")
+    fun diagnoserNoEnergyInput(): MutableComponent
+    @LangKey("This machine should have an energy input hatch.")
+    fun diagnoserNoEnergyInputDescription(): MutableComponent
 
-    DIAGNOSER_NO_ENERGY_OUTPUT("Missing Energy Output"),
-    DIAGNOSER_NO_ENERGY_OUTPUT_DESCRIPTION("This machine should have a energy output hatch."),
+    @LangKey("Missing Energy Output")
+    fun diagnoserNoEnergyOutput(): MutableComponent
+    @LangKey("This machine should have an energy output hatch.")
+    fun diagnoserNoEnergyOutputDescription(): MutableComponent
 
-    DIAGNOSER_NO_RECIPE("No available recipes"),
-    DIAGNOSER_NO_RECIPE_DESCRIPTION("There are no available recipes using the current ingredients. Check if you're missing something."),
+    @LangKey("No available recipes")
+    fun diagnoserNoRecipe(): MutableComponent
+    @LangKey("There are no available recipes using the current ingredients. Check if you're missing something.")
+    fun diagnoserNoRecipeDescription(): MutableComponent
 
-    DIAGNOSER_BANNED_RECIPE("Recipe available, but not usable"),
-    DIAGNOSER_BANNED_RECIPE_DESCRIPTION("A recipe is available, but unusable. This most likely means that: \n\n- You need more Upgrades to use this recipe\n- The recipe requires a higher multiblock tier (i.e. Electric Blast Furnace's Kanthal Coils)"),
+    @LangKey("Recipe available, but not usable")
+    fun diagnoserBannedRecipe(): MutableComponent
+    @LangKey("A recipe is available, but unusable. This most likely means that: \n\n- You need more Upgrades to use this recipe\n- The recipe requires a higher multiblock tier (i.e. Electric Blast Furnace's Kanthal Coils)")
+    fun diagnoserBannedRecipeDescription(): MutableComponent
 
-    DIAGNOSER_CANT_TAKE_ITEM_INPUT("Can't take Item Input"),
-    DIAGNOSER_CANT_TAKE_ITEM_INPUT_DESCRIPTION("The machine either has nowhere to take items from or they're insufficient to repeat the current recipe."),
+    @LangKey("Can't take Item Input")
+    fun diagnoserCantTakeItemInput(): MutableComponent
+    @LangKey("This machine either has nowhere to take items from or they're insufficient to repeat the current recipe.")
+    fun diagnoserCantTakeItemInputDescription(): MutableComponent
 
-    DIAGNOSER_CANT_TAKE_FLUID_INPUT("Can't take Fluid Input"),
-    DIAGNOSER_CANT_TAKE_FLUID_INPUT_DESCRIPTION("The machine either has nowhere to take fluids from or they're insufficient to repeat the current recipe."),
+    @LangKey("Can't take Fluid Input")
+    fun diagnoserCantTakeFluidInput(): MutableComponent
+    @LangKey("The machine either has nowhere to take fluids from or they're insufficient to repeat the current recipe.")
+    fun diagnoserCantTakeFluidInputDescription(): MutableComponent
 
-    DIAGNOSER_CANT_PUT_ITEM_OUTPUT("Can't put Item Output"),
-    DIAGNOSER_CANT_PUT_ITEM_OUTPUT_DESCRIPTION("The machine has nowhere to put item outputs in. This might mean that: \n\n- There's no available slot\n- The slot's capacity isn't enough to store the output"),
+    @LangKey("Can't put Item Output")
+    fun diagnoserCantPutItemOutput(): MutableComponent
+    @LangKey("The machine has nowhere to put item outputs in. This might mean that: \\n\\n- There's no available slot\\n- The slot's capacity isn't enough to store the output")
+    fun diagnoserCantPutItemOutputDescription(): MutableComponent
 
-    DIAGNOSER_CANT_PUT_FLUID_OUTPUT("Can't put Fluid Output"),
-    DIAGNOSER_CANT_PUT_FLUID_OUTPUT_DESCRIPTION("The machine has nowhere to put fluids outputs in. This might mean that: \n\n- There's no available slot\n- The slot's capacity isn't enough to store the output"),
+    @LangKey("Can't put Fluid Output")
+    fun diagnoserCantPutFluidOutput(): MutableComponent
+    @LangKey("The machine has nowhere to put fluids outputs in. This might mean that: \\n\\n- There's no available slot\\n- The slot's capacity isn't enough to store the output")
+    fun diagnoserCantPutFluidOutputDescription(): MutableComponent
 
-    DIAGNOSER_UNMET_CONDITION("Unmet recipe conditions"),
-    DIAGNOSER_UNMET_CONDITION_DESCRIPTION("The current recipe has condition(s) that are no longer being met."),
+    @LangKey("Unmet Recipe Conditions")
+    fun diagnoserUnmetCondition(): MutableComponent
+    @LangKey("The current recipe has condition(s) that are not being met.")
+    fun diagnoserUnmetConditionDescription(): MutableComponent
 
-    DIAGNOSER_INVALID_MULTIBLOCK_SHAPE("Invalid Multiblock Shape"),
-    DIAGNOSER_INVALID_MULTIBLOCK_SHAPE_DESCRIPTION("The multiblock is misbuilt. Hold a Wrench to preview the correct shape. Also check:\n\n- If the multiblock has tiers, select the right one on the GUI;\n- Some multiblocks, like the Pressurizer, are picky about where each hatch type is placed."),
+    @LangKey("Invalid Multiblock Shape")
+    fun diagnoserInvalidMultiblockShape(): MutableComponent
+    @LangKey("The multiblock is misbuilt. Hold a Wrench to preview the correct shape. Also check:\n\n- If the multiblock has tiers, select the right one on the GUI;\n- Some multiblocks, like the Pressurizer, are picky about where each hatch type is placed.")
+    fun diagnoserInvalidMultiblockShapeDescription(): MutableComponent
 
-    DIAGNOSER_REDSTONE_BLOCKED("Redstone Blocked"),
-    DIAGNOSER_REDSTONE_BLOCKED_DESCRIPTION("The machine's Redstone Control Module requires the opposite signal to allow operation.\nInvert the signal or remove the module to proceed."),
+    @LangKey("Redstone Blocked")
+    fun diagnoserRedstoneBlocked(): MutableComponent
+    @LangKey("The machine's Redstone Control Module requires the opposite signal to allow operation.\\nInvert the signal or remove the module to proceed.")
+    fun diagnoserRedstoneBlockedDescription(): MutableComponent
 
-    DIAGNOSER_NO_LARGE_TANK_HATCH("Missing Large Tank Hatches"),
-    DIAGNOSER_NO_LARGE_TANK_HATCH_DESCRIPTION("Large Tanks require Large Tank Hatches"),
+    @LangKey("Missing Large Tank Hatches")
+    fun diagnoserNoLargeTankHatch(): MutableComponent
+    @LangKey("Large Tanks require Large Tank Hatches")
+    fun diagnoserNoLargeTankHatchDiagnoser(): MutableComponent
 
-    DIAGNOSER_UNSUPPORTED("Unsupported machine"),
-    DIAGNOSER_UNSUPPORTED_DESCRIPTION("Sorry, I can't diagnose any of this machine's specific behaviors :(\n\nI really need to beat Statech Industry..."),
+    @LangKey("Unsupported machine")
+    fun diagnoserUnsupported(): MutableComponent
+    @LangKey("Sorry, I can't diagnose any of this machine's specific behaviors :(\n\nI really need to beat Statech Industry...")
+    fun diagnoserUnsupportedDescription(): MutableComponent
 
-    DIAGNOSER_TOOLTIP_1("Diagnoses common issues with machines"),
+    @LangKey("Diagnoses common issues with machines")
+    fun diagnoserTooltip1(): MutableComponent
 
     /** Machine Remover */
-    MACHINE_REMOVER_INSUFFICIENT_ENERGY("Insufficient energy"),
-    MACHINE_REMOVER_TOO_LARGE("Too large to remove!"),
-    MACHINE_REMOVER_BANNED("Sorry, can't remove this type of machine :("),
+    @LangKey("Insufficient Energy")
+    fun machineRemoverInsufficientEnergy(): MutableComponent
+    @LangKey("Too large to remove!")
+    fun machineRemoverTooLarge(): MutableComponent
+    @LangKey("Sorry can't remove this type of machine :(")
+    fun machineRemoverBanned(): MutableComponent
 
-    MACHINE_REMOVER_TOOLTIP_1("Removes machines in a single click"),
-    MACHINE_REMOVER_TOOLTIP_2("Single Block Remove Cost: %s"),
-    MACHINE_REMOVER_TOOLTIP_3("Multiblock Remove Cost: %s"),
+    @LangKey("Removes machines in a single click")
+    fun machineRemoverTooltip1(): MutableComponent
+    @LangKey("Single Block Remove Cost: {}")
+    fun machineRemoverTooltip2(cost: String): MutableComponent
+    @LangKey("Multiblock Remove Cost: {}")
+    fun machineRemoverTooltip3(cost: String): MutableComponent
 
 
     /** Slot Locker */
-    SLOT_LOCKER_MODE_CHANGE("Set Mode to %s"),
-    SLOT_LOCKER_MODE_PREFIX("Mode: %s"),
-    SLOT_LOCKER_MODE_LOCK_ITEM("Lock Item Slots"),
-    SLOT_LOCKER_MODE_LOCK_FLUID("Lock Fluid Slots"),
-    SLOT_LOCKER_MODE_LOCK_BOTH("Lock Both"),
-    SLOT_LOCKER_MODE_UNLOCK_ITEM("Unlock Item Slots"),
-    SLOT_LOCKER_MODE_UNLOCK_FLUID("Unlock Fluid Slots"),
-    SLOT_LOCKER_MODE_UNLOCK_BOTH("Unlock Both"),
-    SLOT_LOCKER_TOOLTIP_1("%s | %s"),
-    SLOT_LOCKER_TOOLTIP_2("Drag an item and a fluid from your recipe viewer to select them as the desired lock"),
-    SLOT_LOCKER_TOOLTIP_3_INSTRUCTION("Sneak + Scroll"),
-    SLOT_LOCKER_TOOLTIP_3_SUFFIX("%s to change mode"),
+    @LangKey("Set Mode to {}")
+    fun slotLockerModeChange(mode: String): MutableComponent
+    @LangKey("Mode: {}")
+    fun slotLockerModePrefix(mode: String): MutableComponent
+    @LangKey("Lock Item Slots")
+    fun slotLockerModeLockItem(): MutableComponent
+    @LangKey("Lock Fluid Slots")
+    fun slotLockerModeLockFluid(): MutableComponent
+    @LangKey("Lock Both")
+    fun slotLockerModeLockBoth(): MutableComponent
+    @LangKey("Unlock Item Slots")
+    fun slotLockerModeUnlockItem(): MutableComponent
+    @LangKey("Unlock Fluid Slots")
+    fun slotLockerModeUnlockFluid(): MutableComponent
+    @LangKey("Unlock Both")
+    fun slotLockerModeUnlockBoth(): MutableComponent
+    @LangKey("{} | {}")
+    fun slotLockerTooltip1(a: String, b: String): MutableComponent
+    @LangKey("Drag an item and a fluid from your recipe viewer to select them as the desired lock")
+    fun slotLockerTooltip2(): MutableComponent
+    @LangKey("Sneak + Scroll")
+    fun slotLockerTooltip3Instruction(): MutableComponent
+    @LangKey("{} to change mode")
+    fun slotLockerTooltip3Suffix(key: String): MutableComponent
 
 
     /** Arboreous Greenhouse */
-    ARBOREOUS_GREENHOUSE_TIER_TOOLTIP("Requires %s soil"),
+    @LangKey("Requires {} soil")
+    @WithStyle("")
+    fun arboreousGreenhouseTierTooltip(soil: String): MutableComponent
 
     /** Dragon Egg Siphon */
-    ENERGY_GENERATION_TOOLTIP_1("Generates %s"),
+    @LangKey("Generates {}")
+    fun energyGenerationTooltip1(energy: String): MutableComponent
 
     /** Large Storage Unit */
-    NO_LARGE_STORAGE_UNIT("Not linked to a Large Storage Unit"),
-    CHARGING_SLOT_TOOLTIP("Place an item to charge here!"),
-    LARGE_STORAGE_UNIT_TIERS("Large Storage Unit Tiers"),
-    LARGE_STORAGE_UNIT_TIER_CAPACITY("Capacity: %s%s EU"),
-    LARGE_STORAGE_UNIT_TOOLTIP_1("Can I/O to its voltage and lower"),
-    LARGE_STORAGE_UNIT_TOOLTIP_2("i.e. At HV, it's capable of interacting with HV, MV and LV!"),
+    @LangKey("Not linked to a Large Storage Unit")
+    fun noLargeStorageUnit(): MutableComponent
+    @LangKey("Place an item to charge here!")
+    fun chargingSlotTooltip(): MutableComponent
+    @LangKey("Large Storage Unit Tiers")
+    fun largeStorageUnitTiers(): MutableComponent
+    @LangKey("Capacity: {}{} EU")
+    fun largeStorageUnitTierCapacity(stored: String, capacity: String): MutableComponent
+    @LangKey("Can I/O to its voltage and lower")
+    fun largeStorageUnitTooltip1(): MutableComponent
+    @LangKey("i.e. At HV, it's capable of interacting with HV, MV, and LV!")
+    fun largeStorageUnitTooltip2(): MutableComponent
+
 
     /** Hatch Names */
-    MIXED_INPUT_HATCH("Mixed Input Hatch"),
-    MIXED_OUTPUT_HATCH("Mixed Output Hatch"),
+    @LangKey("Mixed Input Hatch")
+    fun mixedInputHatch(): MutableComponent
+    @LangKey("Mixed Output Hatch")
+    fun mixedOutputHatch(): MutableComponent
 
     /** Misc. Item tooltips */
-    GUIDEBOOK_TOOLTIP("Pronounced as \"YAY\"!"),
-    CACHACA_TOOLTIP("The Brazilian Spirit"),
-    AI_SLOP_TOOLTIP("Vibe cooking is my passion"),
-    ULTRADENSE_METAL_BALL_BURGER_TOOLTIP("The buns are barely capable of holding it all together"),
-    SNEAK_RC_ACTIVATE_1("Sneak + Right-click"),
-    SNEAK_RC_ACTIVATE_2("%s to activate"),
-    NONE("None");
-
-    override fun englishText() = text
-
-    override fun getTranslationKey() = "text.${YAI.ID}.${this.name.lowercase()}"
+    @LangKey("Pronounced as \"YAY\"!")
+    fun guidebookTooltip(): MutableComponent
+    @LangKey("The Brazilian Spirit")
+    fun cachacaTooltip(): MutableComponent
+    @LangKey("Vibe cooking is my passion")
+    fun aiSlopTooltip(): MutableComponent
+    @LangKey("The buns are barely capable of holding it all together")
+    fun ultradenseMetalBallBurgerTooltip(): MutableComponent
+    @LangKey(value = "Sneak + Right-click", key = "sneak_rc_activate_1")
+    fun sneakRCActivate1(): MutableComponent
+    @LangKey(value = "{} to activate", key = "sneak_rc_activate_2")
+    fun sneakRCActivate2(key: String): MutableComponent
+    @LangKey("None")
+    fun none(): MutableComponent
 
 }
