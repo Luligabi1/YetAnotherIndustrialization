@@ -13,6 +13,7 @@ import me.luligabi.yet_another_industrialization.common.misc.YAISounds
 import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
 import me.luligabi.yet_another_industrialization.common.misc.network.YAIPackets
+import me.luligabi.yet_another_industrialization.common.util.YAIText
 import me.luligabi.yet_another_industrialization.datagen.YAIDatagen
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
@@ -30,6 +31,7 @@ import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent
 import net.swedz.tesseract.neoforge.capabilities.CapabilitiesListeners
 import net.swedz.tesseract.neoforge.compat.mi.TesseractMI
 import net.swedz.tesseract.neoforge.config.ConfigManager
+import net.swedz.tesseract.neoforge.lang.LangManager
 import net.swedz.tesseract.neoforge.registry.holder.ItemHolder
 
 
@@ -38,6 +40,10 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
 
     companion object {
         const val ID = "yet_another_industrialization"
+        val LANG : YAIText = LangManager(ID)
+        .build(YAIText::class.java)
+        .load()
+        .lang()
 
         fun id(id: String) = ResourceLocation.fromNamespaceAndPath(ID, id)
 
@@ -60,6 +66,7 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
         YAISounds.init(modEventBus)
         YAICreativeTab.init(modEventBus)
         YAIGuide
+
 
         modEventBus.addListener(FMLCommonSetupEvent::class.java, {
             YAIItems.values().forEach(ItemHolder<*>::triggerRegistrationListener)
