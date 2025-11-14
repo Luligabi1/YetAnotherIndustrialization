@@ -107,7 +107,7 @@ interface YAIText {
     fun machineRemoverTooLarge(): MutableComponent
 
     @WithStyle("machine_remover")
-    @LangKey(text = ["Sorry can't remove this type of machine :("])
+    @LangKey(text = ["Sorry, can't remove this type of machine :("])
     fun machineRemoverBanned(): MutableComponent
 
     @WithStyle("gray")
@@ -190,7 +190,7 @@ interface YAIText {
     @LangKey(text = ["Large Storage Unit Tiers"])
     fun largeStorageUnitTiers(): MutableComponent
 
-    @LangKey(text = ["Capacity: %s%s"])
+    @LangKey(text = ["Capacity: %s%s EU"])
     fun largeStorageUnitTierCapacity(digit: String, unit: String): MutableComponent
 
     @WithStyle("gray")
