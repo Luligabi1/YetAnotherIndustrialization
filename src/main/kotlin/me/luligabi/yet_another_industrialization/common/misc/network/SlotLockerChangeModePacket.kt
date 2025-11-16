@@ -2,7 +2,7 @@ package me.luligabi.yet_another_industrialization.common.misc.network
 
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
-import me.luligabi.yet_another_industrialization.common.misc.YAIDataComponents
+import me.luligabi.yet_another_industrialization.common.misc.component.YAIDataComponents
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.swedz.tesseract.neoforge.packet.CustomPacket

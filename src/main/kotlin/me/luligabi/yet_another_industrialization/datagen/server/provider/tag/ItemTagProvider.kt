@@ -5,11 +5,15 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.tags.ItemTagsProvider
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.tags.TagKey
+import net.minecraft.world.item.Item
 import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import java.util.concurrent.CompletableFuture
+
 
 class ItemTagProvider(event: GatherDataEvent): ItemTagsProvider(event.generator.packOutput, event.lookupProvider, CompletableFuture.completedFuture(TagLookup.empty()), YAI.ID, event.existingFileHelper) {
 
@@ -22,5 +26,12 @@ class ItemTagProvider(event: GatherDataEvent): ItemTagsProvider(event.generator.
             .add(MIItem.GUIDE_BOOK.asItem())
             .add(YAIItems.GUIDEBOOK.get())
             .addOptional(ResourceLocation.fromNamespaceAndPath("hostile_neural_industrialization", "guidebook"))
+
+        curiosTag("head")
+            .add(YAIItems.INDUSTRIALISTS_GOGGLES.get())
+    }
+
+    private fun curiosTag(path: String): IntrinsicTagAppender<Item> {
+        return tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("curios", path)))
     }
 }

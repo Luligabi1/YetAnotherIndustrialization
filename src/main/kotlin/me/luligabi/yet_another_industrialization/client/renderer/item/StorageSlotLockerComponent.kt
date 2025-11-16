@@ -4,7 +4,7 @@ import aztech.modern_industrialization.thirdparty.fabrictransfer.api.storage.Tra
 import aztech.modern_industrialization.util.RenderHelper
 import com.mojang.blaze3d.systems.RenderSystem
 import me.luligabi.yet_another_industrialization.common.YAI
-import me.luligabi.yet_another_industrialization.common.item.StorageSlotLockerItem
+import me.luligabi.yet_another_industrialization.common.item.tools.StorageSlotLockerItem
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent

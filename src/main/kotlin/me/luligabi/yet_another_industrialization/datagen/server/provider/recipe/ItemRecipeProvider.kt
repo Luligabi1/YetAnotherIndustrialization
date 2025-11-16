@@ -2,6 +2,7 @@ package me.luligabi.yet_another_industrialization.datagen.server.provider.recipe
 
 import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.MIItem
+import aztech.modern_industrialization.MITags
 import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
@@ -22,6 +23,19 @@ object ItemRecipeProvider : YAIRecipeProvider {
             { it
                 .with(MIItem.GUIDE_BOOK.asItem())
                 .with(Tags.Items.DYES_MAGENTA)
+            },
+            output
+        )
+
+        shaped(
+            "industrialists_goggles",
+            YAIItems.INDUSTRIALISTS_GOGGLES, 1,
+            { it
+                .define('W', MITags.WRENCHES)
+                .define('G', Tags.Items.GLASS_PANES)
+                .define('P', MIMaterials.BRONZE.get(MIMaterialParts.PLATE).asItem())
+                .pattern(" W ")
+                .pattern("GPG")
             },
             output
         )

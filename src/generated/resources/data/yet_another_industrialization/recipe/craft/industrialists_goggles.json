@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "P": {
+      "item": "modern_industrialization:bronze_plate"
+    },
+    "W": {
+      "tag": "c:tools/wrench"
+    }
+  },
+  "pattern": [
+    " W ",
+    "GPG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:industrialists_goggles"
+  }
+}

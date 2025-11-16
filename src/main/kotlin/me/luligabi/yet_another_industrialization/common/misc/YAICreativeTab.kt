@@ -46,8 +46,9 @@ object YAICreativeTab {
     object Order {
         val GUIDEBOOK = SortOrder(-1)
         val MACHINE_DIAGNOSER = SortOrder(0)
-        val STORAGE_SLOT_LOCKER = SortOrder(1)
-        val MACHINE_REMOVER = SortOrder(2)
+        val INDUSTRIALISTS_GOGGLES = SortOrder(1)
+        val STORAGE_SLOT_LOCKER = SortOrder(2)
+        val MACHINE_REMOVER = SortOrder(3)
         val MACHINES = SortOrder(5)
         val MINOR_ITEMS = SortOrder(10)
         val PARTS = SortOrder(11)

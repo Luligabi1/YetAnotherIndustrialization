@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.item
+package me.luligabi.yet_another_industrialization.common.item.tools
 
 import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.api.machine.component.InventoryAccess
@@ -24,7 +24,7 @@ import aztech.modern_industrialization.machines.recipe.MachineRecipe
 import aztech.modern_industrialization.util.TextHelper
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
-import me.luligabi.yet_another_industrialization.common.item.MachineDiagnoserItem.DiagnosisType.Companion.sendDiagnosis
+import me.luligabi.yet_another_industrialization.common.item.tools.MachineDiagnoserItem.DiagnosisType.Companion.sendDiagnosis
 import me.luligabi.yet_another_industrialization.common.util.applyColor
 import me.luligabi.yet_another_industrialization.common.util.applyStyle
 import me.luligabi.yet_another_industrialization.common.util.matchedHatches

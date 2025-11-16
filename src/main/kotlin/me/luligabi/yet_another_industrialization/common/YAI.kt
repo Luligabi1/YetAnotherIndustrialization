@@ -8,9 +8,9 @@ import me.luligabi.yet_another_industrialization.common.block.machine.large_stor
 import me.luligabi.yet_another_industrialization.common.compat.guideme.YAIGuide
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAICreativeTab
-import me.luligabi.yet_another_industrialization.common.misc.YAIDataComponents
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
+import me.luligabi.yet_another_industrialization.common.misc.component.YAIDataComponents
 import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
 import me.luligabi.yet_another_industrialization.common.misc.network.YAIPackets
@@ -38,6 +38,7 @@ import net.swedz.tesseract.neoforge.config.ConfigManager
 import net.swedz.tesseract.neoforge.lang.LangInstance
 import net.swedz.tesseract.neoforge.lang.LangManager
 import net.swedz.tesseract.neoforge.registry.holder.ItemHolder
+import net.swedz.tesseract.neoforge.tooltip.Parser
 
 
 @Mod(YAI.ID)
@@ -106,6 +107,7 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
             .style("red", { TextHelper.RED })
             .style("highlight", { TextHelper.NUMBER_TEXT })
             .style("machine_remover", { MACHINE_REMOVER_STYLE })
+            .parser("keybind", String::class.java, { Parser.KEYBIND })
             .build(YAIText::class.java)
             .load()
 

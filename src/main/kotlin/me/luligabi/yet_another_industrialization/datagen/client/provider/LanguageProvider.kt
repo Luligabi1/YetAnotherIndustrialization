@@ -3,6 +3,7 @@ package me.luligabi.yet_another_industrialization.datagen.client.provider
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
+import me.luligabi.yet_another_industrialization.common.misc.keybind.YAIKeybinds
 import net.neoforged.neoforge.common.data.LanguageProvider
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import net.swedz.tesseract.neoforge.datagen.mi.MIDatagenHooks
@@ -18,6 +19,11 @@ class LanguageProvider(event: GatherDataEvent): LanguageProvider(event.generator
 
         for (fluid in YAIFluids.values()) {
             add(fluid.block().get(), fluid.identifier().englishName())
+        }
+
+        add(YAIKeybinds.CATEGORY, "Yet Another Industrialization!")
+        for (keybind in YAIKeybinds.Registry.mappings) {
+            add(keybind.descriptionId, keybind.englishName)
         }
 
         for (sound in SoundProvider.TRANSLATIONS) {

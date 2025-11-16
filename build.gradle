@@ -32,6 +32,21 @@ repositories {
         }
     }
     maven {
+        name = "Illusive Soulworks (Curios)"
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        name = "Wisp Forest (Accessories)"
+        url = "https://maven.wispforest.io/releases"
+    }
+    maven {
+        name = "Su5eD (Accessories)"
+        url = "https://maven.su5ed.dev/releases"
+        content {
+            includeGroup "org.sinytra.forgified-fabric-api"
+        }
+    }
+    maven {
         name = "CurseMaven"
         url = "https://cursemaven.com"
         content {
@@ -141,6 +156,10 @@ dependencies {
     implementation "dev.technici4n:GrandPower:${grandpower_version}"
     implementation "aztech:Modern-Industrialization:${modern_industrialization_version}"
     implementation "net.swedz:tesseract-api-neoforge:${tesseract_version}"
+
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    compileOnly "io.wispforest:accessories-neoforge:${accessories_version}"
 
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")

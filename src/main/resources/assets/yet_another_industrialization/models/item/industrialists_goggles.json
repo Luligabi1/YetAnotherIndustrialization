@@ -1,0 +1,12 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "yet_another_industrialization:item/industrialists_goggles"
+	},
+	"display": {
+		"head": {
+			"translation": [0, -0.75, -6.75]
+		}
+	}
+}

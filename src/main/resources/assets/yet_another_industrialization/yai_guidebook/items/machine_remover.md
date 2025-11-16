@@ -2,7 +2,7 @@
 navigation:
   title: "Machine Remover"
   icon: "yet_another_industrialization:machine_remover"
-  position: 2
+  position: 3
   parent: yet_another_industrialization:items.md
 item_ids:
   - yet_another_industrialization:machine_remover

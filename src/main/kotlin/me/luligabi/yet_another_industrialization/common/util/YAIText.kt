@@ -3,6 +3,7 @@ package me.luligabi.yet_another_industrialization.common.util
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.swedz.tesseract.neoforge.lang.annotation.LangKey
+import net.swedz.tesseract.neoforge.lang.annotation.Parsed
 import net.swedz.tesseract.neoforge.lang.annotation.WithStyle
 
 interface YAIText {
@@ -164,6 +165,17 @@ interface YAIText {
     @LangKey(text = ["%s to change mode"])
     fun slotLockerTooltip3Suffix(@WithStyle("highlight") key: Component): MutableComponent
 
+    /** Industrialist's Goggles */
+    @WithStyle("gray")
+    @LangKey(text = ["Previews multiblock shapes without the need to hold a wrench"])
+    fun gogglesTooltip1(): MutableComponent
+
+    @WithStyle("gray")
+    @LangKey(text = ["Press %s to toggle"])
+    fun gogglesTooltip2(
+        @Parsed("keybind") @WithStyle("highlight") keybind: String
+    ): MutableComponent
+
     /** Arboreous Greenhouse */
     @WithStyle("gray")
     @LangKey(text = ["Requires %s soil"])
@@ -230,6 +242,17 @@ interface YAIText {
     @WithStyle("gray")
     @LangKey(text = ["%s to activate"], key = "sneak_rc_activate_2")
     fun sneakRCActivate2(@WithStyle("highlight") key: Component): MutableComponent
+
+    @WithStyle("gray")
+    @LangKey(text = ["Enabled: %s"])
+    fun enabledPrefix(state: Component): MutableComponent
+
+    @WithStyle("gray")
+    @LangKey(text = ["%s | %s"])
+    fun enabledPrefixAlt(
+        @WithStyle("highlight") name: Component,
+        state: Component
+    ): MutableComponent
 
     @WithStyle("gray")
     @LangKey(text = ["None"])

@@ -18,6 +18,7 @@
     "MIRecipeJsonAccessor",
     "MIStorageAccessor",
     "MultiblockInventoryComponentAccessor",
+    "MultiblockMachineBERMixin",
     "MultiblockMachineBlockEntityAccessor",
     "UseOnContextAccessor"
   ],

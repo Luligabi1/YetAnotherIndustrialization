@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.item
+package me.luligabi.yet_another_industrialization.common.item.tools
 
 import aztech.modern_industrialization.MIComponents
 import aztech.modern_industrialization.inventory.ConfigurableFluidStack
@@ -9,9 +9,9 @@ import aztech.modern_industrialization.thirdparty.fabrictransfer.api.fluid.Fluid
 import aztech.modern_industrialization.thirdparty.fabrictransfer.api.item.ItemVariant
 import aztech.modern_industrialization.util.Simulation
 import me.luligabi.yet_another_industrialization.common.YAI
-import me.luligabi.yet_another_industrialization.common.misc.YAIDataComponents
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
 import me.luligabi.yet_another_industrialization.common.misc.component.SlotLockerData
+import me.luligabi.yet_another_industrialization.common.misc.component.YAIDataComponents
 import me.luligabi.yet_another_industrialization.common.util.FLUID_STYLE
 import me.luligabi.yet_another_industrialization.common.util.ITEM_STYLE
 import me.luligabi.yet_another_industrialization.common.util.YAIDraggable

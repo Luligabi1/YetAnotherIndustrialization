@@ -4,6 +4,7 @@ import aztech.modern_industrialization.machines.multiblocks.HatchFlags
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import me.luligabi.yet_another_industrialization.mixin.MultiblockMachineBlockEntityAccessor
 import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.chat.Style
 import net.minecraft.network.chat.TextColor
@@ -15,6 +16,11 @@ fun MutableComponent.applyColor(color: ChatFormatting): MutableComponent = apply
 
 fun MutableComponent.applyStyle(style: Style): MutableComponent = apply {
     this.style = style.withItalic(false)
+}
+
+fun Boolean.toComponent(): MutableComponent = run {
+    val color = if (this) ChatFormatting.GREEN else ChatFormatting.RED
+    CommonComponents.optionStatus(this).plainCopy().applyColor(color)
 }
 
 val MultiblockMachineBlockEntity.matchedHatches: HatchFlags

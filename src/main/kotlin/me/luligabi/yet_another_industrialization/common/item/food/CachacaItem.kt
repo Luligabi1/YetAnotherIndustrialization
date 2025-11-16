@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.item
+package me.luligabi.yet_another_industrialization.common.item.food
 
 import me.luligabi.yet_another_industrialization.common.YAI
 import net.minecraft.network.chat.Component

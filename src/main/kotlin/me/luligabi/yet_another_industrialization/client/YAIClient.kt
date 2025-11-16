@@ -17,8 +17,9 @@ import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.ChargingSlot
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitGui
 import me.luligabi.yet_another_industrialization.common.block.machine.util.components.SuppliedShapeSelection
-import me.luligabi.yet_another_industrialization.common.item.StorageSlotLockerItem
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
+import me.luligabi.yet_another_industrialization.common.item.tools.StorageSlotLockerItem
+import me.luligabi.yet_another_industrialization.common.misc.keybind.YAIKeybinds
 import me.luligabi.yet_another_industrialization.common.misc.network.SlotLockerChangeModePacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
@@ -29,6 +30,7 @@ import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.ModContainer
+import net.neoforged.fml.ModList
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.InputEvent
@@ -44,11 +46,27 @@ class YAIClient(modEventBus: IEventBus, container: ModContainer) {
         GuiComponentsClient.register(ChargingSlot.ID, ::ChargingSlotClient)
         GuiComponentsClient.register(SuppliedShapeSelection.ID, ::SuppliedShapeSelectionClient)
 
+        YAIKeybinds.init(modEventBus)
         modEventBus.register(this)
         modEventBus.register(YAIModelLoaders)
 
         NeoForge.EVENT_BUS.addListener(::onMouseScrollEvent)
 
+        if (ModList.get().isLoaded("curios")) {
+            try {
+                val clazz = Class.forName("me.luligabi.yet_another_industrialization.client.YAICurioRenderers")
+
+                val instanceField = clazz.getField("INSTANCE")
+                val instance = instanceField.get(null)
+
+                val method = clazz.getDeclaredMethod("init", IEventBus::class.java)
+                method.isAccessible = true
+
+                method.invoke(instance, modEventBus)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     @Suppress("UNCHECKED_CAST")

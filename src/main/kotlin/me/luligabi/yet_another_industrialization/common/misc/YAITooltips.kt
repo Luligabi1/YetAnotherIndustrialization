@@ -7,9 +7,10 @@ import aztech.modern_industrialization.MITooltips.NumberWithMax
 import aztech.modern_industrialization.api.energy.EnergyApi
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
-import me.luligabi.yet_another_industrialization.common.item.MachineDiagnoserItem
-import me.luligabi.yet_another_industrialization.common.item.MachineRemoverItem
-import me.luligabi.yet_another_industrialization.common.item.StorageSlotLockerItem
+import me.luligabi.yet_another_industrialization.common.item.IndustrialistsGogglesItem
+import me.luligabi.yet_another_industrialization.common.item.tools.MachineDiagnoserItem
+import me.luligabi.yet_another_industrialization.common.item.tools.MachineRemoverItem
+import me.luligabi.yet_another_industrialization.common.item.tools.StorageSlotLockerItem
 import net.minecraft.core.registries.BuiltInRegistries
 import net.swedz.tesseract.neoforge.tooltip.TooltipAttachment
 import java.util.*
@@ -65,6 +66,14 @@ object YAITooltips {
             YAI.TEXT.machineRemoverTooltip2(MITooltips.EU_PARSER.parse(MachineRemoverItem.SINGLE_BLOCK_REMOVE_COST)),
             YAI.TEXT.machineRemoverTooltip3("${MachineRemoverItem.MULTIBLOCK_REMOVE_BASE_COST} + ${MachineRemoverItem.MULTIBLOCK_REMOVE_BLOCK_COST} * n EU"),
             SNEAK_RIGHT_CLICK
+        )
+    )
+
+    val INDUSTRIALISTS_GOGGLES = TooltipAttachment.multilines(
+        IndustrialistsGogglesItem::class.java,
+        listOf(
+            YAI.TEXT.gogglesTooltip1(),
+            YAI.TEXT.gogglesTooltip2("${YAI.ID}.toggle_industrialists_goggles")
         )
     )
 

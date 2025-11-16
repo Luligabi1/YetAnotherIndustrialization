@@ -2,6 +2,12 @@ package me.luligabi.yet_another_industrialization.common.item
 
 import com.google.common.collect.Sets
 import me.luligabi.yet_another_industrialization.common.YAI
+import me.luligabi.yet_another_industrialization.common.item.food.AISlopItem
+import me.luligabi.yet_another_industrialization.common.item.food.CachacaItem
+import me.luligabi.yet_another_industrialization.common.item.food.UltradenseMetalBallBurgerItem
+import me.luligabi.yet_another_industrialization.common.item.tools.MachineDiagnoserItem
+import me.luligabi.yet_another_industrialization.common.item.tools.MachineRemoverItem
+import me.luligabi.yet_another_industrialization.common.item.tools.StorageSlotLockerItem
 import me.luligabi.yet_another_industrialization.common.misc.YAICreativeTab
 import net.minecraft.world.item.Item
 import net.neoforged.bus.api.IEventBus
@@ -41,11 +47,17 @@ object YAIItems {
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
+    /** Major Items */
     val MACHINE_DIAGNOSER = create("machine_diagnoser", "Machine Diagnoser", ::MachineDiagnoserItem, YAICreativeTab.Order.MACHINE_DIAGNOSER)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
-    val STORAGE_SLOT_LOCKER = create("storage_slot_locker", "Storage Slot Locker", ::StorageSlotLockerItem, YAICreativeTab.Order.STORAGE_SLOT_LOCKER)
+    val INDUSTRIALISTS_GOGGLES = create("industrialists_goggles", "Industrialist's Goggles", ::IndustrialistsGogglesItem, YAICreativeTab.Order.INDUSTRIALISTS_GOGGLES)
+        .withoutModel()
+        .register()
+
+    val STORAGE_SLOT_LOCKER = create("storage_slot_locker", "Storage Slot Locker",
+        ::StorageSlotLockerItem, YAICreativeTab.Order.STORAGE_SLOT_LOCKER)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
@@ -54,10 +66,12 @@ object YAIItems {
         .withoutModel()
         .register()
 
+    /** Minor Items */
     val DRAGON_EGG_SIPHON_CATALYST = create("dragon_egg_siphon_catalyst", "Dragon Egg Siphon Catalyst", ::Item, YAICreativeTab.Order.MINOR_ITEMS)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
+    /** Food */
     val CACHACA = create("cachaca", "Cachaça", ::CachacaItem, YAICreativeTab.Order.MEME)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
@@ -66,11 +80,12 @@ object YAIItems {
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
-
-    val ULTRADENSE_METAL_BALL_BURGER = create("ultradense_metal_ball_burger", "Ultradense Metal Ball Burger", ::UltradenseMetalBallBurgerItem, YAICreativeTab.Order.MEME)
+    val ULTRADENSE_METAL_BALL_BURGER = create("ultradense_metal_ball_burger", "Ultradense Metal Ball Burger",
+        ::UltradenseMetalBallBurgerItem, YAICreativeTab.Order.MEME)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
+    /** Hidden */
     val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth", ::ChaChaRealSmoothItem, YAICreativeTab.Order.HIDDEN)
         .withoutModel()
         .register()

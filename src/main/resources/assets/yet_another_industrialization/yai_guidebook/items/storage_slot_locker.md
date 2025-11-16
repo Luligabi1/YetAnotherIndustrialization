@@ -2,7 +2,7 @@
 navigation:
   title: "Storage Slot Locker"
   icon: "yet_another_industrialization:storage_slot_locker"
-  position: 1
+  position: 2
   parent: yet_another_industrialization:items.md
 item_ids:
   - yet_another_industrialization:storage_slot_locker
