@@ -202,7 +202,7 @@ interface YAIText {
     @LangKey(text = ["Large Storage Unit Tiers"])
     fun largeStorageUnitTiers(): MutableComponent
 
-    @LangKey(text = ["Capacity: %s%s EU"])
+    @LangKey(text = ["Capacity: %s %sEU"])
     fun largeStorageUnitTierCapacity(digit: String, unit: String): MutableComponent
 
     @WithStyle("gray")
@@ -212,6 +212,9 @@ interface YAIText {
     @WithStyle("gray")
     @LangKey(text = ["i.e. At HV, it's capable of interacting with HV, MV, and LV!"])
     fun largeStorageUnitTooltip2(): MutableComponent
+
+    @LangKey(text = ["Ultimate"])
+    fun largeStorageUnitUltimateTier(): MutableComponent
 
     /** Hatch Names */
     @LangKey(text = ["Mixed Input Hatch"])

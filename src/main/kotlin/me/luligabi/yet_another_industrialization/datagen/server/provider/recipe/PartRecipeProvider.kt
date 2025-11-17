@@ -1,5 +1,7 @@
 package me.luligabi.yet_another_industrialization.datagen.server.provider.recipe
 
+import aztech.modern_industrialization.MIFluids
+import aztech.modern_industrialization.MIItem
 import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
@@ -50,6 +52,32 @@ object PartRecipeProvider : YAIRecipeProvider {
                 .pattern("PPP")
                 .pattern("PBP")
                 .pattern("PPP")
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "assembler/singularity_block",
+            MIMachineRecipeTypes.ASSEMBLER,
+            20, 20*20,
+            {
+                it.addItemInput(MIItem.SINGULARITY, 9, 1f)
+                it.addFluidInput(MIFluids.CRYOFLUID, 250, 1f)
+                it.addFluidInput(MIFluids.TRITIUM, 50, 1f)
+
+                it.addItemOutput(YAIBlocks.SINGULARITY_BLOCK.get(), 1, 1f)
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "unpacker/singularity_block",
+            MIMachineRecipeTypes.UNPACKER,
+            20, 20*20,
+            {
+                it.addItemInput(YAIBlocks.SINGULARITY_BLOCK.get(), 1, 1f)
+
+                it.addItemOutput(MIItem.SINGULARITY, 9, 1f)
             },
             output
         )

@@ -55,6 +55,15 @@ object YAIBlocks {
         .withModel(CommonModelBuilders::blockCubeAll)
         .register()
 
+    val SINGULARITY_BLOCK = create(
+        "singularity_block", "Block of Singularity",
+        ::Block, ::BlockItem,
+        YAICreativeTab.Order.PARTS
+    )
+        .withLootTable(CommonLootTableBuilders::self)
+        .withModel(CommonModelBuilders::blockCubeAll)
+        .register()
+
     fun <B: Block, I: BlockItem> create(id: String, englishName: String, blockCreator: (BlockBehaviour.Properties) -> B, itemCreator: (Block, Item.Properties) -> I, sortOrder: SortOrder): BlockWithItemHolder<B, I> {
 
         val holder = BlockWithItemHolder(

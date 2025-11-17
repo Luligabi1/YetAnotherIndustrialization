@@ -5,6 +5,7 @@ import aztech.modern_industrialization.materials.MIMaterials
 import aztech.modern_industrialization.materials.part.MIParts
 import com.google.gson.JsonParser
 import me.luligabi.yet_another_industrialization.common.YAI
+import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
@@ -53,6 +54,10 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
             ResourceLocation.parse(MIMaterials.PLUTONIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
                 102_400_000_000_000L,
                 CableTier.SUPERCONDUCTOR, CableTier.SUPERCONDUCTOR.shortEnglishKey(),
+            ),
+            YAIBlocks.SINGULARITY_BLOCK.identifier().location to LargeStorageUnitTier(
+                Long.MAX_VALUE,
+                "*", "text.yet_another_industrialization.large_storage_unit_ultimate_tier"
             )
         )
 

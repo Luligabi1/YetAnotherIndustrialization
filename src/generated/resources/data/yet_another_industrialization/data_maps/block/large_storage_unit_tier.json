@@ -24,6 +24,11 @@
       "cable_tier": "ev",
       "capacity": 6553600000,
       "translation_key": "cable_tier_short.modern_industrialization.ev"
+    },
+    "yet_another_industrialization:singularity_block": {
+      "cable_tier": "*",
+      "capacity": 9223372036854775807,
+      "translation_key": "text.yet_another_industrialization.large_storage_unit_ultimate_tier"
     }
   }
 }

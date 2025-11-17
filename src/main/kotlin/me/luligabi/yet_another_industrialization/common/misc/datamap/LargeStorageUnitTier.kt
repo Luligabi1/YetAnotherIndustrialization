@@ -16,19 +16,25 @@ import net.swedz.tesseract.neoforge.helper.RegistryHelper
 
 data class LargeStorageUnitTier(
     val capacity: Long,
-    val cableTier: CableTier,
+    val cableTier: String,
     val translationKey: String
 ) {
+
+    constructor(capacity: Long, cableTier: CableTier, translationKey: String) : this(
+        capacity,
+        cableTier.name,
+        translationKey
+    )
 
     companion object {
 
         private val CABLE_TIER_CODEC = Codec.STRING.flatXmap(
             { id ->
-                CableTierAccessor.getTiers()[id]?.let {
-                    DataResult.success(it)
+                parseTier(id)?.let {
+                    DataResult.success(id)
                 } ?: DataResult.error({ "Unknown cable tier: $id" })
             },
-            { DataResult.success(it.name) }
+            { DataResult.success(it) }
         )
 
         val CODEC = RecordCodecBuilder.create {
@@ -50,12 +56,20 @@ data class LargeStorageUnitTier(
             return cableTier.itemKey ?: key
         }
 
+        fun parseTier(value: String): CableTier? {
+            return if (value == "*") {
+                CableTierAccessor.getTiers().values.maxBy { it.eu }
+            } else {
+                CableTierAccessor.getTiers()[value]
+            }
+        }
+
     }
 
     fun toRegisteredTier(key: ResourceKey<Block>) = LargeStorageUnitBlockEntity.Tier(
         key.location(),
         capacity,
-        cableTier,
+        parseTier(cableTier) ?: error("Unknown cable tier: $cableTier"),
         translationKey
     )
 

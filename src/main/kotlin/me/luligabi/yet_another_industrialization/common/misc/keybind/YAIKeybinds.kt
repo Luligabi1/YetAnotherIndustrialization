@@ -63,7 +63,7 @@ object YAIKeybinds {
             )
         },
         {
-            val newState = IndustrialistsGogglesItem.toggleMode(Minecraft.getInstance().player!!)
+            val newState = IndustrialistsGogglesItem.toggleMode(Minecraft.getInstance().player!!) ?: return@create
             ToggleIndustrialistsGogglesPacket(newState).sendToServer()
         }
     )

@@ -45,7 +45,7 @@ class LargeStorageUnitTierCategory : ViewerCategory<LargeStorageUnitTierCategory
     }
 
     override fun buildWidgets(data: Data, widgets: WidgetList) {
-        widgets.secondaryText(data.name, 20f, 29f)
+        widgets.text(data.name, 26f, 29f, TextAlign.CENTER, false, true, null)
 
         val amount = TextHelper.getAmount(data.capacity)
         widgets.secondaryText(
@@ -63,7 +63,7 @@ class LargeStorageUnitTierCategory : ViewerCategory<LargeStorageUnitTierCategory
 
         val block = BuiltInRegistries.BLOCK.get(key)!!
 
-        private val hullId = LargeStorageUnitTier.getHull(key.location(), tier.cableTier)
+        private val hullId = LargeStorageUnitTier.getHull(key.location(), LargeStorageUnitTier.parseTier(tier.cableTier)!!)
         val hull = BuiltInRegistries.BLOCK.get(hullId)
 
         val name = Component.translatable(tier.translationKey)
