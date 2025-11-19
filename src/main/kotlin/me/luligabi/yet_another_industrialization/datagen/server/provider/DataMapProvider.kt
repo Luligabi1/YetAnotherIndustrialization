@@ -36,23 +36,23 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
 
         private val DEFAULT_LARGE_STORAGE_UNIT_TIERS = hashMapOf(
             ResourceLocation.withDefaultNamespace("redstone_block") to LargeStorageUnitTier(
-                25_600_000L,
+                204_800_000L,
                 CableTier.LV, CableTier.LV.shortEnglishKey(),
             ),
             ResourceLocation.parse(MIMaterials.SILICON.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
-                102_400_000L,
+                819_200_000L,
                 CableTier.MV, CableTier.MV.shortEnglishKey(),
             ),
             ResourceLocation.parse(MIMaterials.SODIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
-                921_600_000L,
+                7_372_800_000L,
                 CableTier.HV, CableTier.HV.shortEnglishKey(),
             ),
             YAI.id("cadmium_block") to LargeStorageUnitTier(
-                6_553_600_000L,
+                52_428_800_000L,
                 CableTier.EV, CableTier.EV.shortEnglishKey(),
             ),
             ResourceLocation.parse(MIMaterials.PLUTONIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
-                102_400_000_000_000L,
+                819_200_000_000L,
                 CableTier.SUPERCONDUCTOR, CableTier.SUPERCONDUCTOR.shortEnglishKey(),
             ),
             YAIBlocks.SINGULARITY_BLOCK.identifier().location to LargeStorageUnitTier(

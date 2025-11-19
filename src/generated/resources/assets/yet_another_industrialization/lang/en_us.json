@@ -93,7 +93,7 @@
   "text.yet_another_industrialization.goggles_tooltip_1": "Previews multiblock shapes without the need to hold a wrench",
   "text.yet_another_industrialization.goggles_tooltip_2": "Press %s to toggle",
   "text.yet_another_industrialization.guidebook_tooltip": "Pronounced as \"YAY\"!",
-  "text.yet_another_industrialization.large_storage_unit_tier_capacity": "Capacity: %s%s EU",
+  "text.yet_another_industrialization.large_storage_unit_tier_capacity": "Capacity: %s %sEU",
   "text.yet_another_industrialization.large_storage_unit_tiers": "Large Storage Unit Tiers",
   "text.yet_another_industrialization.large_storage_unit_tooltip_1": "Can I/O to its voltage and lower",
   "text.yet_another_industrialization.large_storage_unit_tooltip_2": "i.e. At HV, it's capable of interacting with HV, MV, and LV!",
