@@ -1,6 +1,6 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.util.components
 
-import aztech.modern_industrialization.machines.IComponent
+import aztech.modern_industrialization.machines.MachineComponent
 import aztech.modern_industrialization.machines.components.ActiveShapeComponent
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import aztech.modern_industrialization.machines.multiblocks.ShapeTemplate
@@ -11,7 +11,7 @@ import net.minecraft.nbt.CompoundTag
  * [ActiveShapeComponent], but [shapeTemplates] are supplied.
  * Used for multiblocks where the tiers are defined through data maps
  */
-class SuppliedActiveShapeComponent(private val shapeTemplates: () -> Array<ShapeTemplate>): IComponent {
+class SuppliedActiveShapeComponent(private val shapeTemplates: () -> Array<ShapeTemplate>): MachineComponent {
 
     var activeShape = 0
         private set

@@ -143,7 +143,10 @@ object YAIMachines {
                 )
             })
                 .builtinModel(casing, "mixed_hatch", {
-                    it.front().side().top(false).active(false)
+                    it
+                        .front().side().top(false)
+                        .active(false)
+                        .outputTexture(YAI.id("block/overlays/output_mixed"))
                 })
                 .registrator({
                     MachineBlockEntity.registerItemApi(it)

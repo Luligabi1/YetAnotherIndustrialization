@@ -1,8 +1,8 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit
 
 import aztech.modern_industrialization.api.energy.MIEnergyStorage
-import aztech.modern_industrialization.machines.IComponent.ServerOnly
 import aztech.modern_industrialization.machines.MachineBlockEntity
+import aztech.modern_industrialization.machines.MachineComponent
 import aztech.modern_industrialization.machines.components.DropableComponent
 import dev.technici4n.grandpower.api.EnergyStorageUtil
 import me.luligabi.yet_another_industrialization.common.YAI
@@ -11,7 +11,7 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.item.ItemStack
 import net.swedz.tesseract.neoforge.compat.mi.api.ComponentStackHolder
 
-class ChargingSlotComponent: ServerOnly, DropableComponent, ComponentStackHolder {
+class ChargingSlotComponent: MachineComponent.ServerOnly, DropableComponent, ComponentStackHolder {
 
     companion object {
         val ID = YAI.id("charging_slot")

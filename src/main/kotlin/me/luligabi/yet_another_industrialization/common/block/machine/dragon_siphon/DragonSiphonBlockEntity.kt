@@ -87,10 +87,10 @@ class DragonSiphonBlockEntity(bep: BEP): AbstractCraftingMultiblockBlockEntity(
         registerComponents(redstoneControl)
 
         registerGuiComponent(
-            SlotPanel.Server(this)
+            SlotPanel(this)
                 .withRedstoneControl(redstoneControl)
         )
-        registerGuiComponent(CraftingMultiblockGui.Server(
+        registerGuiComponent(CraftingMultiblockGui(
             { shapeValid.shapeValid },
             { crafter.progress },
             crafter,

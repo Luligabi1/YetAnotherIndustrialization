@@ -1,9 +1,9 @@
 package me.luligabi.yet_another_industrialization.client
 
-import aztech.modern_industrialization.machines.GuiComponentsClient
+import aztech.modern_industrialization.client.machines.GuiComponentsClient
+import aztech.modern_industrialization.client.machines.MachineBlockEntityRenderer
+import aztech.modern_industrialization.client.machines.multiblocks.MultiblockMachineBER
 import aztech.modern_industrialization.machines.MachineBlock
-import aztech.modern_industrialization.machines.MachineBlockEntityRenderer
-import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBER
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import me.luligabi.yet_another_industrialization.client.component.ChargingSlotClient
 import me.luligabi.yet_another_industrialization.client.component.LargeStorageUnitGuiClient
@@ -42,9 +42,9 @@ import net.neoforged.neoforge.common.NeoForge
 class YAIClient(modEventBus: IEventBus, container: ModContainer) {
 
     init {
-        GuiComponentsClient.register(LargeStorageUnitGui.ID, ::LargeStorageUnitGuiClient)
-        GuiComponentsClient.register(ChargingSlot.ID, ::ChargingSlotClient)
-        GuiComponentsClient.register(SuppliedShapeSelection.ID, ::SuppliedShapeSelectionClient)
+        GuiComponentsClient.register(LargeStorageUnitGui.TYPE, ::LargeStorageUnitGuiClient)
+        GuiComponentsClient.register(ChargingSlot.TYPE, ::ChargingSlotClient)
+        GuiComponentsClient.register(SuppliedShapeSelection.TYPE, ::SuppliedShapeSelectionClient)
 
         YAIKeybinds.init(modEventBus)
         modEventBus.register(this)

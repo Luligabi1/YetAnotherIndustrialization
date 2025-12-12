@@ -1,7 +1,7 @@
 package me.luligabi.yet_another_industrialization.client.renderer
 
+import aztech.modern_industrialization.client.machines.multiblocks.MultiblockMachineBER
 import aztech.modern_industrialization.machines.MachineBlockEntity
-import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBER
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack

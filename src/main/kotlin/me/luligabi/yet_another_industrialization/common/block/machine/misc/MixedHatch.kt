@@ -25,7 +25,7 @@ class MixedHatch(
 
     init {
         registerComponents(inventory)
-        registerGuiComponent(AutoExtract.Server(orientation, input))
+        registerGuiComponent(AutoExtract(orientation, input))
     }
 
     override fun appendItemInputs(list: MutableList<ConfigurableItemStack>) {

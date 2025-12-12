@@ -1,6 +1,6 @@
 package me.luligabi.yet_another_industrialization.mixin;
 
-import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBER;
+import aztech.modern_industrialization.client.machines.multiblocks.MultiblockMachineBER;
 import me.luligabi.yet_another_industrialization.common.item.IndustrialistsGogglesItem;
 import me.luligabi.yet_another_industrialization.common.misc.component.YAIDataComponents;
 import me.luligabi.yet_another_industrialization.common.misc.proxy.YAIModSlotProxy;

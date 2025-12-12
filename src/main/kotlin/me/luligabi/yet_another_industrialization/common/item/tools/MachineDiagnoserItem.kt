@@ -61,7 +61,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
     private fun diagnose(machine: MachineBlockEntity): MutableSet<DiagnosisType> {
         val diagnosis = mutableSetOf<DiagnosisType>()
 
-        machine.components.get(RedstoneControlComponent::class.java)?.let {
+        machine.components.getNullable(RedstoneControlComponent::class.java)?.let {
             if (!it.doAllowNormalOperation(machine)) {
                 diagnosis.add(DiagnosisType.REDSTONE_BLOCKED)
                 return diagnosis
@@ -79,7 +79,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
             if (machine is SteamCraftingMachineBlockEntity || machine is SteamWaterPumpBlockEntity) {
                 if (machine.inventory.fluidStacks.diagnoseSteam(diagnosis)) return diagnosis
             } else if (machine !is GeneratorMachineBlockEntity) {
-                machine.components.get(EnergyComponent::class.java)?.let {
+                machine.components.getNullable(EnergyComponent::class.java)?.let {
                     if (it.eu == 0L) {
                         diagnosis.add(DiagnosisType.NO_ENERGY)
                         return diagnosis
@@ -90,7 +90,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
 
         }
 
-        val crafter = machine.components.get(CrafterComponent::class.java) ?: return diagnosis
+        val crafter = machine.components.getNullable(CrafterComponent::class.java) ?: return diagnosis
         val activeRecipe = (crafter as CrafterComponentAccessor).activeRecipe
         activeRecipe?.value?.let {
             diagnoseRecipe(it, crafter, diagnosis)
@@ -114,7 +114,7 @@ class MachineDiagnoserItem(properties: Properties) : Item(properties) {
                 diagnoseMultiblockInventory(machine.multiblockInventoryComponent, allowedHatches, diagnosis)
             }
             else -> { // if the multiblock doesn't extend AbstractCraftingMultiblockBlockEntity, they might not implement MultiblockInventoryComponentHolder
-                machine.components.get(MultiblockInventoryComponent::class.java)?.let { inventory ->
+                machine.components.getNullable(MultiblockInventoryComponent::class.java)?.let { inventory ->
                     diagnoseMultiblockInventory(inventory, allowedHatches, diagnosis)
                 }
             }

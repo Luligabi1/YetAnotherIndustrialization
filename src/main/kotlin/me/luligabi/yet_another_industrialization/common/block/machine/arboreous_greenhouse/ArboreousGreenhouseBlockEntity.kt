@@ -53,7 +53,7 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
         registerComponents(activeSoil, sapling, upgrades, overdrive)
 
         registerGuiComponent(
-            SlotPanel.Server(this)
+            SlotPanel(this)
                 .withRedstoneControl(redstoneControl)
                 .withUpgrades(upgrades)
                 .withOverdrive(overdrive)
@@ -293,7 +293,6 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
 
     private fun getSoilInfo(): ShapeSelection.LineInfo {
         return ShapeSelection.LineInfo(
-            TIERS.size,
             TIERS.map { it.getDisplayName() }.toList(),
             true
         )

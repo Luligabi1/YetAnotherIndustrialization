@@ -37,7 +37,7 @@ class ConfigurableMixedStorageMachineBlockEntity(bep: BEP) : MachineBlockEntity(
 
         inventory = MIInventory(itemStacks, fluidStacks, itemPositions, fluidPositions)
 
-        registerGuiComponent(AutoExtract.Server(orientation))
+        registerGuiComponent(AutoExtract(orientation))
         registerComponents(inventory)
     }
 

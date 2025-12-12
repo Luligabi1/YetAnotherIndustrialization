@@ -1,7 +1,7 @@
 package me.luligabi.yet_another_industrialization.client.renderer.item
 
+import aztech.modern_industrialization.client.util.RenderHelper
 import aztech.modern_industrialization.thirdparty.fabrictransfer.api.storage.TransferVariant
-import aztech.modern_industrialization.util.RenderHelper
 import com.mojang.blaze3d.systems.RenderSystem
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.tools.StorageSlotLockerItem

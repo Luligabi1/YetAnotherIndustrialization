@@ -1,42 +1,40 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit
 
-import aztech.modern_industrialization.machines.gui.GuiComponent
+import aztech.modern_industrialization.machines.gui.GuiComponentServer
 import me.luligabi.yet_another_industrialization.common.YAI
-import net.minecraft.network.RegistryFriendlyByteBuf
+import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitGui.Data
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 
-object LargeStorageUnitGui {
+class LargeStorageUnitGui(
+    private val isShapeValid: () -> Boolean,
+    private val euSupplier: () -> Long,
+    private val maxEuSupplier: () -> Long
+) : GuiComponentServer<Data, Data> {
 
-    val ID = YAI.id(LargeStorageUnitBlockEntity.ID)
+    override fun getParams() = Data(isShapeValid(), euSupplier(), maxEuSupplier())
 
-    class Server(
-        private val isShapeValid: () -> Boolean,
-        private val euSupplier: () -> Long,
-        private val maxEuSupplier: () -> Long
-    ) : GuiComponent.Server<Data> {
+    override fun extractData() = getParams()
 
-        override fun copyData(): Data {
-            if (!isShapeValid()) return Data(false, euSupplier(), -1)
-            return Data(true, euSupplier(), maxEuSupplier())
-        }
+    override fun getType() = TYPE
 
-        override fun needsSync(cachedData: Data): Boolean {
-            return cachedData.isShapeValid != isShapeValid() ||
-                    cachedData.stored != euSupplier() ||
-                    cachedData.capacity != maxEuSupplier()
-        }
-
-        override fun writeInitialData(buf: RegistryFriendlyByteBuf) {
-            writeCurrentData(buf)
-        }
-
-        override fun writeCurrentData(buf: RegistryFriendlyByteBuf) {
-            buf.writeBoolean(isShapeValid())
-            buf.writeLong(euSupplier())
-            buf.writeLong(maxEuSupplier())
-        }
-
-        override fun getId() = ID
+    companion object {
+        val TYPE = GuiComponentServer.Type(
+            YAI.id(LargeStorageUnitBlockEntity.ID),
+            Data.STREAM_CODEC,
+            Data.STREAM_CODEC
+        )
     }
 
-    data class Data(val isShapeValid: Boolean, val stored: Long, val capacity: Long)
+    data class Data(val isShapeValid: Boolean, val eu: Long, val maxEu: Long) {
+        companion object {
+            val STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.BOOL, Data::isShapeValid,
+                ByteBufCodecs.VAR_LONG, Data::eu,
+                ByteBufCodecs.VAR_LONG, Data::maxEu,
+                ::Data
+            )
+        }
+    }
+
 }

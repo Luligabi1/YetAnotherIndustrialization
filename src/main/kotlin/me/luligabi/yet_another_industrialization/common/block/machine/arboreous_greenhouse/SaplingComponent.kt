@@ -1,6 +1,6 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse
 
-import aztech.modern_industrialization.machines.IComponent
+import aztech.modern_industrialization.machines.MachineComponent
 import aztech.modern_industrialization.machines.components.CrafterComponent
 import me.luligabi.yet_another_industrialization.mixin.CrafterComponentAccessor
 import net.minecraft.core.HolderLookup
@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 
-class SaplingComponent: IComponent.ClientOnly {
+class SaplingComponent: MachineComponent.ClientOnly {
 
     var model: ResourceLocation? = null
     private var item: Item? = null

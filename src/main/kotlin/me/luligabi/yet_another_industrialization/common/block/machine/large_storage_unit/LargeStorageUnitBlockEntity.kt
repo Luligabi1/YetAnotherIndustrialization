@@ -45,9 +45,10 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
         registerComponents(activeTier, chargingSlot, energy)
 
         registerGuiComponent(
-            LargeStorageUnitGui.Server(
+            LargeStorageUnitGui(
                 { shapeValid.shapeValid },
-                { (energy as EnergyComponentAccessor).storedEu }, { energy.capacity }
+                { (energy as EnergyComponentAccessor).storedEu },
+                { energy.capacity }
             )
         )
 
@@ -65,7 +66,7 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
             )
         )
 
-        registerGuiComponent(ChargingSlot.Server(this, chargingSlot))
+        registerGuiComponent(ChargingSlot(this, chargingSlot))
     }
 
     data class Tier(
@@ -215,7 +216,6 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
 
     private fun getTierInfo(): ShapeSelection.LineInfo {
         return ShapeSelection.LineInfo(
-            TIERS.size,
             TIERS.map { it.getDisplayName() }.toList(),
             true
         )

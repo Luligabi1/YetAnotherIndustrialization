@@ -1,6 +1,6 @@
 package me.luligabi.yet_another_industrialization.common.compat.recipeviewer
 
-import aztech.modern_industrialization.compat.viewer.abstraction.ViewerCategory
+import aztech.modern_industrialization.client.compat.viewer.abstraction.ViewerCategory
 import aztech.modern_industrialization.thirdparty.fabrictransfer.api.item.ItemVariant
 import aztech.modern_industrialization.util.TextHelper
 import me.luligabi.yet_another_industrialization.common.YAI

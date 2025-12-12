@@ -1,11 +1,9 @@
 package me.luligabi.yet_another_industrialization.client.component
 
 import aztech.modern_industrialization.MIText
-import aztech.modern_industrialization.machines.gui.ClientComponentRenderer
-import aztech.modern_industrialization.machines.gui.ClientComponentRenderer.ButtonContainer
-import aztech.modern_industrialization.machines.gui.GuiComponentClient
-import aztech.modern_industrialization.machines.gui.MachineScreen
-import aztech.modern_industrialization.machines.gui.MachineScreen.MachineButton
+import aztech.modern_industrialization.client.machines.gui.ClientComponentRenderer
+import aztech.modern_industrialization.client.machines.gui.GuiComponentClient
+import aztech.modern_industrialization.client.machines.gui.MachineScreen
 import aztech.modern_industrialization.machines.guicomponents.ShapeSelection
 import aztech.modern_industrialization.util.Rectangle
 import aztech.modern_industrialization.util.TextHelper
@@ -13,69 +11,39 @@ import com.mojang.blaze3d.systems.RenderSystem
 import me.luligabi.yet_another_industrialization.common.misc.network.SuppliedShapeSelect
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentSerialization
 import kotlin.math.max
 
 // I love copy pasting!!!!!!
-class SuppliedShapeSelectionClient(buf: RegistryFriendlyByteBuf) : GuiComponentClient {
-
-    private var lines: Array<ShapeSelection.LineInfo> = Array(buf.readVarInt()) { ShapeSelection.LineInfo(0, emptyList(), false) }
-    private var currentData: IntArray
-    private lateinit var renderer: Renderer
-
-    init {
-        for (i in lines.indices) {
-            val numValues = buf.readVarInt()
-            val components = mutableListOf<Component>()
-
-
-            for (j in 0..<numValues) {
-                components.add(ComponentSerialization.STREAM_CODEC.decode(buf) as Component)
-            }
-
-            lines[i] = ShapeSelection.LineInfo(numValues, components, buf.readBoolean())
-        }
-
-        currentData = IntArray(lines.size)
-        readCurrentData(buf)
-    }
-
-    override fun readCurrentData(buf: RegistryFriendlyByteBuf) {
-        for (i in currentData.indices) {
-            currentData[i] = buf.readVarInt()
-        }
-    }
-
-    override fun createRenderer(machineScreen: MachineScreen?): ClientComponentRenderer {
+class SuppliedShapeSelectionClient(
+    params: List<ShapeSelection.LineInfo>, 
+    data: List<Int>
+) : GuiComponentClient<List<ShapeSelection.LineInfo>, List<Int>>(params, data) {
+    
+    override fun createRenderer(machineScreen: MachineScreen): ClientComponentRenderer {
         var maxWidth = 1
 
-        for (line in lines) {
+        for (line in params) {
             for (tooltip in line.translations()) {
                 maxWidth = max(maxWidth, Minecraft.getInstance().font.width(tooltip))
             }
         }
 
-        return Renderer(maxWidth).also { renderer = it }
+        return Renderer(maxWidth)
     }
 
 
     inner class Renderer (private val textMaxWidth: Int) : ClientComponentRenderer {
         var isPanelOpen: Boolean = false
-        private val btnSize = 12
-        private val borderSize = 3
-        private val outerPadding = 5
-        private val innerPadding = 5
         private val panelWidth: Int
 
         init {
             panelWidth = 25 + textMaxWidth + 5 + 12 + 5
         }
 
-        override fun addButtons(container: ButtonContainer) {
-            for (i in this@SuppliedShapeSelectionClient.lines.indices) {
-                val line: ShapeSelection.LineInfo = this@SuppliedShapeSelectionClient.lines[i]
+        override fun addButtons(container: ClientComponentRenderer.ButtonContainer) {
+            for (i in this@SuppliedShapeSelectionClient.params.indices) {
+                val line: ShapeSelection.LineInfo = this@SuppliedShapeSelectionClient.params[i]
                 val baseU = if (line.useArrows()) 174 else 150
                 val v = 58
                 container.addButton(
@@ -85,11 +53,11 @@ class SuppliedShapeSelectionClient(buf: RegistryFriendlyByteBuf) : GuiComponentC
                     12,
                     { syncId -> (SuppliedShapeSelect(syncId, i, true)).sendToServer() },
                     { mutableListOf() },
-                    { screen: MachineScreen?, button: MachineButton?, guiGraphics: GuiGraphics?, mouseX: Int, mouseY: Int, delta: Float ->
-                        if (this@SuppliedShapeSelectionClient.currentData[i] == 0) {
-                            screen!!.blitButtonNoHighlight(button, guiGraphics, baseU, v + 12)
+                    { screen, button, guiGraphics, mouseX, mouseY, delta ->
+                        if (this@SuppliedShapeSelectionClient.data[i] == 0) {
+                            screen.blitButtonNoHighlight(button, guiGraphics, baseU, v + 12)
                         } else {
-                            screen!!.blitButtonSmall(button, guiGraphics, baseU, v)
+                            screen.blitButtonSmall(button, guiGraphics, baseU, v)
                         }
                     },
                     { isPanelOpen })
@@ -100,11 +68,11 @@ class SuppliedShapeSelectionClient(buf: RegistryFriendlyByteBuf) : GuiComponentC
                     12,
                     { syncId -> (SuppliedShapeSelect(syncId, i, false)).sendToServer() },
                     { mutableListOf() },
-                    { screen: MachineScreen?, button: MachineButton?, guiGraphics: GuiGraphics?, mouseX: Int, mouseY: Int, delta: Float ->
-                        if (this@SuppliedShapeSelectionClient.currentData[i] == line.numValues() - 1) {
-                            screen!!.blitButtonNoHighlight(button, guiGraphics, baseU + 12, v + 12)
+                    { screen, button, guiGraphics, mouseX, mouseY, delta ->
+                        if (this@SuppliedShapeSelectionClient.data[i] == line.numValues() - 1) {
+                            screen.blitButtonNoHighlight(button, guiGraphics, baseU + 12, v + 12)
                         } else {
-                            screen!!.blitButtonSmall(button, guiGraphics, baseU + 12, v)
+                            screen.blitButtonSmall(button, guiGraphics, baseU + 12, v)
                         }
                     },
                     { isPanelOpen })
@@ -122,8 +90,8 @@ class SuppliedShapeSelectionClient(buf: RegistryFriendlyByteBuf) : GuiComponentC
                         MIText.ShapeSelectionDescription.text().setStyle(TextHelper.GRAY_TEXT)
                     )
                 },
-                { screen: MachineScreen?, button: MachineButton?, guiGraphics: GuiGraphics?, mouseX: Int, mouseY: Int, delta: Float ->
-                    screen!!.blitButton(
+                { screen, button, guiGraphics, mouseX: Int, mouseY: Int, delta: Float ->
+                    screen.blitButton(
                         button,
                         guiGraphics,
                         138,
@@ -139,9 +107,9 @@ class SuppliedShapeSelectionClient(buf: RegistryFriendlyByteBuf) : GuiComponentC
             if (isPanelOpen) {
                 RenderSystem.disableDepthTest()
 
-                for (i in this@SuppliedShapeSelectionClient.lines.indices) {
-                    val line: ShapeSelection.LineInfo = this@SuppliedShapeSelectionClient.lines[i]
-                    val tooltip = line.translations().get(this@SuppliedShapeSelectionClient.currentData[i]) as Component
+                for (i in this@SuppliedShapeSelectionClient.params.indices) {
+                    val line: ShapeSelection.LineInfo = this@SuppliedShapeSelectionClient.params[i]
+                    val tooltip = line.translations().get(this@SuppliedShapeSelectionClient.data[i]) as Component
                     val width = Minecraft.getInstance().font.width(tooltip)
                     guiGraphics.drawString(
                         Minecraft.getInstance().font,
@@ -164,7 +132,7 @@ class SuppliedShapeSelectionClient(buf: RegistryFriendlyByteBuf) : GuiComponentC
                     leftPos - panelWidth,
                     topPos + topOffset,
                     panelWidth,
-                    getVerticalPos(this@SuppliedShapeSelectionClient.lines.size - 1) - topOffset + 12 + 5 + 3
+                    getVerticalPos(this@SuppliedShapeSelectionClient.params.size - 1) - topOffset + 12 + 5 + 3
                 )
             } else {
                 return Rectangle(leftPos - 31, topPos + 10, 31, 34)

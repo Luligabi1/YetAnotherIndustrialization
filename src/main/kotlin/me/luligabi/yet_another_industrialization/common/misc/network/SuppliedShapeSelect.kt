@@ -28,7 +28,7 @@ class SuppliedShapeSelect(
 
         val menu = ctx.player.containerMenu
         if (menu.containerId == syncId && menu is MachineMenuServer) {
-            val shapeSelection = menu.blockEntity.guiComponents.get<SuppliedShapeSelection>(SuppliedShapeSelection.ID)
+            val shapeSelection = menu.blockEntity.guiComponents.getOrThrow(SuppliedShapeSelection::class.java)
             shapeSelection.behavior.handleClick(shapeLine, if (clickedLeftButton) -1 else +1)
         }
     }

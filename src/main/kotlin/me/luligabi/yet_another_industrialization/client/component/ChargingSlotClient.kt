@@ -1,27 +1,24 @@
 package me.luligabi.yet_another_industrialization.client.component
 
+import aztech.modern_industrialization.client.machines.gui.ClientComponentRenderer
+import aztech.modern_industrialization.client.machines.gui.GuiComponentClient
+import aztech.modern_industrialization.client.machines.gui.MachineScreen
 import aztech.modern_industrialization.inventory.BackgroundRenderedSlot
 import aztech.modern_industrialization.inventory.SlotGroup
-import aztech.modern_industrialization.machines.gui.ClientComponentRenderer
 import aztech.modern_industrialization.machines.gui.GuiComponent.MenuFacade
-import aztech.modern_industrialization.machines.gui.GuiComponentClient
-import aztech.modern_industrialization.machines.gui.MachineScreen
 import aztech.modern_industrialization.util.Rectangle
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.ChargingSlot
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
+import net.minecraft.util.Unit
 import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
 
-class ChargingSlotClient(buf: RegistryFriendlyByteBuf): GuiComponentClient {
-
-    override fun readCurrentData(buf: RegistryFriendlyByteBuf) {
-    }
+class ChargingSlotClient(params: Unit, data: Unit): GuiComponentClient<Unit, Unit>(params, data) {
 
     override fun setupMenu(menu: MenuFacade) {
         class ClientSlot : SlotWithBackground(
