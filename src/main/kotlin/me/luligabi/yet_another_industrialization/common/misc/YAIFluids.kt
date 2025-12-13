@@ -70,6 +70,16 @@ object YAIFluids {
         MIFluidProperties(0xC47E80, FluidDefinition.NEAR_OPACITY, FluidTexture.PLASMA_LIKE, true)
     ).register()
 
+    val SCORCHING_LIQUID_AIR = create(
+        "scorching_liquid_air", "Scorching Liquid Air",
+        MIFluidProperties(0xFAB991, FluidDefinition.MEDIUM_OPACITY, FluidTexture.STEAM_LIKE, true)
+    ).register()
+
+    val GELID_LIQUID_AIR = create(
+        "gelid_liquid_air", "Gelid Liquid Air",
+        MIFluidProperties(0x639FC3, FluidDefinition.MEDIUM_OPACITY, FluidTexture.WATER_LIKE, true)
+    ).register()
+
 
     private fun create(id: String, englishName: String, properties: MIFluidProperties): MIFluidHolder {
         val holder = MIFluidHolder(

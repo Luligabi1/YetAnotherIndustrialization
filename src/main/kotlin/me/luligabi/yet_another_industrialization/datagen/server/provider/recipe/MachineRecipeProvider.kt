@@ -9,6 +9,8 @@ import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachine
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.EnergyGenerationCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.DragonSiphonBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.EnergyGenerationCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
@@ -68,6 +70,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
         buildCryogenicPrecipitatorRecipes(output, lookup)
 
+        /** Dragon Siphon */
         shaped(
             DragonSiphonBlockEntity.ID,
             YAIMachines.getMachineFromId(DragonSiphonBlockEntity.ID), 1,

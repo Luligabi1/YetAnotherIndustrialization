@@ -5,6 +5,7 @@ import me.luligabi.yet_another_industrialization.datagen.server.provider.Arboreo
 import me.luligabi.yet_another_industrialization.datagen.server.provider.DataMapProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.YAILootTableProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.recipe.RecipeProvider
+import me.luligabi.yet_another_industrialization.datagen.server.provider.tag.BiomeTagProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.tag.BlockTagProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.tag.ItemTagProvider
 import net.minecraft.core.HolderLookup
@@ -23,6 +24,7 @@ object ServerDatagen: DatagenEntrypoint {
         event.add(::RecipeProvider)
         event.add(::BlockTagProvider)
         event.add(::ItemTagProvider)
+        event.add(::BiomeTagProvider)
         event.addLootTable(::YAILootTableProvider)
     }
 

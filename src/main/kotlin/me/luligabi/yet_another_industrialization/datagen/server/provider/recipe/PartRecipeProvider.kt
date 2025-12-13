@@ -81,6 +81,20 @@ object PartRecipeProvider : YAIRecipeProvider {
             },
             output
         )
+
+        shaped(
+            YAIItems.TEMPPROOF_AIR_INTAKE.identifier().location.path,
+            YAIItems.TEMPPROOF_AIR_INTAKE, 1,
+            { it
+                .define('A', MIMaterials.ANNEALED_COPPER.get(MIMaterialParts.PLATE).asItem())
+                .define('T', MIMaterials.TITANIUM.get(MIMaterialParts.PLATE).asItem())
+                .define('R', MIMaterials.TITANIUM.get(MIMaterialParts.ROTOR).asItem())
+                .pattern("ATA")
+                .pattern("TRT")
+                .pattern("ATA")
+            },
+            output
+        )
     }
 
 }

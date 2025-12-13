@@ -1,12 +1,12 @@
-package me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon
+package me.luligabi.yet_another_industrialization.common.block.machine.generator
 
 import aztech.modern_industrialization.MIText
 import aztech.modern_industrialization.machines.multiblocks.HatchTypes
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import aztech.modern_industrialization.machines.recipe.MachineRecipe
 import aztech.modern_industrialization.machines.recipe.condition.MachineProcessCondition
+import aztech.modern_industrialization.util.MIExtraCodecs
 import aztech.modern_industrialization.util.TextHelper
-import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
@@ -22,7 +22,7 @@ class EnergyGenerationCondition(val amount: Long): MachineProcessCondition {
 
         val CODEC = RecordCodecBuilder.mapCodec {
             it.group(
-                Codec.LONG.fieldOf("amount").forGetter(EnergyGenerationCondition::amount)
+                MIExtraCodecs.POSITIVE_LONG.fieldOf("amount").forGetter(EnergyGenerationCondition::amount)
             ).apply(it, ::EnergyGenerationCondition)
         }
 
@@ -45,7 +45,7 @@ class EnergyGenerationCondition(val amount: Long): MachineProcessCondition {
     override fun appendDescription(list: MutableList<Component>) {
         val amount = TextHelper.getAmount(amount)
         list.add(
-            YAI.TEXT.energyGenerationTooltip(MIText.Eu.text(amount.digit, amount.unit))
+            YAI.Companion.TEXT.energyGenerationTooltip(MIText.Eu.text(amount.digit, amount.unit))
         )
     }
 

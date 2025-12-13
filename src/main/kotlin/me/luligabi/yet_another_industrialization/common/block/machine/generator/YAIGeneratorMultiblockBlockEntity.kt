@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon
+package me.luligabi.yet_another_industrialization.common.block.machine.generator
 
 import aztech.modern_industrialization.api.machine.holder.EnergyListComponentHolder
 import aztech.modern_industrialization.machines.BEP
@@ -9,76 +9,22 @@ import aztech.modern_industrialization.machines.components.OrientationComponent
 import aztech.modern_industrialization.machines.components.RedstoneControlComponent
 import aztech.modern_industrialization.machines.guicomponents.CraftingMultiblockGui
 import aztech.modern_industrialization.machines.guicomponents.SlotPanel
-import aztech.modern_industrialization.machines.multiblocks.*
+import aztech.modern_industrialization.machines.multiblocks.ShapeMatcher
+import aztech.modern_industrialization.machines.multiblocks.ShapeTemplate
 import aztech.modern_industrialization.util.Simulation
-import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
-import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
-import me.luligabi.yet_another_industrialization.common.block.machine.YAIMultiblockHelper
-import me.luligabi.yet_another_industrialization.common.block.machine.YAIMultiblockHelper.Companion.GLASS_MEMBER
 import me.luligabi.yet_another_industrialization.mixin.CrafterComponentAccessor
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 
-class DragonSiphonBlockEntity(bep: BEP): AbstractCraftingMultiblockBlockEntity(
-    bep,
-    ID,
-    OrientationComponent.Params(false, false, false),
-    arrayOf(SHAPE)
-), CrafterComponent.Behavior, EnergyListComponentHolder {
+abstract class YAIGeneratorMultiblockBlockEntity(
+    bep: BEP,
+    id: ResourceLocation,
+    orientationParams: OrientationComponent.Params,
+    shape: Array<ShapeTemplate>
+): AbstractCraftingMultiblockBlockEntity(bep, id, orientationParams, shape), CrafterComponent.Behavior, EnergyListComponentHolder {
 
-    companion object : YAIMultiblockHelper {
-
-        const val ID = "dragon_egg_energy_siphon"
-        const val NAME = "Dragon Egg Energy Siphon"
-
-        private val CASING = SimpleMember.forBlock { YAIBlocks.STEEL_PLATED_END_STONE_BRICKS.get() }
-        private val DRAGON_EGG = SimpleMember.forBlockId(ResourceLocation.withDefaultNamespace("dragon_egg"))
-
-        override val pattern = listOf(
-            listOf(
-                "###",
-                "###",
-                "###"
-            ),
-            listOf(
-                "#@#",
-                "@$@",
-                "#@#"
-            ),
-            listOf(
-                "_#_",
-                "###",
-                "_#_"
-            )
-        )
-
-        override val materialRules: Map<(Char, Int) -> Boolean, SimpleMember>
-            get() = mapOf(
-                { char: Char, y: Int -> char == '#' } to CASING,
-                { char: Char, y: Int -> char == '@' } to GLASS_MEMBER,
-                { char: Char, y: Int -> char == '$' } to DRAGON_EGG,
-            )
-
-        override val hatches: HatchFlags
-            get() = HatchFlags.Builder()
-                .with(
-                    HatchTypes.ITEM_INPUT,
-                    HatchTypes.FLUID_INPUT, HatchTypes.FLUID_OUTPUT,
-                    HatchTypes.ENERGY_OUTPUT
-                )
-                .build()
-
-        override val hatchPredicate: (SimpleMember) -> Boolean
-            get() = { it == CASING }
-
-        override val controllerXOffset = -1
-
-        val SHAPE = ShapeTemplate.Builder(YAIMachines.Casings.STEEL_PLATED_END_STONE_BRICKS)
-            .addLayer(0)
-            .addLayer(1)
-            .addLayer(2)
-            .build()
-    }
+    constructor(bep: BEP, id: ResourceLocation, shape: Array<ShapeTemplate>):
+            this(bep, id, OrientationComponent.Params(false, false, false), shape)
 
     private val energyOutputs = mutableListOf<EnergyComponent>()
     private val redstoneControl = RedstoneControlComponent()
@@ -103,9 +49,14 @@ class DragonSiphonBlockEntity(bep: BEP): AbstractCraftingMultiblockBlockEntity(
             ?.filterIsInstance<EnergyGenerationCondition>()?.firstOrNull() ?: return
         val amount = condition.amount
 
-        if (insertEnergy(amount, true) > 0) {
+        val insertEnergy = insertEnergy(amount, true) > 0
+        if (insertEnergy) {
             insertEnergy(amount, false)
         }
+        onInsert(insertEnergy)
+    }
+
+    open fun onInsert(hasInsertedEnergy: Boolean) {
     }
 
     fun insertEnergy(value: Long, simulate: Boolean): Long {
@@ -127,12 +78,6 @@ class DragonSiphonBlockEntity(bep: BEP): AbstractCraftingMultiblockBlockEntity(
             shapeMatcher.matchedHatches.forEach { it.appendEnergyOutputs(energyOutputs) }
         }
     }
-
-    override fun tickExtra() { // TODO particles?
-        super.tickExtra()
-    }
-
-    override fun recipeType() = YAIMachines.RecipeTypes.DRAGON_SIPHON
 
     override fun consumeEu(max: Long, simulation: Simulation) = max
 

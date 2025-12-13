@@ -2,7 +2,7 @@
 navigation:
   title: "Dragon Egg Energy Siphon"
   icon: "yet_another_industrialization:dragon_egg_energy_siphon"
-  position: 1
+  position: 5
   parent: yet_another_industrialization:generators.md
 item_ids:
   - yet_another_industrialization:dragon_egg_energy_siphon

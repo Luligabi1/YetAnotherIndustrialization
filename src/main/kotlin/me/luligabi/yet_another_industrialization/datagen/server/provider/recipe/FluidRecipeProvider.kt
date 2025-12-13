@@ -1,7 +1,12 @@
 package me.luligabi.yet_another_industrialization.datagen.server.provider.recipe
 
+import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
+import aztech.modern_industrialization.machines.recipe.condition.BiomeProcessCondition
+import com.mojang.datafixers.util.Either
+import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
+import me.luligabi.yet_another_industrialization.common.misc.YAITags
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.world.item.Items
@@ -13,6 +18,12 @@ import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
 object FluidRecipeProvider : YAIRecipeProvider {
 
     override fun buildRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addNutrientFluidRecipes(output, lookup)
+        addLiquidAirRecipes(output, lookup)
+    }
+
+
+    fun addNutrientFluidRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addMachineRecipe(
             "centrifuge/nutrient_rich_water",
             MIMachineRecipeTypes.CENTRIFUGE,
@@ -96,6 +107,51 @@ object FluidRecipeProvider : YAIRecipeProvider {
 
                 it.addFluidOutput(YAIFluids.NUTRIENT_RICH_DRAGONS_BREATH.asFluid(), 500, 1f)
                 it.addItemOutput(MIMaterials.QUARTZ.get(MIMaterialParts.TINY_DUST), 1, 0.4f)
+            },
+            output
+        )
+    }
+
+    fun addLiquidAirRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        addMachineRecipe(
+            "pressurizer/scorching_liquid_air",
+            MIMachineRecipeTypes.PRESSURIZER,
+            8, 10*20,
+            {
+                it.addItemInput(YAIItems.TEMPPROOF_AIR_INTAKE, 1, 0f)
+                it.addFluidInput(MIFluids.CRYOFLUID, 5, 1f)
+
+                it.addFluidOutput(YAIFluids.SCORCHING_LIQUID_AIR.asFluid(), 1_000, 1f)
+
+                it.addCondition(BiomeProcessCondition(Either.right(YAITags.SCORCHING_LIQUID_AIR_BIOMES)))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "pressurizer/gelid_liquid_air",
+            MIMachineRecipeTypes.PRESSURIZER,
+            8, 10*20,
+            {
+                it.addItemInput(YAIItems.TEMPPROOF_AIR_INTAKE, 1, 0f)
+                it.addFluidInput(Fluids.LAVA, 5, 1f)
+
+                it.addFluidOutput(YAIFluids.GELID_LIQUID_AIR.asFluid(), 1_000, 1f)
+
+                it.addCondition(BiomeProcessCondition(Either.right(YAITags.GELID_LIQUID_AIR_BIOMES)))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "heat_exchanger/liquid_air_to_steam",
+            MIMachineRecipeTypes.HEAT_EXCHANGER,
+            2, 15*20,
+            {
+                it.addFluidInput(YAIFluids.SCORCHING_LIQUID_AIR, 4_000, 1f)
+                it.addFluidInput(YAIFluids.GELID_LIQUID_AIR, 4_000, 1f)
+
+                it.addFluidOutput(MIFluids.STEAM.asFluid(), 24_000, 1f)
             },
             output
         )
