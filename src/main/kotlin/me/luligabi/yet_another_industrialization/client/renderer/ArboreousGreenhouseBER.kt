@@ -25,8 +25,7 @@ class ArboreousGreenhouseBER(ctx: BlockEntityRendererProvider.Context) : Multibl
     override fun render(be: MultiblockMachineBlockEntity, tickDelta: Float, poseStack: PoseStack, vcp: MultiBufferSource, light: Int, overlay: Int) {
         super.render(be, tickDelta, poseStack, vcp, light, overlay)
 
-        val modelId = (be as ArboreousGreenhouseBlockEntity).sapling.model
-        if (modelId == null) return
+        val modelId = (be as ArboreousGreenhouseBlockEntity).sapling.model ?: return
 
         YAIModelLoaders.MODEL_MAP[modelId]?.let {
             (Minecraft.getInstance().modelManager.getModel(it) as? MultiBlockModel)?.let { model ->

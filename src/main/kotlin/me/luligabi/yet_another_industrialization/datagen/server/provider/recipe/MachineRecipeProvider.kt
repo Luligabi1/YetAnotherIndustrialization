@@ -7,10 +7,9 @@ import aztech.modern_industrialization.MIItem
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.EnergyGenerationCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.EnergyGenerationCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.PulseDetonationGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
@@ -86,6 +85,25 @@ object MachineRecipeProvider : YAIRecipeProvider {
             output
         )
         buildDragonSiphonRecipes(output, lookup)
+
+        /** PDG */
+        shaped(
+            PulseDetonationGeneratorBlockEntity.ID,
+            YAIMachines.getMachineFromId(PulseDetonationGeneratorBlockEntity.ID), 1,
+            { it
+                .define('P', MIItem.LARGE_ADVANCED_PUMP)
+                .define('U', MIItem.PROCESSING_UNIT)
+                .define('M', MIItem.LARGE_ADVANCED_MOTOR)
+                .define('B', MIMaterials.BLASTPROOF_ALLOY.get(MIMaterialParts.LARGE_PLATE))
+                .define('C', MIBlock.HIGHLY_ADVANCED_MACHINE_HULL)
+                .define('T', MIBlock.INDUSTRIAL_TNT)
+                .pattern("PUP")
+                .pattern("BCB")
+                .pattern("MTM")
+            },
+            output
+        )
+        buildPDGRecipes(output, lookup)
 
         /** Large Storage Unit */
         shaped(
@@ -396,6 +414,130 @@ object MachineRecipeProvider : YAIRecipeProvider {
                 it.addFluidOutput(YAIFluids.IMPURE_DRAGONS_BREATH.asFluid(), 2_500, 1f)
 
                 it.addCondition(EnergyGenerationCondition(45_000))
+            },
+            output
+        )
+    }
+
+    private fun buildPDGRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
+        /** Industrial TNT */
+        addMachineRecipe(
+            "${PulseDetonationGeneratorBlockEntity.ID}/industrial_tnt/8",
+            YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
+            1, 25*20,
+            {
+                it.addItemInput(MIBlock.INDUSTRIAL_TNT.get(), 8, 1f)
+                it.addFluidInput(MIFluids.HYDROGEN, 10_000, 1f)
+
+                it.addFluidOutput(MIFluids.STEAM.asFluid(), 350, 1f)
+
+                it.addCondition(EnergyGenerationCondition(160_000))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "${PulseDetonationGeneratorBlockEntity.ID}/industrial_tnt/16",
+            YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
+            1, 30*20,
+            {
+                it.addItemInput(MIBlock.INDUSTRIAL_TNT.get(), 16, 1f)
+                it.addFluidInput(MIFluids.NAPHTHA, 24_000, 1f)
+
+                it.addFluidOutput(MIFluids.STEAM.asFluid(), 1_250, 1f)
+
+                it.addCondition(EnergyGenerationCondition(544_000))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "${PulseDetonationGeneratorBlockEntity.ID}/industrial_tnt/32",
+            YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
+            1, 40*20,
+            {
+                it.addItemInput(MIBlock.INDUSTRIAL_TNT.get(), 32, 1f)
+                it.addFluidInput(MIFluids.ACETYLENE, 4_000, 1f)
+
+                it.addFluidOutput(MIFluids.STEAM.asFluid(), 4_000, 1f)
+
+                it.addCondition(EnergyGenerationCondition(1_096_000))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "${PulseDetonationGeneratorBlockEntity.ID}/industrial_tnt/64",
+            YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
+            1, 45*20,
+            {
+                it.addItemInput(MIBlock.INDUSTRIAL_TNT.get(), 64, 1f)
+                it.addFluidInput(MIFluids.DIETHYL_ETHER, 4_000, 1f)
+
+                it.addFluidOutput(MIFluids.STEAM.asFluid(), 6_000, 1f)
+
+                it.addCondition(EnergyGenerationCondition(2320000))
+            },
+            output
+        )
+
+        /** Nuke */
+        addMachineRecipe(
+            "${PulseDetonationGeneratorBlockEntity.ID}/nuke/8",
+            YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
+            1, 60*20,
+            {
+                it.addItemInput(MIBlock.NUKE.get(), 8, 1f)
+                it.addFluidInput(MIFluids.TOLUENE, 16_000, 1f)
+
+                it.addFluidOutput(MIFluids.STEAM.asFluid(), 16_000, 1f)
+
+                it.addCondition(EnergyGenerationCondition(288_000_000))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "${PulseDetonationGeneratorBlockEntity.ID}/nuke/16",
+            YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
+            1, 2*60*20,
+            {
+                it.addItemInput(MIBlock.NUKE.get(), 16, 1f)
+                it.addFluidInput(MIFluids.DEUTERIUM, 8_000, 1f)
+
+                it.addFluidOutput(MIFluids.STEAM.asFluid(), 10_000, 1f)
+
+                it.addCondition(EnergyGenerationCondition(596_000_000))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "${PulseDetonationGeneratorBlockEntity.ID}/nuke/32",
+            YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
+            1, 3*60*20,
+            {
+                it.addItemInput(MIBlock.NUKE.get(), 32, 1f)
+                it.addFluidInput(MIFluids.TRITIUM, 8_000, 1f)
+
+                it.addFluidOutput(MIFluids.DEUTERIUM.asFluid(), 20, 1f)
+
+                it.addCondition(EnergyGenerationCondition(4_096_000_000))
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "${PulseDetonationGeneratorBlockEntity.ID}/nuke/64",
+            YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
+            1, 10*60*20,
+            {
+                it.addItemInput(MIBlock.NUKE.get(), 64, 1f)
+                it.addFluidInput(MIFluids.HELIUM_PLASMA, 16_000, 1f)
+
+                it.addFluidOutput(MIFluids.HELIUM_3.asFluid(), 2_500, 1f)
+
+                it.addCondition(EnergyGenerationCondition(24_576_000_000))
             },
             output
         )

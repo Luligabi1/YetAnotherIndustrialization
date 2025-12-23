@@ -1,9 +1,12 @@
 package me.luligabi.yet_another_industrialization.datagen.server.provider.recipe
 
+import aztech.modern_industrialization.MIBlock
 import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.MIItem
 import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
+import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import net.minecraft.core.HolderLookup
@@ -92,6 +95,19 @@ object PartRecipeProvider : YAIRecipeProvider {
                 .pattern("ATA")
                 .pattern("TRT")
                 .pattern("ATA")
+            },
+            output
+        )
+
+        shaped(
+            DetonationChamberCasingBlockEntity.ID,
+            YAIMachines.getMachineFromId(DetonationChamberCasingBlockEntity.ID), 1,
+            { it
+                .define('P', MIMaterials.BLASTPROOF_ALLOY.get(MIMaterialParts.PLATE).asItem())
+                .define('I', MIBlock.INDUSTRIAL_TNT)
+                .pattern("PPP")
+                .pattern("PIP")
+                .pattern("PPP")
             },
             output
         )

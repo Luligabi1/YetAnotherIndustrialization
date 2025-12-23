@@ -1,8 +1,7 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.generator
 
 import aztech.modern_industrialization.MIText
-import aztech.modern_industrialization.machines.multiblocks.HatchTypes
-import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
+import aztech.modern_industrialization.api.machine.holder.EnergyListComponentHolder
 import aztech.modern_industrialization.machines.recipe.MachineRecipe
 import aztech.modern_industrialization.machines.recipe.condition.MachineProcessCondition
 import aztech.modern_industrialization.util.MIExtraCodecs
@@ -10,7 +9,6 @@ import aztech.modern_industrialization.util.TextHelper
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
-import me.luligabi.yet_another_industrialization.common.util.matchedHatches
 import net.minecraft.network.chat.Component
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
@@ -34,8 +32,14 @@ class EnergyGenerationCondition(val amount: Long): MachineProcessCondition {
     }
 
     override fun canProcessRecipe(ctx: MachineProcessCondition.Context, recipe: MachineRecipe): Boolean {
-        val multiblock = ctx.blockEntity as? MultiblockMachineBlockEntity ?: return false
-        return multiblock.matchedHatches.allows(HatchTypes.ENERGY_OUTPUT)
+        val multiblock = ctx.blockEntity as? EnergyListComponentHolder ?: return false
+
+        var remainingSpace = 0L
+        for (component in multiblock.energyComponents) {
+            remainingSpace += component.capacity - component.eu
+            if (remainingSpace >= amount) return true
+        }
+        return false
     }
 
     override fun codec() = CODEC

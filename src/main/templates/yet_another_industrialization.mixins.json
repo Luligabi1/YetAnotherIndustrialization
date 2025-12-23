@@ -20,9 +20,11 @@
     "MultiblockInventoryComponentAccessor",
     "MultiblockMachineBERMixin",
     "MultiblockMachineBlockEntityAccessor",
+    "ShapeMatcherAccessor",
     "UseOnContextAccessor"
   ],
-  "server": [],
+  "server": [
+  ],
   "client": [
     "MachineScreenAccessor",
     "ScreenAccessor"

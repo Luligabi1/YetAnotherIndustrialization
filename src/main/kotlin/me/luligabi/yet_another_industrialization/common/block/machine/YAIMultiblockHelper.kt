@@ -34,8 +34,10 @@ interface YAIMultiblockHelper {
 
     val materialRules: Map<(Char, Int) -> Boolean, SimpleMember>
 
-    val hatchPredicate: (SimpleMember) -> Boolean
-        get() = { true }
+    val hatchPredicate: Map<(Char, Int) -> Boolean, HatchFlags>
+        get() = mapOf(
+            { _: Char, _: Int -> true } to hatches
+        )
 
     val hatches: HatchFlags
         get() = HATCHES
@@ -51,7 +53,8 @@ interface YAIMultiblockHelper {
                 if (row[x] == '_') continue
 
                 val block = materialRules.entries.find { it.key(row[x], y) }?.value ?: continue
-                add(x + controllerXOffset, y, z, block, if (hatchPredicate(block)) hatches else null)
+                val flags = hatchPredicate.entries.find { it.key(row[x], y) }?.value
+                add(x + controllerXOffset, y, z, block, flags)
             }
         }
 

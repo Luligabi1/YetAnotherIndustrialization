@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "modern_industrialization:industrial_tnt"
+    },
+    "P": {
+      "item": "modern_industrialization:blastproof_alloy_plate"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PIP",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:detonation_chamber_casing"
+  }
+}

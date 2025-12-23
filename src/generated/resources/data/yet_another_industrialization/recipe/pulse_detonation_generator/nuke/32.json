@@ -1,0 +1,29 @@
+{
+  "type": "yet_another_industrialization:pulse_detonation_generator",
+  "duration": 3600,
+  "eu": 1,
+  "fluid_inputs": [
+    {
+      "amount": 8000,
+      "fluid": "modern_industrialization:tritium"
+    }
+  ],
+  "fluid_outputs": [
+    {
+      "amount": 20,
+      "fluid": "modern_industrialization:deuterium"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 32,
+      "item": "modern_industrialization:nuke"
+    }
+  ],
+  "process_conditions": [
+    {
+      "type": "yet_another_industrialization:energy_generation",
+      "amount": 4096000000
+    }
+  ]
+}

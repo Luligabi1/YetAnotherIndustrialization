@@ -71,13 +71,20 @@ abstract class YAIGeneratorMultiblockBlockEntity(
         return inserted
     }
 
-    override fun onRematch(shapeMatcher: ShapeMatcher) {
+    final override fun onRematch(shapeMatcher: ShapeMatcher) {
         super.onRematch(shapeMatcher)
         if (shapeMatcher.isMatchSuccessful) {
             energyOutputs.clear()
             shapeMatcher.matchedHatches.forEach { it.appendEnergyOutputs(energyOutputs) }
+            onSuccessfulRematch(shapeMatcher)
+        } else {
+            onFailedRematch(shapeMatcher)
         }
     }
+
+    open fun onSuccessfulRematch(shapeMatcher: ShapeMatcher) {}
+
+    open fun onFailedRematch(shapeMatcher: ShapeMatcher) {}
 
     override fun consumeEu(max: Long, simulation: Simulation) = max
 

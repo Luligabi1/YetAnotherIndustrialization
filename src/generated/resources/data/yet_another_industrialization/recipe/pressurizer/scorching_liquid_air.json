@@ -2,6 +2,12 @@
   "type": "modern_industrialization:pressurizer",
   "duration": 200,
   "eu": 8,
+  "fluid_inputs": [
+    {
+      "amount": 5,
+      "fluid": "modern_industrialization:cryofluid"
+    }
+  ],
   "fluid_outputs": [
     {
       "amount": 1000,

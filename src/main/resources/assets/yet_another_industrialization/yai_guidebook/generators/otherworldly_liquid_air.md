@@ -13,6 +13,8 @@ item_ids:
 # Otherwordly Liquid Airs
 ###### *'cause you're hot, then you're cold*
 
+**WARNING: This section of content requires an external mod to transport liquids across dimensions and another to keep the chunks loaded. Sorry for the inconvenience!**
+
 Air composition is not the same everywhere. By harnessing another dimensions', you are capable of generating energy and extracting resources!
 
 Otherwordly places's inhospitable climate makes regular Air Intakes incapable of working properly. Use **Tempproof Air Intakes** instead:

@@ -17,22 +17,22 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseTierCondition
-import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.DragonSiphonBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.dragon_siphon.EnergyGenerationCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.EnergyGenerationCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.PulseDetonationGeneratorBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlock
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.MixedHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.FluidTrashCanHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.ItemTrashCanHatch
-import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.world.level.block.Block
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
 import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.*
@@ -72,6 +72,15 @@ object YAIMachines {
             })
             .registerMachine()
 
+        registerMixedHatches(hook)
+
+        hook.builder(DetonationChamberCasingBlockEntity.ID, DetonationChamberCasingBlockEntity.NAME, ::DetonationChamberCasingBlockEntity)
+            .builtinModel(Casings.DETONATION_CHAMBER_CASING, DetonationChamberCasingBlockEntity.ID, { it.front(false).side(false).top(false).active(false) })
+            .creator(::DetonationChamberCasingBlock)
+            .registerMachine()
+    }
+
+    private fun registerMixedHatches(hook: SingleBlockSpecialMachinesMIHookContext) {
         registerMixedHatch(
             hook,
             "Bronze", "bronze",
@@ -185,6 +194,20 @@ object YAIMachines {
             }).registerRecipeCategory()
             .registerMachine()
 
+        hook.builder(PulseDetonationGeneratorBlockEntity.ID, PulseDetonationGeneratorBlockEntity.NAME, ::PulseDetonationGeneratorBlockEntity)
+            .builtinModel(MachineCasings.TITANIUM_PIPE, PulseDetonationGeneratorBlockEntity.ID)
+            .registerMultiblockShape(PulseDetonationGeneratorBlockEntity.SHAPE)
+            .gui(SteamMode.NEITHER, RecipeTypes.PULSE_DETONATION_GENERATOR, {
+                it.slots { slots ->
+                    slots.itemInput(38, 35)
+                    slots.fluidInput(56, 35)
+
+                    slots.fluidOutput(102, 35)
+                }
+                it.progressBar(77, 33, "yai_explode")
+            }).registerRecipeCategory()
+            .registerMachine()
+
         hook.builder(LargeStorageUnitBlockEntity.ID, LargeStorageUnitBlockEntity.NAME, ::LargeStorageUnitBlockEntity)
             .builtinModel(Casings.BATTERY_ALLOY_MACHINE_CASING, LargeStorageUnitBlockEntity.ID)
             .registerMachine()
@@ -197,6 +220,8 @@ object YAIMachines {
         lateinit var ARBOREOUS_GREENHOUSE: MachineRecipeType
 
         lateinit var DRAGON_SIPHON: MachineRecipeType
+
+        lateinit var PULSE_DETONATION_GENERATOR: MachineRecipeType
 
         val RECIPE_TYPES: DeferredRegister<RecipeType<*>> = DeferredRegister.create(Registries.RECIPE_TYPE, YAI.ID)
         val RECIPE_SERIALIZERS: DeferredRegister<RecipeSerializer<*>> = DeferredRegister.create(Registries.RECIPE_SERIALIZER, YAI.ID)
@@ -235,12 +260,17 @@ object YAIMachines {
         RecipeTypes.DRAGON_SIPHON = RecipeTypes.create(hook,
             DragonSiphonBlockEntity.NAME, DragonSiphonBlockEntity.ID
         ).withItemInputs().withFluidInputs().withFluidOutputs()
+
+        RecipeTypes.PULSE_DETONATION_GENERATOR = RecipeTypes.create(hook,
+            PulseDetonationGeneratorBlockEntity.NAME, PulseDetonationGeneratorBlockEntity.ID
+        ).withItemInputs().withFluidInputs().withFluidOutputs()
     }
 
     object Casings {
 
         lateinit var STEEL_PLATED_END_STONE_BRICKS: MachineCasing
         lateinit var BATTERY_ALLOY_MACHINE_CASING: MachineCasing
+        lateinit var DETONATION_CHAMBER_CASING: MachineCasing
         lateinit var CONFIGURABLE_MIXED_STORAGE: MachineCasing
     }
 
@@ -252,6 +282,11 @@ object YAIMachines {
         Casings.BATTERY_ALLOY_MACHINE_CASING = hook.registerCubeAll(
             "battery_casing", "Battery Casing",
             YAI.id("block/battery_casing")
+        )
+
+        Casings.DETONATION_CHAMBER_CASING = hook.registerCubeAll(
+            DetonationChamberCasingBlockEntity.ID, DetonationChamberCasingBlockEntity.NAME,
+            YAI.id("block/${DetonationChamberCasingBlockEntity.ID}")
         )
 
         Casings.CONFIGURABLE_MIXED_STORAGE = hook.registerCubeBottomTop(
@@ -283,8 +318,8 @@ object YAIMachines {
             .registerMachine()
     }
 
-    fun getMachineFromId(id: String): Item {
-        return YAIItems.Registry.ITEMS.registry.get()
+    fun getMachineFromId(id: String): Block {
+        return YAIBlocks.Registry.BLOCKS.registry.get()
             .get(YAI.id(id)) ?: throw IllegalStateException("Failed to get YAI! machine with ID $id")
     }
 

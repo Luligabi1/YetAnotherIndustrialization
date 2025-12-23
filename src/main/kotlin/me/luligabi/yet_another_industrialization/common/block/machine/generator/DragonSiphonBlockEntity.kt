@@ -59,8 +59,10 @@ class DragonSiphonBlockEntity(bep: BEP): YAIGeneratorMultiblockBlockEntity(
                 )
                 .build()
 
-        override val hatchPredicate: (SimpleMember) -> Boolean
-            get() = { it == CASING }
+        override val hatchPredicate: Map<(Char, Int) -> Boolean, HatchFlags>
+            get() = mapOf(
+                { char: Char, _: Int -> char == 'x' } to hatches,
+            )
 
         override val controllerXOffset = -1
 
