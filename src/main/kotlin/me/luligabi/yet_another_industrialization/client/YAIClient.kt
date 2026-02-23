@@ -15,7 +15,7 @@ import me.luligabi.yet_another_industrialization.client.renderer.item.StorageSlo
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.ChargingSlot
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitGui
 import me.luligabi.yet_another_industrialization.common.block.machine.util.components.SuppliedShapeSelection

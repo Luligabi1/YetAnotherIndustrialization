@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.block.machine.generator
+package me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock
 
 import aztech.modern_industrialization.machines.BEP
 import aztech.modern_industrialization.machines.multiblocks.HatchFlags

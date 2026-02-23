@@ -4,13 +4,13 @@
   "eu": 1,
   "fluid_inputs": [
     {
-      "amount": 16000,
+      "amount": 12000,
       "fluid": "modern_industrialization:toluene"
     }
   ],
   "fluid_outputs": [
     {
-      "amount": 16000,
+      "amount": 10000,
       "fluid": "modern_industrialization:steam"
     }
   ],

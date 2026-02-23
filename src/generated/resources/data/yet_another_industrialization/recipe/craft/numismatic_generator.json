@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:blast_furnace"
+    },
+    "C": {
+      "item": "modern_industrialization:analog_circuit"
+    },
+    "E": {
+      "item": "minecraft:emerald_block"
+    },
+    "H": {
+      "item": "modern_industrialization:steel_machine_casing"
+    },
+    "P": {
+      "item": "modern_industrialization:steel_large_plate"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "EHE",
+    "PBP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:numismatic_generator"
+  }
+}

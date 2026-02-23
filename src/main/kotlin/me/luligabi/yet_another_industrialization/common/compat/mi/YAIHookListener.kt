@@ -2,6 +2,7 @@ package me.luligabi.yet_another_industrialization.common.compat.mi
 
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.LargeStorageUnitTierCategory
+import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.NumismaticCurrenciesCategory
 import me.luligabi.yet_another_industrialization.common.misc.YAITooltips
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookEntrypoint
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookListener
@@ -36,6 +37,7 @@ class YAIHookListener: MIHookListener {
 
     override fun viewerSetup(hook: ViewerSetupMIHookContext) {
         hook.register(LargeStorageUnitTierCategory())
+        hook.register(NumismaticCurrenciesCategory())
     }
 
     override fun tooltips() {

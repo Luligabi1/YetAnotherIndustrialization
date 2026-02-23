@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber
+package me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber
 
 import aztech.modern_industrialization.machines.MachineBlock
 import aztech.modern_industrialization.machines.MachineBlockEntity

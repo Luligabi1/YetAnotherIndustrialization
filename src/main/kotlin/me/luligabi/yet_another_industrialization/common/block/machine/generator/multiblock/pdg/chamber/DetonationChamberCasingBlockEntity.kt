@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber
+package me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber
 
 import aztech.modern_industrialization.inventory.MIInventory
 import aztech.modern_industrialization.machines.BEP
@@ -9,7 +9,7 @@ import aztech.modern_industrialization.machines.gui.MachineGuiParameters
 import aztech.modern_industrialization.machines.models.MachineModelClientData
 import aztech.modern_industrialization.util.Tickable
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.PulseDetonationGeneratorBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.PulseDetonationGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.mixin.AbstractCraftingMultiblockBlockEntityAccessor
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag

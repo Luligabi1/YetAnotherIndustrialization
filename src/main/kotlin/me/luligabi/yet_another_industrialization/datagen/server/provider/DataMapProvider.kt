@@ -11,6 +11,7 @@ import me.luligabi.yet_another_industrialization.common.misc.YAITags
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier.FluidByIdInput
 import me.luligabi.yet_another_industrialization.common.misc.datamap.LargeStorageUnitTier
+import me.luligabi.yet_another_industrialization.common.misc.datamap.NumismaticGeneratorCurrency
 import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import me.luligabi.yet_another_industrialization.common.util.get
 import net.minecraft.core.HolderLookup
@@ -66,6 +67,7 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
     override fun gather(provider: HolderLookup.Provider) {
         largeStorageUnit(provider)
         arboreousGreenhouseSoils(provider)
+        numismaticGeneratorCurrencies(provider)
     }
 
     fun largeStorageUnit(provider: HolderLookup.Provider) {
@@ -192,6 +194,11 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
         builder(YAIDataMaps.ARBOREOUS_GREENHOUSE_TIER)
             .add(tag, tier, false)
         AG_TIERS[tierId] = tier
+    }
+
+    fun numismaticGeneratorCurrencies(provider: HolderLookup.Provider) {
+        builder(YAIDataMaps.NUMISMATIC_GENERATOR_CURRENCY)
+            .add(Tags.Items.GEMS_EMERALD, NumismaticGeneratorCurrency(8192L), false)
     }
 
 }

@@ -8,6 +8,7 @@ import aztech.modern_industrialization.inventory.ConfigurableItemStack
 import aztech.modern_industrialization.inventory.MIInventory
 import aztech.modern_industrialization.inventory.SlotPositions
 import aztech.modern_industrialization.machines.MachineBlockEntity
+import aztech.modern_industrialization.machines.blockentities.GeneratorMachineBlockEntity
 import aztech.modern_industrialization.machines.models.MachineCasing
 import aztech.modern_industrialization.machines.models.MachineCasings
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType
@@ -17,11 +18,12 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseTierCondition
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.DragonSiphonBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.EnergyGenerationCondition
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.PulseDetonationGeneratorBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlock
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.NumismaticGeneratorBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.DragonSiphonBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.EnergyGenerationCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.PulseDetonationGeneratorBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlock
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
@@ -73,6 +75,12 @@ object YAIMachines {
             .registerMachine()
 
         registerMixedHatches(hook)
+
+        hook.builder(NumismaticGeneratorBlockEntity.ID, NumismaticGeneratorBlockEntity.NAME, ::NumismaticGeneratorBlockEntity)
+            .builtinModel(MachineCasings.STEEL, NumismaticGeneratorBlockEntity.ID)
+            .registrator(MachineBlockEntity::registerItemApi)
+            .registrator(GeneratorMachineBlockEntity::registerEnergyApi)
+            .registerMachine()
 
         hook.builder(DetonationChamberCasingBlockEntity.ID, DetonationChamberCasingBlockEntity.NAME, ::DetonationChamberCasingBlockEntity)
             .builtinModel(Casings.DETONATION_CHAMBER_CASING, DetonationChamberCasingBlockEntity.ID, { it.front(false).side(false).top(false).active(false) })

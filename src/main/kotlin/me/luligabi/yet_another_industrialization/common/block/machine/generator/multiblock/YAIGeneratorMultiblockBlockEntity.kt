@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.block.machine.generator
+package me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock
 
 import aztech.modern_industrialization.api.machine.holder.EnergyListComponentHolder
 import aztech.modern_industrialization.machines.BEP
@@ -13,8 +13,12 @@ import aztech.modern_industrialization.machines.multiblocks.ShapeMatcher
 import aztech.modern_industrialization.machines.multiblocks.ShapeTemplate
 import aztech.modern_industrialization.util.Simulation
 import me.luligabi.yet_another_industrialization.mixin.CrafterComponentAccessor
+import net.minecraft.core.Direction
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.ItemInteractionResult
+import net.minecraft.world.entity.player.Player
 
 abstract class YAIGeneratorMultiblockBlockEntity(
     bep: BEP,
@@ -42,6 +46,14 @@ abstract class YAIGeneratorMultiblockBlockEntity(
             crafter,
             { 0 }
         ))
+    }
+
+    override fun useItemOn(player: Player, hand: InteractionHand, face: Direction): ItemInteractionResult {
+        var result = super.useItemOn(player, hand, face)
+        if (!result.consumesAction()) {
+            result = redstoneControl.onUse(this, player, hand)
+        }
+        return result
     }
 
     override fun onCraft() {
@@ -99,4 +111,6 @@ abstract class YAIGeneratorMultiblockBlockEntity(
     override fun getBehavior() = this
 
     override fun getEnergyComponents() = energyOutputs
+
+    override fun isEnabled() = redstoneControl.doAllowNormalOperation(this)
 }

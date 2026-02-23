@@ -3,7 +3,7 @@ package me.luligabi.yet_another_industrialization.client.renderer
 import aztech.modern_industrialization.client.machines.MachineBlockEntityRenderer
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider

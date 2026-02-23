@@ -6,7 +6,7 @@ import aztech.modern_industrialization.MIItem
 import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import net.minecraft.core.HolderLookup

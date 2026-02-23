@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg
+package me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg
 
 import aztech.modern_industrialization.machines.BEP
 import aztech.modern_industrialization.machines.models.MachineCasings
@@ -8,8 +8,8 @@ import aztech.modern_industrialization.materials.part.MIParts
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMultiblockHelper
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.YAIGeneratorMultiblockBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.chamber.DetonationChamberCasingBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.YAIGeneratorMultiblockBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.util.BlocklessExplosion
 import me.luligabi.yet_another_industrialization.mixin.ShapeMatcherAccessor
 

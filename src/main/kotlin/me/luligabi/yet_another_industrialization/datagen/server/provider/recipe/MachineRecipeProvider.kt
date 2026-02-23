@@ -7,9 +7,10 @@ import aztech.modern_industrialization.MIItem
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.DragonSiphonBlockEntity
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.EnergyGenerationCondition
-import me.luligabi.yet_another_industrialization.common.block.machine.generator.pdg.PulseDetonationGeneratorBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.NumismaticGeneratorBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.DragonSiphonBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.EnergyGenerationCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.PulseDetonationGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
@@ -68,6 +69,23 @@ object MachineRecipeProvider : YAIRecipeProvider {
             output
         )
         buildCryogenicPrecipitatorRecipes(output, lookup)
+
+        /** Numismatic Generator */
+        shaped(
+            NumismaticGeneratorBlockEntity.ID,
+            YAIMachines.getMachineFromId(NumismaticGeneratorBlockEntity.ID), 1,
+            { it
+                .define('P', MIMaterials.STEEL.get(MIMaterialParts.LARGE_PLATE))
+                .define('H', MIMaterials.STEEL.get(MIMaterialParts.MACHINE_CASING))
+                .define('C', MIItem.ANALOG_CIRCUIT)
+                .define('E', Blocks.EMERALD_BLOCK)
+                .define('B', Blocks.BLAST_FURNACE)
+                .pattern("PCP")
+                .pattern("EHE")
+                .pattern("PBP")
+            },
+            output
+        )
 
         /** Dragon Siphon */
         shaped(
@@ -476,7 +494,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
 
                 it.addFluidOutput(MIFluids.STEAM.asFluid(), 6_000, 1f)
 
-                it.addCondition(EnergyGenerationCondition(2320000))
+                it.addCondition(EnergyGenerationCondition(2_320_000))
             },
             output
         )
@@ -488,9 +506,9 @@ object MachineRecipeProvider : YAIRecipeProvider {
             1, 60*20,
             {
                 it.addItemInput(MIBlock.NUKE.get(), 8, 1f)
-                it.addFluidInput(MIFluids.TOLUENE, 16_000, 1f)
+                it.addFluidInput(MIFluids.TOLUENE, 12_000, 1f)
 
-                it.addFluidOutput(MIFluids.STEAM.asFluid(), 16_000, 1f)
+                it.addFluidOutput(MIFluids.STEAM.asFluid(), 10_000, 1f)
 
                 it.addCondition(EnergyGenerationCondition(288_000_000))
             },
