@@ -71,6 +71,11 @@ object YAIItems {
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
+    val TEMPPROOF_AIR_INTAKE = create("tempproof_air_intake", "Tempproof Air Intake", ::Item, YAICreativeTab.Order.MINOR_ITEMS)
+        .withProperties({ it.stacksTo(1) })
+        .withModelBuilder(CommonModelBuilders::generated)
+        .register()
+
     /** Food */
     val CACHACA = create("cachaca", "Cachaça", ::CachacaItem, YAICreativeTab.Order.MEME)
         .withModelBuilder(CommonModelBuilders::generated)

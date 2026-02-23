@@ -183,6 +183,13 @@ interface YAIText {
         @WithStyle("highlight") soil: Component
     ): MutableComponent
 
+    /** Numismatic Generator */
+    @LangKey(text = ["Numismatic Currencies"])
+    fun numismaticCurrencies(): MutableComponent
+
+    @LangKey(text = ["EU per item: %d"])
+    fun euPerItem(eu: Long): MutableComponent
+
     /** Dragon Egg Siphon */
     @WithStyle("gray")
     @LangKey(text = ["Generates %s"])

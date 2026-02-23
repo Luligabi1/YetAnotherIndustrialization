@@ -1,8 +1,11 @@
-# Adding Generator Recipes
+# Adding Special Generator Recipes
 
-YAI! generators are managed through recipes, meaning you can configure their energy generation!
+YAI!'s special generators are managed through recipes, meaning you can configure their energy generation!
 
-Currently, the only generator available is the **Dragon Egg Energy Siphon**.
+Currently, there are two special generators:
+
+- **Dragon Egg Energy Siphon** (`yet_another_industrialization:dragon_egg_energy_siphon`)
+- **Pulse Detonation Generator** (`yet_another_industrialization:pulse_detonation_generator`)
 
 ## Adding recipes
 

@@ -10,10 +10,12 @@ import me.luligabi.yet_another_industrialization.client.component.LargeStorageUn
 import me.luligabi.yet_another_industrialization.client.component.SuppliedShapeSelectionClient
 import me.luligabi.yet_another_industrialization.client.model.YAIModelLoaders
 import me.luligabi.yet_another_industrialization.client.renderer.ArboreousGreenhouseBER
+import me.luligabi.yet_another_industrialization.client.renderer.DetonationChamberCasingBER
 import me.luligabi.yet_another_industrialization.client.renderer.item.StorageSlotLockerComponent
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.ChargingSlot
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitGui
 import me.luligabi.yet_another_industrialization.common.block.machine.util.components.SuppliedShapeSelection
@@ -79,6 +81,7 @@ class YAIClient(modEventBus: IEventBus, container: ModContainer) {
             val renderer = when (blockEntity) {
                 is ArboreousGreenhouseBlockEntity -> BlockEntityRendererProvider { ArboreousGreenhouseBER(it) }
                 is MultiblockMachineBlockEntity -> BlockEntityRendererProvider { MultiblockMachineBER(it) }
+                is DetonationChamberCasingBlockEntity -> BlockEntityRendererProvider { DetonationChamberCasingBER(it) }
                 else -> BlockEntityRendererProvider { MachineBlockEntityRenderer(it) }
             } as BlockEntityRendererProvider<BlockEntity> // I hate generics with a passion
 

@@ -1,9 +1,12 @@
 package me.luligabi.yet_another_industrialization.datagen.server.provider.recipe
 
+import aztech.modern_industrialization.MIBlock
 import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.MIItem
 import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
+import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import net.minecraft.core.HolderLookup
@@ -78,6 +81,33 @@ object PartRecipeProvider : YAIRecipeProvider {
                 it.addItemInput(YAIBlocks.SINGULARITY_BLOCK.get(), 1, 1f)
 
                 it.addItemOutput(MIItem.SINGULARITY, 9, 1f)
+            },
+            output
+        )
+
+        shaped(
+            YAIItems.TEMPPROOF_AIR_INTAKE.identifier().location.path,
+            YAIItems.TEMPPROOF_AIR_INTAKE, 1,
+            { it
+                .define('A', MIMaterials.ANNEALED_COPPER.get(MIMaterialParts.PLATE).asItem())
+                .define('T', MIMaterials.TITANIUM.get(MIMaterialParts.PLATE).asItem())
+                .define('R', MIMaterials.TITANIUM.get(MIMaterialParts.ROTOR).asItem())
+                .pattern("ATA")
+                .pattern("TRT")
+                .pattern("ATA")
+            },
+            output
+        )
+
+        shaped(
+            DetonationChamberCasingBlockEntity.ID,
+            YAIMachines.getMachineFromId(DetonationChamberCasingBlockEntity.ID), 1,
+            { it
+                .define('P', MIMaterials.BLASTPROOF_ALLOY.get(MIMaterialParts.PLATE).asItem())
+                .define('I', MIBlock.INDUSTRIAL_TNT)
+                .pattern("PPP")
+                .pattern("PIP")
+                .pattern("PPP")
             },
             output
         )

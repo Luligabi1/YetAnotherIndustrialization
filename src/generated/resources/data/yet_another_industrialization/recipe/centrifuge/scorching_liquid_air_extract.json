@@ -1,0 +1,27 @@
+{
+  "type": "modern_industrialization:centrifuge",
+  "duration": 600,
+  "eu": 24,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "yet_another_industrialization:scorching_liquid_air"
+    }
+  ],
+  "fluid_outputs": [
+    {
+      "amount": 50,
+      "fluid": "minecraft:lava"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 16,
+      "item": "modern_industrialization:sulfur_tiny_dust"
+    },
+    {
+      "amount": 3,
+      "item": "modern_industrialization:gold_tiny_dust"
+    }
+  ]
+}

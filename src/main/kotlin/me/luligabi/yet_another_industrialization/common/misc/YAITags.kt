@@ -9,12 +9,19 @@ import net.minecraft.tags.TagKey
 
 object YAITags {
 
+    /** Item */
     val MI_GUIDE_BOOKS = commonItemTag("modern_industrialization/guide_books")
 
+    /** Block */
     val NON_MYCELIUM_DIRT = commonBlockTag("dirts/non_mycelium")
     val NETHERRACK_SOILS = TagKey.create(Registries.BLOCK, YAI.id("netherrack_soils"))
     val MYCELLIUMS = commonBlockTag("myceliums")
 
+    /** Biome */
+    val SCORCHING_LIQUID_AIR_BIOMES = commonTag(Registries.BIOME, "scorching_liquid_air_biomes")
+    val GELID_LIQUID_AIR_BIOMES = commonTag(Registries.BIOME, "gelid_liquid_air_biomes")
+
+    /** Block Entity */
     val MACHINE_REMOVER_BANNED = TagKey.create(Registries.BLOCK_ENTITY_TYPE, YAI.id("machine_remover_banned"))
 
     private fun commonBlockTag(id: String) = commonTag(Registries.BLOCK, id)

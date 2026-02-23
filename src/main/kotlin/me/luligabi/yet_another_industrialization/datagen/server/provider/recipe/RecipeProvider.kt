@@ -14,6 +14,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         MachineRecipeProvider.buildRecipes(output, lookup)
         ArboreousGreenhouseRecipeProvider.buildRecipes(output, lookup)
         PartRecipeProvider.buildRecipes(output, lookup)
+        ResourcesRecipeProvider.buildRecipes(output, lookup)
         FluidRecipeProvider.buildRecipes(output, lookup)
 
         for (material in YAIMaterials.values()) {
