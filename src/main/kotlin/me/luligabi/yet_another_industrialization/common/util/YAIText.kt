@@ -198,6 +198,19 @@ interface YAIText {
     ): MutableComponent
 
     /** Large Storage Unit */
+    @LangKey(text = ["%s / %s %sEU (%s)"])
+    fun largeStorageUnitCapacity(
+        eu: String,
+        maxEu: String,
+        unit: String,
+        percentage: Component
+    ): MutableComponent
+
+    @LangKey(text = ["I/O: %s"])
+    fun largeStorageUnitEnergyIO(
+        eu: Component
+    ): MutableComponent
+
     @WithStyle("red")
     @LangKey(text = ["Not linked to a Large Storage Unit"])
     fun noLargeStorageUnit(): MutableComponent
@@ -256,6 +269,16 @@ interface YAIText {
     @WithStyle("gray")
     @LangKey(text = ["Enabled: %s"])
     fun enabledPrefix(state: Component): MutableComponent
+
+    @LangKey(text = ["Input: %s"])
+    fun input(
+        input: Component
+    ): MutableComponent
+
+    @LangKey(text = ["Output: %s"])
+    fun output(
+        output: Component
+    ): MutableComponent
 
     @WithStyle("gray")
     @LangKey(text = ["%s | %s"])

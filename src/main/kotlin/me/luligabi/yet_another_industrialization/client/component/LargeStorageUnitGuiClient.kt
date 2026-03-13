@@ -9,10 +9,15 @@ import aztech.modern_industrialization.client.util.RenderHelper
 import aztech.modern_industrialization.util.TextHelper
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitGui
+import me.luligabi.yet_another_industrialization.common.misc.YAITooltips
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.locale.Language
+import net.minecraft.network.chat.FormattedText
+import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.FormattedCharSequence
 import java.util.*
 
 
@@ -45,10 +50,9 @@ class LargeStorageUnitGuiClient(params: LargeStorageUnitGui.Data, data: LargeSto
             )
             deltaY += 11
 
-            val maxedAmount = TextHelper.getMaxedAmount(data.eu, data.maxEu)
             gui.drawString(
                 font,
-                MIText.EuMaxed.text(maxedAmount.digit, maxedAmount.maxDigit, maxedAmount.unit),
+                getCapacityText(TextHelper.getMaxedAmount(data.eu, data.maxEu)),
                 x + 10, y + deltaY,
                 0xFFFFFF, false
             )
@@ -56,7 +60,7 @@ class LargeStorageUnitGuiClient(params: LargeStorageUnitGui.Data, data: LargeSto
 
             gui.drawString(
                 font,
-                MITooltips.RATIO_PERCENTAGE_PARSER.parse(data.eu.toDouble() / data.maxEu),
+                YAI.TEXT.largeStorageUnitEnergyIO(YAITooltips.COLORED_SHORT_EU_PARSER.parse(data.currentInput - data.currentOutput)),
                 x + 10, y + deltaY,
                 0xFFFFFF, false
             )
@@ -64,10 +68,40 @@ class LargeStorageUnitGuiClient(params: LargeStorageUnitGui.Data, data: LargeSto
 
         override fun renderTooltip(screen: MachineScreen, font: Font, guiGraphics: GuiGraphics, x: Int, y: Int, cursorX: Int, cursorY: Int) {
             if (RenderHelper.isPointWithinRectangle(X, Y, WIDTH, HEIGHT, (cursorX - x).toDouble(), (cursorY - y).toDouble())) {
-                val tooltip = MIText.EuMaxed.text(data.eu, data.maxEu, "")
-                guiGraphics.renderTooltip(font, listOf(tooltip), Optional.empty(), cursorX, cursorY)
+                val tooltip = listOf(
+                    MIText.EuMaxed.text(data.eu, data.maxEu, ""),
+                    YAI.TEXT.input(YAITooltips.COLORED_EU_PARSER.parse(data.currentInput)),
+                    YAI.TEXT.output(YAITooltips.COLORED_EU_PARSER.parse(-data.currentOutput))
+                )
+                guiGraphics.renderTooltip(font, tooltip, Optional.empty(), cursorX, cursorY)
             }
         }
+
+
+        private fun getCapacityText(maxedAmount: TextHelper.MaxedAmount): FormattedCharSequence {
+            val font = Minecraft.getInstance().font
+            val title = YAI.TEXT.largeStorageUnitCapacity(
+                maxedAmount.digit, maxedAmount.maxDigit, maxedAmount.unit,
+                MITooltips.RATIO_PERCENTAGE_PARSER.parse(data.eu.toDouble() / data.maxEu)
+            )
+            val maxWidth = X + WIDTH - 12
+
+            return if (font.width(title) > maxWidth) {
+                val text = FormattedText.composite(
+                    font.substrByWidth(title, maxWidth - font.width("...%)")),
+                    FormattedText.of("...%)")
+                )
+                Language.getInstance().getVisualOrder(text)
+            } else {
+                title.visualOrderText
+            }
+        }
+
+        private fun Number.toEu(): MutableComponent {
+            val amount = TextHelper.getAmountGeneric(this)
+            return MIText.Eu.text(amount.digit(), amount.unit())
+        }
+
 
     }
 

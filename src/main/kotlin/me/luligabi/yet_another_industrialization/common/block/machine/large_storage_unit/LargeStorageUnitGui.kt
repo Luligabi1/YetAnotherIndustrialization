@@ -9,10 +9,16 @@ import net.minecraft.network.codec.StreamCodec
 class LargeStorageUnitGui(
     private val isShapeValid: () -> Boolean,
     private val euSupplier: () -> Long,
-    private val maxEuSupplier: () -> Long
+    private val maxEuSupplier: () -> Long,
+    private val currentInput: () -> Long,
+    private val currentOutput: () -> Long
 ) : GuiComponentServer<Data, Data> {
 
-    override fun getParams() = Data(isShapeValid(), euSupplier(), maxEuSupplier())
+    override fun getParams() = Data(
+        isShapeValid(),
+        euSupplier(), maxEuSupplier(),
+        currentInput(), currentOutput()
+    )
 
     override fun extractData() = getParams()
 
@@ -26,12 +32,17 @@ class LargeStorageUnitGui(
         )
     }
 
-    data class Data(val isShapeValid: Boolean, val eu: Long, val maxEu: Long) {
+    data class Data(
+        val isShapeValid: Boolean,
+        val eu: Long, val maxEu: Long,
+        val currentInput: Long, val currentOutput: Long) {
         companion object {
             val STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.BOOL, Data::isShapeValid,
                 ByteBufCodecs.VAR_LONG, Data::eu,
                 ByteBufCodecs.VAR_LONG, Data::maxEu,
+                ByteBufCodecs.VAR_LONG, Data::currentInput,
+                ByteBufCodecs.VAR_LONG, Data::currentOutput,
                 ::Data
             )
         }

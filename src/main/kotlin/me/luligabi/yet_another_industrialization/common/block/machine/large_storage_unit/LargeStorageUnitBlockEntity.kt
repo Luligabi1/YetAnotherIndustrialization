@@ -1,6 +1,8 @@
 package me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit
 
 import aztech.modern_industrialization.api.energy.CableTier
+import aztech.modern_industrialization.api.energy.EnergyApi
+import aztech.modern_industrialization.api.energy.MIEnergyStorage
 import aztech.modern_industrialization.api.machine.holder.EnergyListComponentHolder
 import aztech.modern_industrialization.compat.rei.machines.ReiMachineRecipes
 import aztech.modern_industrialization.inventory.MIInventory
@@ -11,6 +13,8 @@ import aztech.modern_industrialization.machines.gui.MachineGuiParameters
 import aztech.modern_industrialization.machines.guicomponents.ShapeSelection
 import aztech.modern_industrialization.machines.models.MachineModelClientData
 import aztech.modern_industrialization.machines.multiblocks.*
+import aztech.modern_industrialization.thirdparty.fabrictransfer.api.transaction.Transaction
+import aztech.modern_industrialization.util.Simulation
 import aztech.modern_industrialization.util.Tickable
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines.Casings
@@ -21,10 +25,16 @@ import me.luligabi.yet_another_industrialization.common.misc.YAIHatchTypes
 import me.luligabi.yet_another_industrialization.common.misc.datamap.LargeStorageUnitTier
 import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
 import me.luligabi.yet_another_industrialization.mixin.EnergyComponentAccessor
+import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.Mth
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.ItemInteractionResult
+import net.minecraft.world.entity.player.Player
 import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
 import java.util.*
+import java.util.function.Predicate
 
 class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
     bep,
@@ -36,8 +46,8 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
     private val chargingSlot = ChargingSlotComponent()
 
     val energy = EnergyComponent(this, { getTier().capacity })
-    val insertable = energy.buildInsertable({ it.canTransferEu() })
-    val extractable = energy.buildExtractable({ it.canTransferEu() })
+    val insertable = energy.createInput({ it.canTransferEu() })
+    val extractable = energy.createOutput({ it.canTransferEu() })
 
     private var oldEu = 0L
 
@@ -47,8 +57,8 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
         registerGuiComponent(
             LargeStorageUnitGui(
                 { shapeValid.shapeValid },
-                { (energy as EnergyComponentAccessor).storedEu },
-                { energy.capacity }
+                { (energy as EnergyComponentAccessor).storedEu }, { energy.capacity },
+                { insertable.currentAmount }, { extractable.currentAmount }
             )
         )
 
@@ -183,6 +193,8 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
         if (level?.isClientSide == true) return
         link()
         setChanged()
+        insertable.currentAmount = 0L
+        extractable.currentAmount = 0L
         if (energy.eu != oldEu) {
             oldEu = energy.eu
             sync(false)
@@ -200,6 +212,46 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
         }
     }
 
+    override fun useItemOn(player: Player, hand: InteractionHand, face: Direction): ItemInteractionResult {
+        val energyItem = player.getItemInHand(hand).getCapability(EnergyApi.ITEM)
+        val stackSize = player.getItemInHand(hand).count
+        if (energyItem != null) {
+            if (!player.level().isClientSide()) {
+                var insertedSomething = false
+
+                repeat(10000) {
+                    Transaction.openRoot().use { transaction ->
+                        val inserted = energyItem.receive(energy.eu / stackSize, false)
+                        if (inserted == 0L) {
+                            return@use
+                        } else {
+                            insertedSomething = true
+                        }
+
+                        energy.consumeEu(inserted * stackSize, Simulation.ACT)
+                        transaction.commit()
+                    }
+                }
+
+                if (!insertedSomething) {
+                    repeat(10000) {
+                        Transaction.openRoot().use { transaction ->
+                            val extracted = energyItem.extract(energy.remainingCapacity / stackSize, false)
+                            if (extracted == 0L) {
+                                return@use
+                            }
+
+                            energy.insertEu(extracted * stackSize, Simulation.ACT)
+                            transaction.commit()
+                        }
+                    }
+                }
+            }
+            return ItemInteractionResult.sidedSuccess(player.level().isClientSide())
+        }
+        return super.useItemOn(player, hand, face)
+    }
+
     override fun getActiveShape() = SHAPE_TEMPLATES[activeTier.activeShape]
 
     override fun getBigShape() = SHAPE_TEMPLATES[0]
@@ -210,6 +262,13 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
 
     override fun getMachineModelData(): MachineModelClientData {
         return MachineModelClientData(null, orientation.facingDirection).active(shapeValid.shapeValid)
+    }
+
+    override fun hasComparatorOutput() = true
+
+    override fun getComparatorOutput(): Int {
+        val fillPercentage = energy.eu.toDouble() / energy.capacity
+        return Mth.floor(fillPercentage * 14) + (if (energy.eu > 0) 1 else 0)
     }
 
     private fun getTier() = TIERS[activeTier.activeShape]
@@ -224,5 +283,66 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
     private fun CableTier.canTransferEu(): Boolean {
         return eu <= getTier().cableTier.eu
     }
+
+    private fun EnergyComponent.createInput(canInsert: Predicate<CableTier>): LSUEnergyStorage {
+        return object : LSUEnergyStorage {
+
+            override var currentAmount = 0L
+
+            override fun getAmount() = this@createInput.eu
+
+            override fun getCapacity() = this@createInput.capacity
+
+            override fun receive(maxReceive: Long, simulate: Boolean): Long {
+                val received = this@createInput.insertEu(maxReceive, if (simulate) Simulation.SIMULATE else Simulation.ACT)
+                this.currentAmount += received
+                return received
+            }
+
+            override fun canReceive(): Boolean {
+                return true
+            }
+
+            override fun extract(maxExtract: Long, simulate: Boolean): Long {
+                return 0
+            }
+
+            override fun canExtract() = false
+
+            override fun canConnect(cableTier: CableTier) = canInsert.test(cableTier)
+        }
+    }
+
+    private fun EnergyComponent.createOutput(canExtract: Predicate<CableTier>): LSUEnergyStorage {
+        return object : LSUEnergyStorage {
+
+            override var currentAmount = 0L
+
+            override fun getAmount() = this@createOutput.eu
+
+            override fun getCapacity() = this@createOutput.capacity
+
+            override fun receive(maxReceive: Long, simulate: Boolean) = 0L
+
+            override fun canReceive() = false
+
+            override fun extract(maxExtract: Long, simulate: Boolean): Long {
+                val consumed = this@createOutput.consumeEu(maxExtract, if (simulate) Simulation.SIMULATE else Simulation.ACT)
+                this.currentAmount += consumed
+                return consumed
+            }
+
+            override fun canExtract() = true
+
+            override fun canConnect(cableTier: CableTier) = canExtract.test(cableTier)
+        }
+    }
+
+    interface LSUEnergyStorage: MIEnergyStorage {
+
+        var currentAmount: Long
+
+    }
+
 
 }
