@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "modern_industrialization:highly_advanced_machine_hull"
+    },
+    "N": {
+      "item": "modern_industrialization:nuclear_alloy_large_plate"
+    },
+    "P": {
+      "item": "modern_industrialization:plutonium_dust"
+    },
+    "U": {
+      "item": "modern_industrialization:processing_unit"
+    }
+  },
+  "pattern": [
+    "NUN",
+    "PHP",
+    "NUN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:nuclear_rod_irradiator"
+  }
+}
