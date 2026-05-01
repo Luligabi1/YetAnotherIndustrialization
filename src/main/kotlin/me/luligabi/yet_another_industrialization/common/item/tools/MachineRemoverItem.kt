@@ -40,6 +40,9 @@ class MachineRemoverItem(properties: Properties) : Item(
 
         val MULTIBLOCK_REMOVE_BLOCK_COST
             get() = YAI.CONFIG.machineRemover().multiblockBlockRemoveCost()
+
+        val MULTIBLOCK_BLOCK_MAX_SIZE
+            get() = YAI.CONFIG.machineRemover().multiblockBlockMaxSize()
     }
 
     override fun useOn(ctx: UseOnContext): InteractionResult {
@@ -79,7 +82,7 @@ class MachineRemoverItem(properties: Properties) : Item(
         }
 
         val members = (controller as MultiblockMachineBlockEntityAccessor).shapeMatcher.positions
-        if (members.size > 128) {
+        if (members.size > MULTIBLOCK_BLOCK_MAX_SIZE) {
             player.displayClientMessage(YAI.TEXT.machineRemoverTooLarge(), true)
             return false
         }

@@ -241,7 +241,9 @@ idea {
 }
 
 ext.getChangeLog = { ->
-    return "- Updated to MI 2.4.x"
+    return "- Machine Remover Changes:\n" +
+            "  - Can now remove multiblocks up to 1,000,000 blocks (effectively, any of them)\n" +
+            "  - Increased internal energy storage"
 }
 
 publishMods {
