@@ -19,7 +19,7 @@ class BlockTagProvider(event: GatherDataEvent): BlockTagsProvider(event.generato
             }
         }
 
-        tag(YAITags.NON_MYCELIUM_DIRT)
+        tag(YAITags.GRASS_SOILS)
             .addTag(BlockTags.DIRT)
             .remove(Blocks.MYCELIUM)
 

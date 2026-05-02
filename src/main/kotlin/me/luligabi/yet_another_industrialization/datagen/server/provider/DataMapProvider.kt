@@ -86,7 +86,7 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
             mod.get("data/${mod.name}/bonsaitrees4/soiltype")?.findSoilTypes(mod)
         }
 
-        addAGTier(YAITags.NON_MYCELIUM_DIRT, ArboreousGreenhouseTier.DEFAULT_TIER, ArboreousGreenhouseTier(
+        addAGTier(YAITags.GRASS_SOILS, ArboreousGreenhouseTier.DEFAULT_TIER, ArboreousGreenhouseTier(
             ArboreousGreenhouseTier.DEFAULT_TIER,
             BuiltInRegistries.BLOCK.getKey(Blocks.GRASS_BLOCK),
             Blocks.GRASS_BLOCK.descriptionId, sortOrder = 0

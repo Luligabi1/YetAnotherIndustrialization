@@ -7,6 +7,7 @@ import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.compat.guideme.YAIGuide
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
+import me.luligabi.yet_another_industrialization.common.misc.YAICommand
 import me.luligabi.yet_another_industrialization.common.misc.YAICreativeTab
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
@@ -72,7 +73,7 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
         YAISounds.init(modEventBus)
         YAICreativeTab.init(modEventBus)
         YAIGuide
-
+        YAICommand
 
         modEventBus.addListener(FMLCommonSetupEvent::class.java, {
             YAIItems.values().forEach(ItemHolder<*>::triggerRegistrationListener)

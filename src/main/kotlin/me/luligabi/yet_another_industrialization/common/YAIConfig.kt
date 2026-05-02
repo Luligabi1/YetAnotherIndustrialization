@@ -32,9 +32,9 @@ interface YAIConfig {
         fun cooldownTicks() = 0
 
         @ConfigKey("capacity")
-        @ConfigComment("Total capacity for Machine Removers. Default: 65536")
+        @ConfigComment("Total capacity for Machine Removers. Default: 1048576")
         @Range.Long(min = 1, max = Long.MAX_VALUE)
-        fun capacity() = 65536L
+        fun capacity() = 1048576L
 
         @ConfigKey("single_block_remove_cost")
         @ConfigComment("Energy consumed when removing a Single Block Machine. Default: 5")
@@ -62,6 +62,18 @@ interface YAIConfig {
         )
         @Range.Long(min = 1, max = Long.MAX_VALUE)
         fun multiblockBlockRemoveCost() = 25L
+
+
+        @ConfigKey("multiblock_block_max_size")
+        @ConfigComment(
+            """
+            Maximum size of a removable Multiblock Machine
+            Any Multiblock with more blocks than this cannot be removed
+            Default: 1000000
+            """
+        )
+        @Range.Long(min = 1, max = Long.MAX_VALUE)
+        fun multiblockBlockMaxSize() = 1000000L
 
     }
 

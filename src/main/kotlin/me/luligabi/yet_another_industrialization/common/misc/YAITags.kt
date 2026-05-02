@@ -13,8 +13,8 @@ object YAITags {
     val MI_GUIDE_BOOKS = commonItemTag("modern_industrialization/guide_books")
 
     /** Block */
-    val NON_MYCELIUM_DIRT = commonBlockTag("dirts/non_mycelium")
-    val NETHERRACK_SOILS = TagKey.create(Registries.BLOCK, YAI.id("netherrack_soils"))
+    val GRASS_SOILS = yaiBlockTag("grass_soils")
+    val NETHERRACK_SOILS = yaiBlockTag("netherrack_soils")
     val MYCELLIUMS = commonBlockTag("myceliums")
 
     /** Biome */
@@ -22,12 +22,18 @@ object YAITags {
     val GELID_LIQUID_AIR_BIOMES = commonTag(Registries.BIOME, "gelid_liquid_air_biomes")
 
     /** Block Entity */
-    val MACHINE_REMOVER_BANNED = TagKey.create(Registries.BLOCK_ENTITY_TYPE, YAI.id("machine_remover_banned"))
-
-    private fun commonBlockTag(id: String) = commonTag(Registries.BLOCK, id)
+    val MACHINE_REMOVER_BANNED = yaiTag(Registries.BLOCK_ENTITY_TYPE, "machine_remover_banned")
 
     private fun commonItemTag(id: String) = commonTag(Registries.ITEM, id)
 
+    private fun commonBlockTag(id: String) = commonTag(Registries.BLOCK, id)
+
     private fun <T> commonTag(registry: ResourceKey<Registry<T>>, id: String) = TagKey.create<T>(registry, ResourceLocation.fromNamespaceAndPath("c", id))
+
+    private fun yaiItemTag(id: String) = yaiTag(Registries.ITEM, id)
+
+    private fun yaiBlockTag(id: String) = yaiTag(Registries.BLOCK, id)
+
+    private fun <T> yaiTag(registry: ResourceKey<Registry<T>>, id: String) = TagKey.create<T>(registry, YAI.id(id))
 
 }
