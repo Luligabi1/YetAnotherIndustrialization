@@ -38,9 +38,13 @@ object YAIMaterials {
         .add(MIMaterialParts.MACHINE_CASING_SPECIAL.formattingRaw("battery_casing", "Battery Casing"))
         .recipes(GEARLESS_MACHINE_CASING)
 
+    val BERYLLIUM = MIMaterials.BERYLLIUM.`as`(YAIMaterialRegistry)
+        .add(MIMaterialParts.LARGE_PLATE)
+
     val CADMIUM = MIMaterials.CADMIUM.`as`(YAIMaterialRegistry)
         .add(MaterialParts.BLOCK)
 
-    fun values() = setOf(BATTERY_ALLOY, CADMIUM)
+
+    fun values() = setOf(BATTERY_ALLOY, BERYLLIUM, CADMIUM)
 
 }

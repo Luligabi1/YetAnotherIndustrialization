@@ -12,6 +12,8 @@
     "EnergyComponentAccessor",
     "HackedMachineRegistrationHelperAccessor",
     "HatchFlagsMixin",
+    "ItemMixin",
+    "ItemStackMixin",
     "LootItemAccessor",
     "MachineBlockEntityMixin",
     "MIHookContextAccessor",

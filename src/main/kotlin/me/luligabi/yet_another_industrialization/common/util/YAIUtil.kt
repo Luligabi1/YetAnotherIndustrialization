@@ -9,6 +9,7 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.chat.Style
 import net.minecraft.network.chat.TextColor
 import java.io.File
+import kotlin.math.roundToInt
 
 fun MutableComponent.applyColor(color: ChatFormatting): MutableComponent = apply {
     style = Style.EMPTY.withColor(color).withItalic(false)
@@ -21,6 +22,15 @@ fun MutableComponent.applyStyle(style: Style): MutableComponent = apply {
 fun Boolean.toComponent(): MutableComponent = run {
     val color = if (this) ChatFormatting.GREEN else ChatFormatting.RED
     CommonComponents.optionStatus(this).plainCopy().applyColor(color)
+}
+
+fun Float.toPercentageString(): String {
+    val percent = (this * 10000).roundToInt() / 100f
+    return if (percent % 1 == 0f) {
+        "${percent.toInt()}%"
+    } else {
+        "${percent}%"
+    }
 }
 
 val MultiblockMachineBlockEntity.matchedHatches: HatchFlags

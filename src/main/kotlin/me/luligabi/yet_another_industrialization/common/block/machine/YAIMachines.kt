@@ -30,6 +30,7 @@ import me.luligabi.yet_another_industrialization.common.block.machine.misc.Confi
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.MixedHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.FluidTrashCanHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.ItemTrashCanHatch
+import me.luligabi.yet_another_industrialization.common.block.machine.nuclear_rod_irradiator.NuclearRodIrradiatorBlockEntity
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.RecipeSerializer
@@ -218,6 +219,10 @@ object YAIMachines {
 
         hook.builder(LargeStorageUnitBlockEntity.ID, LargeStorageUnitBlockEntity.NAME, ::LargeStorageUnitBlockEntity)
             .builtinModel(Casings.BATTERY_ALLOY_MACHINE_CASING, LargeStorageUnitBlockEntity.ID)
+            .registerMachine()
+
+        hook.builder(NuclearRodIrradiatorBlockEntity.ID, NuclearRodIrradiatorBlockEntity.NAME, ::NuclearRodIrradiatorBlockEntity)
+            .builtinModel(MachineCasings.NUCLEAR, NuclearRodIrradiatorBlockEntity.ID)
             .registerMachine()
     }
 

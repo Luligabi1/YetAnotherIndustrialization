@@ -8,7 +8,8 @@ import aztech.modern_industrialization.api.energy.EnergyApi
 import aztech.modern_industrialization.util.TextHelper
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
-import me.luligabi.yet_another_industrialization.common.item.IndustrialistsGogglesItem
+import me.luligabi.yet_another_industrialization.common.block.machine.nuclear_rod_irradiator.NuclearRodIrradiatorBlockEntity
+import me.luligabi.yet_another_industrialization.common.item.tools.IndustrialistsGogglesItem
 import me.luligabi.yet_another_industrialization.common.item.tools.MachineDiagnoserItem
 import me.luligabi.yet_another_industrialization.common.item.tools.MachineRemoverItem
 import me.luligabi.yet_another_industrialization.common.item.tools.StorageSlotLockerItem
@@ -111,6 +112,13 @@ object YAITooltips {
         listOf(
             YAI.TEXT.largeStorageUnitTooltip1(),
             YAI.TEXT.largeStorageUnitTooltip2()
+        )
+    )
+
+    val NUCLEAR_ROD_IRRADIATOR = TooltipAttachment.multilines(
+        listOf(YAI.id(NuclearRodIrradiatorBlockEntity.ID)),
+        listOf(
+            YAI.TEXT.nuclearRodIrradiatorTooltip()
         )
     )
 

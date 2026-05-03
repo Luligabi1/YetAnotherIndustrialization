@@ -16,6 +16,8 @@ object YAIDataMaps {
 
     val LARGE_STORAGE_UNIT_TIER = create("large_storage_unit_tier", Registries.BLOCK, LargeStorageUnitTier.CODEC, true)
 
+    val IRRADIATOR_NEUTRON_SOURCE = create("irradiator_neutron_source", Registries.ITEM, IrradiatorNeutronSource.CODEC, true)
+
     val NUMISMATIC_GENERATOR_CURRENCY = create("numismatic_generator_currency", Registries.ITEM, NumismaticGeneratorCurrency.CODEC, true)
 
     private fun <R, T> create(

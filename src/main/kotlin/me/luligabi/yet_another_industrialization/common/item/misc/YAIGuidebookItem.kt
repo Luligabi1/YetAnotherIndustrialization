@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.item
+package me.luligabi.yet_another_industrialization.common.item.misc
 
 import guideme.GuidesCommon
 import me.luligabi.yet_another_industrialization.common.YAI

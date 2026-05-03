@@ -2,9 +2,13 @@ package me.luligabi.yet_another_industrialization.common.item
 
 import com.google.common.collect.Sets
 import me.luligabi.yet_another_industrialization.common.YAI
+import me.luligabi.yet_another_industrialization.common.item.debug.ChaChaRealSmoothItem
 import me.luligabi.yet_another_industrialization.common.item.food.AISlopItem
 import me.luligabi.yet_another_industrialization.common.item.food.CachacaItem
 import me.luligabi.yet_another_industrialization.common.item.food.UltradenseMetalBallBurgerItem
+import me.luligabi.yet_another_industrialization.common.item.misc.DemonCoreItem
+import me.luligabi.yet_another_industrialization.common.item.misc.YAIGuidebookItem
+import me.luligabi.yet_another_industrialization.common.item.tools.IndustrialistsGogglesItem
 import me.luligabi.yet_another_industrialization.common.item.tools.MachineDiagnoserItem
 import me.luligabi.yet_another_industrialization.common.item.tools.MachineRemoverItem
 import me.luligabi.yet_another_industrialization.common.item.tools.StorageSlotLockerItem
@@ -52,7 +56,8 @@ object YAIItems {
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
-    val INDUSTRIALISTS_GOGGLES = create("industrialists_goggles", "Industrialist's Goggles", ::IndustrialistsGogglesItem, YAICreativeTab.Order.INDUSTRIALISTS_GOGGLES)
+    val INDUSTRIALISTS_GOGGLES = create("industrialists_goggles", "Industrialist's Goggles",
+        ::IndustrialistsGogglesItem, YAICreativeTab.Order.INDUSTRIALISTS_GOGGLES)
         .withoutModel()
         .register()
 
@@ -76,6 +81,10 @@ object YAIItems {
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
 
+    val DEMON_CORE = create("demon_core", "Demon Core", ::DemonCoreItem, YAICreativeTab.Order.MINOR_ITEMS)
+        .withModelBuilder(CommonModelBuilders::generated)
+        .register()
+
     /** Food */
     val CACHACA = create("cachaca", "Cachaça", ::CachacaItem, YAICreativeTab.Order.MEME)
         .withModelBuilder(CommonModelBuilders::generated)
@@ -91,7 +100,8 @@ object YAIItems {
         .register()
 
     /** Hidden */
-    val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth", ::ChaChaRealSmoothItem, YAICreativeTab.Order.HIDDEN)
+    val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth",
+        ::ChaChaRealSmoothItem, YAICreativeTab.Order.HIDDEN)
         .withoutModel()
         .register()
 

@@ -236,6 +236,69 @@ interface YAIText {
     @LangKey(text = ["Ultimate"])
     fun largeStorageUnitUltimateTier(): MutableComponent
 
+    /** Nuclear Rod Irradiator */
+    @WithStyle("gray")
+    @LangKey(text = ["Depletes nuclear fuel rods at the cost of energy and a neutron source"])
+    fun nuclearRodIrradiatorTooltip(): MutableComponent
+
+    @WithStyle("gray")
+    @LangKey(text = ["Lifespan: %s / %s"])
+    fun alwaysVisibleLifespan(
+        @WithStyle("highlight") remaining: Int,
+        @WithStyle("highlight") total: Int
+    ): MutableComponent
+
+    @LangKey(text = ["Irradiator Neutron Sources"])
+    fun irradiatorNeutronSources(): MutableComponent
+
+    @LangKey(text = ["Irradiation: %s%s N/t"])
+    fun irradiatorNeutronSourceIrradiation(
+        amount: String,
+        unit: String
+    ): MutableComponent
+
+    @LangKey(text = ["Type: %s"])
+    fun irradiatorNeutronSourceType(
+        type: Component
+    ): MutableComponent
+
+    @LangKey(text = ["None"])
+    fun irradiatorNeutronSourceTypeNone(): MutableComponent
+
+    @LangKey(text = ["Source item is required, but will never be touched by machine."])
+    fun irradiatorNeutronSourceTypeNoneDescription(
+        @WithStyle("highlight") chance: String,
+        @WithStyle("highlight") time: String
+    ): MutableComponent
+
+    @LangKey(text = ["Consumption"])
+    fun irradiatorNeutronSourceTypeConsumption(): MutableComponent
+
+    @LangKey(text = ["Source item has a %s chance to be consumed every %s seconds"])
+    fun irradiatorNeutronSourceTypeConsumptionDescription(
+        @WithStyle("highlight") chance: String,
+        @WithStyle("highlight") time: String
+    ): MutableComponent
+
+    @LangKey(text = ["Durability"])
+    fun irradiatorNeutronSourceTypeDurability(): MutableComponent
+
+    @LangKey(text = ["Source item's durability has a %s chance to decrease every %s seconds"])
+    fun irradiatorNeutronSourceTypeDurabilityDescription(
+        @WithStyle("highlight") chance: String,
+        @WithStyle("highlight") time: String
+    ): MutableComponent
+
+    @LangKey(text = ["Only irradiates %s"])
+    fun irradiatorNeutronSourceRestrictedIrradiation(
+        @WithStyle("highlight") irradiated: Component
+    ): MutableComponent
+
+    @LangKey(text = ["Irradiate %s absorption every tick"])
+    fun irradiatorNeutronSourceIrradiates(
+        @WithStyle("highlight") absorption: String
+    ): MutableComponent
+
     /** Hatch Names */
     @LangKey(text = ["Mixed Input Hatch"])
     fun mixedInputHatch(): MutableComponent
