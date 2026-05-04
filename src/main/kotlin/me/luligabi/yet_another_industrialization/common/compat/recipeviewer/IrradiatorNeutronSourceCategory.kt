@@ -40,6 +40,8 @@ class IrradiatorNeutronSourceCategory : ViewerCategory<IrradiatorNeutronSourceCa
     }
 
     override fun buildRecipes(recipeManager: RecipeManager, registryAccess: RegistryAccess, consumer: Consumer<Data>) {
+        val sources = mutableListOf<Data>()
+
         for (item in registryAccess.registryOrThrow(Registries.ITEM)) {
             item.builtInRegistryHolder().getData(YAIDataMaps.IRRADIATOR_NEUTRON_SOURCE)?.let { data ->
 
@@ -64,9 +66,10 @@ class IrradiatorNeutronSourceCategory : ViewerCategory<IrradiatorNeutronSourceCa
                     )
                 }
 
-                consumer.accept(Data(item, data, restrictionData))
+                sources.add(Data(item, data, restrictionData))
             }
         }
+        sources.sortedBy { it.source.irradiation }.forEach(consumer::accept)
     }
 
     override fun buildLayout(data: Data, builder: LayoutBuilder) {
@@ -74,7 +77,7 @@ class IrradiatorNeutronSourceCategory : ViewerCategory<IrradiatorNeutronSourceCa
 
         when (data.source.type) {
             IrradiatorNeutronSource.Type.CONSUMPTION,
-            IrradiatorNeutronSource.Type.DURABILITY -> {
+            IrradiatorNeutronSource.Type.LIFESPAN -> {
                 slot.ingredient(Ingredient.of(data.item), 1, data.source.probability)
             }
             else -> slot.variant(ItemVariant.of(data.item))

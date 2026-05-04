@@ -36,18 +36,18 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
         private val DEFAULT_IRRADIATOR_NEUTRON_SOURCE_TIERS = hashMapOf(
             ResourceLocation.parse(MIMaterials.BERYLLIUM.getPart(MIParts.BLOCK).itemId) to IrradiatorNeutronSource(
                 1280,
-                640L,
+                15L,
                 null,
                 IrradiatorNeutronSource.Type.CONSUMPTION,
-                0.05f,
-                7*20
+                0.15f,
+                10*20
             ),
             YAIItems.DEMON_CORE.identifier().location to IrradiatorNeutronSource(
-                3072,
-                1024L,
+                4096,
+                40L,
                 null,
-                IrradiatorNeutronSource.Type.DURABILITY,
-                0.45f,
+                IrradiatorNeutronSource.Type.LIFESPAN,
+                0.10f,
                 10*20
             )
         )

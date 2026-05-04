@@ -2,16 +2,16 @@
   "values": {
     "modern_industrialization:beryllium_block": {
       "type": "consumption",
-      "eu": 640,
+      "eu": 15,
       "irradiation": 1280,
-      "probability": 0.05,
-      "probability_check_cooldown": 140
+      "probability": 0.15,
+      "probability_check_cooldown": 200
     },
     "yet_another_industrialization:demon_core": {
-      "type": "durability",
-      "eu": 1024,
-      "irradiation": 3072,
-      "probability": 0.45,
+      "type": "lifespan",
+      "eu": 40,
+      "irradiation": 4096,
+      "probability": 0.1,
       "probability_check_cooldown": 200
     }
   }

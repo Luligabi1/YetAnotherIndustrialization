@@ -9,12 +9,25 @@ item_ids:
 ---
 
 # Nuclear Rod Irradiator
+###### *not the one you got at home*
 
 <GameScene zoom="2" interactive={true} fullWidth={true}>
     <MultiblockShape controller="yet_another_industrialization:nuclear_rod_irradiator" />
+
+    <Block x="1" y="2" z="1" id="modern_industrialization:nuclear_item_hatch" />
+    <Block x="1" y="2" z="2" id="modern_industrialization:nuclear_item_hatch" />
+    <Block x="1" y="2" z="3" id="modern_industrialization:nuclear_item_hatch" />
+    <Block x="-1" y="2" z="1" id="modern_industrialization:nuclear_item_hatch" />
+    <Block x="-1" y="2" z="2" id="modern_industrialization:nuclear_item_hatch" />
+    <Block x="-1" y="2" z="3" id="modern_industrialization:nuclear_item_hatch" />
+    <Block x="0" y="2" z="1" id="modern_industrialization:nuclear_item_hatch" />
+    <Block x="0" y="2" z="3" id="modern_industrialization:nuclear_item_hatch" />
+
+    <Block x="0" y="2" z="2" id="modern_industrialization:bronze_item_input_hatch" />
 </GameScene>
 
-aaaaa
+Nuclear Rod Irradiators are capable of depleting nuclear fuel rods. They are both quicker and less laggy than using regular Nuclear Reactors for this goal.
 
 <Recipe id="yet_another_industrialization:craft/nuclear_rod_irradiator" />
 
+To work, NRIs require EU and a **Neutron Source** item. These provide the depletion power required, but will be consumed or otherwise degrade overtime, needing to be replaced frequently. Check your recipe viewer for more details on them.

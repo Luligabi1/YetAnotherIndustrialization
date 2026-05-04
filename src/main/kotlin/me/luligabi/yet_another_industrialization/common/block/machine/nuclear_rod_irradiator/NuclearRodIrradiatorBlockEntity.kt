@@ -62,11 +62,11 @@ class NuclearRodIrradiatorBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
             .build()
 
         private val BOTTOM_LAYER = listOf(
-            "_###_",
-            "#####",
-            "#####",
-            "#####",
-            "_###_"
+            "_000_",
+            "00000",
+            "00000",
+            "00000",
+            "_000_"
         )
 
         private val MIDDLE_LAYER = listOf(
@@ -78,11 +78,11 @@ class NuclearRodIrradiatorBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
         )
 
         private val TOP_LAYER = listOf(
-            "_###_",
-            "#xxx#",
-            "#xox#",
-            "#xxx#",
-            "_###_"
+            "_000_",
+            "0xxx0",
+            "0xox0",
+            "0xxx0",
+            "_000_"
         )
 
         override val pattern = listOf(
@@ -95,13 +95,13 @@ class NuclearRodIrradiatorBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
 
         override val materialRules: Map<(Char, Int) -> Boolean, SimpleMember>
             get() = mapOf(
-                { char: Char, _: Int -> char in arrayOf('#', 'x', 'o') } to CASING,
+                { char: Char, _: Int -> char in arrayOf('#', 'x', 'o', '0') } to CASING,
                 { char: Char, _: Int -> char == '@' } to CASING_PIPE
             )
 
         override val hatchPredicate: Map<(Char, Int) -> Boolean, HatchFlags>
             get() = mapOf(
-                { char: Char, _: Int -> char == '#' } to ENERGY_HATCH,
+                { char: Char, _: Int -> char == '0' } to ENERGY_HATCH,
                 { char: Char, _: Int -> char == 'x' } to NUCLEAR_HATCH,
                 { char: Char, _: Int -> char == 'o' } to ITEM_HATCH
             )
@@ -292,7 +292,7 @@ class NuclearRodIrradiatorBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
                     IrradiatorNeutronSource.Type.CONSUMPTION -> {
                         input.amount--
                     }
-                    IrradiatorNeutronSource.Type.DURABILITY -> {
+                    IrradiatorNeutronSource.Type.LIFESPAN -> {
                         var removeItem = false
                         val updated = input.toStack().apply {
                             this.hurtAndBreak(1, level as ServerLevel, null, { _ ->

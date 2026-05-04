@@ -86,10 +86,10 @@ data class IrradiatorNeutronSource(
             { chance, time -> YAI.TEXT.irradiatorNeutronSourceTypeConsumptionDescription(chance, time) },
             true
         ),
-        DURABILITY(
-            "durability",
-            YAI.TEXT.irradiatorNeutronSourceTypeDurability(),
-            { chance, time -> YAI.TEXT.irradiatorNeutronSourceTypeDurabilityDescription(chance, time) },
+        LIFESPAN(
+            "lifespan",
+            YAI.TEXT.irradiatorNeutronSourceTypeLifespan(),
+            { chance, time -> YAI.TEXT.irradiatorNeutronSourceTypeLifespanDescription(chance, time) },
             true
         );
 

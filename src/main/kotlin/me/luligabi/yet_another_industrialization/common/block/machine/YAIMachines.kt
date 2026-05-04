@@ -223,6 +223,7 @@ object YAIMachines {
 
         hook.builder(NuclearRodIrradiatorBlockEntity.ID, NuclearRodIrradiatorBlockEntity.NAME, ::NuclearRodIrradiatorBlockEntity)
             .builtinModel(MachineCasings.NUCLEAR, NuclearRodIrradiatorBlockEntity.ID)
+            .registerMultiblockShape(NuclearRodIrradiatorBlockEntity.SHAPE)
             .registerMachine()
     }
 

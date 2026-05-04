@@ -280,11 +280,11 @@ interface YAIText {
         @WithStyle("highlight") time: String
     ): MutableComponent
 
-    @LangKey(text = ["Durability"])
-    fun irradiatorNeutronSourceTypeDurability(): MutableComponent
+    @LangKey(text = ["Lifespan"])
+    fun irradiatorNeutronSourceTypeLifespan(): MutableComponent
 
-    @LangKey(text = ["Source item's durability has a %s chance to decrease every %s seconds"])
-    fun irradiatorNeutronSourceTypeDurabilityDescription(
+    @LangKey(text = ["Source item's lifespan has a %s chance to decrease every %s seconds"])
+    fun irradiatorNeutronSourceTypeLifespanDescription(
         @WithStyle("highlight") chance: String,
         @WithStyle("highlight") time: String
     ): MutableComponent
