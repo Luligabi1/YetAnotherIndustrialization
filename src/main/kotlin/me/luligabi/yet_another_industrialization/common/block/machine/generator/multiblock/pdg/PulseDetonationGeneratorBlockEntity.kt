@@ -15,7 +15,7 @@ import me.luligabi.yet_another_industrialization.mixin.ShapeMatcherAccessor
 
 class PulseDetonationGeneratorBlockEntity(bep: BEP): YAIGeneratorMultiblockBlockEntity(
     bep,
-    YAI.Companion.id(ID),
+    YAI.id(ID),
     arrayOf(SHAPE)
 ) {
 

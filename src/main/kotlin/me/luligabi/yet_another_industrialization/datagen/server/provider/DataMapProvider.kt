@@ -6,13 +6,11 @@ import aztech.modern_industrialization.materials.part.MIParts
 import com.google.gson.JsonParser
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
+import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
-import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
+import me.luligabi.yet_another_industrialization.common.misc.datamap.*
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier.FluidByIdInput
-import me.luligabi.yet_another_industrialization.common.misc.datamap.LargeStorageUnitTier
-import me.luligabi.yet_another_industrialization.common.misc.datamap.NumismaticGeneratorCurrency
-import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import me.luligabi.yet_another_industrialization.common.util.get
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
@@ -34,6 +32,25 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
         val AG_TIERS = mutableMapOf<ResourceLocation, ArboreousGreenhouseTier>()
 
         private val BANNED_TIERS = setOf("bucket")
+
+        private val DEFAULT_IRRADIATOR_NEUTRON_SOURCE_TIERS = hashMapOf(
+            ResourceLocation.parse(MIMaterials.BERYLLIUM.getPart(MIParts.BLOCK).itemId) to IrradiatorNeutronSource(
+                1280,
+                15L,
+                null,
+                IrradiatorNeutronSource.Type.CONSUMPTION,
+                0.15f,
+                10*20
+            ),
+            YAIItems.DEMON_CORE.identifier().location to IrradiatorNeutronSource(
+                4096,
+                40L,
+                null,
+                IrradiatorNeutronSource.Type.LIFESPAN,
+                0.10f,
+                10*20
+            )
+        )
 
         private val DEFAULT_LARGE_STORAGE_UNIT_TIERS = hashMapOf(
             ResourceLocation.withDefaultNamespace("redstone_block") to LargeStorageUnitTier(
@@ -65,9 +82,16 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
     }
 
     override fun gather(provider: HolderLookup.Provider) {
+        irradiatorNeutronSource(provider)
         largeStorageUnit(provider)
         arboreousGreenhouseSoils(provider)
         numismaticGeneratorCurrencies(provider)
+    }
+
+    fun irradiatorNeutronSource(provider: HolderLookup.Provider) {
+        DEFAULT_IRRADIATOR_NEUTRON_SOURCE_TIERS.forEach { (id, tier) ->
+            builder(YAIDataMaps.IRRADIATOR_NEUTRON_SOURCE).add(id, tier, false)
+        }
     }
 
     fun largeStorageUnit(provider: HolderLookup.Provider) {

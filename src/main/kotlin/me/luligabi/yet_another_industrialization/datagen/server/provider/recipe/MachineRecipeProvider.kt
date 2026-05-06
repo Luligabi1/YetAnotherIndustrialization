@@ -16,6 +16,7 @@ import me.luligabi.yet_another_industrialization.common.block.machine.large_stor
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.FluidTrashCanHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.trash_can_hatch.ItemTrashCanHatch
+import me.luligabi.yet_another_industrialization.common.block.machine.nuclear_rod_irradiator.NuclearRodIrradiatorBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
@@ -34,6 +35,7 @@ import net.swedz.tesseract.neoforge.compat.mi.material.MIMaterials
 import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
 import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapelessRecipeBuilder
+import net.swedz.tesseract.neoforge.material.builtin.part.MaterialParts
 
 object MachineRecipeProvider : YAIRecipeProvider {
 
@@ -173,6 +175,22 @@ object MachineRecipeProvider : YAIRecipeProvider {
             output
         )
         /***/
+
+        /** Nuclear Rod Irradiator */
+        shaped(
+            NuclearRodIrradiatorBlockEntity.ID,
+            YAIMachines.getMachineFromId(NuclearRodIrradiatorBlockEntity.ID), 1,
+            { it
+                .define('N', MIMaterials.NUCLEAR_ALLOY.get(MIMaterialParts.LARGE_PLATE).asItem())
+                .define('U', MIItem.PROCESSING_UNIT)
+                .define('P', MIMaterials.PLUTONIUM.get(MaterialParts.DUST).asItem())
+                .define('H', MIBlock.HIGHLY_ADVANCED_MACHINE_HULL)
+                .pattern("NUN")
+                .pattern("PHP")
+                .pattern("NUN")
+            },
+            output
+        )
 
         /** Configurable Mixed Storage */
         shaped(

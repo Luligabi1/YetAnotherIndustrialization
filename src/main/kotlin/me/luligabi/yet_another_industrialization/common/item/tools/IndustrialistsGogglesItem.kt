@@ -1,4 +1,4 @@
-package me.luligabi.yet_another_industrialization.common.item
+package me.luligabi.yet_another_industrialization.common.item.tools
 
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.misc.component.YAIDataComponents

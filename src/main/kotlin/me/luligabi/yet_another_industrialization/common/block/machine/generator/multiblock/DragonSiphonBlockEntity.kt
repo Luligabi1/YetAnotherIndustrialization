@@ -46,7 +46,7 @@ class DragonSiphonBlockEntity(bep: BEP): YAIGeneratorMultiblockBlockEntity(
         override val materialRules: Map<(Char, Int) -> Boolean, SimpleMember>
             get() = mapOf(
                 { char: Char, y: Int -> char == '#' } to CASING,
-                { char: Char, y: Int -> char == '@' } to YAIMultiblockHelper.Companion.GLASS_MEMBER,
+                { char: Char, y: Int -> char == '@' } to YAIMultiblockHelper.GLASS_MEMBER,
                 { char: Char, y: Int -> char == '$' } to DRAGON_EGG,
             )
 
@@ -61,7 +61,7 @@ class DragonSiphonBlockEntity(bep: BEP): YAIGeneratorMultiblockBlockEntity(
 
         override val hatchPredicate: Map<(Char, Int) -> Boolean, HatchFlags>
             get() = mapOf(
-                { char: Char, _: Int -> char == 'x' } to hatches,
+                { char: Char, _: Int -> char == '#' } to hatches,
             )
 
         override val controllerXOffset = -1

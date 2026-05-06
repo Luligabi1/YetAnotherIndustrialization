@@ -9,11 +9,13 @@ import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachine
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
+import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.world.level.block.Blocks
 import net.swedz.tesseract.neoforge.compat.mi.material.MIMaterials
 import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
+import net.swedz.tesseract.neoforge.material.builtin.part.MaterialParts
 
 object PartRecipeProvider : YAIRecipeProvider {
 
@@ -108,6 +110,19 @@ object PartRecipeProvider : YAIRecipeProvider {
                 .pattern("PPP")
                 .pattern("PIP")
                 .pattern("PPP")
+            },
+            output
+        )
+
+        shaped(
+            YAIItems.DEMON_CORE.identifier().location.path,
+            YAIItems.DEMON_CORE, 1,
+            { it
+                .define('L', YAIMaterials.BERYLLIUM.get(MIMaterialParts.LARGE_PLATE).asItem())
+                .define('P', MIMaterials.PLUTONIUM.get(MaterialParts.BLOCK).asItem())
+                .pattern("LLL")
+                .pattern("LPL")
+                .pattern("LLL")
             },
             output
         )

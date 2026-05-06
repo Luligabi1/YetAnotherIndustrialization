@@ -5,18 +5,48 @@ import aztech.modern_industrialization.MITooltips
 import aztech.modern_industrialization.MITooltips.EU_MAXED_PARSER
 import aztech.modern_industrialization.MITooltips.NumberWithMax
 import aztech.modern_industrialization.api.energy.EnergyApi
+import aztech.modern_industrialization.util.TextHelper
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
-import me.luligabi.yet_another_industrialization.common.item.IndustrialistsGogglesItem
+import me.luligabi.yet_another_industrialization.common.block.machine.nuclear_rod_irradiator.NuclearRodIrradiatorBlockEntity
+import me.luligabi.yet_another_industrialization.common.item.tools.IndustrialistsGogglesItem
 import me.luligabi.yet_another_industrialization.common.item.tools.MachineDiagnoserItem
 import me.luligabi.yet_another_industrialization.common.item.tools.MachineRemoverItem
 import me.luligabi.yet_another_industrialization.common.item.tools.StorageSlotLockerItem
+import net.minecraft.ChatFormatting
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.network.chat.Component
+import net.swedz.tesseract.neoforge.tooltip.Parser
 import net.swedz.tesseract.neoforge.tooltip.TooltipAttachment
 import java.util.*
 
+
 @Suppress("unused")
 object YAITooltips {
+
+    val COLORED_EU_PARSER = Parser { eu: Long ->
+        val amount = TextHelper.getAmountGeneric(eu)
+
+        val styling = when {
+            eu > 0 -> "+" to ChatFormatting.GREEN
+            eu < 0 -> "" to ChatFormatting.RED
+            else -> "" to ChatFormatting.WHITE
+        }
+
+        Component.literal("${styling.first}$eu EU").withStyle(styling.second)
+    }
+
+    val COLORED_SHORT_EU_PARSER = Parser { eu: Long ->
+        val amount = TextHelper.getAmountGeneric(eu)
+
+        val styling = when {
+            eu > 0 -> "+" to ChatFormatting.GREEN
+            eu < 0 -> "" to ChatFormatting.RED
+            else -> "" to ChatFormatting.WHITE
+        }
+
+        Component.literal("${styling.first}${amount.digit} ${amount.unit}EU").withStyle(styling.second)
+    }
 
     private val SNEAK_RIGHT_CLICK = YAI.TEXT.sneakRCActivate2(YAI.TEXT.sneakRCActivate1())
 
@@ -82,6 +112,13 @@ object YAITooltips {
         listOf(
             YAI.TEXT.largeStorageUnitTooltip1(),
             YAI.TEXT.largeStorageUnitTooltip2()
+        )
+    )
+
+    val NUCLEAR_ROD_IRRADIATOR = TooltipAttachment.multilines(
+        listOf(YAI.id(NuclearRodIrradiatorBlockEntity.ID)),
+        listOf(
+            YAI.TEXT.nuclearRodIrradiatorTooltip()
         )
     )
 

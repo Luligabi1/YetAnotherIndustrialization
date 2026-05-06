@@ -1,6 +1,7 @@
 package me.luligabi.yet_another_industrialization.client.model.multiblock
 
 import com.mojang.math.Transformation
+import me.luligabi.yet_another_industrialization.client.YAIClient
 import me.luligabi.yet_another_industrialization.common.model.multiblock.MultiBlockGeometryBase
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.block.model.BakedQuad
@@ -74,12 +75,12 @@ class MultiBlockModel(val geometry: MultiBlockGeometry) : IDynamicBakedModel {
         modelData: ModelData,
         renderType: RenderType?
     ): List<BakedQuad> {
-        if (cache.isEmpty() || !cache.containsKey(direction) || false /* TODO ClientConfig.disableModelCache*/) {
+        if (cache.isEmpty() || !cache.containsKey(direction) || YAIClient.CONFIG.multiblockModel().disableModelCache()) {
             cache[direction] = ArrayList()
 
             val centerOffset = Vector3f(geometry.trunkPos.x + 0.5f, 0f, geometry.trunkPos.z + 0.5f)
             for (voxel in blocks.values) {
-                if (false /* TODO ClientConfig.minimalQuads*/ && direction != null && blocks.containsKey(voxel.pos.relative(direction))) {
+                if (YAIClient.CONFIG.multiblockModel().minimalQuads() && direction != null && blocks.containsKey(voxel.pos.relative(direction))) {
                     val relativeState: MultiBlockGeometryBase.Voxel? = blocks[voxel.pos.relative(direction)]
                     if (relativeState != null && relativeState.state.block == voxel.state.block) {
                         continue

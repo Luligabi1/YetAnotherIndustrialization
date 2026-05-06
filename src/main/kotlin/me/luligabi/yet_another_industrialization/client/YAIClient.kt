@@ -34,16 +34,34 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.ModContainer
 import net.neoforged.fml.ModList
 import net.neoforged.fml.common.Mod
+import net.neoforged.fml.config.ModConfig
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.InputEvent
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent
 import net.neoforged.neoforge.common.NeoForge
+import net.swedz.tesseract.neoforge.config.ConfigManager
 
 
 @Mod(YAI.ID, dist = [Dist.CLIENT])
 class YAIClient(modEventBus: IEventBus, container: ModContainer) {
 
+    companion object {
+
+        lateinit var CONFIG: YAIClientConfig
+            private set
+
+    }
+
     init {
+        val manager = ConfigManager().includeDefaultValueComments()
+
+        CONFIG = manager
+            .build(YAIClientConfig::class.java)
+            .register(container, ModConfig.Type.CLIENT)
+            .load()
+            .listenToLoad(modEventBus)
+            .config()
+
         GuiComponentsClient.register(LargeStorageUnitGui.TYPE, ::LargeStorageUnitGuiClient)
         GuiComponentsClient.register(ChargingSlot.TYPE, ::ChargingSlotClient)
         GuiComponentsClient.register(SuppliedShapeSelection.TYPE, ::SuppliedShapeSelectionClient)

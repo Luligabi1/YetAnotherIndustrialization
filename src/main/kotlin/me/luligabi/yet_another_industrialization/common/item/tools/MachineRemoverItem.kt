@@ -5,7 +5,7 @@ import aztech.modern_industrialization.machines.MachineBlockEntity
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import dev.technici4n.grandpower.api.ISimpleEnergyItem
 import me.luligabi.yet_another_industrialization.common.YAI
-import me.luligabi.yet_another_industrialization.common.item.ChaChaRealSmoothItem
+import me.luligabi.yet_another_industrialization.common.item.debug.ChaChaRealSmoothItem
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
 import me.luligabi.yet_another_industrialization.mixin.MultiblockMachineBlockEntityAccessor
@@ -117,7 +117,7 @@ class MachineRemoverItem(properties: Properties) : Item(
             it.block.playerDestroy(
                 level, player, dropPos, it,
                 machine ?: level.getBlockEntity(blockPos),
-                ChaChaRealSmoothItem.Companion.create(level)
+                ChaChaRealSmoothItem.create(level)
             )
         }
         level.setBlock(

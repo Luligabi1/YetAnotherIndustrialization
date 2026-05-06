@@ -1,8 +1,8 @@
 package me.luligabi.yet_another_industrialization.common.misc.network
 
 import me.luligabi.yet_another_industrialization.common.YAI
-import me.luligabi.yet_another_industrialization.common.item.IndustrialistsGogglesItem
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
+import me.luligabi.yet_another_industrialization.common.item.tools.IndustrialistsGogglesItem
 import me.luligabi.yet_another_industrialization.common.util.toComponent
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec

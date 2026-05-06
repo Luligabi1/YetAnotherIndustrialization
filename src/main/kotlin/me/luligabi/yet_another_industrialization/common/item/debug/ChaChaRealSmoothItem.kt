@@ -1,5 +1,6 @@
-package me.luligabi.yet_another_industrialization.common.item
+package me.luligabi.yet_another_industrialization.common.item.debug
 
+import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.item.Item
@@ -13,7 +14,8 @@ import net.neoforged.neoforge.common.ItemAbility
 
 // used to grant correct items on AG recipes generated from loot tables
 class ChaChaRealSmoothItem(properties: Properties): Item(properties
-    .component(DataComponents.TOOL, ShearsItem.createToolProperties()
+    .component(
+        DataComponents.TOOL, ShearsItem.createToolProperties()
 )) {
 
     override fun isCorrectToolForDrops(stack: ItemStack, state: BlockState) = true

@@ -2,7 +2,7 @@ package me.luligabi.yet_another_industrialization.common.misc.keybind
 
 import com.mojang.blaze3d.platform.InputConstants
 import me.luligabi.yet_another_industrialization.common.YAI
-import me.luligabi.yet_another_industrialization.common.item.IndustrialistsGogglesItem
+import me.luligabi.yet_another_industrialization.common.item.tools.IndustrialistsGogglesItem
 import me.luligabi.yet_another_industrialization.common.misc.network.ToggleIndustrialistsGogglesPacket
 import net.minecraft.Util
 import net.minecraft.client.KeyMapping
