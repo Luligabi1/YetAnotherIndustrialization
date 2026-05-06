@@ -23,4 +23,11 @@ class YAIAccessoriesSlotProxy : YAIModSlotProxy() {
 
         return contents.toList()
     }
+
+    override fun hasContents(player: Player, filter: (ItemStack) -> Boolean): Boolean {
+        AccessoriesCapability.get(player)?.let {
+            if (it.getEquipped(filter).isNotEmpty()) return true
+        }
+        return false
+    }
 }

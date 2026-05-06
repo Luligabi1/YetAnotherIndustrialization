@@ -6,7 +6,6 @@ import net.swedz.tesseract.neoforge.proxy.Proxies
 import net.swedz.tesseract.neoforge.proxy.Proxy
 import net.swedz.tesseract.neoforge.proxy.ProxyEntrypoint
 
-
 @ProxyEntrypoint
 open class YAIModSlotProxy : Proxy {
 
@@ -15,6 +14,10 @@ open class YAIModSlotProxy : Proxy {
 
     open fun getContents(player: Player, filter: (ItemStack) -> Boolean): List<ItemStack> {
         return emptyList()
+    }
+
+    open fun hasContents(player: Player, filter: (ItemStack) -> Boolean): Boolean {
+        return false
     }
 
     companion object {
@@ -38,9 +41,17 @@ open class YAIModSlotProxy : Proxy {
             inventory.armor[3].let {
                 if (filter(it)) items.add(it)
             }
-            items.addAll(Proxies.get(YAIModSlotProxy::class.java).getContents(player, filter))
+            items.addAll(Proxies.get(YAIModSlotProxy::class.java)
+                .getContents(player, filter))
 
             return items
+        }
+
+        fun hasHeadItem(player: Player, filter: (ItemStack) -> Boolean): Boolean {
+            if (filter(player.getInventory().armor[3])) return true
+
+            return Proxies.get(YAIModSlotProxy::class.java)
+                .hasContents(player, filter)
         }
 
     }

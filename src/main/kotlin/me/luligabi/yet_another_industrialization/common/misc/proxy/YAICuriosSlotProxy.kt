@@ -31,4 +31,16 @@ class YAICuriosSlotProxy : YAIModSlotProxy() {
 
         return contents.toList()
     }
+
+    override fun hasContents(player: Player, filter: (ItemStack) -> Boolean): Boolean {
+        CuriosApi.getCuriosInventory(player).getOrNull()?.let { inventory ->
+            for ((_, slot) in inventory.curios) {
+                val stacks = slot.stacks
+                for (index in 0..<stacks.slots) {
+                    if (filter(stacks.getStackInSlot(index))) return true
+                }
+            }
+        }
+        return false
+    }
 }
