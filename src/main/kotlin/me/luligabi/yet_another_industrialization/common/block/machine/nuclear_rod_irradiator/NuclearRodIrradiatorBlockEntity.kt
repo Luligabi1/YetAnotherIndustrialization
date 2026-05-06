@@ -165,6 +165,11 @@ class NuclearRodIrradiatorBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
         if (level!!.isClientSide) return
         link()
 
+        if (!shapeValid.shapeValid || !redstoneControl.doAllowNormalOperation(this)) {
+            isActive.updateActive(false, this)
+            return
+        }
+
         if (forceSourceRefresh || level!!.gameTime % (3*20) == 0L) {
             neutronSource = getNeutronSource()
             forceSourceRefresh = false
