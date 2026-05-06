@@ -17,5 +17,6 @@
 [GregTech CEu: Modern](https://github.com/GregTechCEu/GregTech-Modern)'s sounds, licensed under the Creative Commons 0 license, for [wrench.ogg](https://github.com/GregTechCEu/GregTech-Modern/blob/1.20.1/src/main/resources/assets/gtceu/sounds/wrench.ogg), used as the Machine Remover's activation sound.
 
 [Malcolm Riley's unused textures](https://github.com/malcolmriley/unused-textures), licensed under the CC-BY-4.0 license, for the following textures:
-    - [material_raw_aluminium_plain.png](https://github.com/malcolmriley/unused-textures/blob/master/items/material_raw_aluminium_plain.png), edited and used as the AI Slop item texture;
-    - [part_electronic_ender_core](https://github.com/malcolmriley/unused-textures/blob/master/items/part_electronic_ender_core.png), edited and used as the Demon Core item texture.
+    
+- [material_raw_aluminium_plain.png](https://github.com/malcolmriley/unused-textures/blob/master/items/material_raw_aluminium_plain.png), edited and used as the AI Slop item texture;
+- [part_electronic_ender_core](https://github.com/malcolmriley/unused-textures/blob/master/items/part_electronic_ender_core.png), edited and used as the Demon Core item texture.
