@@ -241,15 +241,7 @@ idea {
 }
 
 ext.getChangeLog = { ->
-    return "- Added **Nuclear Rod Irradiator**\n" +
-            "  - Use EU and a neutron source item to deplete nuclear fuel rods at a faster pace!\n" +
-            "  - [Modpack creators: Neutron source items are configurable! Consider checking it out :)](<https://github.com/Luligabi1/YetAnotherIndustrialization/blob/1.21/docs/misc/IRRADIATOR_NEUTRON_SOURCES.md>)\n" +
-            "- **Large Storage Unit** improvements:\n" +
-            "  - Total energy I/O is now displayed;\n" +
-            "  - Controller and hatches can now be right-clicked to transfer energy from/to held item;\n" +
-            "  - Controller and hatches now have a comparator output.\n" +
-            "- Machine Remover recipe no longer takes Polyethylene;\n" +
-            "- Added client-side config"
+    return ""
 }
 
 publishMods {
