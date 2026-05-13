@@ -21,7 +21,6 @@ class ItemTagProvider(event: GatherDataEvent): ItemTagsProvider(event.generator.
 
     override fun addTags(lookupProvider: HolderLookup.Provider) {
         tag(Tags.Items.HIDDEN_FROM_RECIPE_VIEWERS)
-            .add(YAIItems.CHA_CHA_REAL_SMOOTH.get())
             .add(YAIItems.ENERGY_ZAP.get())
 
         tag(YAITags.MI_GUIDE_BOOKS)

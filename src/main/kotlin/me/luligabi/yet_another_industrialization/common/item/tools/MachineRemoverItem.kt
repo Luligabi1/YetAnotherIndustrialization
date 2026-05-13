@@ -5,7 +5,6 @@ import aztech.modern_industrialization.machines.MachineBlockEntity
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
 import dev.technici4n.grandpower.api.ISimpleEnergyItem
 import me.luligabi.yet_another_industrialization.common.YAI
-import me.luligabi.yet_another_industrialization.common.item.debug.ChaChaRealSmoothItem
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
 import me.luligabi.yet_another_industrialization.mixin.MultiblockMachineBlockEntityAccessor
@@ -88,8 +87,8 @@ class MachineRemoverItem(properties: Properties) : Item(
         }
 
         if (tryUseEnergy(stack, getMultiblockCost(members.size))) {
-            members.forEach { removeBlock(level, player, it, pos) }
-            removeBlock(level, player, pos, pos, controller)
+            members.forEach { removeBlock(level, it, pos) }
+            removeBlock(level, pos, pos)
             return true
         } else {
             player.displayClientMessage(YAI.TEXT.machineRemoverInsufficientEnergy(), true)
@@ -103,23 +102,19 @@ class MachineRemoverItem(properties: Properties) : Item(
             return false
         }
 
-        removeBlock(level, player, pos, pos, machine)
+        removeBlock(level, pos, pos)
         return true
     }
 
     private fun removeBlock(
         level: Level,
-        player: Player,
-        blockPos: BlockPos, dropPos: BlockPos,
-        machine: MachineBlockEntity? = null
+        blockPos: BlockPos, dropPos: BlockPos
     ) {
         level.getBlockState(blockPos).let {
-            it.block.playerDestroy(
-                level, player, dropPos, it,
-                machine ?: level.getBlockEntity(blockPos),
-                ChaChaRealSmoothItem.create(level)
-            )
+            val stack = it.block.getCloneItemStack(level, blockPos, it)
+            Block.popResource(level, dropPos, stack)
         }
+
         level.setBlock(
             blockPos, Blocks.AIR.defaultBlockState(),
             Block.UPDATE_ALL or Block.UPDATE_SUPPRESS_DROPS

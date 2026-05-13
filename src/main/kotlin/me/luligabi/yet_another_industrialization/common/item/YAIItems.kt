@@ -2,7 +2,6 @@ package me.luligabi.yet_another_industrialization.common.item
 
 import com.google.common.collect.Sets
 import me.luligabi.yet_another_industrialization.common.YAI
-import me.luligabi.yet_another_industrialization.common.item.debug.ChaChaRealSmoothItem
 import me.luligabi.yet_another_industrialization.common.item.food.AISlopItem
 import me.luligabi.yet_another_industrialization.common.item.food.CachacaItem
 import me.luligabi.yet_another_industrialization.common.item.food.UltradenseMetalBallBurgerItem
@@ -100,11 +99,6 @@ object YAIItems {
         .register()
 
     /** Hidden */
-    val CHA_CHA_REAL_SMOOTH = create("cha_cha_real_smooth", "Cha Cha Real Smooth",
-        ::ChaChaRealSmoothItem, YAICreativeTab.Order.HIDDEN)
-        .withoutModel()
-        .register()
-
     val ENERGY_ZAP = create("energy_zap", "Energy Zap", ::Item, YAICreativeTab.Order.HIDDEN)
         .withModelBuilder(CommonModelBuilders::generated)
         .register()
