@@ -1,8 +1,8 @@
 package me.luligabi.yet_another_industrialization.client
 
-import net.swedz.tesseract.neoforge.config.annotation.ConfigComment
-import net.swedz.tesseract.neoforge.config.annotation.ConfigKey
-import net.swedz.tesseract.neoforge.config.annotation.SubSection
+import net.swedz.tesseract.config.annotation.ConfigComment
+import net.swedz.tesseract.config.annotation.ConfigKey
+import net.swedz.tesseract.config.annotation.SubSection
 
 interface YAIClientConfig {
 

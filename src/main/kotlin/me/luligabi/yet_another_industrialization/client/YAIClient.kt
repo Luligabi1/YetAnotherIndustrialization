@@ -36,10 +36,12 @@ import net.neoforged.fml.ModList
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.config.ModConfig
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import net.neoforged.neoforge.client.event.InputEvent
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent
 import net.neoforged.neoforge.common.NeoForge
-import net.swedz.tesseract.neoforge.config.ConfigManager
+import net.swedz.tesseract.config.ConfigManager
+import net.swedz.tesseract.neoforge.config.ModConfigFileAccess
 
 
 @Mod(YAI.ID, dist = [Dist.CLIENT])
@@ -53,14 +55,12 @@ class YAIClient(modEventBus: IEventBus, container: ModContainer) {
     }
 
     init {
-        val manager = ConfigManager().includeDefaultValueComments()
-
-        CONFIG = manager
+        val configInstance = ConfigManager(ModConfigFileAccess(container, ModConfig.Type.CLIENT))
             .build(YAIClientConfig::class.java)
-            .register(container, ModConfig.Type.CLIENT)
+        CONFIG = configInstance
             .load()
-            .listenToLoad(modEventBus)
             .config()
+        modEventBus.addListener(FMLCommonSetupEvent::class.java) { _ -> configInstance.load(false) }
 
         GuiComponentsClient.register(LargeStorageUnitGui.TYPE, ::LargeStorageUnitGuiClient)
         GuiComponentsClient.register(ChargingSlot.TYPE, ::ChargingSlotClient)
