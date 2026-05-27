@@ -33,9 +33,10 @@ import net.neoforged.neoforge.common.NeoForge
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.registries.datamaps.DataMapsUpdatedEvent
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent
+import net.swedz.tesseract.config.ConfigManager
 import net.swedz.tesseract.neoforge.capabilities.CapabilitiesListeners
 import net.swedz.tesseract.neoforge.compat.mi.TesseractMI
-import net.swedz.tesseract.neoforge.config.ConfigManager
+import net.swedz.tesseract.neoforge.config.ModConfigFileAccess
 import net.swedz.tesseract.neoforge.lang.LangInstance
 import net.swedz.tesseract.neoforge.lang.LangManager
 import net.swedz.tesseract.neoforge.registry.holder.ItemHolder
@@ -92,23 +93,21 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
     }
 
     private fun preSetup(bus: IEventBus, container: ModContainer) {
-        val manager = ConfigManager().includeDefaultValueComments()
-
-        CONFIG = manager
+        val configInstance = ConfigManager(ModConfigFileAccess(container, ModConfig.Type.STARTUP))
             .build(YAIConfig::class.java)
-            .register(container, ModConfig.Type.STARTUP)
+        CONFIG = configInstance
             .load()
-            .listenToLoad(bus)
             .config()
+        bus.addListener(FMLCommonSetupEvent::class.java) { _ -> configInstance.load(false) }
 
         LANG_INSTANCE = LangManager(ID)
-            .style("gray", { Style.EMPTY.withColor(ChatFormatting.GRAY) })
-            .style("gray_italic", { TextHelper.GRAY_TEXT })
-            .style("green_neutron", { TextHelper.NEUTRONS })
-            .style("red", { TextHelper.RED })
-            .style("highlight", { TextHelper.NUMBER_TEXT })
-            .style("machine_remover", { MACHINE_REMOVER_STYLE })
-            .parser("keybind", String::class.java, { Parser.KEYBIND })
+            .style("gray", { -> Style.EMPTY.withColor(ChatFormatting.GRAY) })
+            .style("gray_italic", { -> TextHelper.GRAY_TEXT })
+            .style("green_neutron", { -> TextHelper.NEUTRONS })
+            .style("red", { -> TextHelper.RED })
+            .style("highlight", { -> TextHelper.NUMBER_TEXT })
+            .style("machine_remover", { -> MACHINE_REMOVER_STYLE })
+            .parser("keybind", String::class.java, { -> Parser.KEYBIND })
             .build(YAIText::class.java)
             .load()
 
