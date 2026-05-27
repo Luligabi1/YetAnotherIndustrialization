@@ -1,4 +1,4 @@
-# Yet Another Industrialziation! <img src="src/main/resources/assets/yet_another_industrialization/logo.png" align="right" width="160"/>
+# Yet Another Industrialization! <img src="src/main/resources/assets/yet_another_industrialization/logo.png" align="right" width="160"/>
 *Miscellaneous features for Modern Industrialization that make you go "YAI!"*
 
 ###### Requires [Modern Industrialization](https://www.curseforge.com/minecraft/mc-mods/modern-industrialization/), [Tesseract API](https://legacy.curseforge.com/minecraft/mc-mods/tesseract-api-neoforge) and [Kotlin for Forge](https://www.curseforge.com/minecraft/mc-mods/kotlin-for-forge)
