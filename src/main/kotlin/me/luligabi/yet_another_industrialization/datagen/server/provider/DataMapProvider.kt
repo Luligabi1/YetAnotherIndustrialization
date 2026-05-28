@@ -55,23 +55,23 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
         private val DEFAULT_LARGE_STORAGE_UNIT_TIERS = hashMapOf(
             ResourceLocation.withDefaultNamespace("redstone_block") to LargeStorageUnitTier(
                 204_800_000L,
-                CableTier.LV, CableTier.LV.shortEnglishKey(),
+                CableTier.LV
             ),
             ResourceLocation.parse(MIMaterials.SILICON.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
                 819_200_000L,
-                CableTier.MV, CableTier.MV.shortEnglishKey(),
+                CableTier.MV
             ),
             ResourceLocation.parse(MIMaterials.SODIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
                 7_372_800_000L,
-                CableTier.HV, CableTier.HV.shortEnglishKey(),
+                CableTier.HV
             ),
             YAI.id("cadmium_block") to LargeStorageUnitTier(
                 52_428_800_000L,
-                CableTier.EV, CableTier.EV.shortEnglishKey(),
+                CableTier.EV
             ),
             ResourceLocation.parse(MIMaterials.PLUTONIUM.getPart(MIParts.BLOCK).itemId) to LargeStorageUnitTier(
                 819_200_000_000L,
-                CableTier.SUPERCONDUCTOR, CableTier.SUPERCONDUCTOR.shortEnglishKey(),
+                CableTier.SUPERCONDUCTOR
             ),
             YAIBlocks.SINGULARITY_BLOCK.identifier().location to LargeStorageUnitTier(
                 Long.MAX_VALUE,
@@ -79,10 +79,44 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
             )
         )
 
+        private val DEFAULT_FLIGHT_PYLON_TIERS = hashMapOf(
+            ResourceLocation.parse(MIMaterials.STEEL.getPart(MIParts.MACHINE_CASING).itemId) to FlightPylonTier(
+                24.0,
+                192L,
+                "text.yet_another_industrialization.flight_pylon_tier_tiny",
+                "#3F3F3F"
+            ),
+            ResourceLocation.parse(MIMaterials.ALUMINUM.getPart(MIParts.MACHINE_CASING).itemId) to FlightPylonTier(
+                48.0,
+                768L,
+                "text.yet_another_industrialization.flight_pylon_tier_small",
+                "#3FCAFF"
+            ),
+            ResourceLocation.parse(MIMaterials.STAINLESS_STEEL.getPart(MIParts.MACHINE_CASING).itemId) to FlightPylonTier(
+                72.0,
+                3_072L,
+                "text.yet_another_industrialization.flight_pylon_tier_medium",
+                "#C8C8DC"
+            ),
+            ResourceLocation.parse(MIMaterials.TITANIUM.getPart(MIParts.MACHINE_CASING).itemId) to FlightPylonTier(
+                96.0,
+                12_288L,
+                "text.yet_another_industrialization.flight_pylon_tier_large",
+                "#DCA0F0"
+            ),
+            ResourceLocation.parse(MIMaterials.IRIDIUM.getPart(MIParts.MACHINE_CASING).itemId) to FlightPylonTier(
+                128.0,
+                32_768L,
+                "text.yet_another_industrialization.flight_pylon_tier_huge",
+                "#E1E6F5"
+            )
+        )
+
     }
 
     override fun gather(provider: HolderLookup.Provider) {
         irradiatorNeutronSource(provider)
+        flightPylonTiers(provider)
         largeStorageUnit(provider)
         arboreousGreenhouseSoils(provider)
         numismaticGeneratorCurrencies(provider)
@@ -91,6 +125,12 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
     fun irradiatorNeutronSource(provider: HolderLookup.Provider) {
         DEFAULT_IRRADIATOR_NEUTRON_SOURCE_TIERS.forEach { (id, tier) ->
             builder(YAIDataMaps.IRRADIATOR_NEUTRON_SOURCE).add(id, tier, false)
+        }
+    }
+
+    fun flightPylonTiers(provider: HolderLookup.Provider) {
+        DEFAULT_FLIGHT_PYLON_TIERS.forEach { (id, tier) ->
+            builder(YAIDataMaps.FLIGHT_PYLON_TIER).add(id, tier, false)
         }
     }
 

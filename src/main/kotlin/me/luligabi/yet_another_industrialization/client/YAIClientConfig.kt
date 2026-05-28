@@ -10,6 +10,10 @@ interface YAIClientConfig {
     @SubSection
     fun multiblockModel(): MultiblockModel
 
+    @ConfigKey("flight_pylon")
+    @SubSection
+    fun flightPylon(): FlightPylon
+
     interface MultiblockModel {
 
         @ConfigKey("disableModelCache")
@@ -19,6 +23,14 @@ interface YAIClientConfig {
         @ConfigKey("minimalQuads")
         @ConfigComment("Use minimal quads for rendering")
         fun minimalQuads() = false
+
+    }
+
+    interface FlightPylon {
+
+        @ConfigKey("disableBeacon")
+        @ConfigComment("Disable beacon rendering regardless of pylon's state")
+        fun disableBeacon() = false
 
     }
 

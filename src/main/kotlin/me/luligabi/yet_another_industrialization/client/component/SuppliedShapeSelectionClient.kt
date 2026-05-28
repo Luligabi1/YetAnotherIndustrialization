@@ -8,7 +8,7 @@ import aztech.modern_industrialization.machines.guicomponents.ShapeSelection
 import aztech.modern_industrialization.util.Rectangle
 import aztech.modern_industrialization.util.TextHelper
 import com.mojang.blaze3d.systems.RenderSystem
-import me.luligabi.yet_another_industrialization.common.misc.network.SuppliedShapeSelect
+import me.luligabi.yet_another_industrialization.common.misc.network.SuppliedShapeSelectPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
@@ -51,7 +51,7 @@ class SuppliedShapeSelectionClient(
                     getVerticalPos(i),
                     12,
                     12,
-                    { syncId -> (SuppliedShapeSelect(syncId, i, true)).sendToServer() },
+                    { syncId -> (SuppliedShapeSelectPacket(syncId, i, true)).sendToServer() },
                     { mutableListOf() },
                     { screen, button, guiGraphics, mouseX, mouseY, delta ->
                         if (this@SuppliedShapeSelectionClient.data[i] == 0) {
@@ -66,7 +66,7 @@ class SuppliedShapeSelectionClient(
                     getVerticalPos(i),
                     12,
                     12,
-                    { syncId -> (SuppliedShapeSelect(syncId, i, false)).sendToServer() },
+                    { syncId -> (SuppliedShapeSelectPacket(syncId, i, false)).sendToServer() },
                     { mutableListOf() },
                     { screen, button, guiGraphics, mouseX, mouseY, delta ->
                         if (this@SuppliedShapeSelectionClient.data[i] == line.numValues() - 1) {

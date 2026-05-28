@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "modern_industrialization:analog_circuit"
+    },
+    "E": {
+      "item": "minecraft:elytra"
+    },
+    "H": {
+      "item": "modern_industrialization:basic_machine_hull"
+    },
+    "P": {
+      "item": "modern_industrialization:steel_large_plate"
+    },
+    "W": {
+      "item": "modern_industrialization:cupronickel_wire_magnetic"
+    }
+  },
+  "pattern": [
+    "CEC",
+    "WHW",
+    "WPW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:flight_pylon"
+  }
+}

@@ -4,6 +4,7 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
+import me.luligabi.yet_another_industrialization.common.misc.effect.YAIEffects
 import me.luligabi.yet_another_industrialization.common.misc.keybind.YAIKeybinds
 import net.neoforged.neoforge.common.data.LanguageProvider
 import net.neoforged.neoforge.data.event.GatherDataEvent
@@ -26,6 +27,8 @@ class LanguageProvider(event: GatherDataEvent): LanguageProvider(event.generator
         for (keybind in YAIKeybinds.Registry.mappings) {
             add(keybind.descriptionId, keybind.englishName)
         }
+
+        add(YAIEffects.CREATIVE_FLIGHT.get().descriptionId, "Creative Flight")
 
         for (sound in SoundProvider.TRANSLATIONS) {
             add(sound.key, sound.value)

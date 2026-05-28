@@ -1,6 +1,7 @@
 package me.luligabi.yet_another_industrialization.common.compat.mi
 
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
+import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.FlightPylonTierCategory
 import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.IrradiatorNeutronSourceCategory
 import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.LargeStorageUnitTierCategory
 import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.NumismaticCurrenciesCategory
@@ -38,6 +39,7 @@ class YAIHookListener: MIHookListener {
 
     override fun viewerSetup(hook: ViewerSetupMIHookContext) {
         hook.register(IrradiatorNeutronSourceCategory())
+        hook.register(FlightPylonTierCategory())
         hook.register(LargeStorageUnitTierCategory())
         hook.register(NumismaticCurrenciesCategory())
     }

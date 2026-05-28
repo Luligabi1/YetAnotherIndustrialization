@@ -21,7 +21,7 @@ object PartRecipeProvider : YAIRecipeProvider {
 
     override fun buildRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addMachineRecipe(
-            "assembler/dragon_egg_siphon_catalyst/dragon_breath",
+            "dragon_egg_siphon_catalyst/dragon_breath",
             MIMachineRecipeTypes.ASSEMBLER,
             8, 10*20,
             {
@@ -35,7 +35,7 @@ object PartRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "assembler/dragon_egg_siphon_catalyst/nutrient_rich_dragon_breath",
+            "dragon_egg_siphon_catalyst/nutrient_rich_dragon_breath",
             MIMachineRecipeTypes.ASSEMBLER,
             8, 10*20,
             {
@@ -62,7 +62,7 @@ object PartRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "assembler/singularity_block",
+            "singularity_block",
             MIMachineRecipeTypes.ASSEMBLER,
             20, 20*20,
             {
@@ -76,7 +76,7 @@ object PartRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "unpacker/singularity_block",
+            "singularity_block",
             MIMachineRecipeTypes.UNPACKER,
             20, 20*20,
             {

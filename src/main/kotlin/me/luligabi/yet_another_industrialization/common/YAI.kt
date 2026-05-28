@@ -4,6 +4,7 @@ import aztech.modern_industrialization.util.TextHelper
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.flight_pylon.FlightPylonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.compat.guideme.YAIGuide
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
@@ -13,6 +14,7 @@ import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAISounds
 import me.luligabi.yet_another_industrialization.common.misc.component.YAIDataComponents
 import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
+import me.luligabi.yet_another_industrialization.common.misc.effect.YAIEffects
 import me.luligabi.yet_another_industrialization.common.misc.material.YAIMaterials
 import me.luligabi.yet_another_industrialization.common.misc.network.YAIPackets
 import me.luligabi.yet_another_industrialization.common.util.MACHINE_REMOVER_STYLE
@@ -71,6 +73,7 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
         YAIMachines.RecipeTypes.init(modEventBus)
         YAIDataComponents.init(modEventBus)
         modEventBus.addListener(RegisterPayloadHandlersEvent::class.java, YAIPackets::init)
+        YAIEffects.init(modEventBus)
         YAISounds.init(modEventBus)
         YAICreativeTab.init(modEventBus)
         YAIGuide
@@ -85,6 +88,7 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, DataMapsUpdatedEvent::class.java) {
             it.ifRegistry(Registries.BLOCK) { _ ->
                 ArboreousGreenhouseBlockEntity.initTiers()
+                FlightPylonBlockEntity.initTiers()
                 LargeStorageUnitBlockEntity.initTiers()
             }
         }

@@ -1,0 +1,33 @@
+{
+  "type": "modern_industrialization:assembler",
+  "duration": 200,
+  "eu": 8,
+  "item_inputs": [
+    {
+      "amount": 1,
+      "item": "modern_industrialization:steel_large_plate"
+    },
+    {
+      "amount": 2,
+      "item": "modern_industrialization:analog_circuit"
+    },
+    {
+      "amount": 1,
+      "item": "minecraft:elytra"
+    },
+    {
+      "amount": 4,
+      "item": "modern_industrialization:cupronickel_wire_magnetic"
+    },
+    {
+      "amount": 1,
+      "item": "modern_industrialization:basic_machine_hull"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "yet_another_industrialization:flight_pylon"
+    }
+  ]
+}

@@ -2,24 +2,22 @@ package me.luligabi.yet_another_industrialization.common.misc.network
 
 import aztech.modern_industrialization.machines.gui.MachineMenuServer
 import aztech.modern_industrialization.network.MIStreamCodecs
-import me.luligabi.yet_another_industrialization.common.block.machine.util.components.SuppliedShapeSelection
+import me.luligabi.yet_another_industrialization.common.block.machine.util.components.ToggleCheckbox
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.swedz.tesseract.neoforge.packet.CustomPacket
 import net.swedz.tesseract.neoforge.packet.PacketContext
 
-class SuppliedShapeSelect(
+class ToggleCheckboxPacket(
     private val syncId: Int,
-    private val shapeLine: Int,
-    private val clickedLeftButton: Boolean
+    private val value: Boolean
 ): CustomPacket {
 
     companion object {
         val STREAM_CODEC = StreamCodec.composite(
-            MIStreamCodecs.BYTE, SuppliedShapeSelect::syncId,
-            ByteBufCodecs.VAR_INT, SuppliedShapeSelect::shapeLine,
-            ByteBufCodecs.BOOL, SuppliedShapeSelect::clickedLeftButton,
-            ::SuppliedShapeSelect
+            MIStreamCodecs.BYTE, ToggleCheckboxPacket::syncId,
+            ByteBufCodecs.BOOL, ToggleCheckboxPacket::value,
+            ::ToggleCheckboxPacket
         )
     }
 
@@ -28,8 +26,8 @@ class SuppliedShapeSelect(
 
         val menu = ctx.player.containerMenu
         if (menu.containerId == syncId && menu is MachineMenuServer) {
-            val shapeSelection = menu.blockEntity.guiComponents.getOrThrow(SuppliedShapeSelection::class.java)
-            shapeSelection.behavior.handleClick(shapeLine, if (clickedLeftButton) -1 else +1)
+            val shapeSelection = menu.blockEntity.guiComponents.getOrThrow(ToggleCheckbox::class.java)
+            shapeSelection.action(value)
         }
     }
 

@@ -7,6 +7,7 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.misc.datamap.LargeStorageUnitTier
+import me.luligabi.yet_another_industrialization.common.util.parseTier
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
@@ -63,7 +64,7 @@ class LargeStorageUnitTierCategory : ViewerCategory<LargeStorageUnitTierCategory
 
         val block = BuiltInRegistries.BLOCK.get(key)!!
 
-        private val hullId = LargeStorageUnitTier.getHull(key.location(), LargeStorageUnitTier.parseTier(tier.cableTier)!!)
+        private val hullId = LargeStorageUnitTier.getHull(key.location(), parseTier(tier.cableTier)!!)
         val hull = BuiltInRegistries.BLOCK.get(hullId)
 
         val name = Component.translatable(tier.translationKey)

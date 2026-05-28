@@ -7,6 +7,7 @@ import aztech.modern_industrialization.MIItem
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.flight_pylon.FlightPylonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.NumismaticGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.EnergyGenerationCondition
@@ -124,6 +125,39 @@ object MachineRecipeProvider : YAIRecipeProvider {
             output
         )
         buildPDGRecipes(output, lookup)
+
+        /** Flight Pylon */
+        shaped(
+            "${FlightPylonBlockEntity.ID}_elytra",
+            YAIMachines.getMachineFromId(FlightPylonBlockEntity.ID), 1,
+            { it
+                .define('C', MIItem.ANALOG_CIRCUIT)
+                .define('W', MIMaterials.CUPRONICKEL.get(MIMaterialParts.WIRE_MAGNETIC).asItem())
+                .define('E', Items.ELYTRA)
+                .define('H', MIBlock.BASIC_MACHINE_HULL)
+                .define('P', MIMaterials.STEEL.get(MIMaterialParts.LARGE_PLATE).asItem())
+                .pattern("CEC")
+                .pattern("WHW")
+                .pattern("WPW")
+            },
+            output
+        )
+
+        shaped(
+            "${FlightPylonBlockEntity.ID}_jetpack",
+            YAIMachines.getMachineFromId(FlightPylonBlockEntity.ID), 1,
+            { it
+                .define('C', MIItem.ELECTRONIC_CIRCUIT)
+                .define('W', MIMaterials.CUPRONICKEL.get(MIMaterialParts.WIRE_MAGNETIC).asItem())
+                .define('J', MIItem.DIESEL_JETPACK)
+                .define('H', MIBlock.ADVANCED_MACHINE_HULL)
+                .define('P', MIMaterials.STEEL.get(MIMaterialParts.LARGE_PLATE).asItem())
+                .pattern("CJC")
+                .pattern("WHW")
+                .pattern("WPW")
+            },
+            output
+        )
 
         /** Large Storage Unit */
         shaped(
@@ -283,7 +317,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${YAIMachines.CP_ID}/powder_snow_bucket",
+            "powder_snow_bucket",
             YAIMachines.RecipeTypes.CRYOGENIC_PRECIPITATOR,
             8, 30,
             {
@@ -298,7 +332,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${YAIMachines.CP_ID}/powder_snow_bucket_nutrient",
+            "powder_snow_bucket_nutrient",
             YAIMachines.RecipeTypes.CRYOGENIC_PRECIPITATOR,
             8, 30,
             {
@@ -374,7 +408,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         val heliumAmount = (cryofluidAmount * 0.25).toInt()
 
         addMachineRecipe(
-            "${YAIMachines.CP_ID}/$id",
+            "$id",
             YAIMachines.RecipeTypes.CRYOGENIC_PRECIPITATOR,
             8, 30,
             {
@@ -402,7 +436,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         }
 
         addMachineRecipe(
-            "${YAIMachines.CP_ID}/${id}_nutrient",
+            "${id}_nutrient",
             YAIMachines.RecipeTypes.CRYOGENIC_PRECIPITATOR,
             8, 30,
             {
@@ -425,7 +459,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
 
     private fun buildDragonSiphonRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addMachineRecipe(
-            "${DragonSiphonBlockEntity.ID}/dragon_breath",
+            "dragon_breath",
             YAIMachines.RecipeTypes.DRAGON_SIPHON,
             1, 8*20,
             {
@@ -440,7 +474,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${DragonSiphonBlockEntity.ID}/nutrient_dragon_breath",
+            "nutrient_dragon_breath",
             YAIMachines.RecipeTypes.DRAGON_SIPHON,
             1, 20*20,
             {
@@ -458,7 +492,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
     private fun buildPDGRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         /** Industrial TNT */
         addMachineRecipe(
-            "${PulseDetonationGeneratorBlockEntity.ID}/industrial_tnt/8",
+            "industrial_tnt/8",
             YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
             1, 25*20,
             {
@@ -473,7 +507,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${PulseDetonationGeneratorBlockEntity.ID}/industrial_tnt/16",
+            "industrial_tnt/16",
             YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
             1, 30*20,
             {
@@ -488,7 +522,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${PulseDetonationGeneratorBlockEntity.ID}/industrial_tnt/32",
+            "industrial_tnt/32",
             YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
             1, 40*20,
             {
@@ -503,7 +537,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${PulseDetonationGeneratorBlockEntity.ID}/industrial_tnt/64",
+            "industrial_tnt/64",
             YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
             1, 45*20,
             {
@@ -519,7 +553,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
 
         /** Nuke */
         addMachineRecipe(
-            "${PulseDetonationGeneratorBlockEntity.ID}/nuke/8",
+            "nuke/8",
             YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
             1, 60*20,
             {
@@ -534,7 +568,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${PulseDetonationGeneratorBlockEntity.ID}/nuke/16",
+            "nuke/16",
             YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
             1, 2*60*20,
             {
@@ -549,7 +583,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${PulseDetonationGeneratorBlockEntity.ID}/nuke/32",
+            "nuke/32",
             YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
             1, 3*60*20,
             {
@@ -564,7 +598,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "${PulseDetonationGeneratorBlockEntity.ID}/nuke/64",
+            "nuke/64",
             YAIMachines.RecipeTypes.PULSE_DETONATION_GENERATOR,
             1, 10*60*20,
             {

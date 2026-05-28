@@ -55,7 +55,7 @@ object ItemRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "assembler/storage_slot_locker",
+            "storage_slot_locker",
             MIMachineRecipeTypes.ASSEMBLER,
             8, 10*20,
             {
@@ -70,7 +70,7 @@ object ItemRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "assembler/machine_remover",
+            "machine_remover",
             MIMachineRecipeTypes.ASSEMBLER,
             8, 10*20,
             {
@@ -86,7 +86,7 @@ object ItemRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "chemical_reactor/cachaca",
+            "cachaca",
             MIMachineRecipeTypes.CHEMICAL_REACTOR,
             6, 7*20,
             {
@@ -100,7 +100,7 @@ object ItemRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "chemical_reactor/ai_slop",
+            "ai_slop",
             MIMachineRecipeTypes.CHEMICAL_REACTOR,
             256, 7*20,
             {
@@ -113,7 +113,7 @@ object ItemRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "packer/ultradense_metal_ball_burger",
+            "ultradense_metal_ball_burger",
             MIMachineRecipeTypes.PACKER,
             2, 5*20,
             {

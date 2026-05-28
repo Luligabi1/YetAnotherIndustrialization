@@ -1,7 +1,11 @@
 package me.luligabi.yet_another_industrialization.common.util
 
+import aztech.modern_industrialization.api.energy.CableTier
 import aztech.modern_industrialization.machines.multiblocks.HatchFlags
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
+import com.mojang.serialization.Codec
+import com.mojang.serialization.DataResult
+import me.luligabi.yet_another_industrialization.mixin.CableTierAccessor
 import me.luligabi.yet_another_industrialization.mixin.MultiblockMachineBlockEntityAccessor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.CommonComponents
@@ -46,7 +50,39 @@ fun File.get(path: String): File? {
     return File(this, path).takeIf { it.exists() }
 }
 
+fun String.toDecimalColor(): Int {
+    return this.removePrefix("#").toInt(16)
+}
+
 val MACHINE_REMOVER_STYLE = Style.EMPTY.withColor(TextColor.fromRgb(0xD84D2C))
 
 val ITEM_STYLE = Style.EMPTY.withColor(TextColor.fromRgb(0xFF8040))
 val FLUID_STYLE = Style.EMPTY.withColor(TextColor.fromRgb(0x3946DB))
+
+val CABLE_TIER_CODEC = Codec.STRING.flatXmap(
+    { id ->
+        parseTier(id)?.let {
+            DataResult.success(id)
+        } ?: DataResult.error({ "Unknown cable tier: $id" })
+    },
+    { DataResult.success(it) }
+)
+
+val HEX_COLOR_CODEC = Codec.STRING.comapFlatMap(
+    { hex ->
+        try {
+            DataResult.success(hex.toDecimalColor())
+        } catch (_: Exception) {
+            DataResult.error { "Invalid hex code: $hex" }
+        }
+    },
+    { color -> "#%06X".format(color) }
+)
+
+fun parseTier(value: String): CableTier? {
+    return if (value == "*") {
+        CableTierAccessor.getTiers().values.maxBy { it.eu }
+    } else {
+        CableTierAccessor.getTiers()[value]
+    }
+}

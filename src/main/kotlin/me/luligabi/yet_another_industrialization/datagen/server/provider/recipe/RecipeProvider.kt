@@ -16,6 +16,7 @@ class RecipeProvider(event: GatherDataEvent): RecipeProvider(event.generator.pac
         PartRecipeProvider.buildRecipes(output, lookup)
         ResourcesRecipeProvider.buildRecipes(output, lookup)
         FluidRecipeProvider.buildRecipes(output, lookup)
+        MiscRecipeProvider.buildRecipes(output, lookup)
 
         for (material in YAIMaterials.values()) {
             YAIMaterialRegistry.createRecipesFor(material, output)

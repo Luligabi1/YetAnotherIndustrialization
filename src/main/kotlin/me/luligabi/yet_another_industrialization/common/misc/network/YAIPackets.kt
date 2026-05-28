@@ -10,7 +10,9 @@ import net.swedz.tesseract.neoforge.packet.PacketRegistry
 object YAIPackets {
 
     fun init(event: RegisterPayloadHandlersEvent) {
-        create("supplied_shape_select", SuppliedShapeSelect::class.java, SuppliedShapeSelect.STREAM_CODEC)
+        create("supplied_shape_select", SuppliedShapeSelectPacket::class.java, SuppliedShapeSelectPacket.STREAM_CODEC)
+        create("toggle_checkbox", ToggleCheckboxPacket::class.java, ToggleCheckboxPacket.STREAM_CODEC)
+
 
         create("slot_locker_change_mode", SlotLockerChangeModePacket::class.java, SlotLockerChangeModePacket.STREAM_CODEC)
         create("slot_locker_drag_packet", SlotLockerDragPacket::class.java, SlotLockerDragPacket.STREAM_CODEC)

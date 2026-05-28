@@ -69,7 +69,7 @@ interface YAIRecipeProvider {
     ) {
         MIMachineRecipeBuilder(recipeType, eu, duration).apply {
             crafting.invoke(this)
-            offerTo(output, YAI.id(path))
+            offerTo(output, YAI.id("${recipeType.id.path}/$path"))
         }
     }
 
