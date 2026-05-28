@@ -218,7 +218,7 @@ object ArboreousGreenhouseRecipeProvider : YAIRecipeProvider {
     ) {
         if (fluid != null) {
             addMachineRecipe(
-                "${ArboreousGreenhouseBlockEntity.ID}/$id/regular",
+                "$id/regular",
                 YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE,
                 15, 60*20,
                 {
@@ -239,7 +239,7 @@ object ArboreousGreenhouseRecipeProvider : YAIRecipeProvider {
         if (nutrientFluid == null) return
 
         addMachineRecipe(
-            "${ArboreousGreenhouseBlockEntity.ID}/${id}/nutrient",
+            "${id}/nutrient",
             YAIMachines.RecipeTypes.ARBOREOUS_GREENHOUSE,
             15, 60*20,
             {

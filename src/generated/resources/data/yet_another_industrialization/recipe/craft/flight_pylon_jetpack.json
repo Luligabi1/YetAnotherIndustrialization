@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "modern_industrialization:electronic_circuit"
+    },
+    "H": {
+      "item": "modern_industrialization:advanced_machine_hull"
+    },
+    "J": {
+      "item": "modern_industrialization:diesel_jetpack"
+    },
+    "P": {
+      "item": "modern_industrialization:steel_large_plate"
+    },
+    "W": {
+      "item": "modern_industrialization:cupronickel_wire_magnetic"
+    }
+  },
+  "pattern": [
+    "CJC",
+    "WHW",
+    "WPW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:flight_pylon"
+  }
+}

@@ -4,10 +4,10 @@ import aztech.modern_industrialization.MIBlockKeys
 import aztech.modern_industrialization.api.energy.CableTier
 import aztech.modern_industrialization.util.MIExtraCodecs
 import com.mojang.serialization.Codec
-import com.mojang.serialization.DataResult
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
-import me.luligabi.yet_another_industrialization.mixin.CableTierAccessor
+import me.luligabi.yet_another_industrialization.common.util.CABLE_TIER_CODEC
+import me.luligabi.yet_another_industrialization.common.util.parseTier
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -20,22 +20,14 @@ data class LargeStorageUnitTier(
     val translationKey: String
 ) {
 
-    constructor(capacity: Long, cableTier: CableTier, translationKey: String) : this(
+    constructor(capacity: Long, cableTier: CableTier) : this(
         capacity,
         cableTier.name,
-        translationKey
+        cableTier.shortEnglishKey()
     )
 
     companion object {
 
-        private val CABLE_TIER_CODEC = Codec.STRING.flatXmap(
-            { id ->
-                parseTier(id)?.let {
-                    DataResult.success(id)
-                } ?: DataResult.error({ "Unknown cable tier: $id" })
-            },
-            { DataResult.success(it) }
-        )
 
         val CODEC = RecordCodecBuilder.create {
             it.group(
@@ -54,14 +46,6 @@ data class LargeStorageUnitTier(
         fun getHull(key: ResourceLocation, cableTier: CableTier): ResourceLocation {
             if (cableTier.name == "lv") return MIBlockKeys.BASIC_MACHINE_HULL.location()
             return cableTier.itemKey ?: key
-        }
-
-        fun parseTier(value: String): CableTier? {
-            return if (value == "*") {
-                CableTierAccessor.getTiers().values.maxBy { it.eu }
-            } else {
-                CableTierAccessor.getTiers()[value]
-            }
         }
 
     }

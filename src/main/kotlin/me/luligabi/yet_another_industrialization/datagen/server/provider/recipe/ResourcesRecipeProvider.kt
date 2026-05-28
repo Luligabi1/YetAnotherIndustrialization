@@ -17,7 +17,7 @@ object ResourcesRecipeProvider : YAIRecipeProvider {
 
     fun addLiquidAirRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addMachineRecipe(
-            "centrifuge/scorching_liquid_air_extract",
+            "scorching_liquid_air_extract",
             MIMachineRecipeTypes.CENTRIFUGE,
             24, 30*20,
             {
@@ -31,7 +31,7 @@ object ResourcesRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "centrifuge/gelid_liquid_air_extract",
+            "gelid_liquid_air_extract",
             MIMachineRecipeTypes.CENTRIFUGE,
             24, 30*20,
             {

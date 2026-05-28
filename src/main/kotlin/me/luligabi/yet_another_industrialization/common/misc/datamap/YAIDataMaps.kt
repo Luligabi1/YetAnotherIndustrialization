@@ -14,6 +14,8 @@ object YAIDataMaps {
 
     val ARBOREOUS_GREENHOUSE_TIER = create("arboreous_greenhouse_tier", Registries.BLOCK, ArboreousGreenhouseTier.CODEC, true)
 
+    val FLIGHT_PYLON_TIER = create("flight_pylon_tier", Registries.BLOCK, FlightPylonTier.CODEC, true)
+
     val LARGE_STORAGE_UNIT_TIER = create("large_storage_unit_tier", Registries.BLOCK, LargeStorageUnitTier.CODEC, true)
 
     val IRRADIATOR_NEUTRON_SOURCE = create("irradiator_neutron_source", Registries.ITEM, IrradiatorNeutronSource.CODEC, true)

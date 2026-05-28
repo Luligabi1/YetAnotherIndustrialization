@@ -10,4 +10,5 @@
 ## Misc.
 - [Adding Irradiator Neutron Sources](misc/IRRADIATOR_NEUTRON_SOURCES.md)
 - [Adding Large Storage Unit Tiers](misc/LARGE_STORAGE_UNIT_TIERS.md)
+- [Adding Flight Pylon Tiers](misc/FLIGHT_PYLON_TIERS.md)
 - [Adding biomes for Tempproof Air Intakes](misc/TEMPPROOF_AIR_INTAKE.md)

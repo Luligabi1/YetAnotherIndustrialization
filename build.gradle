@@ -241,7 +241,7 @@ idea {
 }
 
 ext.getChangeLog = { ->
-    return ""
+    return "- Added the Flight Pylon"
 }
 
 publishMods {

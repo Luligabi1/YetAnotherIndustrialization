@@ -25,7 +25,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
 
     fun addNutrientFluidRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addMachineRecipe(
-            "centrifuge/nutrient_rich_water",
+            "nutrient_rich_water",
             MIMachineRecipeTypes.CENTRIFUGE,
             8, 10*20,
             {
@@ -37,7 +37,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "centrifuge/nutrient_rich_lava",
+            "nutrient_rich_lava",
             MIMachineRecipeTypes.CENTRIFUGE,
             8, 10*20,
             {
@@ -49,7 +49,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "centrifuge/dragon_breath",
+            "dragon_breath",
             MIMachineRecipeTypes.CENTRIFUGE,
             8, 10*20,
             {
@@ -62,7 +62,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "centrifuge/nutrient_rich_dragon_breath",
+            "nutrient_rich_dragon_breath",
             MIMachineRecipeTypes.CENTRIFUGE,
             8, 10*20,
             {
@@ -74,7 +74,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "centrifuge/nutrient_rich_dragon_breath_dragon_egg",
+            "nutrient_rich_dragon_breath_dragon_egg",
             MIMachineRecipeTypes.CENTRIFUGE,
             64, 120*20,
             {
@@ -85,7 +85,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "centrifuge/impure_dragon_breath_purify",
+            "impure_dragon_breath_purify",
             MIMachineRecipeTypes.CENTRIFUGE,
             8, 7*20,
             {
@@ -98,7 +98,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "centrifuge/impure_dragon_breath_purify_nutrient",
+            "impure_dragon_breath_purify_nutrient",
             MIMachineRecipeTypes.CENTRIFUGE,
             8, 12*20,
             {
@@ -114,7 +114,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
 
     fun addLiquidAirRecipes(output: RecipeOutput, lookup: HolderLookup.Provider) {
         addMachineRecipe(
-            "pressurizer/scorching_liquid_air",
+            "scorching_liquid_air",
             MIMachineRecipeTypes.PRESSURIZER,
             8, 10*20,
             {
@@ -129,7 +129,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "pressurizer/gelid_liquid_air",
+            "gelid_liquid_air",
             MIMachineRecipeTypes.PRESSURIZER,
             8, 10*20,
             {
@@ -144,7 +144,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
         )
 
         addMachineRecipe(
-            "heat_exchanger/liquid_air_to_steam",
+            "liquid_air_to_steam",
             MIMachineRecipeTypes.HEAT_EXCHANGER,
             2, 15*20,
             {

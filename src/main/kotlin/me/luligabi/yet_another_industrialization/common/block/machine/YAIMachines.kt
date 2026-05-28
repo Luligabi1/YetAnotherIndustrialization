@@ -18,6 +18,7 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseTierCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.flight_pylon.FlightPylonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.NumismaticGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.EnergyGenerationCondition
@@ -215,6 +216,10 @@ object YAIMachines {
                 }
                 it.progressBar(77, 33, "yai_explode")
             }).registerRecipeCategory()
+            .registerMachine()
+
+        hook.builder(FlightPylonBlockEntity.ID, FlightPylonBlockEntity.NAME, ::FlightPylonBlockEntity)
+            .builtinModel(MachineCasings.STEEL, FlightPylonBlockEntity.ID)
             .registerMachine()
 
         hook.builder(LargeStorageUnitBlockEntity.ID, LargeStorageUnitBlockEntity.NAME, ::LargeStorageUnitBlockEntity)

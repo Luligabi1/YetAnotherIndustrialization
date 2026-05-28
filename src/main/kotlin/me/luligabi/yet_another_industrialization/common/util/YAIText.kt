@@ -6,6 +6,7 @@ import net.swedz.tesseract.neoforge.lang.annotation.LangKey
 import net.swedz.tesseract.neoforge.lang.annotation.Parsed
 import net.swedz.tesseract.neoforge.lang.annotation.WithStyle
 
+@Suppress("UNUSED")
 interface YAIText {
 
     /** Machine Diagnoser */
@@ -196,6 +197,37 @@ interface YAIText {
     fun energyGenerationTooltip(
         @WithStyle("highlight") energy: Component
     ): MutableComponent
+
+    /** Flight Pylon */
+    @WithStyle("gray")
+    @LangKey(text = ["Click to toggle beacon visibility."])
+    fun flightPylonBeaconToggle(): MutableComponent
+
+    @LangKey(text = ["Range: %d Blocks"])
+    fun flightPylonRange(range: Int): MutableComponent
+
+    @LangKey(text = ["Consumes: %s"])
+    fun flightPylonEnergy(eu: Component): MutableComponent
+
+    @LangKey(text = ["Flight Pylon Tiers"])
+    fun flightPylonTiers(): MutableComponent
+
+    @LangKey(text = ["Tiny"])
+    fun flightPylonTierTiny(): MutableComponent
+
+    @LangKey(text = ["Small"])
+    fun flightPylonTierSmall(): MutableComponent
+
+    @LangKey(text = ["Medium"])
+    fun flightPylonTierMedium(): MutableComponent
+
+    @LangKey(text = ["Large"])
+    fun flightPylonTierLarge(): MutableComponent
+
+    @LangKey(text = ["Huge"])
+    fun flightPylonTierHuge(): MutableComponent
+
+
 
     /** Large Storage Unit */
     @LangKey(text = ["%s / %s %sEU (%s)"])
