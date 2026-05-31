@@ -18,18 +18,20 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    mavenCentral()
     maven {
         name = "Kotlin for Forge"
         setUrl("https://thedarkcolour.github.io/KotlinForForge/")
     }
     maven {
-        name = "ModMaven (MI, GrandPower, Tesseract, JEI)"
+        name = "ModMaven (MI, GrandPower, Tesseract, JEI, AE2)"
         url = "https://modmaven.dev"
         content {
             includeGroup "aztech" // MI
             includeGroup "dev.technici4n"  // GrandPower
             includeGroup "net.swedz" // Tesseract
             includeGroup "mezz.jei" // JEI
+            includeGroup "appeng" // AE2
         }
     }
     maven {
@@ -181,6 +183,7 @@ dependencies {
 
     implementation "org.appliedenergistics:guideme:${project.guideme_version}"
     runtimeOnly compileOnly("curse.maven:jade-324717:${project.jade_version}")
+    runtimeOnly compileOnly("org.appliedenergistics:appliedenergistics2:${project.ae2_version}")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

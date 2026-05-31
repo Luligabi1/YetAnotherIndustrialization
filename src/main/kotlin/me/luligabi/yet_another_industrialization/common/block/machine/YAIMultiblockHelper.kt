@@ -45,6 +45,9 @@ interface YAIMultiblockHelper {
     val controllerXOffset: Int
         get() = 0
 
+    val controllerYOffset: Int
+        get() = 0
+
     fun ShapeTemplate.Builder.addLayer(y: Int, patternIndex: Int = y): ShapeTemplate.Builder {
 
         for (z in pattern[patternIndex].indices) {
@@ -54,7 +57,7 @@ interface YAIMultiblockHelper {
 
                 val block = materialRules.entries.find { it.key(row[x], y) }?.value ?: continue
                 val flags = hatchPredicate.entries.find { it.key(row[x], y) }?.value
-                add(x + controllerXOffset, y, z, block, flags)
+                add(x + controllerXOffset, y + controllerYOffset, z, block, flags)
             }
         }
 

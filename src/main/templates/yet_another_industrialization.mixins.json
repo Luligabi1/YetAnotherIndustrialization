@@ -29,6 +29,7 @@
   ],
   "client": [
     "MachineScreenAccessor",
+    "MultiblockMachineBERMixin",
     "ScreenAccessor"
   ],
   "injectors": {

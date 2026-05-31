@@ -2,7 +2,7 @@
 navigation:
   title: "Cryogenic Precipitator"
   icon: "yet_another_industrialization:cryogenic_precipitator"
-  position: 10
+  position: 1
   parent: yet_another_industrialization:machines.md
 item_ids:
   - yet_another_industrialization:cryogenic_precipitator

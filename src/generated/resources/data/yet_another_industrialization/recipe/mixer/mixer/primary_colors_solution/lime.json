@@ -1,0 +1,23 @@
+{
+  "type": "modern_industrialization:mixer",
+  "duration": 200,
+  "eu": 2,
+  "fluid_inputs": [
+    {
+      "amount": 50,
+      "fluid": "yet_another_industrialization:primary_colors_solution"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 2,
+      "item": "modern_industrialization:wax"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 8,
+      "item": "minecraft:lime_dye"
+    }
+  ]
+}

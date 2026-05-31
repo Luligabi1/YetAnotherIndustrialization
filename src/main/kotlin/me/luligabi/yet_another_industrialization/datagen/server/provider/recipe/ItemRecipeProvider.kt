@@ -21,7 +21,7 @@ object ItemRecipeProvider : YAIRecipeProvider {
             "guidebook",
             YAIItems.GUIDEBOOK.get(), 1,
             { it
-                .with(MIItem.GUIDE_BOOK.asItem())
+                .with(MIItem.GUIDE_BOOK)
                 .with(Tags.Items.DYES_MAGENTA)
             },
             output
@@ -44,7 +44,7 @@ object ItemRecipeProvider : YAIRecipeProvider {
             "machine_diagnoser",
             YAIItems.MACHINE_DIAGNOSER, 1,
             { it
-                .define('B', YAITags.MI_GUIDE_BOOKS)
+                .define('B', YAITags.GUIDE_BOOK_OR_BOOK)
                 .define('G', MIMaterials.BRONZE.get(MIMaterialParts.GEAR).asItem())
                 .define('P', MIMaterials.IRON.get(MIMaterialParts.PLATE).asItem())
                 .pattern("PPP")

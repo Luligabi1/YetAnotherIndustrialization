@@ -11,6 +11,7 @@ object YAITags {
 
     /** Item */
     val MI_GUIDE_BOOKS = commonItemTag("modern_industrialization/guide_books")
+    val GUIDE_BOOK_OR_BOOK = TagKey.create(Registries.ITEM, YAI.id("guide_book_or_book"))
 
     val MI_FUEL_RODS_URANIUM = yaiItemTag("fuel_rods/uranium")
     val MI_FUEL_RODS_LE_URANIUM = yaiItemTag("fuel_rods/le_uranium")

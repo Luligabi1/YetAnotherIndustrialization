@@ -1,10 +1,7 @@
 package me.luligabi.yet_another_industrialization.common.compat.mi
 
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
-import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.FlightPylonTierCategory
-import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.IrradiatorNeutronSourceCategory
-import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.LargeStorageUnitTierCategory
-import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.NumismaticCurrenciesCategory
+import me.luligabi.yet_another_industrialization.common.compat.recipeviewer.*
 import me.luligabi.yet_another_industrialization.common.misc.YAITooltips
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookEntrypoint
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookListener
@@ -38,6 +35,7 @@ class YAIHookListener: MIHookListener {
     }
 
     override fun viewerSetup(hook: ViewerSetupMIHookContext) {
+        hook.register(ColorizerCategory())
         hook.register(IrradiatorNeutronSourceCategory())
         hook.register(FlightPylonTierCategory())
         hook.register(LargeStorageUnitTierCategory())

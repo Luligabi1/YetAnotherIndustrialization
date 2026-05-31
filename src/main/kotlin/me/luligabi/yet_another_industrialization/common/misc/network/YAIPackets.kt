@@ -19,6 +19,8 @@ object YAIPackets {
 
         create("toggle_industrialists_goggles", ToggleIndustrialistsGogglesPacket::class.java, ToggleIndustrialistsGogglesPacket.STREAM_CODEC)
 
+        create("toggle_colorizer_option", ToggleColorizerOptionPacket::class.java, ToggleColorizerOptionPacket.STREAM_CODEC)
+
         REGISTRY.registerAll(event)
     }
 

@@ -38,7 +38,7 @@ import java.util.*
 
 class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultiblockBlockEntity(
     bep,
-    ID,
+    YAI.id(ID),
     OrientationComponent.Params(false, false, false),
     SHAPE_TEMPLATES
 ), EnergyListComponentHolder {

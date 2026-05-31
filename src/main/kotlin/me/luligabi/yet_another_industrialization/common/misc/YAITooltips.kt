@@ -122,4 +122,11 @@ object YAITooltips {
         )
     )
 
+    val PRIMARY_COLORS_SOLUTION_BUCKET = TooltipAttachment.multilines(
+        listOf(YAIFluids.PRIMARY_COLORS_SOLUTION.bucketItem().identifier().location),
+        listOf(
+            YAI.TEXT.primaryColorsSolutionTooltip()
+        )
+    )
+
 }

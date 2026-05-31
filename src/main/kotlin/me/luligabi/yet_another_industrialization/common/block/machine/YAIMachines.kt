@@ -18,6 +18,7 @@ import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseTierCondition
+import me.luligabi.yet_another_industrialization.common.block.machine.colorizer.ColorizerBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.flight_pylon.FlightPylonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.NumismaticGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.DragonSiphonBlockEntity
@@ -224,6 +225,11 @@ object YAIMachines {
 
         hook.builder(LargeStorageUnitBlockEntity.ID, LargeStorageUnitBlockEntity.NAME, ::LargeStorageUnitBlockEntity)
             .builtinModel(Casings.BATTERY_ALLOY_MACHINE_CASING, LargeStorageUnitBlockEntity.ID)
+            .registerMachine()
+
+        hook.builder(ColorizerBlockEntity.ID, ColorizerBlockEntity.NAME, ::ColorizerBlockEntity)
+            .builtinModel(MachineCasings.STEEL, ColorizerBlockEntity.ID)
+            .registerMultiblockShape(ColorizerBlockEntity.SHAPE)
             .registerMachine()
 
         hook.builder(NuclearRodIrradiatorBlockEntity.ID, NuclearRodIrradiatorBlockEntity.NAME, ::NuclearRodIrradiatorBlockEntity)

@@ -10,12 +10,12 @@ import net.minecraft.data.tags.ItemTagsProvider
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import net.swedz.tesseract.neoforge.compat.mi.material.MIMaterials
 import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
 import java.util.concurrent.CompletableFuture
-
 
 class ItemTagProvider(event: GatherDataEvent): ItemTagsProvider(event.generator.packOutput, event.lookupProvider, CompletableFuture.completedFuture(TagLookup.empty()), YAI.ID, event.existingFileHelper) {
 
@@ -55,6 +55,10 @@ class ItemTagProvider(event: GatherDataEvent): ItemTagsProvider(event.generator.
 
         tag(YAITags.LIFESPAN_DURABILITY_TOOLTIP)
             .add(YAIItems.DEMON_CORE.get())
+
+        tag(YAITags.GUIDE_BOOK_OR_BOOK)
+            .add(Items.BOOK)
+            .addTag(YAITags.MI_GUIDE_BOOKS)
 
         curiosTag("head")
             .add(YAIItems.INDUSTRIALISTS_GOGGLES.get())

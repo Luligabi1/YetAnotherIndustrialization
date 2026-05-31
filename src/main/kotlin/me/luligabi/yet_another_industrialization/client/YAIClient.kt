@@ -5,10 +5,7 @@ import aztech.modern_industrialization.client.machines.MachineBlockEntityRendere
 import aztech.modern_industrialization.client.machines.multiblocks.MultiblockMachineBER
 import aztech.modern_industrialization.machines.MachineBlock
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
-import me.luligabi.yet_another_industrialization.client.component.ChargingSlotClient
-import me.luligabi.yet_another_industrialization.client.component.LargeStorageUnitGuiClient
-import me.luligabi.yet_another_industrialization.client.component.SuppliedShapeSelectionClient
-import me.luligabi.yet_another_industrialization.client.component.ToggleCheckboxClient
+import me.luligabi.yet_another_industrialization.client.component.*
 import me.luligabi.yet_another_industrialization.client.model.YAIModelLoaders
 import me.luligabi.yet_another_industrialization.client.renderer.ArboreousGreenhouseBER
 import me.luligabi.yet_another_industrialization.client.renderer.DetonationChamberCasingBER
@@ -17,6 +14,7 @@ import me.luligabi.yet_another_industrialization.client.renderer.item.StorageSlo
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.YAIBlocks
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.colorizer.ColorizerGui
 import me.luligabi.yet_another_industrialization.common.block.machine.flight_pylon.FlightPylonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.ChargingSlot
@@ -69,6 +67,7 @@ class YAIClient(modEventBus: IEventBus, container: ModContainer) {
         GuiComponentsClient.register(LargeStorageUnitGui.TYPE, ::LargeStorageUnitGuiClient)
         GuiComponentsClient.register(ChargingSlot.TYPE, ::ChargingSlotClient)
         GuiComponentsClient.register(SuppliedShapeSelection.TYPE, ::SuppliedShapeSelectionClient)
+        GuiComponentsClient.register(ColorizerGui.TYPE, ::ColorizerGuiClient)
         GuiComponentsClient.register(ToggleCheckbox.TYPE, ::ToggleCheckboxClient)
 
         YAIKeybinds.init(modEventBus)

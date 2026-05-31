@@ -81,6 +81,13 @@ object YAIFluids {
     ).register()
 
 
+    val PRIMARY_COLORS_SOLUTION = create(
+        "primary_colors_solution", "Primary Colors Solution",
+        MIFluidProperties(0xAA5555, FluidDefinition.NEAR_OPACITY, FluidTexture.WATER_LIKE, false)
+    ).register()
+
+
+
     private fun create(id: String, englishName: String, properties: MIFluidProperties): MIFluidHolder {
         val holder = MIFluidHolder(
             YAI.id(id), englishName,

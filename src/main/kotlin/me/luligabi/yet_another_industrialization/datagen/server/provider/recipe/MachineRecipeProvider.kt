@@ -4,9 +4,11 @@ import aztech.modern_industrialization.MI
 import aztech.modern_industrialization.MIBlock
 import aztech.modern_industrialization.MIFluids
 import aztech.modern_industrialization.MIItem
+import aztech.modern_industrialization.machines.init.MIMachineRecipeTypes
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMachines
 import me.luligabi.yet_another_industrialization.common.block.machine.arboreous_greenhouse.ArboreousGreenhouseBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.colorizer.ColorizerBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.flight_pylon.FlightPylonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.NumismaticGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.DragonSiphonBlockEntity
@@ -27,11 +29,14 @@ import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
+import net.minecraft.world.item.DyeColor
+import net.minecraft.world.item.DyeItem
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.material.Fluids
+import net.neoforged.neoforge.common.Tags
 import net.swedz.tesseract.neoforge.compat.mi.material.MIMaterials
 import net.swedz.tesseract.neoforge.compat.mi.material.part.MIMaterialParts
 import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder
@@ -57,6 +62,7 @@ object MachineRecipeProvider : YAIRecipeProvider {
             output
         )
 
+        /** Cryogenic Precipitator */
         shaped(
             YAIMachines.CP_ID,
             YAIMachines.getMachineFromId(YAIMachines.CP_ID), 1,
@@ -72,6 +78,55 @@ object MachineRecipeProvider : YAIRecipeProvider {
             output
         )
         buildCryogenicPrecipitatorRecipes(output, lookup)
+        /***/
+
+        /** Colorizer */
+        shaped(
+            ColorizerBlockEntity.ID,
+            YAIMachines.getMachineFromId(ColorizerBlockEntity.ID), 1,
+            { it
+                .define('H', MIBlock.BASIC_MACHINE_HULL)
+                .define('C', MIItem.ANALOG_CIRCUIT)
+                .define('P', MIItem.PUMP)
+                .define('D', Tags.Items.DYES)
+                .define('S', MIMaterials.STEEL.get(MIMaterialParts.GEAR).asItem())
+                .pattern("CDC")
+                .pattern("PHP")
+                .pattern("CSC")
+            },
+            output
+        )
+
+        addMachineRecipe(
+            "mixer/primary_colors_solution",
+            MIMachineRecipeTypes.MIXER,
+            2, 5 * 20,
+            {
+                it.addItemInput(Tags.Items.DYES_RED, 4, 1f)
+                it.addItemInput(Tags.Items.DYES_YELLOW, 4, 1f)
+                it.addItemInput(Tags.Items.DYES_BLUE, 4, 1f)
+                it.addFluidInput(Fluids.WATER, 1_000, 1f)
+
+                it.addFluidOutput(YAIFluids.PRIMARY_COLORS_SOLUTION.get(), 1_000, 1f)
+            },
+            output
+        )
+
+        for (color in DyeColor.entries) {
+            addMachineRecipe(
+                "mixer/primary_colors_solution/${color.serializedName}",
+                MIMachineRecipeTypes.MIXER,
+                2, 10*20,
+                {
+                    it.addItemInput(MIItem.WAX, 2, 1f)
+                    it.addFluidInput(YAIFluids.PRIMARY_COLORS_SOLUTION, 50, 1f)
+
+                    it.addItemOutput(DyeItem.byColor(color), 8, 1f)
+                },
+                output
+            )
+        }
+        /***/
 
         /** Numismatic Generator */
         shaped(

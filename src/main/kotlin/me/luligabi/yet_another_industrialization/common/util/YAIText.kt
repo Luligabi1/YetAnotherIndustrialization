@@ -191,6 +191,59 @@ interface YAIText {
     @LangKey(text = ["EU per item: %d"])
     fun euPerItem(eu: Long): MutableComponent
 
+    /** Colorizer */
+    @LangKey(text = ["White"])
+    fun white(): MutableComponent
+
+    @LangKey(text = ["Orange"])
+    fun orange(): MutableComponent
+
+    @LangKey(text = ["Magenta"])
+    fun magenta(): MutableComponent
+
+    @LangKey(text = ["Light Blue"])
+    fun lightBlue(): MutableComponent
+
+    @LangKey(text = ["Yellow"])
+    fun yellow(): MutableComponent
+
+    @LangKey(text = ["Lime"])
+    fun lime(): MutableComponent
+
+    @LangKey(text = ["Pink"])
+    fun pink(): MutableComponent
+
+    @LangKey(text = ["Gray"])
+    fun gray(): MutableComponent
+
+    @LangKey(text = ["Light Gray"])
+    fun lightGray(): MutableComponent
+
+    @LangKey(text = ["Cyan"])
+    fun cyan(): MutableComponent
+
+    @LangKey(text = ["Purple"])
+    fun purple(): MutableComponent
+
+    @LangKey(text = ["Blue"])
+    fun blue(): MutableComponent
+
+    @LangKey(text = ["Brown"])
+    fun brown(): MutableComponent
+
+    @LangKey(text = ["Green"])
+    fun green(): MutableComponent
+
+    @LangKey(text = ["Red"])
+    fun red(): MutableComponent
+
+    @LangKey(text = ["Black"])
+    fun black(): MutableComponent
+
+    @WithStyle("gray_italic")
+    @LangKey(text = ["I don't think this is how color theory works..."])
+    fun primaryColorsSolutionTooltip(): MutableComponent
+
     /** Dragon Egg Siphon */
     @WithStyle("gray")
     @LangKey(text = ["Generates %s"])

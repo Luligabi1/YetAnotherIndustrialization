@@ -1,0 +1,31 @@
+{
+  "type": "modern_industrialization:mixer",
+  "duration": 100,
+  "eu": 2,
+  "fluid_inputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluid_outputs": [
+    {
+      "amount": 1000,
+      "fluid": "yet_another_industrialization:primary_colors_solution"
+    }
+  ],
+  "item_inputs": [
+    {
+      "amount": 4,
+      "tag": "c:dyes/red"
+    },
+    {
+      "amount": 4,
+      "tag": "c:dyes/yellow"
+    },
+    {
+      "amount": 4,
+      "tag": "c:dyes/blue"
+    }
+  ]
+}

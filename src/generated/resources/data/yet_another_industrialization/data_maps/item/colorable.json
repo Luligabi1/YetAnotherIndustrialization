@@ -1,0 +1,472 @@
+{
+  "values": {
+    "ae2:fluix_covered_cable": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "colors": {
+        "black": "ae2:black_covered_cable",
+        "blue": "ae2:light_blue_covered_cable",
+        "brown": "ae2:brown_covered_cable",
+        "cyan": "ae2:cyan_covered_cable",
+        "gray": "ae2:gray_covered_cable",
+        "green": "ae2:green_covered_cable",
+        "light_blue": "ae2:light_blue_covered_cable",
+        "light_gray": "ae2:light_gray_covered_cable",
+        "lime": "ae2:lime_covered_cable",
+        "magenta": "ae2:magenta_covered_cable",
+        "orange": "ae2:orange_covered_cable",
+        "pink": "ae2:pink_covered_cable",
+        "purple": "ae2:purple_covered_cable",
+        "red": "ae2:white_covered_cable",
+        "white": "ae2:white_covered_cable",
+        "yellow": "ae2:yellow_covered_cable"
+      }
+    },
+    "ae2:fluix_covered_dense_cable": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "colors": {
+        "black": "ae2:black_covered_dense_cable",
+        "blue": "ae2:light_blue_covered_dense_cable",
+        "brown": "ae2:brown_covered_dense_cable",
+        "cyan": "ae2:cyan_covered_dense_cable",
+        "gray": "ae2:gray_covered_dense_cable",
+        "green": "ae2:green_covered_dense_cable",
+        "light_blue": "ae2:light_blue_covered_dense_cable",
+        "light_gray": "ae2:light_gray_covered_dense_cable",
+        "lime": "ae2:lime_covered_dense_cable",
+        "magenta": "ae2:magenta_covered_dense_cable",
+        "orange": "ae2:orange_covered_dense_cable",
+        "pink": "ae2:pink_covered_dense_cable",
+        "purple": "ae2:purple_covered_dense_cable",
+        "red": "ae2:white_covered_dense_cable",
+        "white": "ae2:white_covered_dense_cable",
+        "yellow": "ae2:yellow_covered_dense_cable"
+      }
+    },
+    "ae2:fluix_glass_cable": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "colors": {
+        "black": "ae2:black_glass_cable",
+        "blue": "ae2:light_blue_glass_cable",
+        "brown": "ae2:brown_glass_cable",
+        "cyan": "ae2:cyan_glass_cable",
+        "gray": "ae2:gray_glass_cable",
+        "green": "ae2:green_glass_cable",
+        "light_blue": "ae2:light_blue_glass_cable",
+        "light_gray": "ae2:light_gray_glass_cable",
+        "lime": "ae2:lime_glass_cable",
+        "magenta": "ae2:magenta_glass_cable",
+        "orange": "ae2:orange_glass_cable",
+        "pink": "ae2:pink_glass_cable",
+        "purple": "ae2:purple_glass_cable",
+        "red": "ae2:red_glass_cable",
+        "white": "ae2:white_glass_cable",
+        "yellow": "ae2:yellow_glass_cable"
+      }
+    },
+    "ae2:fluix_smart_cable": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "colors": {
+        "black": "ae2:black_smart_cable",
+        "blue": "ae2:light_blue_smart_cable",
+        "brown": "ae2:brown_smart_cable",
+        "cyan": "ae2:cyan_smart_cable",
+        "gray": "ae2:gray_smart_cable",
+        "green": "ae2:green_smart_cable",
+        "light_blue": "ae2:light_blue_smart_cable",
+        "light_gray": "ae2:light_gray_smart_cable",
+        "lime": "ae2:lime_smart_cable",
+        "magenta": "ae2:magenta_smart_cable",
+        "orange": "ae2:orange_smart_cable",
+        "pink": "ae2:pink_smart_cable",
+        "purple": "ae2:purple_smart_cable",
+        "red": "ae2:red_smart_cable",
+        "white": "ae2:white_smart_cable",
+        "yellow": "ae2:yellow_smart_cable"
+      }
+    },
+    "ae2:fluix_smart_dense_cable": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "colors": {
+        "black": "ae2:black_smart_dense_cable",
+        "blue": "ae2:light_blue_smart_dense_cable",
+        "brown": "ae2:brown_smart_dense_cable",
+        "cyan": "ae2:cyan_smart_dense_cable",
+        "gray": "ae2:gray_smart_dense_cable",
+        "green": "ae2:green_smart_dense_cable",
+        "light_blue": "ae2:light_blue_smart_dense_cable",
+        "light_gray": "ae2:light_gray_smart_dense_cable",
+        "lime": "ae2:lime_smart_dense_cable",
+        "magenta": "ae2:magenta_smart_dense_cable",
+        "orange": "ae2:orange_smart_dense_cable",
+        "pink": "ae2:pink_smart_dense_cable",
+        "purple": "ae2:purple_smart_dense_cable",
+        "red": "ae2:red_smart_dense_cable",
+        "white": "ae2:white_smart_dense_cable",
+        "yellow": "ae2:yellow_smart_dense_cable"
+      }
+    },
+    "ae2:matter_ball": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "colors": {
+        "black": "ae2:black_paint_ball",
+        "blue": "ae2:light_blue_paint_ball",
+        "brown": "ae2:brown_paint_ball",
+        "cyan": "ae2:cyan_paint_ball",
+        "gray": "ae2:gray_paint_ball",
+        "green": "ae2:green_paint_ball",
+        "light_blue": "ae2:light_blue_paint_ball",
+        "light_gray": "ae2:light_gray_paint_ball",
+        "lime": "ae2:lime_paint_ball",
+        "magenta": "ae2:magenta_paint_ball",
+        "orange": "ae2:orange_paint_ball",
+        "pink": "ae2:pink_paint_ball",
+        "purple": "ae2:purple_paint_ball",
+        "red": "ae2:red_paint_ball",
+        "white": "ae2:white_paint_ball",
+        "yellow": "ae2:yellow_paint_ball"
+      }
+    },
+    "ae2:white_lumen_paint_ball": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "colors": {
+        "black": "ae2:black_lumen_paint_ball",
+        "blue": "ae2:light_blue_lumen_paint_ball",
+        "brown": "ae2:brown_lumen_paint_ball",
+        "cyan": "ae2:cyan_lumen_paint_ball",
+        "gray": "ae2:gray_lumen_paint_ball",
+        "green": "ae2:green_lumen_paint_ball",
+        "light_blue": "ae2:light_blue_lumen_paint_ball",
+        "light_gray": "ae2:light_gray_lumen_paint_ball",
+        "lime": "ae2:lime_lumen_paint_ball",
+        "magenta": "ae2:magenta_lumen_paint_ball",
+        "orange": "ae2:orange_lumen_paint_ball",
+        "pink": "ae2:pink_lumen_paint_ball",
+        "purple": "ae2:purple_lumen_paint_ball",
+        "red": "ae2:red_lumen_paint_ball",
+        "white": "ae2:white_lumen_paint_ball",
+        "yellow": "ae2:yellow_lumen_paint_ball"
+      }
+    },
+    "minecraft:candle": {
+      "colors": {
+        "black": "minecraft:black_candle",
+        "blue": "minecraft:light_blue_candle",
+        "brown": "minecraft:brown_candle",
+        "cyan": "minecraft:cyan_candle",
+        "gray": "minecraft:gray_candle",
+        "green": "minecraft:green_candle",
+        "light_blue": "minecraft:light_blue_candle",
+        "light_gray": "minecraft:light_gray_candle",
+        "lime": "minecraft:lime_candle",
+        "magenta": "minecraft:magenta_candle",
+        "orange": "minecraft:orange_candle",
+        "pink": "minecraft:pink_candle",
+        "purple": "minecraft:purple_candle",
+        "red": "minecraft:red_candle",
+        "white": "minecraft:white_candle",
+        "yellow": "minecraft:yellow_candle"
+      }
+    },
+    "minecraft:glass": {
+      "colors": {
+        "black": "minecraft:black_stained_glass",
+        "blue": "minecraft:light_blue_stained_glass",
+        "brown": "minecraft:brown_stained_glass",
+        "cyan": "minecraft:cyan_stained_glass",
+        "gray": "minecraft:gray_stained_glass",
+        "green": "minecraft:green_stained_glass",
+        "light_blue": "minecraft:light_blue_stained_glass",
+        "light_gray": "minecraft:light_gray_stained_glass",
+        "lime": "minecraft:lime_stained_glass",
+        "magenta": "minecraft:magenta_stained_glass",
+        "orange": "minecraft:orange_stained_glass",
+        "pink": "minecraft:pink_stained_glass",
+        "purple": "minecraft:purple_stained_glass",
+        "red": "minecraft:red_stained_glass",
+        "white": "minecraft:white_stained_glass",
+        "yellow": "minecraft:yellow_stained_glass"
+      }
+    },
+    "minecraft:glass_pane": {
+      "colors": {
+        "black": "minecraft:black_stained_glass_pane",
+        "blue": "minecraft:light_blue_stained_glass_pane",
+        "brown": "minecraft:brown_stained_glass_pane",
+        "cyan": "minecraft:cyan_stained_glass_pane",
+        "gray": "minecraft:gray_stained_glass_pane",
+        "green": "minecraft:green_stained_glass_pane",
+        "light_blue": "minecraft:light_blue_stained_glass_pane",
+        "light_gray": "minecraft:light_gray_stained_glass_pane",
+        "lime": "minecraft:lime_stained_glass_pane",
+        "magenta": "minecraft:magenta_stained_glass_pane",
+        "orange": "minecraft:orange_stained_glass_pane",
+        "pink": "minecraft:pink_stained_glass_pane",
+        "purple": "minecraft:purple_stained_glass_pane",
+        "red": "minecraft:red_stained_glass_pane",
+        "white": "minecraft:white_stained_glass_pane",
+        "yellow": "minecraft:yellow_stained_glass_pane"
+      }
+    },
+    "minecraft:shulker_box": {
+      "colors": {
+        "black": "minecraft:black_shulker_box",
+        "blue": "minecraft:light_blue_shulker_box",
+        "brown": "minecraft:brown_shulker_box",
+        "cyan": "minecraft:cyan_shulker_box",
+        "gray": "minecraft:gray_shulker_box",
+        "green": "minecraft:green_shulker_box",
+        "light_blue": "minecraft:light_blue_shulker_box",
+        "light_gray": "minecraft:light_gray_shulker_box",
+        "lime": "minecraft:lime_shulker_box",
+        "magenta": "minecraft:magenta_shulker_box",
+        "orange": "minecraft:orange_shulker_box",
+        "pink": "minecraft:pink_shulker_box",
+        "purple": "minecraft:purple_shulker_box",
+        "red": "minecraft:red_shulker_box",
+        "white": "minecraft:white_shulker_box",
+        "yellow": "minecraft:yellow_shulker_box"
+      }
+    },
+    "minecraft:terracotta": {
+      "colors": {
+        "black": "minecraft:black_terracotta",
+        "blue": "minecraft:light_blue_terracotta",
+        "brown": "minecraft:brown_terracotta",
+        "cyan": "minecraft:cyan_terracotta",
+        "gray": "minecraft:gray_terracotta",
+        "green": "minecraft:green_terracotta",
+        "light_blue": "minecraft:light_blue_terracotta",
+        "light_gray": "minecraft:light_gray_terracotta",
+        "lime": "minecraft:lime_terracotta",
+        "magenta": "minecraft:magenta_terracotta",
+        "orange": "minecraft:orange_terracotta",
+        "pink": "minecraft:pink_terracotta",
+        "purple": "minecraft:purple_terracotta",
+        "red": "minecraft:red_terracotta",
+        "white": "minecraft:white_terracotta",
+        "yellow": "minecraft:yellow_terracotta"
+      }
+    },
+    "minecraft:white_banner": {
+      "colors": {
+        "black": "minecraft:black_banner",
+        "blue": "minecraft:light_blue_banner",
+        "brown": "minecraft:brown_banner",
+        "cyan": "minecraft:cyan_banner",
+        "gray": "minecraft:gray_banner",
+        "green": "minecraft:green_banner",
+        "light_blue": "minecraft:light_blue_banner",
+        "light_gray": "minecraft:light_gray_banner",
+        "lime": "minecraft:lime_banner",
+        "magenta": "minecraft:magenta_banner",
+        "orange": "minecraft:orange_banner",
+        "pink": "minecraft:pink_banner",
+        "purple": "minecraft:purple_banner",
+        "red": "minecraft:red_banner",
+        "white": "minecraft:white_banner",
+        "yellow": "minecraft:yellow_banner"
+      }
+    },
+    "minecraft:white_carpet": {
+      "colors": {
+        "black": "minecraft:black_carpet",
+        "blue": "minecraft:light_blue_carpet",
+        "brown": "minecraft:brown_carpet",
+        "cyan": "minecraft:cyan_carpet",
+        "gray": "minecraft:gray_carpet",
+        "green": "minecraft:green_carpet",
+        "light_blue": "minecraft:light_blue_carpet",
+        "light_gray": "minecraft:light_gray_carpet",
+        "lime": "minecraft:lime_carpet",
+        "magenta": "minecraft:magenta_carpet",
+        "orange": "minecraft:orange_carpet",
+        "pink": "minecraft:pink_carpet",
+        "purple": "minecraft:purple_carpet",
+        "red": "minecraft:red_carpet",
+        "white": "minecraft:white_carpet",
+        "yellow": "minecraft:yellow_carpet"
+      }
+    },
+    "minecraft:white_concrete": {
+      "colors": {
+        "black": "minecraft:black_concrete",
+        "blue": "minecraft:light_blue_concrete",
+        "brown": "minecraft:brown_concrete",
+        "cyan": "minecraft:cyan_concrete",
+        "gray": "minecraft:gray_concrete",
+        "green": "minecraft:green_concrete",
+        "light_blue": "minecraft:light_blue_concrete",
+        "light_gray": "minecraft:light_gray_concrete",
+        "lime": "minecraft:lime_concrete",
+        "magenta": "minecraft:magenta_concrete",
+        "orange": "minecraft:orange_concrete",
+        "pink": "minecraft:pink_concrete",
+        "purple": "minecraft:purple_concrete",
+        "red": "minecraft:red_concrete",
+        "white": "minecraft:white_concrete",
+        "yellow": "minecraft:yellow_concrete"
+      }
+    },
+    "minecraft:white_concrete_powder": {
+      "colors": {
+        "black": "minecraft:black_concrete_powder",
+        "blue": "minecraft:light_blue_concrete_powder",
+        "brown": "minecraft:brown_concrete_powder",
+        "cyan": "minecraft:cyan_concrete_powder",
+        "gray": "minecraft:gray_concrete_powder",
+        "green": "minecraft:green_concrete_powder",
+        "light_blue": "minecraft:light_blue_concrete_powder",
+        "light_gray": "minecraft:light_gray_concrete_powder",
+        "lime": "minecraft:lime_concrete_powder",
+        "magenta": "minecraft:magenta_concrete_powder",
+        "orange": "minecraft:orange_concrete_powder",
+        "pink": "minecraft:pink_concrete_powder",
+        "purple": "minecraft:purple_concrete_powder",
+        "red": "minecraft:red_concrete_powder",
+        "white": "minecraft:white_concrete_powder",
+        "yellow": "minecraft:yellow_concrete_powder"
+      }
+    },
+    "minecraft:white_glazed_terracotta": {
+      "colors": {
+        "black": "minecraft:black_glazed_terracotta",
+        "blue": "minecraft:light_blue_glazed_terracotta",
+        "brown": "minecraft:brown_glazed_terracotta",
+        "cyan": "minecraft:cyan_glazed_terracotta",
+        "gray": "minecraft:gray_glazed_terracotta",
+        "green": "minecraft:green_glazed_terracotta",
+        "light_blue": "minecraft:light_blue_glazed_terracotta",
+        "light_gray": "minecraft:light_gray_glazed_terracotta",
+        "lime": "minecraft:lime_glazed_terracotta",
+        "magenta": "minecraft:magenta_glazed_terracotta",
+        "orange": "minecraft:orange_glazed_terracotta",
+        "pink": "minecraft:pink_glazed_terracotta",
+        "purple": "minecraft:purple_glazed_terracotta",
+        "red": "minecraft:red_glazed_terracotta",
+        "white": "minecraft:white_glazed_terracotta",
+        "yellow": "minecraft:yellow_glazed_terracotta"
+      }
+    },
+    "minecraft:white_wool": {
+      "colors": {
+        "black": "minecraft:black_wool",
+        "blue": "minecraft:light_blue_wool",
+        "brown": "minecraft:brown_wool",
+        "cyan": "minecraft:cyan_wool",
+        "gray": "minecraft:gray_wool",
+        "green": "minecraft:green_wool",
+        "light_blue": "minecraft:light_blue_wool",
+        "light_gray": "minecraft:light_gray_wool",
+        "lime": "minecraft:lime_wool",
+        "magenta": "minecraft:magenta_wool",
+        "orange": "minecraft:orange_wool",
+        "pink": "minecraft:pink_wool",
+        "purple": "minecraft:purple_wool",
+        "red": "minecraft:red_wool",
+        "white": "minecraft:white_wool",
+        "yellow": "minecraft:yellow_wool"
+      }
+    },
+    "modern_industrialization:fluid_pipe": {
+      "colors": {
+        "black": "modern_industrialization:black_fluid_pipe",
+        "blue": "modern_industrialization:light_blue_fluid_pipe",
+        "brown": "modern_industrialization:brown_fluid_pipe",
+        "cyan": "modern_industrialization:cyan_fluid_pipe",
+        "gray": "modern_industrialization:gray_fluid_pipe",
+        "green": "modern_industrialization:green_fluid_pipe",
+        "light_blue": "modern_industrialization:light_blue_fluid_pipe",
+        "light_gray": "modern_industrialization:light_gray_fluid_pipe",
+        "lime": "modern_industrialization:lime_fluid_pipe",
+        "magenta": "modern_industrialization:magenta_fluid_pipe",
+        "orange": "modern_industrialization:orange_fluid_pipe",
+        "pink": "modern_industrialization:pink_fluid_pipe",
+        "purple": "modern_industrialization:purple_fluid_pipe",
+        "red": "modern_industrialization:red_fluid_pipe",
+        "white": "modern_industrialization:white_fluid_pipe",
+        "yellow": "modern_industrialization:yellow_fluid_pipe"
+      }
+    },
+    "modern_industrialization:item_pipe": {
+      "colors": {
+        "black": "modern_industrialization:black_item_pipe",
+        "blue": "modern_industrialization:light_blue_item_pipe",
+        "brown": "modern_industrialization:brown_item_pipe",
+        "cyan": "modern_industrialization:cyan_item_pipe",
+        "gray": "modern_industrialization:gray_item_pipe",
+        "green": "modern_industrialization:green_item_pipe",
+        "light_blue": "modern_industrialization:light_blue_item_pipe",
+        "light_gray": "modern_industrialization:light_gray_item_pipe",
+        "lime": "modern_industrialization:lime_item_pipe",
+        "magenta": "modern_industrialization:magenta_item_pipe",
+        "orange": "modern_industrialization:orange_item_pipe",
+        "pink": "modern_industrialization:pink_item_pipe",
+        "purple": "modern_industrialization:purple_item_pipe",
+        "red": "modern_industrialization:red_item_pipe",
+        "white": "modern_industrialization:white_item_pipe",
+        "yellow": "modern_industrialization:yellow_item_pipe"
+      }
+    },
+    "modern_industrialization:me_wire": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "ae2"
+        }
+      ],
+      "colors": {
+        "black": "modern_industrialization:black_me_wire",
+        "blue": "modern_industrialization:light_blue_me_wire",
+        "brown": "modern_industrialization:brown_me_wire",
+        "cyan": "modern_industrialization:cyan_me_wire",
+        "gray": "modern_industrialization:gray_me_wire",
+        "green": "modern_industrialization:green_me_wire",
+        "light_blue": "modern_industrialization:light_blue_me_wire",
+        "light_gray": "modern_industrialization:light_gray_me_wire",
+        "lime": "modern_industrialization:lime_me_wire",
+        "magenta": "modern_industrialization:magenta_me_wire",
+        "orange": "modern_industrialization:orange_me_wire",
+        "pink": "modern_industrialization:pink_me_wire",
+        "purple": "modern_industrialization:purple_me_wire",
+        "red": "modern_industrialization:red_me_wire",
+        "white": "modern_industrialization:white_me_wire",
+        "yellow": "modern_industrialization:yellow_me_wire"
+      }
+    }
+  }
+}

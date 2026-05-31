@@ -22,6 +22,9 @@ object YAIDataMaps {
 
     val NUMISMATIC_GENERATOR_CURRENCY = create("numismatic_generator_currency", Registries.ITEM, NumismaticGeneratorCurrency.CODEC, true)
 
+    val COLORABLE = create("colorable", Registries.ITEM, Colorable.CODEC, true)
+
+
     private fun <R, T> create(
         name: String,
         registry: ResourceKey<Registry<R>>,

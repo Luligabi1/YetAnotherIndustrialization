@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "modern_industrialization:analog_circuit"
+    },
+    "D": {
+      "tag": "c:dyes"
+    },
+    "H": {
+      "item": "modern_industrialization:basic_machine_hull"
+    },
+    "P": {
+      "item": "modern_industrialization:pump"
+    },
+    "S": {
+      "item": "modern_industrialization:steel_gear"
+    }
+  },
+  "pattern": [
+    "CDC",
+    "PHP",
+    "CSC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:colorizer"
+  }
+}

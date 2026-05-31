@@ -1,5 +1,6 @@
 package me.luligabi.yet_another_industrialization.datagen.server.provider
 
+import aztech.modern_industrialization.MI
 import aztech.modern_industrialization.api.energy.CableTier
 import aztech.modern_industrialization.materials.MIMaterials
 import aztech.modern_industrialization.materials.part.MIParts
@@ -15,7 +16,9 @@ import me.luligabi.yet_another_industrialization.common.util.get
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.ResourceLocation.DEFAULT_NAMESPACE
 import net.minecraft.tags.TagKey
+import net.minecraft.world.item.DyeColor
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.common.Tags
@@ -79,6 +82,8 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
             )
         )
 
+        private val INTERNAL_MODS = setOf("minecraft", MI.ID, YAI.ID)
+
         private val DEFAULT_FLIGHT_PYLON_TIERS = hashMapOf(
             ResourceLocation.parse(MIMaterials.STEEL.getPart(MIParts.MACHINE_CASING).itemId) to FlightPylonTier(
                 24.0,
@@ -119,6 +124,7 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
         flightPylonTiers(provider)
         largeStorageUnit(provider)
         arboreousGreenhouseSoils(provider)
+        colorizer(provider)
         numismaticGeneratorCurrencies(provider)
     }
 
@@ -260,6 +266,80 @@ class DataMapProvider(event: GatherDataEvent): DataMapProvider(event.generator.p
         AG_TIERS[tierId] = tier
     }
 
+    private fun colorizer(provider: HolderLookup.Provider) {
+        addDefaultlessColorable(DEFAULT_NAMESPACE, "white_wool")
+        addDefaultlessColorable(DEFAULT_NAMESPACE, "white_carpet")
+        addColorable(DEFAULT_NAMESPACE, "terracotta")
+        addDefaultlessColorable(DEFAULT_NAMESPACE, "white_glazed_terracotta")
+        addDefaultlessColorable(DEFAULT_NAMESPACE, "white_concrete")
+        addDefaultlessColorable(DEFAULT_NAMESPACE, "white_concrete_powder")
+        addColorable(DEFAULT_NAMESPACE, "stained_glass", "glass")
+        addColorable(DEFAULT_NAMESPACE, "stained_glass_pane", "glass_pane")
+        addDefaultlessColorable(DEFAULT_NAMESPACE, "white_banner")
+        addColorable(DEFAULT_NAMESPACE, "candle")
+        addColorable(DEFAULT_NAMESPACE, "shulker_box")
+        // TODO 1.22: bundle, happy ghast harness
+
+        addColorable(MI.ID, "item_pipe")
+        addColorable(MI.ID, "fluid_pipe")
+        addColorable(MI.ID, "me_wire", dependencyId = "ae2")
+
+        addColorable("ae2", "glass_cable", "fluix_glass_cable")
+        addColorable("ae2", "covered_cable", "fluix_covered_cable")
+        addColorable("ae2", "covered_dense_cable", "fluix_covered_dense_cable")
+        addColorable("ae2", "smart_cable", "fluix_smart_cable")
+        addColorable("ae2", "smart_dense_cable", "fluix_smart_dense_cable")
+        addColorable("ae2", "paint_ball", "matter_ball")
+        addDefaultlessColorable("ae2", "white_lumen_paint_ball")
+    }
+
+    private fun addColorable(modId: String, id: String, sourceId: String = id, dependencyId: String = modId) {
+        val items = DyeColor.entries.map { ResourceLocation.tryParse("$modId:${it.serializedName}_$id")!! }
+
+        if (dependencyId.isExternalMod) {
+            builder(YAIDataMaps.COLORABLE)
+                .add(
+                    ResourceLocation.tryParse("$modId:$sourceId")!!,
+                    Colorable(Colorable.Colors(items)),
+                    false,
+                    ModLoadedCondition(dependencyId)
+                )
+        } else {
+            builder(YAIDataMaps.COLORABLE)
+                .add(
+                    ResourceLocation.tryParse("$modId:$sourceId")!!,
+                    Colorable(Colorable.Colors(items)),
+                    false
+                )
+
+        }
+    }
+
+    // defaultless = has no undyed version
+    private fun addDefaultlessColorable(modId: String, id: String, dependencyId: String = modId) {
+        val substring = id.substringAfter("white_")
+        val items = DyeColor.entries.map { ResourceLocation.tryParse("$modId:${it.serializedName}_${substring}")!! }
+
+        if (dependencyId.isExternalMod) {
+            builder(YAIDataMaps.COLORABLE)
+                .add(
+                    ResourceLocation.tryParse("$modId:$id")!!,
+                    Colorable(Colorable.Colors(items)),
+                    false,
+                    ModLoadedCondition(dependencyId)
+                )
+        } else {
+            builder(YAIDataMaps.COLORABLE)
+                .add(
+                    ResourceLocation.tryParse("$modId:$id")!!,
+                    Colorable(Colorable.Colors(items)),
+                    false
+                )
+        }
+    }
+
+    private val String.isExternalMod: Boolean
+        get() = this !in INTERNAL_MODS
     fun numismaticGeneratorCurrencies(provider: HolderLookup.Provider) {
         builder(YAIDataMaps.NUMISMATIC_GENERATOR_CURRENCY)
             .add(Tags.Items.GEMS_EMERALD, NumismaticGeneratorCurrency(8192L), false)

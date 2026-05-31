@@ -1,7 +1,7 @@
 ---
 navigation:
   title: "Nuclear Rod Irradiator"
-  icon: "yet_another_industrialization:arboreous_greenhouse"
+  icon: "yet_another_industrialization:nuclear_rod_irradiator"
   position: 2
   parent: yet_another_industrialization:machines.md
 item_ids:
