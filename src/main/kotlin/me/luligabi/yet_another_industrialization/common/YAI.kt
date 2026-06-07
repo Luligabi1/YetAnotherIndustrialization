@@ -8,10 +8,7 @@ import me.luligabi.yet_another_industrialization.common.block.machine.flight_pyl
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.compat.guideme.YAIGuide
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
-import me.luligabi.yet_another_industrialization.common.misc.YAICommand
-import me.luligabi.yet_another_industrialization.common.misc.YAICreativeTab
-import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
-import me.luligabi.yet_another_industrialization.common.misc.YAISounds
+import me.luligabi.yet_another_industrialization.common.misc.*
 import me.luligabi.yet_another_industrialization.common.misc.component.YAIDataComponents
 import me.luligabi.yet_another_industrialization.common.misc.datamap.YAIDataMaps
 import me.luligabi.yet_another_industrialization.common.misc.effect.YAIEffects
@@ -44,7 +41,6 @@ import net.swedz.tesseract.neoforge.lang.LangManager
 import net.swedz.tesseract.neoforge.registry.holder.ItemHolder
 import net.swedz.tesseract.neoforge.tooltip.Parser
 
-
 @Mod(YAI.ID)
 class YAI(modEventBus: IEventBus, container: ModContainer) {
 
@@ -75,6 +71,7 @@ class YAI(modEventBus: IEventBus, container: ModContainer) {
         modEventBus.addListener(RegisterPayloadHandlersEvent::class.java, YAIPackets::init)
         YAIEffects.init(modEventBus)
         YAISounds.init(modEventBus)
+        YAIVillagerTrades
         YAICreativeTab.init(modEventBus)
         YAIGuide
         YAICommand
