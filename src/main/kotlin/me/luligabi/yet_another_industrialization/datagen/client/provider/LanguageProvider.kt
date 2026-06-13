@@ -29,6 +29,7 @@ class LanguageProvider(event: GatherDataEvent): LanguageProvider(event.generator
         }
 
         add(YAIEffects.CREATIVE_FLIGHT.get().descriptionId, "Creative Flight")
+        add("${YAIEffects.CREATIVE_FLIGHT.get().descriptionId}.description", "Allows user to fly as if in Creative Mode while in range of an active Flight Pylon.")
 
         for (sound in SoundProvider.TRANSLATIONS) {
             add(sound.key, sound.value)
