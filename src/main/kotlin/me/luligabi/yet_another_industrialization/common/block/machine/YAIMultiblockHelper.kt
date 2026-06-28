@@ -4,7 +4,11 @@ import aztech.modern_industrialization.machines.multiblocks.HatchFlags
 import aztech.modern_industrialization.machines.multiblocks.HatchTypes
 import aztech.modern_industrialization.machines.multiblocks.ShapeTemplate
 import aztech.modern_industrialization.machines.multiblocks.SimpleMember
+import net.minecraft.core.BlockPos
+import net.minecraft.core.RegistryAccess
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.common.Tags
 
@@ -23,9 +27,13 @@ interface YAIMultiblockHelper {
 
         val GLASS_MEMBER = object : SimpleMember {
 
-            override fun matchesState(state: BlockState) = state.`is`(Tags.Blocks.GLASS_BLOCKS)
+            override fun matchesState(state: BlockState, be: BlockEntity?) = state.`is`(Tags.Blocks.GLASS_BLOCKS)
 
             override fun getPreviewState() = Blocks.GLASS.defaultBlockState()
+
+            override fun newBlockEntity(registries: RegistryAccess, level: Level?, pos: BlockPos, state: BlockState): BlockEntity? {
+                return null
+            }
         }
 
     }

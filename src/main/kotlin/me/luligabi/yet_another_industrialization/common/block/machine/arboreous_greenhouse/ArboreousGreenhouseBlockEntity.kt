@@ -25,14 +25,18 @@ import me.luligabi.yet_another_industrialization.common.block.machine.util.compo
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier
 import me.luligabi.yet_another_industrialization.common.misc.datamap.ArboreousGreenhouseTier.FluidByIdInput
 import me.luligabi.yet_another_industrialization.mixin.AbstractCraftingMultiblockBlockEntityAccessor
+import net.minecraft.core.BlockPos
+import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LanternBlock
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import java.util.*
 
@@ -179,11 +183,15 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
 
         private val HANGING_LANTERN_MEMBER = object : SimpleMember {
 
-            override fun matchesState(state: BlockState) =
+            override fun matchesState(state: BlockState, be: BlockEntity?) =
                 state.`is`(Blocks.LANTERN) && state.getValue(LanternBlock.HANGING)
 
             override fun getPreviewState() = Blocks.LANTERN.defaultBlockState()
                 .setValue(LanternBlock.HANGING, true)
+
+            override fun newBlockEntity(registries: RegistryAccess, level: Level?, pos: BlockPos, state: BlockState): BlockEntity? {
+                return null
+            }
 
         }
 
@@ -300,9 +308,13 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
 
     private class TierSimpleMember(private val tier: Tier) : SimpleMember {
 
-        override fun matchesState(state: BlockState) = state.block in tier.validSoils
+        override fun matchesState(state: BlockState, be: BlockEntity?) = state.block in tier.validSoils
 
         override fun getPreviewState() = tier.blockState ?: tier.validSoils.firstOrNull()?.defaultBlockState()
+
+        override fun newBlockEntity(registries: RegistryAccess, level: Level?, pos: BlockPos, state: BlockState): BlockEntity? {
+            return null
+        }
     }
 
 }

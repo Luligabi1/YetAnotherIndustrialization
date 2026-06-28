@@ -66,7 +66,8 @@ class LargeStorageUnitGuiClient(params: LargeStorageUnitGui.Data, data: LargeSto
             )
         }
 
-        override fun renderTooltip(screen: MachineScreen, font: Font, guiGraphics: GuiGraphics, x: Int, y: Int, cursorX: Int, cursorY: Int) {
+
+        override fun renderTooltip(screen: MachineScreen, font: Font, guiGraphics: GuiGraphics, x: Int, y: Int, cursorX: Int, cursorY: Int): Boolean {
             if (RenderHelper.isPointWithinRectangle(X, Y, WIDTH, HEIGHT, (cursorX - x).toDouble(), (cursorY - y).toDouble())) {
                 val tooltip = listOf(
                     MIText.EuMaxed.text(data.eu, data.maxEu, ""),
@@ -75,6 +76,7 @@ class LargeStorageUnitGuiClient(params: LargeStorageUnitGui.Data, data: LargeSto
                 )
                 guiGraphics.renderTooltip(font, tooltip, Optional.empty(), cursorX, cursorY)
             }
+            return true
         }
 
 
