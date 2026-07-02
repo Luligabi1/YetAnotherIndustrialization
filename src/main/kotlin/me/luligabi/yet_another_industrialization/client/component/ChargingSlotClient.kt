@@ -58,11 +58,13 @@ class ChargingSlotClient(params: Unit, data: Unit): GuiComponentClient<Unit, Uni
                 gui.blit(MachineScreen.BACKGROUND, box.x() + X_OFFSET, box.y() + Y_OFFSET + box.h() - 4, 0, 252, box.w(), 4)
             }
 
-            override fun renderTooltip(screen: MachineScreen, font: Font, gui: GuiGraphics, x: Int, y: Int, cursorX: Int, cursorY: Int) {
+            override fun renderTooltip(screen: MachineScreen, font: Font, gui: GuiGraphics, x: Int, y: Int, cursorX: Int, cursorY: Int): Boolean {
                 (screen.focusedSlot as? TooltippedSlot)?.let {
-                    if (screen.focusedSlot.hasItem()) return
+                    if (screen.focusedSlot.hasItem()) return false
                     gui.renderTooltip(font, it.tooltip, cursorX, cursorY)
+                    return true
                 }
+                return false
             }
 
 

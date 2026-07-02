@@ -147,17 +147,20 @@ class NuclearRodIrradiatorBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
         )
 
         registerGuiComponent(
-            ModularMultiblockGui(0, 40) { content ->
-                content!!.add(statusComponent(), if (isShapeValid) WHITE else RED)
-                neutronSource?.let {
-                    val irradiation = TextHelper.getAmount(it.irradiation.toDouble())
-                    content.add(
-                        YAI.TEXT.irradiatorNeutronSourceIrradiation(irradiation.digit, irradiation.unit),
-                    )
-                    content.add(YAI.TEXT.irradiatorNeutronSourceType(it.type.component))
-                }
-
-            }
+            ModularMultiblockGui(
+                40,
+                { content ->
+                    content!!.add(statusComponent(), if (isShapeValid) WHITE else RED)
+                    neutronSource?.let {
+                        val irradiation = TextHelper.getAmount(it.irradiation.toDouble())
+                        content.add(
+                            YAI.TEXT.irradiatorNeutronSourceIrradiation(irradiation.digit, irradiation.unit),
+                        )
+                        content.add(YAI.TEXT.irradiatorNeutronSourceType(it.type.component))
+                    }
+                },
+                { emptyList() }
+            )
         )
     }
 

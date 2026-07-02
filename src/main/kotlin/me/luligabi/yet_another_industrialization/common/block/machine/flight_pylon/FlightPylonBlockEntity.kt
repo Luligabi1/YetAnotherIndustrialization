@@ -61,15 +61,18 @@ class FlightPylonBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
         )
 
         registerGuiComponent(
-            ModularMultiblockGui(0, 40) { gui ->
-                gui.add(statusComponent(), if (isShapeValid) WHITE else RED)
-                if (!isActive.isActive) return@ModularMultiblockGui
-                getTier().let {
-                    gui.add(YAI.TEXT.flightPylonRange(it.range.toInt()))
-                    gui.add(YAI.TEXT.flightPylonEnergy(TextHelper.getEuTextTick(it.eu)))
-                }
-            }
-        )
+            ModularMultiblockGui(
+                40,
+                { gui ->
+                    gui.add(statusComponent(), if (isShapeValid) WHITE else RED)
+                    if (!isActive.isActive) return@ModularMultiblockGui
+                    getTier().let {
+                        gui.add(YAI.TEXT.flightPylonRange(it.range.toInt()))
+                        gui.add(YAI.TEXT.flightPylonEnergy(TextHelper.getEuTextTick(it.eu)))
+                    }
+                },
+                { emptyList() }
+            ))
 
         registerGuiComponent(
             SuppliedShapeSelection(
