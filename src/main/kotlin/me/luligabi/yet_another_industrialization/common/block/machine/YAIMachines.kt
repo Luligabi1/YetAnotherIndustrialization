@@ -25,6 +25,7 @@ import me.luligabi.yet_another_industrialization.common.block.machine.generator.
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.PulseDetonationGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlock
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.chamber.DetonationChamberCasingBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.item_charger.ItemChargerBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
@@ -68,6 +69,14 @@ object YAIMachines {
     }
 
     fun singleBlockSpecial(hook: SingleBlockSpecialMachinesMIHookContext) {
+        hook.builder(ItemChargerBlockEntity.ID, ItemChargerBlockEntity.NAME, ::ItemChargerBlockEntity)
+            .builtinModel(CableTier.LV.casing, ItemChargerBlockEntity.ID)
+            .registrator({
+                ItemChargerBlockEntity.registerEnergyApi(it)
+                MachineBlockEntity.registerItemApi(it)
+            })
+            .registerMachine()
+
         hook.builder(ConfigurableMixedStorageMachineBlockEntity.ID, ConfigurableMixedStorageMachineBlockEntity.NAME, ::ConfigurableMixedStorageMachineBlockEntity)
             .builtinModel(Casings.CONFIGURABLE_MIXED_STORAGE, ConfigurableMixedStorageMachineBlockEntity.ID, { it.front(false).active(false) })
             .registrator({
