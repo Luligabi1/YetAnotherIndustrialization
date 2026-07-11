@@ -1,6 +1,7 @@
 package me.luligabi.yet_another_industrialization.datagen.client.provider
 
 import me.luligabi.yet_another_industrialization.common.YAI
+import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.PulseDetonationGeneratorBlockEntity
 import me.luligabi.yet_another_industrialization.common.item.YAIItems
 import me.luligabi.yet_another_industrialization.common.misc.YAIFluids
 import me.luligabi.yet_another_industrialization.common.misc.YAITags
@@ -34,6 +35,9 @@ class LanguageProvider(event: GatherDataEvent): LanguageProvider(event.generator
         for (sound in SoundProvider.TRANSLATIONS) {
             add(sound.key, sound.value)
         }
+
+        this.add(YAI.id(PulseDetonationGeneratorBlockEntity.ID).toLanguageKey("death.attack"), "%1\$s tried to hug their Pulse Detonation Generator")
+        this.add(YAI.id(PulseDetonationGeneratorBlockEntity.ID).toLanguageKey("death.attack") + ".player", "%1\$s hoped their Pulse Detonation Generator would protect them from %2\$s")
 
         YAITags.FUEL_ROD_TRANSLATIONS.forEach { (tag, translation) ->
             add(tag, translation)

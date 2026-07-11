@@ -35,6 +35,8 @@
   "block.yet_another_industrialization.steel_plated_end_stone_bricks": "Steel Plated End Stone Bricks",
   "block.yet_another_industrialization.turbo_mixed_input_hatch": "Turbo Mixed Input Hatch",
   "block.yet_another_industrialization.turbo_mixed_output_hatch": "Turbo Mixed Output Hatch",
+  "death.attack.yet_another_industrialization.pulse_detonation_generator": "%1$s tried to hug their Pulse Detonation Generator",
+  "death.attack.yet_another_industrialization.pulse_detonation_generator.player": "%1$s hoped their Pulse Detonation Generator would protect them from %2$s",
   "effect.yet_another_industrialization.creative_flight": "Creative Flight",
   "effect.yet_another_industrialization.creative_flight.description": "Allows user to fly as if in Creative Mode while in range of an active Flight Pylon.",
   "item.yet_another_industrialization.ai_slop": "AI Slop",

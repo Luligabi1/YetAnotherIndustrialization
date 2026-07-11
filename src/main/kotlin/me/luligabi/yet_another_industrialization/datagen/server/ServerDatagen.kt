@@ -3,6 +3,7 @@ package me.luligabi.yet_another_industrialization.datagen.server
 import me.luligabi.yet_another_industrialization.datagen.DatagenEntrypoint
 import me.luligabi.yet_another_industrialization.datagen.server.provider.ArboreousGreenhouseSaplingExtractor
 import me.luligabi.yet_another_industrialization.datagen.server.provider.DataMapProvider
+import me.luligabi.yet_another_industrialization.datagen.server.provider.DatapackProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.YAILootTableProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.recipe.RecipeProvider
 import me.luligabi.yet_another_industrialization.datagen.server.provider.tag.BiomeTagProvider
@@ -21,6 +22,7 @@ object ServerDatagen: DatagenEntrypoint {
         event.add(::DataMapProvider)
         event.add(::ArboreousGreenhouseSaplingExtractor)
 
+        event.add(::DatapackProvider)
         event.add(::RecipeProvider)
         event.add(::BlockTagProvider)
         event.add(::ItemTagProvider)
