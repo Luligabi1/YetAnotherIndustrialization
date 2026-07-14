@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "modern_industrialization:redstone_battery"
+    },
+    "C": {
+      "item": "modern_industrialization:analog_circuit"
+    },
+    "H": {
+      "item": "modern_industrialization:basic_machine_hull"
+    },
+    "T": {
+      "item": "modern_industrialization:tin_cable"
+    }
+  },
+  "pattern": [
+    "BCB",
+    "THT",
+    "BCB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "yet_another_industrialization:item_charger"
+  }
+}

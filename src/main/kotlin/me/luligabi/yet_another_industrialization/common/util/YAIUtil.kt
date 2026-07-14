@@ -1,10 +1,13 @@
 package me.luligabi.yet_another_industrialization.common.util
 
 import aztech.modern_industrialization.api.energy.CableTier
+import aztech.modern_industrialization.inventory.ConfigurableItemStack
 import aztech.modern_industrialization.machines.multiblocks.HatchFlags
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity
+import aztech.modern_industrialization.thirdparty.fabrictransfer.api.item.ItemVariant
 import com.mojang.serialization.Codec
 import com.mojang.serialization.DataResult
+import me.luligabi.yet_another_industrialization.mixin.AbstractConfigurableStackAccessor
 import me.luligabi.yet_another_industrialization.mixin.CableTierAccessor
 import me.luligabi.yet_another_industrialization.mixin.MultiblockMachineBlockEntityAccessor
 import net.minecraft.ChatFormatting
@@ -12,6 +15,7 @@ import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.chat.Style
 import net.minecraft.network.chat.TextColor
+import net.minecraft.world.item.ItemStack
 import java.io.File
 import kotlin.math.roundToInt
 
@@ -45,6 +49,12 @@ val MultiblockMachineBlockEntity.matchedHatches: HatchFlags
         }
         flags.build()
     }
+
+fun ConfigurableItemStack.setContent(newStack: ItemStack) = apply {
+    setKey(ItemVariant.of(newStack))
+    amount = newStack.count.toLong()
+    (this as AbstractConfigurableStackAccessor).invokeNotifyListeners()
+}
 
 fun File.get(path: String): File? {
     return File(this, path).takeIf { it.exists() }

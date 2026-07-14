@@ -13,6 +13,6 @@ item_ids:
 
 Wear to preview multiblock shapes without the need of holding a wrench!
 
-Visibility can be toggled at any time with the keybind (Default: Numpad 3)
+Visibility can be toggled at any time with the keybind (Default: Numpad 3). **Note that holding wrenches won't enable the preview if you're wearing disabled goggles!**
 
 <Recipe id="yet_another_industrialization:craft/industrialists_goggles" />

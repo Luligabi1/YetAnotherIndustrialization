@@ -12,6 +12,7 @@ import me.luligabi.yet_another_industrialization.common.block.machine.generator.
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.DragonSiphonBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.EnergyGenerationCondition
 import me.luligabi.yet_another_industrialization.common.block.machine.generator.multiblock.pdg.PulseDetonationGeneratorBlockEntity
+import me.luligabi.yet_another_industrialization.common.block.machine.item_charger.ItemChargerBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitBlockEntity
 import me.luligabi.yet_another_industrialization.common.block.machine.large_storage_unit.LargeStorageUnitHatch
 import me.luligabi.yet_another_industrialization.common.block.machine.misc.ConfigurableMixedStorageMachineBlockEntity
@@ -222,6 +223,22 @@ object MachineRecipeProvider : YAIRecipeProvider {
                 .pattern("NUN")
                 .pattern("PHP")
                 .pattern("NUN")
+            },
+            output
+        )
+
+        /** Item Charger */
+        shaped(
+            ItemChargerBlockEntity.ID,
+            YAIMachines.getMachineFromId(ItemChargerBlockEntity.ID), 1,
+            { it
+                .define('H', MIBlock.BASIC_MACHINE_HULL)
+                .define('C', MIItem.ANALOG_CIRCUIT)
+                .define('B', MIMaterials.REDSTONE.get(MIMaterialParts.BATTERY).asItem())
+                .define('T', MIMaterials.TIN.get(MIMaterialParts.CABLE).asItem())
+                .pattern("BCB")
+                .pattern("THT")
+                .pattern("BCB")
             },
             output
         )

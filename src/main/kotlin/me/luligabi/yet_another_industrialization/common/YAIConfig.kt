@@ -77,4 +77,8 @@ interface YAIConfig {
 
     }
 
+    @ConfigKey("villager_trades")
+    @ConfigComment("Whether some early YAI! content will be available through Villager trades")
+    fun villagerTrades() = true
+
 }
