@@ -20,7 +20,7 @@ data class NumismaticGeneratorCurrency(
         fun all() = BuiltInRegistries.ITEM.getDataMap(YAIDataMaps.NUMISMATIC_GENERATOR_CURRENCY)
 
         fun getEu(item: Item): Long {
-            return item.builtInRegistryHolder().getData(YAIDataMaps.NUMISMATIC_GENERATOR_CURRENCY)?.euPerItem ?: 1L
+            return item.builtInRegistryHolder().getData(YAIDataMaps.NUMISMATIC_GENERATOR_CURRENCY)?.euPerItem ?: 0L
         }
 
     }

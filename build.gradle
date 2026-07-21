@@ -6,7 +6,7 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.140'
     id "org.jetbrains.kotlin.jvm" version ("2.0.21")
-    id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+    id "me.modmuss50.mod-publish-plugin" version "2.1.1"
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -259,6 +259,8 @@ publishMods {
         projectId = "1358516"
         projectSlug = "yet-another-industrialization"
         minecraftVersions.add("${project.minecraft_version}")
+        client = true
+        server = true
 
         requires("modern-industrialization")
         requires("tesseract-api-neoforge")
@@ -273,6 +275,7 @@ publishMods {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "jXqDKaST"
         minecraftVersions.add("${project.minecraft_version}")
+        environment = CLIENT_AND_SERVER
 
         requires("modern-industrialization")
         requires("tesseract-api")
