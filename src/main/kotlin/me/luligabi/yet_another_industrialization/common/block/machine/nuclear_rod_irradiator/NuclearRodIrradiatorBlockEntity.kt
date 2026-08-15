@@ -24,12 +24,14 @@ import aztech.modern_industrialization.util.Tickable
 import me.luligabi.yet_another_industrialization.common.YAI
 import me.luligabi.yet_another_industrialization.common.block.machine.YAIMultiblockHelper
 import me.luligabi.yet_another_industrialization.common.misc.datamap.IrradiatorNeutronSource
+import me.luligabi.yet_another_industrialization.common.util.setContent
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.swedz.tesseract.neoforge.compat.mi.guicomponent.modularmultiblock.ModularMultiblockGui
 import net.swedz.tesseract.neoforge.compat.mi.guicomponent.modularmultiblock.ModularMultiblockGuiLine.RED
 import net.swedz.tesseract.neoforge.compat.mi.guicomponent.modularmultiblock.ModularMultiblockGuiLine.WHITE
@@ -309,7 +311,7 @@ class NuclearRodIrradiatorBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
                                 }
                             })
                         }
-                        input.setKey(if (removeItem) ItemVariant.blank() else ItemVariant.of(updated))
+                        input.setContent(if (removeItem) ItemStack.EMPTY else updated)
                     }
                     else -> {}
                 }
