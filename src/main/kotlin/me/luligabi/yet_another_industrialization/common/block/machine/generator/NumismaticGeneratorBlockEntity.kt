@@ -17,7 +17,13 @@ class NumismaticGeneratorBlockEntity(
         const val NAME = "Numismatic Generator"
 
         private val CONSUMER: FluidItemConsumerComponent
-            get() = FluidItemConsumerComponent(1_048_576, PRODUCTION_MAP, FluidItemConsumerComponent.EUProductionMap.empty())
+            get() = FluidItemConsumerComponent(
+                1_048_576,
+                1.0,
+                PRODUCTION_MAP,
+                FluidItemConsumerComponent.EUProductionMap.empty(),
+                true
+            )
 
         private val PRODUCTION_MAP = object : FluidItemConsumerComponent.EUProductionMap<Item> {
 
