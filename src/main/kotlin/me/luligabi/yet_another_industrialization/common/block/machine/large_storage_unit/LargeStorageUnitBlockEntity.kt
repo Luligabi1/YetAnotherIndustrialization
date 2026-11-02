@@ -254,7 +254,7 @@ class LargeStorageUnitBlockEntity(bep: BEP) : MultiblockMachineBlockEntity(
 
     override fun getActiveShape() = SHAPE_TEMPLATES[activeTier.activeShape]
 
-    override fun getBigShape() = SHAPE_TEMPLATES[0]
+    override fun getBigShape() = SHAPE_TEMPLATES.last()
 
     override fun getInventory() = MIInventory.EMPTY
 

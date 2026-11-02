@@ -270,6 +270,8 @@ class FlightPylonBlockEntity(bep: BEP): MultiblockMachineBlockEntity(
 
     override fun getActiveShape() = SHAPE_TEMPLATES[activeTier.activeShape]
 
+    override fun getBigShape() = SHAPE_TEMPLATES.last()
+
     override fun getMachineModelData(): MachineModelClientData {
         return MachineModelClientData(null, orientation.facingDirection).active(isActive.isActive)
     }

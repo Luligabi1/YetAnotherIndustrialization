@@ -297,7 +297,7 @@ class ArboreousGreenhouseBlockEntity(bep: BEP) : AbstractElectricCraftingMultibl
 
     override fun getActiveShape() = SHAPE_TEMPLATES[activeSoil.activeShape]
 
-    override fun getBigShape() = SHAPE_TEMPLATES[0]
+    override fun getBigShape() = SHAPE_TEMPLATES.last()
 
     private fun getSoilInfo(): ShapeSelection.LineInfo {
         return ShapeSelection.LineInfo(

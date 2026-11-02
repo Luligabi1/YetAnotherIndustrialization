@@ -123,7 +123,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
 
                 it.addFluidOutput(YAIFluids.SCORCHING_LIQUID_AIR.asFluid(), 1_000, 1f)
 
-                it.addCondition(BiomeProcessCondition(Either.right(YAITags.SCORCHING_LIQUID_AIR_BIOMES)))
+                it.addCondition(BiomeProcessCondition(Either.right(YAITags.OTHERWORLDLY_HOT_BIOMES)))
             },
             output
         )
@@ -138,7 +138,7 @@ object FluidRecipeProvider : YAIRecipeProvider {
 
                 it.addFluidOutput(YAIFluids.GELID_LIQUID_AIR.asFluid(), 1_000, 1f)
 
-                it.addCondition(BiomeProcessCondition(Either.right(YAITags.GELID_LIQUID_AIR_BIOMES)))
+                it.addCondition(BiomeProcessCondition(Either.right(YAITags.OTHERWORLDLY_COLD_BIOMES)))
             },
             output
         )

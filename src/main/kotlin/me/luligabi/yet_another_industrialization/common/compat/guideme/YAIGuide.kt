@@ -4,6 +4,7 @@ import aztech.modern_industrialization.guidebook.MultiblockShapeCompiler
 import guideme.Guide
 import guideme.scene.element.SceneElementTagCompiler
 import me.luligabi.yet_another_industrialization.common.YAI
+import net.swedz.tesseract.neoforge.compat.guideme.tags.TesseractGuideMETags
 
 object YAIGuide {
 
@@ -12,6 +13,7 @@ object YAIGuide {
     val GUIDE = Guide.builder(ID)
         .folder("yai_guidebook")
         .extension(SceneElementTagCompiler.EXTENSION_POINT, MultiblockShapeCompiler())
+        .also(TesseractGuideMETags::includeIn)
         .build()
 
 }

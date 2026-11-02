@@ -39,7 +39,7 @@ class LanguageProvider(event: GatherDataEvent): LanguageProvider(event.generator
         this.add(YAI.id(PulseDetonationGeneratorBlockEntity.ID).toLanguageKey("death.attack"), "%1\$s tried to hug their Pulse Detonation Generator")
         this.add(YAI.id(PulseDetonationGeneratorBlockEntity.ID).toLanguageKey("death.attack") + ".player", "%1\$s hoped their Pulse Detonation Generator would protect them from %2\$s")
 
-        YAITags.FUEL_ROD_TRANSLATIONS.forEach { (tag, translation) ->
+        YAITags.TRANSLATIONS.forEach { (tag, translation) ->
             add(tag, translation)
         }
 

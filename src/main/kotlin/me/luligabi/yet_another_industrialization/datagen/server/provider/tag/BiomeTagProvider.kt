@@ -10,11 +10,11 @@ import net.neoforged.neoforge.data.event.GatherDataEvent
 class BiomeTagProvider(event: GatherDataEvent): BiomeTagsProvider(event.generator.packOutput, event.lookupProvider, YAI.ID, event.existingFileHelper) {
 
     override fun addTags(lookupProvider: HolderLookup.Provider) {
-        tag(YAITags.SCORCHING_LIQUID_AIR_BIOMES)
+        tag(YAITags.OTHERWORLDLY_HOT_BIOMES)
             .addTag(Tags.Biomes.IS_HOT)
             .remove(Tags.Biomes.IS_HOT_OVERWORLD)
 
-        tag(YAITags.GELID_LIQUID_AIR_BIOMES)
+        tag(YAITags.OTHERWORLDLY_COLD_BIOMES)
             .addTag(Tags.Biomes.IS_COLD)
             .remove(Tags.Biomes.IS_COLD_OVERWORLD)
     }
